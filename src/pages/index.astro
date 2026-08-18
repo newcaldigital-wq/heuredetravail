@@ -1,0 +1,246 @@
+---
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul des heures de travail — France</title>
+<style is:global>
+  :root{
+    --encre:#152238;--encre-2:#22334f;--papier:#F5F3EE;--papier-2:#ECE8DF;
+    --trait:#D8D2C4;--sup25:#B8862F;--sup50:#A6472E;--vert:#2F6F63;--gris:#6A6558;
+    --report:#EDE6F2;--report-b:#8A6FA8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--papier);color:var(--encre);line-height:1.5;padding:24px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  header.hero{margin-bottom:24px;border-bottom:2px solid var(--encre);padding-bottom:18px}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
+  h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
+  h1 .light{font-weight:700;color:var(--encre-2)}
+  .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:660px}
+  .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
+  .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .panneau h2 .num{background:var(--encre);color:#fff;width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .bandeau{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+  .navmois{display:flex;gap:6px;align-items:center}
+  .navmois button{padding:8px 12px;border:1px solid var(--trait);background:var(--papier);border-radius:6px;cursor:pointer;font-size:16px;color:var(--encre)}
+  .navmois button:hover{background:var(--papier-2)}
+  .navmois select,.navmois input{padding:8px 10px;border:1px solid var(--trait);border-radius:6px;font-size:15px;background:var(--papier);color:var(--encre)}
+  .cadre-legal{font-size:12.5px;color:var(--gris);background:var(--papier-2);padding:8px 12px;border-radius:6px}
+  .cadre-legal b{color:var(--encre)}
+  .hint{font-size:11.5px;color:var(--gris);font-style:italic}
+  .tableau{width:100%;border-collapse:collapse;font-size:14px}
+  .tableau th{background:var(--encre);color:#fff;padding:8px 6px;font-size:11px;letter-spacing:.4px;text-transform:uppercase;font-weight:600;text-align:center}
+  .tableau td{border:1px solid var(--trait);padding:3px;text-align:center}
+  .tableau tr.we td{background:var(--papier-2)}
+  .tableau tr.report td{background:var(--report)}
+  .tableau tr.report .date{color:var(--report-b)}
+  .tableau .jour{font-size:12px;color:var(--gris);white-space:nowrap;padding:3px 6px}
+  .tableau .date{font-weight:600;font-size:13px}
+  .tableau input[type=time]{border:1px solid transparent;background:transparent;padding:5px 4px;font-size:13px;width:82px;border-radius:4px;color:var(--encre)}
+  .tableau input[type=time]:hover{border-color:var(--trait)}
+  .tableau input[type=time]:focus{outline:2px solid var(--vert);background:#fff}
+  .tableau .htot{font-variant-numeric:tabular-nums;font-weight:600;color:var(--encre-2)}
+  .tableau .semsup{font-size:10px;color:var(--sup25);font-weight:700}
+  .semlabel{font-size:10px;color:var(--vert);font-weight:700}
+  .cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:4px}
+  .carte{border:1px solid var(--trait);border-radius:8px;padding:14px;background:var(--papier)}
+  .carte .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:600}
+  .carte .val{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:4px}
+  .carte .val small{font-size:14px;font-weight:400;color:var(--gris)}
+  .carte.base{border-top:3px solid var(--encre)}
+  .carte.s25{border-top:3px solid var(--sup25)} .carte.s25 .val{color:var(--sup25)}
+  .carte.s50{border-top:3px solid var(--sup50)} .carte.s50 .val{color:var(--sup50)}
+  .carte.total{border-top:3px solid var(--vert)} .carte.total .val{color:var(--vert)}
+  .note-cheval{margin-top:14px;padding:11px 14px;background:var(--report);border-left:4px solid var(--report-b);border-radius:6px;font-size:13px;color:#3d2f4d}
+  .note-complet{margin-top:10px;padding:11px 14px;background:var(--papier-2);border-left:4px solid var(--vert);border-radius:6px;font-size:13px;color:var(--encre-2)}
+  .note-complet b{color:var(--encre)}
+  .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  button.act{font-family:inherit;font-size:14px;padding:9px 16px;border-radius:7px;border:1px solid var(--encre);cursor:pointer;font-weight:600}
+  .btn-primary{background:var(--encre);color:#fff}
+  .btn-ghost{background:transparent;color:var(--encre)}
+  button.act:hover{opacity:.9}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
+  @media(max-width:640px){h1{font-size:26px}.tableau .jour{display:none}.tableau input[type=time]{width:70px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Temps de travail · France</div>
+    <h1>Calcul des heures <span class="light">de travail</span></h1>
+    <p class="sub">Salarié à temps complet, mensualisé. Saisissez vos horaires du mois : la base est fixée à 151,67 h (durée légale), et les heures supplémentaires sont calculées automatiquement, semaine par semaine, au-delà de 35 h.</p>
+  </header>
+
+  <section class="panneau">
+    <h2><span class="num">1</span> Mois</h2>
+    <div class="bandeau">
+      <div class="navmois">
+        <button id="prev" aria-label="Mois précédent">&lsaquo;</button>
+        <select id="mois"></select>
+        <input type="number" id="annee" value="2026" min="2020" max="2035" style="width:90px">
+        <button id="next" aria-label="Mois suivant">&rsaquo;</button>
+      </div>
+      <div class="cadre-legal">Base légale : <b>35 h/semaine</b> &middot; <b>151,67 h/mois</b> &middot; sup. <b>+25 %</b> (36<sup>e</sup>&ndash;43<sup>e</sup>) puis <b>+50 %</b></div>
+    </div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">2</span> Vos horaires</h2>
+    <p class="hint" style="margin-bottom:12px">Laissez vide un jour non travaillé. La pause du midi est déduite automatiquement. Les lignes <span style="color:var(--report-b);font-weight:600">violettes</span> appartiennent au mois voisin&nbsp;: elles complètent une semaine à cheval.</p>
+    <div style="overflow-x:auto">
+      <table class="tableau" id="grille">
+        <thead>
+          <tr>
+            <th>Sem.</th><th>Date</th><th class="jour">Jour</th>
+            <th>Arrivée<br>matin</th><th>Départ<br>matin</th>
+            <th>Arrivée<br>a.-m.</th><th>Départ<br>a.-m.</th><th>Heures</th>
+          </tr>
+        </thead>
+        <tbody id="corps"></tbody>
+      </table>
+    </div>
+    <div class="actions">
+      <button class="act btn-primary" id="calculer">Calculer le mois</button>
+      <button class="act btn-ghost" id="exemple">Remplir un exemple</button>
+      <button class="act btn-ghost" id="vider">Effacer ce mois</button>
+    </div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">3</span> Résultat du mois</h2>
+    <div class="cartes">
+      <div class="carte base"><div class="lbl">Base mensualisée</div><div class="val" id="r-base">151,67<small> h</small></div></div>
+      <div class="carte s25"><div class="lbl">Sup. à 25 %</div><div class="val" id="r-s25">0<small> h</small></div></div>
+      <div class="carte s50"><div class="lbl">Sup. à 50 %</div><div class="val" id="r-s50">0<small> h</small></div></div>
+    </div>
+    <div class="note-cheval">
+      Lorsqu'une semaine est à cheval sur deux mois, le calcul global et le paiement des heures supplémentaires se font à la fin de cette semaine et sont reportés sur la fiche de paie du mois suivant.
+    </div>
+    <div class="note-complet">
+      Cet outil suppose un <b>mois complet</b> travaillé&nbsp;: la base de 151,67 h est alors acquise, et seules les heures supplémentaires varient. En cas de mois incomplet (entrée ou sortie en cours de mois, absence non rémunérée), le calcul de la base doit être régularisé séparément.
+    </div>
+  </section>
+
+  <footer>
+    Salarié à temps complet mensualisé (durée légale française&nbsp;: 35 h/semaine, 151,67 h/mois). Les heures supplémentaires se décomptent à la semaine, au-delà de 35 h, majorées à 25 % de la 36<sup>e</sup> à la 43<sup>e</sup> heure puis à 50 % au-delà. Une convention collective peut prévoir d'autres règles. Outil indicatif, ne remplace pas un bulletin de paie.
+  </footer>
+</div>
+
+<script is:inline>
+const SEUIL=35, PALIER=8, BASE=151.67;
+
+function tvd(v){if(v==null||v==="")return NaN;const s=String(v).trim().replace(",",".");const m=s.match(/^(\d{1,2})\s*[:hH]\s*(\d{1,2})$/);if(m)return +m[1]+(+m[2])/60;const d=parseFloat(s);return isNaN(d)?NaN:d;}
+function hJour(a1,a2,p1,p2){let t=0;const x1=tvd(a1),x2=tvd(a2);if(!isNaN(x1)&&!isNaN(x2))t+=Math.max(0,x2-x1);const y1=tvd(p1),y2=tvd(p2);if(!isNaN(y1)&&!isNaN(y2))t+=Math.max(0,y2-y1);return t;}
+function decHM(d){if(isNaN(d))return"";let h=Math.floor(d+1e-9),m=Math.round((d-h)*60);if(m===60){h++;m=0;}return h+"h"+String(m).padStart(2,"0");}
+function decFr(d){return d.toFixed(2).replace(".",",");}
+function isoSem(dt){const d=new Date(Date.UTC(dt.getFullYear(),dt.getMonth(),dt.getDate()));const j=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-j);const y=new Date(Date.UTC(d.getUTCFullYear(),0,1));return Math.ceil(((d-y)/86400000+1)/7);}
+function cleJour(dt){return dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");}
+function lundiDe(dt){const d=new Date(dt);const j=(d.getDay()+6)%7;d.setDate(d.getDate()-j);d.setHours(0,0,0,0);return d;}
+function dimancheDe(dt){const l=lundiDe(dt);const d=new Date(l);d.setDate(l.getDate()+6);return d;}
+
+const DATA={};
+
+/* Heures sup d'une semaine (lundi->dimanche), rattachées au mois du dimanche */
+function supSemaine(lundi){
+  let cumul=0,s25=0,s50=0,tot=0;const borne=SEUIL+PALIER;
+  for(let i=0;i<7;i++){
+    const d=new Date(lundi);d.setDate(lundi.getDate()+i);
+    const rec=DATA[cleJour(d)]||{};const h=hJour(rec.am1,rec.am2,rec.pm1,rec.pm2);
+    const av=cumul,ap=cumul+h;
+    const p25=Math.max(0,Math.min(ap,borne)-SEUIL)-Math.max(0,Math.min(av,borne)-SEUIL);
+    const sup=Math.max(0,ap-SEUIL)-Math.max(0,av-SEUIL);
+    s25+=p25;s50+=sup-p25;tot+=h;cumul=ap;
+  }
+  const dim=new Date(lundi);dim.setDate(lundi.getDate()+6);
+  return {s25,s50,tot,moisFin:dim.getFullYear()+"-"+String(dim.getMonth()+1).padStart(2,"0")};
+}
+
+/* Total du mois : base fixe + sup des semaines qui se terminent dans le mois */
+function calcMois(annee,mois){
+  const premier=new Date(annee,mois,1),dernier=new Date(annee,mois+1,0);
+  let l=lundiDe(premier);const fin=lundiDe(dernier);
+  let s25=0,s50=0;const cle=annee+"-"+String(mois+1).padStart(2,"0");
+  while(l<=fin){const s=supSemaine(l);if(s.moisFin===cle){s25+=s.s25;s50+=s.s50;}const nx=new Date(l);nx.setDate(l.getDate()+7);l=nx;}
+  return {base:BASE,s25,s50,total:BASE+s25+s50};
+}
+
+const MOIS=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+const JOURS=["lun","mar","mer","jeu","ven","sam","dim"];
+const selMois=document.getElementById("mois");
+MOIS.forEach((m,i)=>{const o=document.createElement("option");o.value=i;o.textContent=m;selMois.appendChild(o);});
+const now=new Date();selMois.value=now.getMonth();document.getElementById("annee").value=now.getFullYear();
+
+function sauveLigne(tr){
+  const k=tr.dataset.date;
+  DATA[k]={am1:tr.querySelector(".am1").value,am2:tr.querySelector(".am2").value,pm1:tr.querySelector(".pm1").value,pm2:tr.querySelector(".pm2").value};
+  const h=hJour(DATA[k].am1,DATA[k].am2,DATA[k].pm1,DATA[k].pm2);
+  tr.querySelector("[data-h]").textContent=h>0?decHM(h):"—";
+  calculer();
+}
+function ligneHTML(date,report){
+  const jw=(date.getDay()+6)%7,sem=isoSem(date),k=cleJour(date),rec=DATA[k]||{},h=hJour(rec.am1,rec.am2,rec.pm1,rec.pm2);
+  const cls=[report?"report":"",jw>=5?"we":""].filter(Boolean).join(" ");
+  return '<tr class="'+cls+'" data-date="'+k+'">'
+    +'<td class="semlabel">'+(jw===0?sem:"")+'</td>'
+    +'<td class="date">'+String(date.getDate()).padStart(2,"0")+"/"+String(date.getMonth()+1).padStart(2,"0")+'</td>'
+    +'<td class="jour">'+JOURS[jw]+'</td>'
+    +'<td><input type="time" class="am1" value="'+(rec.am1||"")+'"></td>'
+    +'<td><input type="time" class="am2" value="'+(rec.am2||"")+'"></td>'
+    +'<td><input type="time" class="pm1" value="'+(rec.pm1||"")+'"></td>'
+    +'<td><input type="time" class="pm2" value="'+(rec.pm2||"")+'"></td>'
+    +'<td class="htot" data-h>'+(h>0?decHM(h):"—")+'</td></tr>';
+}
+function construire(){
+  const mois=+selMois.value,annee=+document.getElementById("annee").value;
+  const premier=new Date(annee,mois,1),dernier=new Date(annee,mois+1,0);
+  let html="";
+  const lun1=lundiDe(premier);
+  for(let d=new Date(lun1);d<premier;d.setDate(d.getDate()+1))html+=ligneHTML(new Date(d),true);
+  for(let d=1;d<=dernier.getDate();d++)html+=ligneHTML(new Date(annee,mois,d),false);
+  const dim=dimancheDe(dernier);
+  for(let d=new Date(dernier.getTime()+86400000);d<=dim;d.setDate(d.getDate()+1))html+=ligneHTML(new Date(d),true);
+  const corps=document.getElementById("corps");corps.innerHTML=html;
+  corps.querySelectorAll("input").forEach(inp=>{
+    inp.addEventListener("input",()=>sauveLigne(inp.closest("tr")));
+    inp.addEventListener("change",()=>sauveLigne(inp.closest("tr")));
+    inp.addEventListener("blur",()=>sauveLigne(inp.closest("tr")));
+  });
+}
+function calculer(){
+  const r=calcMois(+document.getElementById("annee").value,+selMois.value);
+  document.getElementById("r-base").innerHTML=decFr(r.base)+'<small> h</small>';
+  document.getElementById("r-s25").innerHTML=decFr(r.s25)+'<small> h · '+decHM(r.s25)+'</small>';
+  document.getElementById("r-s50").innerHTML=decFr(r.s50)+'<small> h · '+decHM(r.s50)+'</small>';
+}
+function exemple(){
+  const mois=+selMois.value,annee=+document.getElementById("annee").value,nb=new Date(annee,mois+1,0).getDate();
+  for(let d=1;d<=nb;d++){const dt=new Date(annee,mois,d),jw=(dt.getDay()+6)%7;if(jw<5)DATA[cleJour(dt)]={am1:"08:30",am2:"12:30",pm1:"13:30",pm2:"17:30"};}
+  construire();calculer();
+}
+function vider(){
+  const mois=+selMois.value,annee=+document.getElementById("annee").value,nb=new Date(annee,mois+1,0).getDate();
+  for(let d=1;d<=nb;d++)delete DATA[cleJour(new Date(annee,mois,d))];
+  construire();
+  document.getElementById("r-base").innerHTML='151,67<small> h</small>';
+  document.getElementById("r-s25").innerHTML='0<small> h</small>';
+  document.getElementById("r-s50").innerHTML='0<small> h</small>';
+}
+function changeMois(delta){
+  let m=+selMois.value+delta,y=+document.getElementById("annee").value;
+  if(m<0){m=11;y--;}else if(m>11){m=0;y++;}
+  selMois.value=m;document.getElementById("annee").value=y;construire();calculer();
+}
+selMois.addEventListener("change",()=>{construire();calculer();});
+document.getElementById("annee").addEventListener("change",()=>{construire();calculer();});
+document.getElementById("prev").addEventListener("click",()=>changeMois(-1));
+document.getElementById("next").addEventListener("click",()=>changeMois(1));
+document.getElementById("calculer").addEventListener("click",calculer);
+document.getElementById("exemple").addEventListener("click",exemple);
+document.getElementById("vider").addEventListener("click",vider);
+construire();
+</script>
+</body>
+</html>
