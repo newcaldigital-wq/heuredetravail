@@ -64,6 +64,36 @@
   button.act:hover{opacity:.9}
   footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
   @media(max-width:640px){h1{font-size:26px}.tableau .jour{display:none}.tableau input[type=time]{width:70px}}
+
+  .contenu-seo{
+    max-width:760px;
+    margin:36px auto 0;
+    padding:28px 4px 0;
+    border-top:2px solid var(--encre);
+  }
+  .contenu-seo h2{
+    font-size:21px;
+    color:var(--encre);
+    margin:28px 0 10px;
+    letter-spacing:-0.2px;
+  }
+  .contenu-seo h2:first-of-type{margin-top:0}
+  .contenu-seo p{
+    font-size:15.5px;
+    color:var(--encre-2);
+    line-height:1.7;
+    margin-bottom:14px;
+  }
+  .contenu-seo sup{font-size:0.7em}
+  .contenu-seo .avert{
+    margin-top:24px;
+    padding:14px 16px;
+    background:var(--papier-2);
+    border-radius:8px;
+    font-size:13px;
+    color:var(--gris);
+    line-height:1.6;
+  }
 </style>
 </head>
 <body>
@@ -124,6 +154,41 @@
     </div>
   </section>
 
+<section class="contenu-seo">
+  <h2>Comment calculer ses heures de travail ?</h2>
+  <p>Calculer ses heures de travail, c'est simple dans le principe. On additionne le temps réellement travaillé sur une période : une journée, une semaine, un mois.</p>
+  <p>Pour chaque jour, on compte les heures du matin et celles de l'après-midi. La pause du déjeuner ne compte pas, tant que le salarié est libre d'en disposer : ce n'est alors pas du temps de travail.</p>
+  <p>En France, la durée légale est de 35 heures par semaine pour un temps complet. Sur le mois, ça représente 151,67 heures (35 heures × 52 semaines ÷ 12). Au-delà de 35 heures sur une même semaine, on entre en principe dans les heures supplémentaires.</p>
+  <p>C'est précisément ce que fait le calculateur ci-dessus : il part de la base mensualisée de 151,67 heures, et il repère les heures supplémentaires effectuées au-delà de 35 heures chaque semaine.</p>
+
+  <h2>Le calcul de la pause déjeuner</h2>
+  <p>La pause du midi n'est pas du temps de travail effectif, dès lors que le salarié est libre de vaquer à ses occupations. Elle n'est donc ni rémunérée, ni comptée dans les heures.</p>
+  <p>Prenons un exemple. Une journée de 8h30 à 12h30 le matin, puis de 13h30 à 17h30 l'après-midi, représente 8 heures de travail : la pause d'une heure, entre 12h30 et 13h30, n'est pas comptée.</p>
+  <p>Le calculateur ci-dessus déduit cette pause automatiquement. Vous indiquez seulement les heures d'arrivée et de départ, matin et après-midi, et il s'occupe du reste.</p>
+
+  <h2>Comment sont calculées les heures supplémentaires ?</h2>
+  <p>Les heures supplémentaires se comptent par semaine, au-delà de 35 heures. Leur majoration suit deux paliers.</p>
+  <p>Les huit premières, de la 36<sup>e</sup> à la 43<sup>e</sup> heure, sont majorées de 25 %. À partir de la 44<sup>e</sup> heure, la majoration passe à 50 %.</p>
+  <p>Un exemple concret. Une semaine de 44 heures compte donc 9 heures supplémentaires : les 8 premières à 25 %, et la 9<sup>e</sup> à 50 %.</p>
+  <p>Ces taux de 25 % et 50 % sont ceux qui s'appliquent à défaut d'accord. Une convention collective ou un accord d'entreprise peut prévoir d'autres taux, mais la majoration ne peut jamais descendre en dessous de 10 %. Mieux vaut toujours vérifier ce qui s'applique à la situation concernée.</p>
+
+  <h2>Le principe de la mensualisation</h2>
+  <p>La plupart des salariés à temps complet sont mensualisés : le salaire de base est lissé sur l'année.</p>
+  <p>Concrètement, la rémunération se calcule chaque mois sur la base de 151,67 heures, peu importe le nombre de jours réellement travaillés dans le mois. Un février plus court, un octobre plus long : la base reste la même.</p>
+  <p>Les heures supplémentaires, elles, viennent s'ajouter à cette base fixe. On les compte semaine par semaine, puis elles complètent le salaire mensualisé sur la fiche de paie.</p>
+
+  <h2>Le cas des semaines à cheval sur deux mois</h2>
+  <p>Certaines semaines commencent à la fin d'un mois et se terminent au début du suivant. Comment compter les heures supplémentaires dans ce cas ?</p>
+  <p>Les heures supplémentaires se déterminent sur la semaine civile complète. Reste à savoir sur quelle fiche de paie elles apparaissent. Cela dépend des règles de paie de l'entreprise : selon les cas, elles sont payées le mois où la semaine se termine, ou régularisées sur la paie suivante.</p>
+  <p>Pour rester simple et cohérent, le calculateur ci-dessus rattache chaque semaine au mois où elle se termine. C'est une convention de calcul retenue par cet outil, pas une obligation légale : une entreprise peut appliquer une autre règle.</p>
+
+  <h2>Les durées maximales à respecter</h2>
+  <p>Le temps de travail a des limites, et l'employeur doit les respecter.</p>
+  <p>La journée ne peut en principe pas dépasser 10 heures. La semaine est plafonnée à 48 heures. Et sur douze semaines consécutives, la moyenne ne peut pas dépasser 44 heures.</p>
+  <p>Un dernier point important : dès que 6 heures de travail continu sont atteintes dans la journée, une pause d'au moins 20 minutes consécutives est obligatoire.</p>
+
+  <p class="avert">Ce calculateur est fourni à titre indicatif. Il s'applique principalement aux salariés du secteur privé à temps complet, soumis à un décompte hebdomadaire classique du temps de travail. Il ne tient pas compte des cas particuliers : convention collective, accord d'entreprise, aménagement du temps de travail sur l'année, convention de forfait, temps partiel, jours fériés ou absences. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
+</section>
   <footer>
     Salarié à temps complet mensualisé (durée légale française&nbsp;: 35 h/semaine, 151,67 h/mois). Les heures supplémentaires se décomptent à la semaine, au-delà de 35 h, majorées à 25 % de la 36<sup>e</sup> à la 43<sup>e</sup> heure puis à 50 % au-delà. Une convention collective peut prévoir d'autres règles. Outil indicatif, ne remplace pas un bulletin de paie.
   </footer>
