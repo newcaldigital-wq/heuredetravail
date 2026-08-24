@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calcul des heures de travail — France</title>
+<title>Calcul du temps de travail réel — France</title>
 <style is:global>
   :root{
     --encre:#152238;--encre-2:#22334f;--papier:#F5F3EE;--papier-2:#ECE8DF;
@@ -18,8 +18,9 @@
   header.hero{margin-bottom:24px;border-bottom:2px solid var(--encre);padding-bottom:18px}
   .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
   h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
-  h1 .light{font-weight:700;color:var(--encre-2)}
+  h1 .light{font-weight:300;color:var(--encre-2)}
   .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:660px}
+  .sub a{color:var(--vert);font-weight:600}
   .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
   .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
   .panneau h2 .num{background:var(--encre);color:#fff;width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
@@ -43,7 +44,6 @@
   .tableau input[type=time]:hover{border-color:var(--trait)}
   .tableau input[type=time]:focus{outline:2px solid var(--vert);background:#fff}
   .tableau .htot{font-variant-numeric:tabular-nums;font-weight:600;color:var(--encre-2)}
-  .tableau .semsup{font-size:10px;color:var(--sup25);font-weight:700}
   .semlabel{font-size:10px;color:var(--vert);font-weight:700}
   .cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:4px}
   .carte{border:1px solid var(--trait);border-radius:8px;padding:14px;background:var(--papier)}
@@ -57,6 +57,7 @@
   .note-cheval{margin-top:14px;padding:11px 14px;background:var(--report);border-left:4px solid var(--report-b);border-radius:6px;font-size:13px;color:#3d2f4d}
   .note-complet{margin-top:10px;padding:11px 14px;background:var(--papier-2);border-left:4px solid var(--vert);border-radius:6px;font-size:13px;color:var(--encre-2)}
   .note-complet b{color:var(--encre)}
+  .note-complet a{color:var(--vert);font-weight:600}
   .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
   button.act{font-family:inherit;font-size:14px;padding:9px 16px;border-radius:7px;border:1px solid var(--encre);cursor:pointer;font-weight:600}
   .btn-primary{background:var(--encre);color:#fff}
@@ -64,8 +65,7 @@
   button.act:hover{opacity:.9}
   footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
   @media(max-width:640px){h1{font-size:26px}.tableau .jour{display:none}.tableau input[type=time]{width:70px}}
-
-  .contenu-seo{
+.contenu-seo{
     max-width:760px;
     margin:36px auto 0;
     padding:28px 4px 0;
@@ -94,15 +94,15 @@
     color:var(--gris);
     line-height:1.6;
   }
+
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
-    <div class="eyebrow">Temps de travail · France</div>
-    <h1>Calcul des heures <span class="light">de travail</span></h1>
-    <p class="sub">Salarié à temps complet, mensualisé. Saisissez vos horaires du mois : la base est fixée à 151,67 h (durée légale), et les heures supplémentaires sont calculées automatiquement, semaine par semaine, au-delà de 35 h. 
-Payé à l'heure réelle (intérim, saisonnier, extra) ? Utilisez plutôt le <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">calcul du temps de travail</a>.</p>
+    <div class="eyebrow">Temps de travail réel · France</div>
+    <h1>Calcul du temps de travail</h1>
+    <p class="sub">Salarié à temps complet payé sur ses heures réelles (intérim, saisonnier, extra), ou en mois incomplet ? Cet outil additionne les heures réellement travaillées, sans appliquer de base forfaitaire, avec le détail des heures supplémentaires — à combiner avec un taux horaire ou un contrat pour le calcul de salaire. Réservé au temps complet : pour un temps partiel, les règles de décompte sont différentes (heures complémentaires). Salarié mensualisé sur un mois complet ? Utilisez plutôt le <a href="/">calcul heure de travail</a>.</p>
   </header>
 
   <section class="panneau">
@@ -114,13 +114,13 @@ Payé à l'heure réelle (intérim, saisonnier, extra) ? Utilisez plutôt le <a 
         <input type="number" id="annee" value="2026" min="2020" max="2035" style="width:90px">
         <button id="next" aria-label="Mois suivant">&rsaquo;</button>
       </div>
-      <div class="cadre-legal">Base légale : <b>35 h/semaine</b> &middot; <b>151,67 h/mois</b> &middot; sup. <b>+25 %</b> (36<sup>e</sup>&ndash;43<sup>e</sup>) puis <b>+50 %</b></div>
+      <div class="cadre-legal">Seuil : <b>35 h/semaine</b> &middot; sup. <b>+25 %</b> (36<sup>e</sup>&ndash;43<sup>e</sup>) puis <b>+50 %</b> &middot; pas de base forfaitaire</div>
     </div>
   </section>
 
   <section class="panneau">
     <h2><span class="num">2</span> Vos horaires</h2>
-    <p class="hint" style="margin-bottom:12px">Laissez vide un jour non travaillé. La pause du midi est déduite automatiquement. Les lignes <span style="color:var(--report-b);font-weight:600">violettes</span> appartiennent au mois voisin&nbsp;: elles complètent une semaine à cheval.</p>
+    <p class="hint" style="margin-bottom:12px">Laissez vide un jour non travaillé. La pause du midi est déduite automatiquement. Les lignes <span style="color:var(--report-b);font-weight:600">violettes</span> appartiennent au mois voisin&nbsp;: elles servent à calculer correctement le seuil des semaines à cheval, sans compter dans le total de ce mois.</p>
     <div style="overflow-x:auto">
       <table class="tableau" id="grille">
         <thead>
@@ -143,62 +143,68 @@ Payé à l'heure réelle (intérim, saisonnier, extra) ? Utilisez plutôt le <a 
   <section class="panneau">
     <h2><span class="num">3</span> Résultat du mois</h2>
     <div class="cartes">
-      <div class="carte base"><div class="lbl">Base mensualisée</div><div class="val" id="r-base">151,67<small> h</small></div></div>
+      <div class="carte base"><div class="lbl">Heures normales</div><div class="val" id="r-nrm">0<small> h</small></div></div>
       <div class="carte s25"><div class="lbl">Sup. à 25 %</div><div class="val" id="r-s25">0<small> h</small></div></div>
       <div class="carte s50"><div class="lbl">Sup. à 50 %</div><div class="val" id="r-s50">0<small> h</small></div></div>
+      <div class="carte total"><div class="lbl">Total réel</div><div class="val" id="r-tot">0<small> h</small></div></div>
     </div>
     <div class="note-cheval">
-      Lorsqu'une semaine est à cheval sur deux mois, le calcul global et le paiement des heures supplémentaires se font à la fin de cette semaine et sont reportés sur la fiche de paie du mois suivant.
+      Quand une semaine est à cheval sur deux mois, chaque heure reste rattachée au <b>jour où elle a réellement été travaillée</b>. Le seuil de 35 h (et les majorations) se calcule sur la semaine civile complète, mais le total affiché ici pour ce mois ne contient que les heures physiquement effectuées ce mois-ci — rien n'est déplacé vers le mois suivant.
     </div>
     <div class="note-complet">
-      Cet outil suppose un <b>mois complet</b> travaillé&nbsp;: la base de 151,67 h est alors acquise, et seules les heures supplémentaires varient. En cas de mois incomplet (entrée ou sortie en cours de mois, absence non rémunérée), le calcul de la base doit être régularisé séparément.
+      Cet outil n'applique <b>aucune base forfaitaire</b>&nbsp;: il additionne exactement les heures saisies. C'est un calculateur d'<b>heures</b>, pas de salaire, réservé aux salariés à <b>temps complet</b> — utile notamment en intérim, saisonnier, extra, ou en mois incomplet (entrée/sortie). Un salarié à temps partiel relève d'un régime différent (heures complémentaires), non couvert ici. Pour un salarié mensualisé sur un mois complet à 151,67 h, voir le <a href="/">calcul heure de travail</a>.
     </div>
   </section>
 
+<!-- ===================================================================== -->
+<!-- CONTENU EXPLICATIF — à coller JUSTE AVANT la ligne <footer> du fichier -->
+<!-- ===================================================================== -->
+
 <section class="contenu-seo">
-  <h2>Comment calculer ses heures de travail ?</h2>
-  <p>Calculer ses heures de travail, c'est simple dans le principe. On additionne le temps réellement travaillé sur une période : une journée, une semaine, un mois.</p>
+  <h2>Comment calculer son temps de travail réel ?</h2>
+  <p>Calculer son temps de travail réel, c'est additionner exactement les heures effectuées, sans base fixe de départ. Pour un salarié à temps complet, c'est utile notamment en intérim, en saisonnier, en extra, ou pour un mois où l'on entre ou sort en cours de route.</p>
   <p>Pour chaque jour, on compte les heures du matin et celles de l'après-midi. La pause du déjeuner ne compte pas, tant que le salarié est libre d'en disposer : ce n'est alors pas du temps de travail.</p>
-  <p>En France, la durée légale est de 35 heures par semaine pour un temps complet. Sur le mois, ça représente 151,67 heures (35 heures × 52 semaines ÷ 12). Au-delà de 35 heures sur une même semaine, on entre en principe dans les heures supplémentaires.</p>
-  <p>C'est précisément ce que fait le calculateur ci-dessus : il part de la base mensualisée de 151,67 heures, et il repère les heures supplémentaires effectuées au-delà de 35 heures chaque semaine.</p>
+  <p>Le total obtenu est le reflet exact de ce qui a été travaillé, mois par mois : ni plus, ni moins.</p>
+  <p>C'est précisément ce que fait le calculateur ci-dessus : il additionne les heures réellement saisies, et il repère les heures supplémentaires effectuées au-delà de 35 heures chaque semaine.</p>
 
   <h2>Le calcul de la pause déjeuner</h2>
   <p>La pause du midi n'est pas du temps de travail effectif, dès lors que le salarié est libre de vaquer à ses occupations. Elle n'est donc ni rémunérée, ni comptée dans les heures.</p>
-  <p>Prenons un exemple. Une journée de 8h30 à 12h30 le matin, puis de 13h30 à 17h30 l'après-midi, représente 8 heures de travail : la pause d'une heure, entre 12h30 et 13h30, n'est pas comptée.</p>
+  <p>Prenons un exemple. Une journée de 8h00 à 12h00 le matin, puis de 13h00 à 18h00 l'après-midi, représente 9 heures de travail : la pause d'une heure, entre 12h00 et 13h00, n'est pas comptée.</p>
   <p>Le calculateur ci-dessus déduit cette pause automatiquement. Vous indiquez seulement les heures d'arrivée et de départ, matin et après-midi, et il s'occupe du reste.</p>
 
   <h2>Comment sont calculées les heures supplémentaires ?</h2>
-  <p>Les heures supplémentaires se comptent par semaine, au-delà de 35 heures. Leur majoration suit deux paliers.</p>
+  <p>Les heures supplémentaires se comptent par semaine civile, au-delà de 35 heures. Cette règle s'applique quel que soit le mode de paiement, mensualisé ou à l'heure réelle. Leur majoration suit deux paliers.</p>
   <p>Les huit premières, de la 36<sup>e</sup> à la 43<sup>e</sup> heure, sont majorées de 25 %. À partir de la 44<sup>e</sup> heure, la majoration passe à 50 %.</p>
-  <p>Un exemple concret. Une semaine de 44 heures compte donc 9 heures supplémentaires : les 8 premières à 25 %, et la 9<sup>e</sup> à 50 %.</p>
+  <p>Un exemple concret. Une semaine de 40 heures compte 5 heures supplémentaires, toutes majorées à 25 %. Une semaine de 44 heures compte 9 heures supplémentaires : les 8 premières à 25 %, et la 9<sup>e</sup> à 50 %.</p>
   <p>Ces taux de 25 % et 50 % sont ceux qui s'appliquent à défaut d'accord. Une convention collective ou un accord d'entreprise peut prévoir d'autres taux, mais la majoration ne peut jamais descendre en dessous de 10 %. Mieux vaut toujours vérifier ce qui s'applique à la situation concernée.</p>
 
-  <h2>Le principe de la mensualisation</h2>
-  <p>La plupart des salariés à temps complet sont mensualisés : le salaire de base est lissé sur l'année.</p>
-  <p>Concrètement, la rémunération se calcule chaque mois sur la base de 151,67 heures, peu importe le nombre de jours réellement travaillés dans le mois. Un février plus court, un octobre plus long : la base reste la même.</p>
-  <p>Les heures supplémentaires, elles, viennent s'ajouter à cette base fixe. On les compte semaine par semaine, puis elles complètent le salaire mensualisé sur la fiche de paie.</p>
+  <h2>Sans base forfaitaire : la différence avec un salarié mensualisé</h2>
+  <p>Un salarié mensualisé perçoit chaque mois une rémunération lissée sur une base fixe de 151,67 heures, quel que soit le nombre de jours réellement travaillés. Cet outil ne pose pas cette base : il additionne directement les heures saisies, normales ou majorées, sans rien lisser.</p>
+  <p>C'est utile chaque fois que la paie suit les heures réellement effectuées plutôt qu'un forfait mensuel fixe — par exemple pour une mission courte, un mois d'entrée ou de sortie, ou simplement pour vérifier son propre décompte.</p>
+  <p>Si vous cherchez le calcul d'un salarié mensualisé sur un mois complet, direction le <a href="/">calcul heure de travail</a>.</p>
 
   <h2>Le cas des semaines à cheval sur deux mois</h2>
-  <p>Certaines semaines commencent à la fin d'un mois et se terminent au début du suivant. Comment compter les heures supplémentaires dans ce cas ?</p>
-  <p>Les heures supplémentaires se déterminent sur la semaine civile complète. Reste à savoir sur quelle fiche de paie elles apparaissent. Cela dépend des règles de paie de l'entreprise : selon les cas, elles sont payées le mois où la semaine se termine, ou régularisées sur la paie suivante.</p>
-  <p>Pour rester simple et cohérent, le calculateur ci-dessus rattache chaque semaine au mois où elle se termine. C'est une convention de calcul retenue par cet outil, pas une obligation légale : une entreprise peut appliquer une autre règle.</p>
+  <p>Certaines semaines commencent à la fin d'un mois et se terminent au début du suivant. Le seuil de 35 heures se calcule toujours sur la semaine civile complète. Mais alors, à quel mois rattacher chaque heure ?</p>
+  <p>Ici, chaque heure reste rattachée au jour où elle a réellement été travaillée. Une semaine de 40 heures à cheval sur juillet et août verra ses heures comptées en juillet si elles ont été faites en juillet, même si la semaine se termine en août. Rien n'est déplacé d'un mois sur l'autre : le total affiché pour chaque mois correspond exactement à ce qui a été fait ce mois-là.</p>
+  <p>C'est une convention de calcul retenue par cet outil, adaptée à un compteur d'heures réelles. Le mode de paiement effectif (à quelle date les heures sont versées) dépend ensuite des règles de paie de l'entreprise.</p>
 
   <h2>Les durées maximales à respecter</h2>
   <p>Le temps de travail a des limites, et l'employeur doit les respecter.</p>
   <p>La journée ne peut en principe pas dépasser 10 heures. La semaine est plafonnée à 48 heures. Et sur douze semaines consécutives, la moyenne ne peut pas dépasser 44 heures.</p>
   <p>Un dernier point important : dès que 6 heures de travail continu sont atteintes dans la journée, une pause d'au moins 20 minutes consécutives est obligatoire.</p>
 
-  <p class="avert">Ce calculateur est fourni à titre indicatif. Il s'applique principalement aux salariés du secteur privé à temps complet, soumis à un décompte hebdomadaire classique du temps de travail. Il ne tient pas compte des cas particuliers : convention collective, accord d'entreprise, aménagement du temps de travail sur l'année, convention de forfait, temps partiel, jours fériés ou absences. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
+  <p class="avert">Ce calculateur est fourni à titre indicatif. C'est un outil de comptage d'heures, pas de calcul de salaire : le résultat est à combiner avec un taux horaire ou un contrat pour obtenir une rémunération. Il s'applique aux salariés du secteur privé à <b>temps complet</b>, soumis à un décompte hebdomadaire classique — un salarié à temps partiel relève d'un régime différent (heures complémentaires, non couvert ici). Une heure supplémentaire suppose d'avoir été demandée ou acceptée par l'employeur ; une absence en cours de semaine peut aussi modifier le décompte. L'outil ne tient pas compte des cas particuliers : convention collective, accord d'entreprise, aménagement du temps de travail sur l'année, convention de forfait, jours fériés ou absences. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
 </section>
+
+
   <footer>
-    Salarié à temps complet mensualisé (durée légale française&nbsp;: 35 h/semaine, 151,67 h/mois). Les heures supplémentaires se décomptent à la semaine, au-delà de 35 h, majorées à 25 % de la 36<sup>e</sup> à la 43<sup>e</sup> heure puis à 50 % au-delà. Une convention collective peut prévoir d'autres règles. Outil indicatif, ne remplace pas un bulletin de paie.
-       <p style="margin-top:12px"><a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Payé à l'heure réelle (intérim, saisonnier, extra) ? Essayez notre compteur d'heures réelles</a></p>
-	  <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a></p>
+    Calcul du temps de travail réellement effectué, sans base mensualisée. Les heures supplémentaires se décomptent à la semaine civile, au-delà de 35 h, majorées à 25 % de la 36<sup>e</sup> à la 43<sup>e</sup> heure puis à 50 % au-delà (taux légaux à défaut d'accord collectif ; un accord peut prévoir d'autres taux, jamais en dessous de 10 %). Une semaine à cheval sur deux mois est répartie selon le jour réellement travaillé. Outil indicatif, ne remplace pas un bulletin de paie.
+      <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a></p>
   </footer>
 </div>
 
 <script is:inline>
-const SEUIL=35, PALIER=8, BASE=151.67;
+const SEUIL=35, PALIER=8;
 
 function tvd(v){if(v==null||v==="")return NaN;const s=String(v).trim().replace(",",".");const m=s.match(/^(\d{1,2})\s*[:hH]\s*(\d{1,2})$/);if(m)return +m[1]+(+m[2])/60;const d=parseFloat(s);return isNaN(d)?NaN:d;}
 function hJour(a1,a2,p1,p2){let t=0;const x1=tvd(a1),x2=tvd(a2);if(!isNaN(x1)&&!isNaN(x2))t+=Math.max(0,x2-x1);const y1=tvd(p1),y2=tvd(p2);if(!isNaN(y1)&&!isNaN(y2))t+=Math.max(0,y2-y1);return t;}
@@ -211,28 +217,28 @@ function dimancheDe(dt){const l=lundiDe(dt);const d=new Date(l);d.setDate(l.getD
 
 const DATA={};
 
-/* Heures sup d'une semaine (lundi->dimanche), rattachées au mois du dimanche */
-function supSemaine(lundi){
-  let cumul=0,s25=0,s50=0,tot=0;const borne=SEUIL+PALIER;
-  for(let i=0;i<7;i++){
-    const d=new Date(lundi);d.setDate(lundi.getDate()+i);
-    const rec=DATA[cleJour(d)]||{};const h=hJour(rec.am1,rec.am2,rec.pm1,rec.pm2);
-    const av=cumul,ap=cumul+h;
-    const p25=Math.max(0,Math.min(ap,borne)-SEUIL)-Math.max(0,Math.min(av,borne)-SEUIL);
-    const sup=Math.max(0,ap-SEUIL)-Math.max(0,av-SEUIL);
-    s25+=p25;s50+=sup-p25;tot+=h;cumul=ap;
-  }
-  const dim=new Date(lundi);dim.setDate(lundi.getDate()+6);
-  return {s25,s50,tot,moisFin:dim.getFullYear()+"-"+String(dim.getMonth()+1).padStart(2,"0")};
-}
-
-/* Total du mois : base fixe + sup des semaines qui se terminent dans le mois */
-function calcMois(annee,mois){
+/* Total du mois : CHAQUE jour est classé (normal/25%/50%) selon le cumul
+   de sa semaine civile (lundi->dimanche), même si elle chevauche 2 mois.
+   Seuls les jours dont la date appartient au mois cible sont additionnés. */
+function calcMoisReel(annee,mois){
   const premier=new Date(annee,mois,1),dernier=new Date(annee,mois+1,0);
-  let l=lundiDe(premier);const fin=lundiDe(dernier);
-  let s25=0,s50=0;const cle=annee+"-"+String(mois+1).padStart(2,"0");
-  while(l<=fin){const s=supSemaine(l);if(s.moisFin===cle){s25+=s.s25;s50+=s.s50;}const nx=new Date(l);nx.setDate(l.getDate()+7);l=nx;}
-  return {base:BASE,s25,s50,total:BASE+s25+s50};
+  let l=lundiDe(premier);const finBoucle=lundiDe(dernier);
+  let normal=0,s25=0,s50=0;
+  while(l<=finBoucle){
+    let cumul=0;
+    for(let i=0;i<7;i++){
+      const d=new Date(l);d.setDate(l.getDate()+i);
+      const rec=DATA[cleJour(d)]||{};const h=hJour(rec.am1,rec.am2,rec.pm1,rec.pm2);
+      const av=cumul,ap=cumul+h;
+      const nrm=Math.max(0,Math.min(ap,SEUIL)-av);
+      const p25=Math.max(0,Math.min(ap,SEUIL+PALIER)-Math.max(av,SEUIL));
+      const p50=Math.max(0,ap-Math.max(av,SEUIL+PALIER));
+      cumul=ap;
+      if(d.getFullYear()===annee&&d.getMonth()===mois){normal+=nrm;s25+=p25;s50+=p50;}
+    }
+    const nx=new Date(l);nx.setDate(l.getDate()+7);l=nx;
+  }
+  return {normal,s25,s50,total:normal+s25+s50};
 }
 
 const MOIS=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
@@ -278,23 +284,25 @@ function construire(){
   });
 }
 function calculer(){
-  const r=calcMois(+document.getElementById("annee").value,+selMois.value);
-  document.getElementById("r-base").innerHTML=decFr(r.base)+'<small> h</small>';
+  const r=calcMoisReel(+document.getElementById("annee").value,+selMois.value);
+  document.getElementById("r-nrm").innerHTML=decFr(r.normal)+'<small> h · '+decHM(r.normal)+'</small>';
   document.getElementById("r-s25").innerHTML=decFr(r.s25)+'<small> h · '+decHM(r.s25)+'</small>';
   document.getElementById("r-s50").innerHTML=decFr(r.s50)+'<small> h · '+decHM(r.s50)+'</small>';
+  document.getElementById("r-tot").innerHTML=decFr(r.total)+'<small> h · '+decHM(r.total)+'</small>';
 }
 function exemple(){
   const mois=+selMois.value,annee=+document.getElementById("annee").value,nb=new Date(annee,mois+1,0).getDate();
-  for(let d=1;d<=nb;d++){const dt=new Date(annee,mois,d),jw=(dt.getDay()+6)%7;if(jw<5)DATA[cleJour(dt)]={am1:"08:30",am2:"12:30",pm1:"13:30",pm2:"17:30"};}
+  for(let d=1;d<=nb;d++){const dt=new Date(annee,mois,d),jw=(dt.getDay()+6)%7;if(jw<5)DATA[cleJour(dt)]={am1:"08:00",am2:"12:00",pm1:"13:00",pm2:"18:00"};}
   construire();calculer();
 }
 function vider(){
   const mois=+selMois.value,annee=+document.getElementById("annee").value,nb=new Date(annee,mois+1,0).getDate();
   for(let d=1;d<=nb;d++)delete DATA[cleJour(new Date(annee,mois,d))];
   construire();
-  document.getElementById("r-base").innerHTML='151,67<small> h</small>';
+  document.getElementById("r-nrm").innerHTML='0<small> h</small>';
   document.getElementById("r-s25").innerHTML='0<small> h</small>';
   document.getElementById("r-s50").innerHTML='0<small> h</small>';
+  document.getElementById("r-tot").innerHTML='0<small> h</small>';
 }
 function changeMois(delta){
   let m=+selMois.value+delta,y=+document.getElementById("annee").value;
