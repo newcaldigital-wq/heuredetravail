@@ -1,0 +1,374 @@
+---
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heures complémentaires temps partiel — Calcul France</title>
+<meta name="description" content="Tableau de calcul et simulation des heures complémentaires à temps partiel selon votre durée contractuelle hebdomadaire. Décompte semaine par semaine, alerte au seuil des 35h.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<style is:global>
+  :root{
+    --encre:#152238;--encre-2:#22334f;--papier:#F5F3EE;--papier-2:#ECE8DF;
+    --trait:#D8D2C4;--sup25:#B8862F;--sup50:#A6472E;--vert:#2F6F63;--gris:#6A6558;
+    --report:#EDE6F2;--report-b:#8A6FA8;--alerte:#A6472E;--alerte-bg:#F6E5E1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--papier);color:var(--encre);line-height:1.5;padding:24px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  header.hero{margin-bottom:24px;border-bottom:2px solid var(--encre);padding-bottom:18px}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
+  h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
+  h1 .light{font-weight:700;color:var(--encre-2)}
+  .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:660px}
+  .sub a{color:var(--vert);font-weight:600}
+  .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
+  .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .panneau h2 .num{background:var(--encre);color:#fff;width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .bandeau{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+  .navmois{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .navmois button{padding:8px 12px;border:1px solid var(--trait);background:var(--papier);border-radius:6px;cursor:pointer;font-size:16px;color:var(--encre)}
+  .navmois button:hover{background:var(--papier-2)}
+  .navmois select,.navmois input{padding:8px 10px;border:1px solid var(--trait);border-radius:6px;font-size:15px;background:var(--papier);color:var(--encre)}
+  .contrat{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .contrat label{font-size:13px;color:var(--gris);font-weight:600}
+  .cadre-legal{font-size:12.5px;color:var(--gris);background:var(--papier-2);padding:8px 12px;border-radius:6px}
+  .cadre-legal b{color:var(--encre)}
+  .hint{font-size:11.5px;color:var(--gris);font-style:italic}
+  .tableau{width:100%;border-collapse:collapse;font-size:14px}
+  .tableau th{background:var(--encre);color:#fff;padding:8px 6px;font-size:11px;letter-spacing:.4px;text-transform:uppercase;font-weight:600;text-align:center}
+  .tableau td{border:1px solid var(--trait);padding:3px;text-align:center}
+  .tableau tr.we td{background:var(--papier-2)}
+  .tableau tr.report td{background:var(--report)}
+  .tableau tr.report .date{color:var(--report-b)}
+  .tableau .jour{font-size:12px;color:var(--gris);white-space:nowrap;padding:3px 6px}
+  .tableau .date{font-weight:600;font-size:13px}
+  .tableau input[type=time]{border:1px solid transparent;background:transparent;padding:5px 4px;font-size:13px;width:82px;border-radius:4px;color:var(--encre)}
+  .tableau input[type=time]:hover{border-color:var(--trait)}
+  .tableau input[type=time]:focus{outline:2px solid var(--vert);background:#fff}
+  .tableau .htot{font-variant-numeric:tabular-nums;font-weight:600;color:var(--encre-2)}
+  .semlabel{font-size:10px;color:var(--vert);font-weight:700;display:block}
+  .semlabel.semalerte{color:var(--alerte)}
+  .semalerte-icone{font-size:11px}
+  .cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:4px}
+  .carte{border:1px solid var(--trait);border-radius:8px;padding:14px;background:var(--papier)}
+  .carte .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:600}
+  .carte .val{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:4px}
+  .carte .val small{font-size:14px;font-weight:400;color:var(--gris)}
+  .carte.base{border-top:3px solid var(--encre)}
+  .carte.comp{border-top:3px solid var(--vert)} .carte.comp .val{color:var(--vert)}
+  .note-alerte{margin-top:14px;padding:11px 14px;background:var(--alerte-bg);border-left:4px solid var(--alerte);border-radius:6px;font-size:13px;color:#5a2418;display:none}
+  .note-alerte.visible{display:block}
+  .note-complet{margin-top:10px;padding:11px 14px;background:var(--papier-2);border-left:4px solid var(--vert);border-radius:6px;font-size:13px;color:var(--encre-2)}
+  .note-complet b{color:var(--encre)}
+  .note-complet a{color:var(--vert);font-weight:600}
+  .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  button.act{font-family:inherit;font-size:14px;padding:9px 16px;border-radius:7px;border:1px solid var(--encre);cursor:pointer;font-weight:600}
+  .btn-primary{background:var(--encre);color:#fff}
+  .btn-ghost{background:transparent;color:var(--encre)}
+  button.act:hover{opacity:.9}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
+  @media(max-width:640px){h1{font-size:26px}.tableau .jour{display:none}.tableau input[type=time]{width:70px}}
+
+  .contenu-seo{
+    max-width:760px;
+    margin:36px auto 0;
+    padding:28px 4px 0;
+    border-top:2px solid var(--encre);
+  }
+  .contenu-seo h2{
+    font-size:21px;
+    color:var(--encre);
+    margin:28px 0 10px;
+    letter-spacing:-0.2px;
+  }
+  .contenu-seo h2:first-of-type{margin-top:0}
+  .contenu-seo p{
+    font-size:15.5px;
+    color:var(--encre-2);
+    line-height:1.7;
+    margin-bottom:14px;
+  }
+  .contenu-seo sup{font-size:0.7em}
+  .contenu-seo .avert{
+    margin-top:24px;
+    padding:14px 16px;
+    background:var(--papier-2);
+    border-radius:8px;
+    font-size:13px;
+    color:var(--gris);
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Temps partiel · France</div>
+    <h1>Heures <span class="light">complémentaires</span> temps partiel</h1>
+    <p class="sub">Salarié à temps partiel avec une durée hebdomadaire fixée au contrat ? Ce tableau de calcul simule vos heures complémentaires — celles effectuées au-delà de votre durée contractuelle, semaine par semaine — et vous alerte si une semaine approche de la durée légale. Vous êtes à temps complet ? Direction le <a href="/">calcul heure de travail</a> ou le <a href="/calcul-temps-de-travail">calcul du temps de travail réel</a>.</p>
+  </header>
+
+  <section class="panneau">
+    <h2><span class="num">1</span> Contrat et mois</h2>
+    <div class="bandeau">
+      <div class="contrat">
+        <label for="contrat">Durée hebdo contractuelle</label>
+        <select id="contrat">
+          <option value="10">10 h / semaine</option>
+          <option value="15">15 h / semaine</option>
+          <option value="20" selected>20 h / semaine</option>
+          <option value="24">24 h / semaine</option>
+          <option value="28">28 h / semaine</option>
+          <option value="autre">Autre…</option>
+        </select>
+        <input type="number" id="contrat-libre" min="1" max="34" step="0.5" value="20" style="width:80px;display:none" placeholder="h/sem">
+      </div>
+      <div class="navmois">
+        <button id="prev" aria-label="Mois précédent">&lsaquo;</button>
+        <select id="mois"></select>
+        <input type="number" id="annee" value="2026" min="2020" max="2035" style="width:90px">
+        <button id="next" aria-label="Mois suivant">&rsaquo;</button>
+      </div>
+    </div>
+    <div class="cadre-legal" style="margin-top:12px">Décompte à la semaine civile, selon votre durée contractuelle &middot; alerte si une semaine atteint <b>35 h</b> (seuil légal du temps complet)</div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">2</span> Vos horaires</h2>
+    <p class="hint" style="margin-bottom:12px">Laissez vide un jour non travaillé. La pause du midi est déduite automatiquement. Les lignes <span style="color:var(--report-b);font-weight:600">violettes</span> appartiennent au mois voisin&nbsp;: elles servent à calculer correctement le seuil des semaines à cheval. Une semaine marquée <span style="color:var(--alerte);font-weight:600">⚠</span> atteint 35 h.</p>
+    <div style="overflow-x:auto">
+      <table class="tableau" id="grille">
+        <thead>
+          <tr>
+            <th>Sem.</th><th>Date</th><th class="jour">Jour</th>
+            <th>Arrivée<br>matin</th><th>Départ<br>matin</th>
+            <th>Arrivée<br>a.-m.</th><th>Départ<br>a.-m.</th><th>Heures</th>
+          </tr>
+        </thead>
+        <tbody id="corps"></tbody>
+      </table>
+    </div>
+    <div class="actions">
+      <button class="act btn-primary" id="calculer">Calculer le mois</button>
+      <button class="act btn-ghost" id="exemple">Remplir un exemple</button>
+      <button class="act btn-ghost" id="vider">Effacer ce mois</button>
+    </div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">3</span> Résultat du mois</h2>
+    <div class="cartes">
+      <div class="carte base"><div class="lbl">Base contractuelle mensualisée</div><div class="val" id="r-base">0<small> h</small></div></div>
+      <div class="carte comp"><div class="lbl">Heures complémentaires</div><div class="val" id="r-comp">0<small> h</small></div></div>
+    </div>
+    <div class="note-alerte" id="alerte-35">
+      ⚠ Au moins une semaine de ce mois atteint 35 h. Les heures complémentaires ne peuvent pas porter la durée du travail au niveau de la durée légale du temps complet (35 h) ou, si elle est inférieure, au niveau de la durée conventionnelle applicable — le dépassement peut alors entraîner une requalification du contrat. Cette alerte se base sur 35 h à titre indicatif : vérifiez le seuil réel applicable à votre situation avec un professionnel.
+    </div>
+    <div class="note-complet">
+      Cet outil compte des <b>heures</b>, pas un salaire&nbsp;: il ne calcule aucune majoration. Les heures complémentaires ouvrent droit à une majoration (10 %, parfois 25 % au-delà, selon la loi ou les dispositions conventionnelles applicables) — le détail est expliqué dans le texte ci-dessous. Décompte hebdomadaire uniquement pour l'instant : si votre contrat fixe une durée <b>mensuelle</b> plutôt qu'hebdomadaire, le mode adapté arrive prochainement sur cette page.
+    </div>
+  </section>
+
+<section class="contenu-seo">
+  <h2>Qu'est-ce qu'une heure complémentaire ?</h2>
+  <p>Une heure complémentaire, c'est une heure effectuée par un salarié à temps partiel au-delà de sa durée contractuelle. Un salarié à 20 heures par semaine qui en travaille 23 a fait 3 heures complémentaires cette semaine-là.</p>
+  <p>C'est différent d'une heure supplémentaire, réservée aux salariés à temps complet, qui se compte au-delà de 35 heures. Le régime, les seuils et les majorations ne sont pas les mêmes.</p>
+  <p>C'est ce que fait le tableau de calcul ci-dessus : vous indiquez votre durée hebdomadaire contractuelle, il additionne vos heures saisies et repère celles qui dépassent ce seuil, semaine par semaine.</p>
+
+  <h2>Le décompte se fait à la semaine ou au mois : ça dépend de votre contrat</h2>
+  <p>La référence retenue pour compter les heures complémentaires n'est pas libre : c'est celle inscrite au contrat de travail. Un contrat rédigé « 20 heures par semaine » se décompte à la semaine. Un contrat rédigé « 87 heures par mois » se décompte au mois.</p>
+  <p>Une erreur fréquente consiste à lisser sur le mois un contrat pourtant fixé à la semaine, en compensant une semaine chargée par une semaine plus calme. Ce n'est en principe pas autorisé : pour un contrat à durée hebdomadaire fixe, et sauf aménagement particulier prévu par un accord collectif, chaque semaine est examinée pour elle-même.</p>
+  <p>Ce calculateur traite pour l'instant le cas le plus courant, le contrat à base hebdomadaire. Le mode mensuel, pour les contrats fixés au mois, sera ajouté à cette même page dans une prochaine évolution.</p>
+
+  <h2>Le plafond légal des heures complémentaires</h2>
+  <p>Le nombre d'heures complémentaires ne peut pas dépasser le dixième de la durée contractuelle. Pour un contrat de 20 heures, la limite est donc de 2 heures par semaine, portant le total à 22 heures maximum.</p>
+  <p>Une convention ou un accord collectif peut relever ce plafond jusqu'au tiers de la durée contractuelle. Toujours pour 20 heures, cela porterait la limite à environ 6h40, soit un maximum de 26h40. Ce relèvement n'est pas automatique : il faut qu'une disposition conventionnelle l'autorise expressément.</p>
+  <p>Dans tous les cas, une règle s'applique : les heures complémentaires ne peuvent pas avoir pour effet de porter la durée du travail au niveau de la durée légale du temps complet (35 heures par semaine) ou, si elle est inférieure, au niveau de la durée conventionnelle applicable au temps complet. Le dépassement de ce seuil peut entraîner une requalification du contrat en temps complet ; le simple fait de s'en approcher ne suffit pas à lui seul à l'entraîner.</p>
+
+  <h2>La majoration des heures complémentaires</h2>
+  <p>Les heures complémentaires effectuées dans la limite du dixième de la durée contractuelle sont majorées de 10 %, à défaut de stipulation conventionnelle différente.</p>
+  <p>Celles effectuées au-delà de ce dixième, et jusqu'au tiers si une disposition conventionnelle l'autorise, sont majorées de 25 %.</p>
+  <p>Chaque heure complémentaire ouvre droit à une majoration de salaire selon les dispositions légales ou conventionnelles applicables.</p>
+  <p>Ce calculateur ne pose pas ces taux, propres à chaque situation et parfois à une convention collective : il vous donne le nombre d'heures, à vous ou votre employeur d'appliquer le taux correspondant.</p>
+
+  <h2>Le cas des semaines à cheval sur deux mois</h2>
+  <p>Certaines semaines commencent à la fin d'un mois et se terminent au début du suivant. Pour un contrat à durée hebdomadaire fixe, et sauf période de référence différente prévue par un accord collectif, le seuil de votre durée contractuelle se calcule sur la semaine civile complète, du lundi au dimanche.</p>
+  <p>Dans ce calculateur, chaque semaine est rattachée au mois où elle se termine, pour rester cohérent avec la logique de paiement des heures complémentaires habituellement retenue. C'est une convention de calcul propre à cet outil, pas une règle légale figée.</p>
+
+  <h2>La base contractuelle mensualisée</h2>
+  <p>Si votre contrat est mensualisé, la rémunération de base se lisse sur une valeur mensuelle fixe, calculée à partir de votre durée hebdomadaire&nbsp;: durée hebdomadaire multipliée par 52 semaines, divisée par 12 mois. Pour un contrat de 20 heures par semaine, cela représente environ 86,67 heures par mois.</p>
+  <p>Les heures complémentaires, elles, s'ajoutent à cette base après avoir été comptées semaine par semaine — elles ne sont pas lissées de la même façon.</p>
+
+  <p class="avert">Ce calculateur est fourni à titre indicatif. C'est un outil de comptage d'heures, pas de calcul de salaire&nbsp;: aucune majoration n'est appliquée, le résultat est à combiner avec les taux applicables à votre situation (10 %, 25 % selon la loi ou les dispositions conventionnelles applicables) pour obtenir une rémunération. Il couvre les contrats à temps partiel à durée hebdomadaire fixe ; les contrats à durée mensuelle, annualisée, ou les cas particuliers (convention collective, aménagement du temps de travail, jours fériés, absences) ne sont pas traités par cet outil dans sa version actuelle. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
+</section>
+
+  <footer>
+    Salarié à temps partiel, durée contractuelle hebdomadaire. Les heures complémentaires se décomptent à la semaine civile, au-delà de la durée contractuelle, dans la limite légale du dixième de cette durée (10 %), portée au tiers par convention ou accord collectif (alors majorées à 25 % au-delà du dixième). Elles ne peuvent pas porter le total au niveau de la durée légale du temps complet (35 h/semaine) ou, si elle est inférieure, de la durée conventionnelle applicable. Outil indicatif, ne remplace pas un bulletin de paie.
+    <p style="margin-top:12px"><a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet à l'heure réelle</a></p>
+    <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a></p>
+  </footer>
+</div>
+
+<script is:inline>
+const SEUIL_LEGAL=35;
+
+function tvd(v){if(v==null||v==="")return NaN;const s=String(v).trim().replace(",",".");const m=s.match(/^(\d{1,2})\s*[:hH]\s*(\d{1,2})$/);if(m)return +m[1]+(+m[2])/60;const d=parseFloat(s);return isNaN(d)?NaN:d;}
+function hJour(a1,a2,p1,p2){let t=0;const x1=tvd(a1),x2=tvd(a2);if(!isNaN(x1)&&!isNaN(x2))t+=Math.max(0,x2-x1);const y1=tvd(p1),y2=tvd(p2);if(!isNaN(y1)&&!isNaN(y2))t+=Math.max(0,y2-y1);return t;}
+function decHM(d){if(isNaN(d))return"";let h=Math.floor(d+1e-9),m=Math.round((d-h)*60);if(m===60){h++;m=0;}return h+"h"+String(m).padStart(2,"0");}
+function decFr(d){return d.toFixed(2).replace(".",",");}
+function isoSem(dt){const d=new Date(Date.UTC(dt.getFullYear(),dt.getMonth(),dt.getDate()));const j=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-j);const y=new Date(Date.UTC(d.getUTCFullYear(),0,1));return Math.ceil(((d-y)/86400000+1)/7);}
+function cleJour(dt){return dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");}
+function lundiDe(dt){const d=new Date(dt);const j=(d.getDay()+6)%7;d.setDate(d.getDate()-j);d.setHours(0,0,0,0);return d;}
+function dimancheDe(dt){const l=lundiDe(dt);const d=new Date(l);d.setDate(l.getDate()+6);return d;}
+
+const DATA={};
+
+function contratActuel(){
+  const sel=document.getElementById("contrat").value;
+  if(sel==="autre"){const v=parseFloat(document.getElementById("contrat-libre").value);return isNaN(v)?20:v;}
+  return parseFloat(sel);
+}
+
+/* Heures complémentaires d'une semaine (lundi->dimanche), rattachées au mois du dimanche */
+function semaineInfo(lundi,contrat){
+  let cumul=0;
+  for(let i=0;i<7;i++){
+    const d=new Date(lundi);d.setDate(lundi.getDate()+i);
+    const rec=DATA[cleJour(d)]||{};cumul+=hJour(rec.am1,rec.am2,rec.pm1,rec.pm2);
+  }
+  const comp=Math.max(0,cumul-contrat);
+  const alerte=cumul>=SEUIL_LEGAL;
+  const dim=new Date(lundi);dim.setDate(lundi.getDate()+6);
+  return {comp,alerte,moisFin:dim.getFullYear()+"-"+String(dim.getMonth()+1).padStart(2,"0")};
+}
+
+/* Total du mois : heures complémentaires des semaines qui se terminent dans le mois + drapeau alerte */
+function calcMois(annee,mois,contrat){
+  const premier=new Date(annee,mois,1),dernier=new Date(annee,mois+1,0);
+  let l=lundiDe(premier);const fin=lundiDe(dernier);
+  let comp=0,alerte=false;const cle=annee+"-"+String(mois+1).padStart(2,"0");
+  while(l<=fin){const s=semaineInfo(l,contrat);if(s.moisFin===cle){comp+=s.comp;if(s.alerte)alerte=true;}const nx=new Date(l);nx.setDate(l.getDate()+7);l=nx;}
+  const base=contrat*52/12;
+  return {base,comp,alerte};
+}
+
+/* Map des lundis en alerte (>=35h), pour marquer les lignes de la grille affichée */
+function semainesAlerte(annee,mois,contrat){
+  const premier=new Date(annee,mois,1),dernier=new Date(annee,mois+1,0);
+  const lun1=lundiDe(premier),dim=dimancheDe(dernier);
+  const map={};
+  for(let l=new Date(lun1);l<=dim;l.setDate(l.getDate()+7)){
+    let cumul=0;
+    for(let i=0;i<7;i++){const d=new Date(l);d.setDate(l.getDate()+i);const rec=DATA[cleJour(d)]||{};cumul+=hJour(rec.am1,rec.am2,rec.pm1,rec.pm2);}
+    map[cleJour(l)]=cumul>=SEUIL_LEGAL;
+  }
+  return map;
+}
+
+const MOIS=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+const JOURS=["lun","mar","mer","jeu","ven","sam","dim"];
+const selMois=document.getElementById("mois");
+MOIS.forEach((m,i)=>{const o=document.createElement("option");o.value=i;o.textContent=m;selMois.appendChild(o);});
+const now=new Date();selMois.value=now.getMonth();document.getElementById("annee").value=now.getFullYear();
+
+function sauveLigne(tr){
+  const k=tr.dataset.date;
+  DATA[k]={am1:tr.querySelector(".am1").value,am2:tr.querySelector(".am2").value,pm1:tr.querySelector(".pm1").value,pm2:tr.querySelector(".pm2").value};
+  const h=hJour(DATA[k].am1,DATA[k].am2,DATA[k].pm1,DATA[k].pm2);
+  tr.querySelector("[data-h]").textContent=h>0?decHM(h):"—";
+  construireAlertes();calculer();
+}
+function ligneHTML(date,report,alertesMap){
+  const jw=(date.getDay()+6)%7,sem=isoSem(date),k=cleJour(date),rec=DATA[k]||{},h=hJour(rec.am1,rec.am2,rec.pm1,rec.pm2);
+  const cls=[report?"report":"",jw>=5?"we":""].filter(Boolean).join(" ");
+  let semCell="";
+  if(jw===0){
+    const lundiKey=cleJour(lundiDe(date));
+    const alerte=alertesMap&&alertesMap[lundiKey];
+    semCell='<span class="semlabel'+(alerte?" semalerte":"")+'">'+sem+(alerte?' <span class="semalerte-icone">⚠</span>':"")+'</span>';
+  }
+  return '<tr class="'+cls+'" data-date="'+k+'">'
+    +'<td>'+semCell+'</td>'
+    +'<td class="date">'+String(date.getDate()).padStart(2,"0")+"/"+String(date.getMonth()+1).padStart(2,"0")+'</td>'
+    +'<td class="jour">'+JOURS[jw]+'</td>'
+    +'<td><input type="time" class="am1" value="'+(rec.am1||"")+'"></td>'
+    +'<td><input type="time" class="am2" value="'+(rec.am2||"")+'"></td>'
+    +'<td><input type="time" class="pm1" value="'+(rec.pm1||"")+'"></td>'
+    +'<td><input type="time" class="pm2" value="'+(rec.pm2||"")+'"></td>'
+    +'<td class="htot" data-h>'+(h>0?decHM(h):"—")+'</td></tr>';
+}
+function construire(){
+  const mois=+selMois.value,annee=+document.getElementById("annee").value,contrat=contratActuel();
+  const premier=new Date(annee,mois,1),dernier=new Date(annee,mois+1,0);
+  const alertesMap=semainesAlerte(annee,mois,contrat);
+  let html="";
+  const lun1=lundiDe(premier);
+  for(let d=new Date(lun1);d<premier;d.setDate(d.getDate()+1))html+=ligneHTML(new Date(d),true,alertesMap);
+  for(let d=1;d<=dernier.getDate();d++)html+=ligneHTML(new Date(annee,mois,d),false,alertesMap);
+  const dim=dimancheDe(dernier);
+  for(let d=new Date(dernier.getTime()+86400000);d<=dim;d.setDate(d.getDate()+1))html+=ligneHTML(new Date(d),true,alertesMap);
+  const corps=document.getElementById("corps");corps.innerHTML=html;
+  corps.querySelectorAll("input").forEach(inp=>{
+    inp.addEventListener("input",()=>sauveLigne(inp.closest("tr")));
+    inp.addEventListener("change",()=>sauveLigne(inp.closest("tr")));
+    inp.addEventListener("blur",()=>sauveLigne(inp.closest("tr")));
+  });
+}
+function construireAlertes(){
+  const mois=+selMois.value,annee=+document.getElementById("annee").value,contrat=contratActuel();
+  const alertesMap=semainesAlerte(annee,mois,contrat);
+  document.querySelectorAll("#corps tr").forEach(tr=>{
+    const d=new Date(tr.dataset.date);
+    const jw=(d.getDay()+6)%7;
+    if(jw===0){
+      const lundiKey=cleJour(lundiDe(d));
+      const alerte=alertesMap[lundiKey];
+      const sem=isoSem(d);
+      const cell=tr.children[0];
+      cell.innerHTML='<span class="semlabel'+(alerte?" semalerte":"")+'">'+sem+(alerte?' <span class="semalerte-icone">⚠</span>':"")+'</span>';
+    }
+  });
+}
+function calculer(){
+  const r=calcMois(+document.getElementById("annee").value,+selMois.value,contratActuel());
+  document.getElementById("r-base").innerHTML=decFr(r.base)+'<small> h</small>';
+  document.getElementById("r-comp").innerHTML=decFr(r.comp)+'<small> h · '+decHM(r.comp)+'</small>';
+  document.getElementById("alerte-35").classList.toggle("visible",r.alerte);
+}
+function exemple(){
+  const mois=+selMois.value,annee=+document.getElementById("annee").value,nb=new Date(annee,mois+1,0).getDate();
+  for(let d=1;d<=nb;d++){const dt=new Date(annee,mois,d),jw=(dt.getDay()+6)%7;if(jw<5)DATA[cleJour(dt)]={am1:"09:00",am2:"12:00",pm1:"13:00",pm2:"17:00"};}
+  construire();calculer();
+}
+function vider(){
+  const mois=+selMois.value,annee=+document.getElementById("annee").value,nb=new Date(annee,mois+1,0).getDate();
+  for(let d=1;d<=nb;d++)delete DATA[cleJour(new Date(annee,mois,d))];
+  construire();
+  document.getElementById("r-base").innerHTML='0<small> h</small>';
+  document.getElementById("r-comp").innerHTML='0<small> h</small>';
+  document.getElementById("alerte-35").classList.remove("visible");
+}
+function changeMois(delta){
+  let m=+selMois.value+delta,y=+document.getElementById("annee").value;
+  if(m<0){m=11;y--;}else if(m>11){m=0;y++;}
+  selMois.value=m;document.getElementById("annee").value=y;construire();calculer();
+}
+document.getElementById("contrat").addEventListener("change",function(){
+  document.getElementById("contrat-libre").style.display=this.value==="autre"?"inline-block":"none";
+  construire();calculer();
+});
+document.getElementById("contrat-libre").addEventListener("input",()=>{construire();calculer();});
+selMois.addEventListener("change",()=>{construire();calculer();});
+document.getElementById("annee").addEventListener("change",()=>{construire();calculer();});
+document.getElementById("prev").addEventListener("click",()=>changeMois(-1));
+document.getElementById("next").addEventListener("click",()=>changeMois(1));
+document.getElementById("calculer").addEventListener("click",calculer);
+document.getElementById("exemple").addEventListener("click",exemple);
+document.getElementById("vider").addEventListener("click",vider);
+construire();calculer();
+</script>
+</body>
+</html>
