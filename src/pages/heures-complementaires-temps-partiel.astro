@@ -101,6 +101,32 @@
     color:var(--gris);
     line-height:1.6;
   }
+ .sources{
+  margin-top:24px;
+  padding:16px 18px;
+  background:#fff;
+  border:1px solid var(--trait);
+  border-radius:8px;
+}
+.sources h3{
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+  color:var(--gris);
+  margin-bottom:10px;
+  font-weight:700;
+}
+.sources ul{list-style:none;padding:0;margin:0}
+.sources li{
+  font-size:13px;
+  color:var(--encre-2);
+  margin-bottom:6px;
+  padding-left:14px;
+  position:relative;
+}
+.sources li::before{content:"—";position:absolute;left:0;color:var(--vert)}
+.sources a{color:var(--vert);font-weight:600;text-decoration:none}
+.sources a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -204,7 +230,15 @@
 
   <p class="avert">Ce calculateur est fourni à titre indicatif. C'est un outil de comptage d'heures, pas de calcul de salaire&nbsp;: aucune majoration n'est appliquée, le résultat est à combiner avec les taux applicables à votre situation (10 %, 25 % selon la loi ou les dispositions conventionnelles applicables) pour obtenir une rémunération. Il couvre les contrats à temps partiel à durée hebdomadaire fixe ; les contrats à durée mensuelle, annualisée, ou les cas particuliers (convention collective, aménagement du temps de travail, jours fériés, absences) ne sont pas traités par cet outil dans sa version actuelle. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
 </section>
-
+<section class="sources">
+  <h3>Sources</h3>
+  <ul>
+    <li>Plafond des heures complémentaires (1/10e du contrat) et interdiction de requalification implicite — <a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000033004784/" target="_blank" rel="noopener">Code du travail, art. L3123-28</a></li>
+    <li>Majoration des heures complémentaires (10 %/25 %) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033019947" target="_blank" rel="noopener">Code du travail, art. L3123-29</a></li>
+    <li>Durée légale du travail (35h/semaine, seuil de l'alerte) — <a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006189631/" target="_blank" rel="noopener">Code du travail, art. L3121-27</a></li>
+    <li>Fiche pédagogique — <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F32428" target="_blank" rel="noopener">Service-public.fr, temps partiel d'un salarié du secteur privé</a></li>
+  </ul>
+</section>
   <footer>
     Salarié à temps partiel, durée contractuelle hebdomadaire. Les heures complémentaires se décomptent à la semaine civile, au-delà de la durée contractuelle, dans la limite légale du dixième de cette durée (10 %), portée au tiers par convention ou accord collectif (alors majorées à 25 % au-delà du dixième). Elles ne peuvent pas porter le total au niveau de la durée légale du temps complet (35 h/semaine) ou, si elle est inférieure, de la durée conventionnelle applicable. Outil indicatif, ne remplace pas un bulletin de paie.
     <p style="margin-top:12px"><a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet à l'heure réelle</a></p>

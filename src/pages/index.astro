@@ -96,6 +96,32 @@
     color:var(--gris);
     line-height:1.6;
   }
+  .sources{
+  margin-top:24px;
+  padding:16px 18px;
+  background:#fff;
+  border:1px solid var(--trait);
+  border-radius:8px;
+}
+.sources h3{
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+  color:var(--gris);
+  margin-bottom:10px;
+  font-weight:700;
+}
+.sources ul{list-style:none;padding:0;margin:0}
+.sources li{
+  font-size:13px;
+  color:var(--encre-2);
+  margin-bottom:6px;
+  padding-left:14px;
+  position:relative;
+}
+.sources li::before{content:"—";position:absolute;left:0;color:var(--vert)}
+.sources a{color:var(--vert);font-weight:600;text-decoration:none}
+.sources a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -192,6 +218,17 @@ Payé à l'heure réelle (intérim, saisonnier, extra) ? Utilisez plutôt le <a 
   <p>Un dernier point important : dès que 6 heures de travail continu sont atteintes dans la journée, une pause d'au moins 20 minutes consécutives est obligatoire.</p>
 
   <p class="avert">Ce calculateur est fourni à titre indicatif. Il s'applique principalement aux salariés du secteur privé à temps complet, soumis à un décompte hebdomadaire classique du temps de travail. Il ne tient pas compte des cas particuliers : convention collective, accord d'entreprise, aménagement du temps de travail sur l'année, convention de forfait, temps partiel, jours fériés ou absences. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
+</section>
+<section class="sources">
+  <h3>Sources</h3>
+  <ul>
+    <li>Durée légale du travail (35h/semaine) — <a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006189631/" target="_blank" rel="noopener">Code du travail, art. L3121-27</a></li>
+    <li>Majoration des heures supplémentaires (25 %/50 %) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033020341" target="_blank" rel="noopener">Code du travail, art. L3121-36</a></li>
+    <li>Taux de majoration minimal fixé par accord (10 %) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038610166" target="_blank" rel="noopener">Code du travail, art. L3121-33</a></li>
+    <li>Pause obligatoire dès 6h de travail — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033020444" target="_blank" rel="noopener">Code du travail, art. L3121-16</a></li>
+    <li>Durées maximales de travail (10h/jour, 48h/semaine, 44h sur 12 semaines) — <a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006189630/" target="_blank" rel="noopener">Code du travail, art. L3121-18 à L3121-22</a></li>
+    <li>Fiche pédagogique — <a href="https://code.travail.gouv.fr/fiche-ministere-travail/la-duree-legale-du-travail" target="_blank" rel="noopener">Ministère du Travail, la durée légale du travail</a></li>
+  </ul>
 </section>
   <footer>
     Salarié à temps complet mensualisé (durée légale française&nbsp;: 35 h/semaine, 151,67 h/mois). Les heures supplémentaires se décomptent à la semaine, au-delà de 35 h, majorées à 25 % de la 36<sup>e</sup> à la 43<sup>e</sup> heure puis à 50 % au-delà. Une convention collective peut prévoir d'autres règles. Outil indicatif, ne remplace pas un bulletin de paie.
