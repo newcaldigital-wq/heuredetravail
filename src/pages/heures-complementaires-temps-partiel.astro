@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Heures complémentaires temps partiel — Calcul France</title>
-<meta name="description" content="Tableau de calcul et simulation des heures complémentaires à temps partiel selon votre durée contractuelle hebdomadaire. Décompte semaine par semaine, alerte au seuil des 35h.">
+<meta name="description" content="Tableau de calcul et simulation des heures complémentaires à temps partiel, à la semaine ou au mois selon votre contrat. Décompte précis, alerte au seuil légal du temps complet.">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <style is:global>
@@ -34,6 +34,11 @@
   .navmois select,.navmois input{padding:8px 10px;border:1px solid var(--trait);border-radius:6px;font-size:15px;background:var(--papier);color:var(--encre)}
   .contrat{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .contrat label{font-size:13px;color:var(--gris);font-weight:600}
+  .segmented{display:flex;border:1px solid var(--trait);border-radius:6px;overflow:hidden}
+  .seg-btn{font-family:inherit;font-size:13px;padding:7px 14px;border:none;background:var(--papier);color:var(--encre);cursor:pointer;font-weight:600}
+  .seg-btn.active{background:var(--encre);color:#fff}
+  .seg-btn:not(.active):hover{background:var(--papier-2)}
+  .tableau.mode-mois .col-sem{display:none}
   .cadre-legal{font-size:12.5px;color:var(--gris);background:var(--papier-2);padding:8px 12px;border-radius:6px}
   .cadre-legal b{color:var(--encre)}
   .hint{font-size:11.5px;color:var(--gris);font-style:italic}
@@ -101,32 +106,6 @@
     color:var(--gris);
     line-height:1.6;
   }
- .sources{
-  margin-top:24px;
-  padding:16px 18px;
-  background:#fff;
-  border:1px solid var(--trait);
-  border-radius:8px;
-}
-.sources h3{
-  font-size:13px;
-  text-transform:uppercase;
-  letter-spacing:.4px;
-  color:var(--gris);
-  margin-bottom:10px;
-  font-weight:700;
-}
-.sources ul{list-style:none;padding:0;margin:0}
-.sources li{
-  font-size:13px;
-  color:var(--encre-2);
-  margin-bottom:6px;
-  padding-left:14px;
-  position:relative;
-}
-.sources li::before{content:"—";position:absolute;left:0;color:var(--vert)}
-.sources a{color:var(--vert);font-weight:600;text-decoration:none}
-.sources a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -134,13 +113,28 @@
   <header class="hero">
     <div class="eyebrow">Temps partiel · France</div>
     <h1>Heures <span class="light">complémentaires</span> temps partiel</h1>
-    <p class="sub">Salarié à temps partiel avec une durée hebdomadaire fixée au contrat ? Ce tableau de calcul simule vos heures complémentaires — celles effectuées au-delà de votre durée contractuelle, semaine par semaine — et vous alerte si une semaine approche de la durée légale. Vous êtes à temps complet ? Direction le <a href="/">calcul heure de travail</a> ou le <a href="/calcul-temps-de-travail">calcul du temps de travail réel</a>.</p>
+    <p class="sub">Salarié à temps partiel ? Ce tableau de calcul simule vos heures complémentaires — celles effectuées au-delà de votre durée contractuelle, à la semaine ou au mois selon votre contrat — et vous alerte si vous approchez de la durée légale du temps complet. Vous êtes à temps complet ? Direction le <a href="/">calcul heure de travail</a> ou le <a href="/calcul-temps-de-travail">calcul du temps de travail réel</a>.</p>
   </header>
 
   <section class="panneau">
     <h2><span class="num">1</span> Contrat et mois</h2>
     <div class="bandeau">
       <div class="contrat">
+        <label>Contrat fixé</label>
+        <div class="segmented" id="mode-select">
+          <button type="button" class="seg-btn active" data-mode="semaine">À la semaine</button>
+          <button type="button" class="seg-btn" data-mode="mois">Au mois</button>
+        </div>
+      </div>
+      <div class="navmois">
+        <button id="prev" aria-label="Mois précédent">&lsaquo;</button>
+        <select id="mois"></select>
+        <input type="number" id="annee" value="2026" min="2020" max="2035" style="width:90px">
+        <button id="next" aria-label="Mois suivant">&rsaquo;</button>
+      </div>
+    </div>
+    <div class="bandeau" style="margin-top:12px">
+      <div class="contrat" id="contrat-semaine">
         <label for="contrat">Durée hebdo contractuelle</label>
         <select id="contrat">
           <option value="10">10 h / semaine</option>
@@ -152,24 +146,24 @@
         </select>
         <input type="number" id="contrat-libre" min="1" max="34" step="0.5" value="20" style="width:80px;display:none" placeholder="h/sem">
       </div>
-      <div class="navmois">
-        <button id="prev" aria-label="Mois précédent">&lsaquo;</button>
-        <select id="mois"></select>
-        <input type="number" id="annee" value="2026" min="2020" max="2035" style="width:90px">
-        <button id="next" aria-label="Mois suivant">&rsaquo;</button>
+      <div class="contrat" id="contrat-mois" style="display:none">
+        <label for="contrat-mensuel">Durée mensuelle contractuelle</label>
+        <input type="number" id="contrat-mensuel" min="1" max="151" step="0.5" value="104" style="width:90px">
+        <span style="font-size:13px;color:var(--gris)">h / mois</span>
       </div>
     </div>
-    <div class="cadre-legal" style="margin-top:12px">Décompte à la semaine civile, selon votre durée contractuelle &middot; alerte si une semaine atteint <b>35 h</b> (seuil légal du temps complet)</div>
+    <p class="hint" id="hint-mois" style="display:none;margin-top:8px">Indiquez le nombre exact inscrit dans votre contrat (ex. « 104 heures par mois »). Si votre contrat fixe une durée hebdomadaire, même mensualisée pour le paiement, utilisez plutôt le mode « À la semaine » ci-dessus.</p>
+    <div class="cadre-legal" id="cadre-legal" style="margin-top:12px">Décompte à la semaine civile, selon votre durée contractuelle &middot; alerte si une semaine atteint <b>35 h</b> (seuil légal du temps complet)</div>
   </section>
 
   <section class="panneau">
     <h2><span class="num">2</span> Vos horaires</h2>
-    <p class="hint" style="margin-bottom:12px">Laissez vide un jour non travaillé. La pause du midi est déduite automatiquement. Les lignes <span style="color:var(--report-b);font-weight:600">violettes</span> appartiennent au mois voisin&nbsp;: elles servent à calculer correctement le seuil des semaines à cheval. Une semaine marquée <span style="color:var(--alerte);font-weight:600">⚠</span> atteint 35 h.</p>
+    <p class="hint" id="hint-horaires" style="margin-bottom:12px">Laissez vide un jour non travaillé. La pause du midi est déduite automatiquement. Les lignes <span style="color:var(--report-b);font-weight:600">violettes</span> appartiennent au mois voisin&nbsp;: elles servent à calculer correctement le seuil des semaines à cheval. Une semaine marquée <span style="color:var(--alerte);font-weight:600">⚠</span> atteint 35 h.</p>
     <div style="overflow-x:auto">
       <table class="tableau" id="grille">
         <thead>
           <tr>
-            <th>Sem.</th><th>Date</th><th class="jour">Jour</th>
+            <th class="col-sem">Sem.</th><th>Date</th><th class="jour">Jour</th>
             <th>Arrivée<br>matin</th><th>Départ<br>matin</th>
             <th>Arrivée<br>a.-m.</th><th>Départ<br>a.-m.</th><th>Heures</th>
           </tr>
@@ -194,24 +188,26 @@
       ⚠ Au moins une semaine de ce mois atteint 35 h. Les heures complémentaires ne peuvent pas porter la durée du travail au niveau de la durée légale du temps complet (35 h) ou, si elle est inférieure, au niveau de la durée conventionnelle applicable — le dépassement peut alors entraîner une requalification du contrat. Cette alerte se base sur 35 h à titre indicatif : vérifiez le seuil réel applicable à votre situation avec un professionnel.
     </div>
     <div class="note-complet">
-      Cet outil compte des <b>heures</b>, pas un salaire&nbsp;: il ne calcule aucune majoration. Les heures complémentaires ouvrent droit à une majoration (10 %, parfois 25 % au-delà, selon la loi ou les dispositions conventionnelles applicables) — le détail est expliqué dans le texte ci-dessous. Décompte hebdomadaire uniquement pour l'instant : si votre contrat fixe une durée <b>mensuelle</b> plutôt qu'hebdomadaire, le mode adapté arrive prochainement sur cette page.
+      Cet outil compte des <b>heures</b>, pas un salaire&nbsp;: il ne calcule aucune majoration. Les heures complémentaires ouvrent droit à une majoration (10 %, parfois 25 % au-delà, selon la loi ou les dispositions conventionnelles applicables) — le détail est expliqué dans le texte ci-dessous. Choisissez le mode « À la semaine » ou « Au mois » selon la référence inscrite dans votre contrat.
     </div>
   </section>
 
 <section class="contenu-seo">
   <h2>Qu'est-ce qu'une heure complémentaire ?</h2>
   <p>Une heure complémentaire, c'est une heure effectuée par un salarié à temps partiel au-delà de sa durée contractuelle. Un salarié à 20 heures par semaine qui en travaille 23 a fait 3 heures complémentaires cette semaine-là.</p>
+  <p>Le principe est le même pour un contrat fixé au mois&nbsp;: un salarié à 104 heures par mois qui en travaille 112 dans le mois a fait 8 heures complémentaires ce mois-là.</p>
   <p>C'est différent d'une heure supplémentaire, réservée aux salariés à temps complet, qui se compte au-delà de 35 heures. Le régime, les seuils et les majorations ne sont pas les mêmes.</p>
   <p>C'est ce que fait le tableau de calcul ci-dessus : vous indiquez votre durée hebdomadaire contractuelle, il additionne vos heures saisies et repère celles qui dépassent ce seuil, semaine par semaine.</p>
 
   <h2>Le décompte se fait à la semaine ou au mois : ça dépend de votre contrat</h2>
   <p>La référence retenue pour compter les heures complémentaires n'est pas libre : c'est celle inscrite au contrat de travail. Un contrat rédigé « 20 heures par semaine » se décompte à la semaine. Un contrat rédigé « 87 heures par mois » se décompte au mois.</p>
   <p>Une erreur fréquente consiste à lisser sur le mois un contrat pourtant fixé à la semaine, en compensant une semaine chargée par une semaine plus calme. Ce n'est en principe pas autorisé : pour un contrat à durée hebdomadaire fixe, et sauf aménagement particulier prévu par un accord collectif, chaque semaine est examinée pour elle-même.</p>
-  <p>Ce calculateur traite pour l'instant le cas le plus courant, le contrat à base hebdomadaire. Le mode mensuel, pour les contrats fixés au mois, sera ajouté à cette même page dans une prochaine évolution.</p>
+  <p>Ce calculateur propose les deux modes ci-dessus, à la semaine ou au mois&nbsp;: choisissez celui qui correspond à la référence inscrite dans votre contrat.</p>
 
   <h2>Le plafond légal des heures complémentaires</h2>
-  <p>Le nombre d'heures complémentaires ne peut pas dépasser le dixième de la durée contractuelle. Pour un contrat de 20 heures, la limite est donc de 2 heures par semaine, portant le total à 22 heures maximum.</p>
-  <p>Une convention ou un accord collectif peut relever ce plafond jusqu'au tiers de la durée contractuelle. Toujours pour 20 heures, cela porterait la limite à environ 6h40, soit un maximum de 26h40. Ce relèvement n'est pas automatique : il faut qu'une disposition conventionnelle l'autorise expressément.</p>
+  <p>Le nombre d'heures complémentaires ne peut pas dépasser le dixième de la durée contractuelle. Pour un contrat de 20 heures par semaine, la limite est donc de 2 heures par semaine, portant le total à 22 heures maximum.</p>
+  <p>Le même principe s'applique à un contrat fixé au mois, sur la base mensuelle&nbsp;: pour 104 heures par mois, la limite du dixième est de 10,4 heures, portant le total à 114,4 heures maximum.</p>
+  <p>Une convention ou un accord collectif peut relever ce plafond jusqu'au tiers de la durée contractuelle. Pour 20 heures par semaine, cela porterait la limite à environ 6h40, soit un maximum de 26h40 ; pour 104 heures par mois, la limite serait d'environ 34h40, soit un maximum de 138h40. Ce relèvement n'est pas automatique : il faut qu'une disposition conventionnelle l'autorise expressément.</p>
   <p>Dans tous les cas, une règle s'applique : les heures complémentaires ne peuvent pas avoir pour effet de porter la durée du travail au niveau de la durée légale du temps complet (35 heures par semaine) ou, si elle est inférieure, au niveau de la durée conventionnelle applicable au temps complet. Le dépassement de ce seuil peut entraîner une requalification du contrat en temps complet ; le simple fait de s'en approcher ne suffit pas à lui seul à l'entraîner.</p>
 
   <h2>La majoration des heures complémentaires</h2>
@@ -221,33 +217,32 @@
   <p>Ce calculateur ne pose pas ces taux, propres à chaque situation et parfois à une convention collective : il vous donne le nombre d'heures, à vous ou votre employeur d'appliquer le taux correspondant.</p>
 
   <h2>Le cas des semaines à cheval sur deux mois</h2>
+  <p>Ce point concerne uniquement le mode « à la semaine » de cet outil. En mode « au mois », chaque heure reste rattachée au mois civil où elle est physiquement travaillée : il n'y a pas de semaine à cheval à gérer. Cette description correspond au décompte hebdomadaire ou mensuel ordinaire ; elle ne couvre pas les cas où un accord collectif organise le temps de travail sur une période de référence différente (aménagement du temps de travail, annualisation).</p>
   <p>Certaines semaines commencent à la fin d'un mois et se terminent au début du suivant. Pour un contrat à durée hebdomadaire fixe, et sauf période de référence différente prévue par un accord collectif, le seuil de votre durée contractuelle se calcule sur la semaine civile complète, du lundi au dimanche.</p>
   <p>Dans ce calculateur, chaque semaine est rattachée au mois où elle se termine, pour rester cohérent avec la logique de paiement des heures complémentaires habituellement retenue. C'est une convention de calcul propre à cet outil, pas une règle légale figée.</p>
 
-  <h2>La base contractuelle mensualisée</h2>
-  <p>Si votre contrat est mensualisé, la rémunération de base se lisse sur une valeur mensuelle fixe, calculée à partir de votre durée hebdomadaire&nbsp;: durée hebdomadaire multipliée par 52 semaines, divisée par 12 mois. Pour un contrat de 20 heures par semaine, cela représente environ 86,67 heures par mois.</p>
-  <p>Les heures complémentaires, elles, s'ajoutent à cette base après avoir été comptées semaine par semaine — elles ne sont pas lissées de la même façon.</p>
+  <h2>Contrat au mois ou contrat à la semaine mensualisé : ne pas confondre</h2>
+  <p>Deux situations se ressemblent mais ne se traitent pas de la même façon dans cet outil.</p>
+  <p>Si votre contrat fixe directement une durée <b>mensuelle</b> (par exemple « 104 heures par mois »), c'est ce chiffre exact qu'il faut saisir dans le mode « au mois » ci-dessus. Aucun calcul à faire : c'est la référence inscrite noir sur blanc dans votre contrat.</p>
+  <p>Si votre contrat fixe une durée <b>hebdomadaire</b> (par exemple « 20 heures par semaine »), mais que votre salaire est lissé sur le mois pour le paiement, c'est le mode « à la semaine » qu'il faut utiliser — même si votre fiche de paie affiche un nombre d'heures mensuel. Dans ce cas, la base mensualisée se calcule automatiquement à partir de votre durée hebdomadaire&nbsp;: durée hebdomadaire multipliée par 52 semaines, divisée par 12 mois. Pour 20 heures par semaine, cela représente environ 86,67 heures par mois.</p>
+  <p>La différence n'est pas cosmétique&nbsp;: le décompte des heures complémentaires ne se fait pas au même rythme selon le cas. Un contrat hebdomadaire mensualisé reste décompté semaine par semaine (voir plus haut le piège du lissage) ; un contrat réellement mensuel se décompte sur le mois entier. Se tromper de mode dans l'outil, c'est appliquer la mauvaise référence de calcul — et le mode à choisir dépend de ce qui est réellement écrit dans le contrat, pas seulement de la façon dont le salaire est affiché sur la fiche de paie. Si votre temps de travail est organisé sur une période différente (annualisation, accord d'aménagement du temps de travail), ce calculateur ne couvre pas ce cas dans sa version actuelle.</p>
 
-  <p class="avert">Ce calculateur est fourni à titre indicatif. C'est un outil de comptage d'heures, pas de calcul de salaire&nbsp;: aucune majoration n'est appliquée, le résultat est à combiner avec les taux applicables à votre situation (10 %, 25 % selon la loi ou les dispositions conventionnelles applicables) pour obtenir une rémunération. Il couvre les contrats à temps partiel à durée hebdomadaire fixe ; les contrats à durée mensuelle, annualisée, ou les cas particuliers (convention collective, aménagement du temps de travail, jours fériés, absences) ne sont pas traités par cet outil dans sa version actuelle. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
+  <p class="avert">Ce calculateur est fourni à titre indicatif. C'est un outil de comptage d'heures, pas de calcul de salaire&nbsp;: aucune majoration n'est appliquée, le résultat est à combiner avec les taux applicables à votre situation (10 %, 25 % selon la loi ou les dispositions conventionnelles applicables) pour obtenir une rémunération. Il couvre les contrats à temps partiel à durée hebdomadaire ou mensuelle fixe ; les contrats annualisés, ou les cas particuliers (convention collective, aménagement du temps de travail, jours fériés, absences) ne sont pas traités par cet outil dans sa version actuelle. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
 </section>
-<section class="sources">
-  <h3>Sources</h3>
-  <ul>
-    <li>Plafond des heures complémentaires (1/10e du contrat) et interdiction de requalification implicite — <a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000033004784/" target="_blank" rel="noopener">Code du travail, art. L3123-28</a></li>
-    <li>Majoration des heures complémentaires (10 %/25 %) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033019947" target="_blank" rel="noopener">Code du travail, art. L3123-29</a></li>
-    <li>Durée légale du travail (35h/semaine, seuil de l'alerte) — <a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006189631/" target="_blank" rel="noopener">Code du travail, art. L3121-27</a></li>
-    <li>Fiche pédagogique — <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F32428" target="_blank" rel="noopener">Service-public.fr, temps partiel d'un salarié du secteur privé</a></li>
-  </ul>
-</section>
+
   <footer>
-    Salarié à temps partiel, durée contractuelle hebdomadaire. Les heures complémentaires se décomptent à la semaine civile, au-delà de la durée contractuelle, dans la limite légale du dixième de cette durée (10 %), portée au tiers par convention ou accord collectif (alors majorées à 25 % au-delà du dixième). Elles ne peuvent pas porter le total au niveau de la durée légale du temps complet (35 h/semaine) ou, si elle est inférieure, de la durée conventionnelle applicable. Outil indicatif, ne remplace pas un bulletin de paie.
-    <p style="margin-top:12px"><a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet à l'heure réelle</a></p>
+    Salarié à temps partiel. Les heures complémentaires se décomptent à la semaine ou au mois selon la référence inscrite au contrat, au-delà de la durée contractuelle, dans la limite légale du dixième de cette durée (10 %), portée au tiers par convention ou accord collectif (alors majorées à 25 % au-delà du dixième). Elles ne peuvent pas porter le total au niveau de la durée légale du temps complet (35 h/semaine, soit 151,67 h/mois) ou, si elle est inférieure, de la durée conventionnelle applicable. Outil indicatif, ne remplace pas un bulletin de paie.
+    <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a></p>
     <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a></p>
   </footer>
 </div>
 
 <script is:inline>
 const SEUIL_LEGAL=35;
+const SEUIL_LEGAL_MENSUEL=151.67;
+let MODE="semaine";
+const TXT_ALERTE_SEMAINE="⚠ Au moins une semaine de ce mois atteint 35 h. Les heures complémentaires ne peuvent pas porter la durée du travail au niveau de la durée légale du temps complet (35 h) ou, si elle est inférieure, au niveau de la durée conventionnelle applicable — le dépassement peut alors entraîner une requalification du contrat. Cette alerte se base sur 35 h à titre indicatif : vérifiez le seuil réel applicable à votre situation avec un professionnel.";
+const TXT_ALERTE_MOIS="⚠ Le cumul de ce mois atteint 151,67 h — l'équivalent mensuel de la durée légale du temps complet. Les heures complémentaires ne peuvent pas porter la durée du travail à ce niveau (ou à la durée conventionnelle applicable si elle est inférieure) — le dépassement peut alors entraîner une requalification du contrat. Cette alerte se base sur 151,67 h à titre indicatif : vérifiez le seuil réel applicable à votre situation avec un professionnel.";
 
 function tvd(v){if(v==null||v==="")return NaN;const s=String(v).trim().replace(",",".");const m=s.match(/^(\d{1,2})\s*[:hH]\s*(\d{1,2})$/);if(m)return +m[1]+(+m[2])/60;const d=parseFloat(s);return isNaN(d)?NaN:d;}
 function hJour(a1,a2,p1,p2){let t=0;const x1=tvd(a1),x2=tvd(a2);if(!isNaN(x1)&&!isNaN(x2))t+=Math.max(0,x2-x1);const y1=tvd(p1),y2=tvd(p2);if(!isNaN(y1)&&!isNaN(y2))t+=Math.max(0,y2-y1);return t;}
@@ -264,6 +259,10 @@ function contratActuel(){
   const sel=document.getElementById("contrat").value;
   if(sel==="autre"){const v=parseFloat(document.getElementById("contrat-libre").value);return isNaN(v)?20:v;}
   return parseFloat(sel);
+}
+function contratMensuelActuel(){
+  const v=parseFloat(document.getElementById("contrat-mensuel").value);
+  return isNaN(v)?0:v;
 }
 
 /* Heures complémentaires d'une semaine (lundi->dimanche), rattachées au mois du dimanche */
@@ -302,6 +301,20 @@ function semainesAlerte(annee,mois,contrat){
   return map;
 }
 
+/* Mode mensuel : chaque jour reste rattaché au mois civil affiché, pas de semaine à cheval */
+function calcMoisMensuel(annee,mois,contratM){
+  const dernier=new Date(annee,mois+1,0);
+  let total=0;
+  for(let d=1;d<=dernier.getDate();d++){
+    const dt=new Date(annee,mois,d);
+    const rec=DATA[cleJour(dt)]||{};
+    total+=hJour(rec.am1,rec.am2,rec.pm1,rec.pm2);
+  }
+  const comp=Math.max(0,total-contratM);
+  const alerte=total>=SEUIL_LEGAL_MENSUEL;
+  return {base:contratM,comp,alerte};
+}
+
 const MOIS=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
 const JOURS=["lun","mar","mer","jeu","ven","sam","dim"];
 const selMois=document.getElementById("mois");
@@ -313,19 +326,20 @@ function sauveLigne(tr){
   DATA[k]={am1:tr.querySelector(".am1").value,am2:tr.querySelector(".am2").value,pm1:tr.querySelector(".pm1").value,pm2:tr.querySelector(".pm2").value};
   const h=hJour(DATA[k].am1,DATA[k].am2,DATA[k].pm1,DATA[k].pm2);
   tr.querySelector("[data-h]").textContent=h>0?decHM(h):"—";
-  construireAlertes();calculer();
+  if(MODE==="semaine")construireAlertes();
+  calculer();
 }
 function ligneHTML(date,report,alertesMap){
   const jw=(date.getDay()+6)%7,sem=isoSem(date),k=cleJour(date),rec=DATA[k]||{},h=hJour(rec.am1,rec.am2,rec.pm1,rec.pm2);
   const cls=[report?"report":"",jw>=5?"we":""].filter(Boolean).join(" ");
   let semCell="";
-  if(jw===0){
+  if(jw===0&&MODE==="semaine"){
     const lundiKey=cleJour(lundiDe(date));
     const alerte=alertesMap&&alertesMap[lundiKey];
     semCell='<span class="semlabel'+(alerte?" semalerte":"")+'">'+sem+(alerte?' <span class="semalerte-icone">⚠</span>':"")+'</span>';
   }
   return '<tr class="'+cls+'" data-date="'+k+'">'
-    +'<td>'+semCell+'</td>'
+    +'<td class="col-sem">'+semCell+'</td>'
     +'<td class="date">'+String(date.getDate()).padStart(2,"0")+"/"+String(date.getMonth()+1).padStart(2,"0")+'</td>'
     +'<td class="jour">'+JOURS[jw]+'</td>'
     +'<td><input type="time" class="am1" value="'+(rec.am1||"")+'"></td>'
@@ -334,7 +348,7 @@ function ligneHTML(date,report,alertesMap){
     +'<td><input type="time" class="pm2" value="'+(rec.pm2||"")+'"></td>'
     +'<td class="htot" data-h>'+(h>0?decHM(h):"—")+'</td></tr>';
 }
-function construire(){
+function construireSemaine(){
   const mois=+selMois.value,annee=+document.getElementById("annee").value,contrat=contratActuel();
   const premier=new Date(annee,mois,1),dernier=new Date(annee,mois+1,0);
   const alertesMap=semainesAlerte(annee,mois,contrat);
@@ -350,6 +364,21 @@ function construire(){
     inp.addEventListener("change",()=>sauveLigne(inp.closest("tr")));
     inp.addEventListener("blur",()=>sauveLigne(inp.closest("tr")));
   });
+}
+function construireMois(){
+  const mois=+selMois.value,annee=+document.getElementById("annee").value;
+  const dernier=new Date(annee,mois+1,0);
+  let html="";
+  for(let d=1;d<=dernier.getDate();d++)html+=ligneHTML(new Date(annee,mois,d),false,null);
+  const corps=document.getElementById("corps");corps.innerHTML=html;
+  corps.querySelectorAll("input").forEach(inp=>{
+    inp.addEventListener("input",()=>sauveLigne(inp.closest("tr")));
+    inp.addEventListener("change",()=>sauveLigne(inp.closest("tr")));
+    inp.addEventListener("blur",()=>sauveLigne(inp.closest("tr")));
+  });
+}
+function construire(){
+  if(MODE==="semaine")construireSemaine();else construireMois();
 }
 function construireAlertes(){
   const mois=+selMois.value,annee=+document.getElementById("annee").value,contrat=contratActuel();
@@ -367,9 +396,12 @@ function construireAlertes(){
   });
 }
 function calculer(){
-  const r=calcMois(+document.getElementById("annee").value,+selMois.value,contratActuel());
+  const r = MODE==="semaine"
+    ? calcMois(+document.getElementById("annee").value,+selMois.value,contratActuel())
+    : calcMoisMensuel(+document.getElementById("annee").value,+selMois.value,contratMensuelActuel());
   document.getElementById("r-base").innerHTML=decFr(r.base)+'<small> h</small>';
   document.getElementById("r-comp").innerHTML=decFr(r.comp)+'<small> h · '+decHM(r.comp)+'</small>';
+  document.getElementById("alerte-35").innerHTML = MODE==="semaine" ? TXT_ALERTE_SEMAINE : TXT_ALERTE_MOIS;
   document.getElementById("alerte-35").classList.toggle("visible",r.alerte);
 }
 function exemple(){
@@ -380,16 +412,30 @@ function exemple(){
 function vider(){
   const mois=+selMois.value,annee=+document.getElementById("annee").value,nb=new Date(annee,mois+1,0).getDate();
   for(let d=1;d<=nb;d++)delete DATA[cleJour(new Date(annee,mois,d))];
-  construire();
-  document.getElementById("r-base").innerHTML='0<small> h</small>';
-  document.getElementById("r-comp").innerHTML='0<small> h</small>';
-  document.getElementById("alerte-35").classList.remove("visible");
+  construire();calculer();
 }
 function changeMois(delta){
   let m=+selMois.value+delta,y=+document.getElementById("annee").value;
   if(m<0){m=11;y--;}else if(m>11){m=0;y++;}
   selMois.value=m;document.getElementById("annee").value=y;construire();calculer();
 }
+function setMode(m){
+  MODE=m;
+  document.querySelectorAll(".seg-btn").forEach(b=>b.classList.toggle("active",b.dataset.mode===m));
+  document.getElementById("contrat-semaine").style.display=m==="semaine"?"flex":"none";
+  document.getElementById("contrat-mois").style.display=m==="mois"?"flex":"none";
+  document.getElementById("hint-mois").style.display=m==="mois"?"block":"none";
+  document.getElementById("grille").classList.toggle("mode-mois",m==="mois");
+  document.getElementById("cadre-legal").innerHTML = m==="semaine"
+    ? 'Décompte à la semaine civile, selon votre durée contractuelle &middot; alerte si une semaine atteint <b>35 h</b> (seuil légal du temps complet)'
+    : 'Décompte au mois civil, selon votre durée contractuelle mensuelle &middot; alerte si le cumul du mois atteint <b>151,67 h</b> (équivalent mensuel du temps complet)';
+  document.getElementById("hint-horaires").innerHTML = m==="semaine"
+    ? 'Laissez vide un jour non travaillé. La pause du midi est déduite automatiquement. Les lignes <span style="color:var(--report-b);font-weight:600">violettes</span> appartiennent au mois voisin&nbsp;: elles servent à calculer correctement le seuil des semaines à cheval. Une semaine marquée <span style="color:var(--alerte);font-weight:600">⚠</span> atteint 35 h.'
+    : 'Laissez vide un jour non travaillé. La pause du midi est déduite automatiquement. Chaque heure reste rattachée au jour réellement travaillé dans ce mois civil.';
+  construire();calculer();
+}
+document.querySelectorAll(".seg-btn").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
+document.getElementById("contrat-mensuel").addEventListener("input",()=>calculer());
 document.getElementById("contrat").addEventListener("change",function(){
   document.getElementById("contrat-libre").style.display=this.value==="autre"?"inline-block":"none";
   construire();calculer();
