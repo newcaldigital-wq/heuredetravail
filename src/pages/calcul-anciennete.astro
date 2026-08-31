@@ -1,0 +1,304 @@
+---
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul d'ancienneté — Durée entre deux dates | France</title>
+<meta name="description" content="Calculez l'ancienneté d'un salarié entre deux dates : années, mois et jours exacts. Simulateur gratuit, sans tableur ni formule à écrire.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<style is:global>
+  :root{
+    --encre:#152238;--encre-2:#22334f;--papier:#F5F3EE;--papier-2:#ECE8DF;
+    --trait:#D8D2C4;--vert:#2F6F63;--gris:#6A6558;--accent:#8A6FA8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--papier);color:var(--encre);line-height:1.5;padding:24px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  header.hero{margin-bottom:24px;border-bottom:2px solid var(--encre);padding-bottom:18px}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
+  h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
+  h1 .light{font-weight:700;color:var(--encre-2)}
+  .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:660px}
+  .sub a{color:var(--vert);font-weight:600}
+  .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
+  .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .panneau h2 .num{background:var(--encre);color:#fff;width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .champs{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end}
+  .champ{display:flex;flex-direction:column;gap:6px}
+  .champ label{font-size:13px;color:var(--gris);font-weight:600}
+  .champ input[type=date]{padding:10px 12px;border:1px solid var(--trait);border-radius:7px;font-size:15px;background:var(--papier);color:var(--encre);font-family:inherit}
+  .champ input[type=date]:focus{outline:2px solid var(--vert)}
+  .cadre-legal{font-size:12.5px;color:var(--gris);background:var(--papier-2);padding:8px 12px;border-radius:6px;margin-top:16px}
+  .cadre-legal b{color:var(--encre)}
+  .cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:4px}
+  .carte{border:1px solid var(--trait);border-radius:8px;padding:14px;background:var(--papier)}
+  .carte .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:600}
+  .carte .val{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:4px}
+  .carte .val small{font-size:14px;font-weight:400;color:var(--gris)}
+  .carte.principal{border-top:3px solid var(--vert);grid-column:1/-1}
+  .carte.principal .val{color:var(--vert);font-size:32px}
+  .carte.total{border-top:3px solid var(--accent)} .carte.total .val{color:var(--accent)}
+  .erreur{margin-top:14px;padding:11px 14px;background:#F6E5E1;border-left:4px solid #A6472E;border-radius:6px;font-size:13px;color:#5a2418;display:none}
+  .erreur.visible{display:block}
+  .note-complet{margin-top:14px;padding:11px 14px;background:var(--papier-2);border-left:4px solid var(--vert);border-radius:6px;font-size:13px;color:var(--encre-2)}
+  .note-complet b{color:var(--encre)}
+  .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  button.act{font-family:inherit;font-size:14px;padding:9px 16px;border-radius:7px;border:1px solid var(--encre);cursor:pointer;font-weight:600}
+  .btn-primary{background:var(--encre);color:#fff}
+  .btn-ghost{background:transparent;color:var(--encre)}
+  button.act:hover{opacity:.9}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
+  @media(max-width:640px){h1{font-size:26px}.champs{flex-direction:column;align-items:stretch}}
+
+  .contenu-seo{
+    max-width:760px;
+    margin:36px auto 0;
+    padding:28px 4px 0;
+    border-top:2px solid var(--encre);
+  }
+  .contenu-seo h2{
+    font-size:21px;
+    color:var(--encre);
+    margin:28px 0 10px;
+    letter-spacing:-0.2px;
+  }
+  .contenu-seo h2:first-of-type{margin-top:0}
+  .contenu-seo p{
+    font-size:15.5px;
+    color:var(--encre-2);
+    line-height:1.7;
+    margin-bottom:14px;
+  }
+  .contenu-seo .avert{
+    margin-top:24px;
+    padding:14px 16px;
+    background:var(--papier-2);
+    border-radius:8px;
+    font-size:13px;
+    color:var(--gris);
+    line-height:1.6;
+  }
+  .sources{
+    max-width:760px;
+    margin:28px auto 0;
+    padding:20px 4px 0;
+  }
+  .sources h2{font-size:16px;color:var(--encre);margin-bottom:10px}
+  .sources ul{list-style:none;font-size:13px;color:var(--gris)}
+  .sources li{margin-bottom:6px}
+  .sources a{color:var(--vert);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Ancienneté · France</div>
+    <h1>Calcul d'<span class="light">ancienneté</span></h1>
+    <p class="sub">Salarié, employeur, ou simple curiosité ? Indiquez une date d'entrée et une date de calcul : l'outil affiche directement la durée exacte en années, mois et jours — sans formule à écrire, sans tableur à ouvrir.</p>
+  </header>
+
+  <section class="panneau">
+    <h2><span class="num">1</span> Dates</h2>
+    <div class="champs">
+      <div class="champ">
+        <label for="date-entree">Date d'entrée</label>
+        <input type="date" id="date-entree">
+      </div>
+      <div class="champ">
+        <label for="date-calcul">Date de calcul</label>
+        <input type="date" id="date-calcul">
+      </div>
+    </div>
+    <div class="cadre-legal">Décompte calendaire exact (méthode années/mois/jours) &middot; adapté à toute durée, y compris sur plusieurs dizaines d'années</div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">2</span> Résultat</h2>
+    <div class="cartes">
+      <div class="carte principal"><div class="lbl">Ancienneté</div><div class="val" id="r-principal">—</div></div>
+      <div class="carte total"><div class="lbl">Total en jours</div><div class="val" id="r-jours">—</div></div>
+    </div>
+    <div class="erreur" id="erreur-dates">La date de calcul doit être postérieure ou égale à la date d'entrée.</div>
+    <div class="note-complet">
+      Ce résultat est une <b>durée calendaire brute</b> entre les deux dates saisies. Il ne déduit aucune période de suspension du contrat (congé sans solde, arrêt maladie, etc.) : leur traitement dépend du droit recherché (préavis, indemnité de licenciement, prime d'ancienneté...) et de la convention collective applicable — voir le détail plus bas.
+    </div>
+    <div class="actions">
+      <button class="act btn-ghost" id="aujourdhui">Utiliser la date du jour</button>
+      <button class="act btn-ghost" id="vider">Effacer</button>
+    </div>
+  </section>
+
+<section class="contenu-seo">
+  <h2>Comment calculer son ancienneté ?</h2>
+  <p>Calculer son ancienneté, c'est mesurer la durée écoulée entre le début de la relation de travail retenue et une date de référence. Pour un usage personnel, cette date de référence est souvent celle du jour ; pour déterminer un droit juridique précis (indemnité de licenciement, préavis...), la date à retenir dépend du droit concerné.</p>
+  <p>Le principe est simple, mais le compte à la main se complique vite : les mois n'ont pas tous le même nombre de jours, les années bissextiles décalent le calcul, et une simple soustraction de dates donne rarement un résultat lisible en années/mois/jours.</p>
+  <p>C'est précisément ce que fait le calculateur ci-dessus. Vous indiquez la date d'entrée et la date de calcul, il affiche directement la durée exacte — sans formule à écrire, sans tableur à ouvrir.</p>
+
+  <h2>Depuis quelle date calculer l'ancienneté ?</h2>
+  <p>Pour déterminer une ancienneté, il faut rechercher le début de la relation de travail pertinente avec l'employeur. Ce point de départ ne correspond pas toujours à la date de signature du contrat actuellement en vigueur.</p>
+  <p>Un cas fréquent : un ou plusieurs CDD suivis immédiatement d'un CDI, sans interruption. Dans cette situation, l'ancienneté est reprise depuis le premier CDD (article L1243-11 du Code du travail). En cas de contrats séparés par une interruption, la reprise de l'ancienneté dépend du texte applicable, notamment de la convention collective : une interruption courte ne suffit pas, à elle seule, à la garantir.</p>
+
+  <h2>Le temps partiel compte-t-il comme du temps plein pour l'ancienneté ?</h2>
+  <p>Oui. L'article L3123-5 du Code du travail prévoit que, pour les droits liés à l'ancienneté, un salarié à temps partiel est décompté comme s'il avait été occupé à temps complet. Deux salariés entrés le même jour, l'un à temps plein et l'autre à mi-temps, ont donc la même ancienneté à date égale.</p>
+  <p>Cette règle concerne le décompte de la durée. Le montant de certaines indemnités peut, lui, être calculé proportionnellement aux périodes travaillées à temps plein et à temps partiel lorsque le salarié a connu les deux régimes.</p>
+
+  <h2>Les périodes qui comptent dans l'ancienneté</h2>
+  <p>Certaines périodes sont expressément assimilées par la loi à du travail effectif pour les droits liés à l'ancienneté, notamment le congé de maternité (L1225-24), le congé de paternité et d'accueil de l'enfant (L1225-35-2), le congé d'adoption (L1225-42), ainsi que les périodes d'accident du travail ou de maladie professionnelle (L1226-7).</p>
+  <p>Une nuance sur ce dernier point : la loi vise l'accident du travail hors accident de trajet. Un accident de trajet n'ouvre pas droit à cette même assimilation automatique.</p>
+  <p>Les congés payés suivent une logique un peu différente : ils n'interrompent pas l'ancienneté et sont notamment pris en compte dans le décompte servant à l'indemnité de licenciement. L'article L3141-5 les assimile par ailleurs à du travail effectif, mais spécifiquement pour le calcul de la durée des congés payés eux-mêmes.</p>
+
+  <h2>Les périodes qui ne comptent pas, ou comptent partiellement</h2>
+  <p>Le congé sabbatique suspend le contrat sans faire acquérir de nouvelle ancienneté pendant sa durée. Le congé parental d'éducation à temps plein est un cas particulier : il ne compte que pour moitié dans le calcul de l'ancienneté (article L1225-54) — à temps partiel, en revanche, il est assimilé intégralement à du travail effectif.</p>
+  <p>Le congé sans solde n'est pas organisé de façon générale par le Code du travail : il résulte d'un accord entre salarié et employeur. Sa durée n'est en principe pas ajoutée au décompte servant à l'indemnité légale de licenciement, sauf disposition plus favorable de la convention collective, du contrat ou d'un usage.</p>
+  <p>La période de grève suit une logique proche pour ce même calcul : elle n'est en principe pas prise en compte dans le décompte de l'indemnité légale de licenciement. Cela dit, l'exercice normal du droit de grève reste protégé : il ne peut justifier ni sanction, ni discrimination, ni rupture du contrat de travail, sauf faute lourde imputable au salarié.</p>
+  <p>Le cas de l'arrêt maladie non professionnelle mérite une explication à part. La suspension du contrat ne remet pas en cause l'ancienneté déjà acquise avant l'arrêt. En revanche, en l'absence de disposition plus favorable, la durée de l'arrêt lui-même n'est en principe pas ajoutée au décompte servant au calcul de l'indemnité légale de licenciement. Pour les autres droits — préavis, congés supplémentaires, avantages conventionnels — la règle applicable dépend du texte ou de la convention collective concernée.</p>
+
+  <h2>À quoi sert l'ancienneté ?</h2>
+  <p>L'ancienneté n'est pas qu'un chiffre : elle détermine plusieurs droits, chacun avec ses propres règles de décompte. Elle intervient notamment dans la durée du préavis selon les règles légales applicables (sauf dispositions conventionnelles ou contractuelles plus favorables), dans l'ouverture et le calcul de l'indemnité de licenciement (articles L1234-9 à L1234-11), ou encore dans l'attribution de congés supplémentaires ou d'avantages prévus par certaines conventions collectives.</p>
+  <p>Ce calculateur s'arrête volontairement à la durée brute entre deux dates : il ne calcule aucun montant ni aucune indemnité, et n'applique aucune des exclusions ou règles particulières propres à chaque droit. Il vous donne la donnée de base, à ajuster ensuite selon le droit précis que vous cherchez à déterminer.</p>
+
+  <p class="avert">Le calculateur ne déduit automatiquement aucune période de suspension : il affiche uniquement la durée calendaire brute entre les deux dates saisies. Selon le droit recherché — préavis, indemnité de licenciement, congés supplémentaires, prime d'ancienneté — certaines périodes peuvent être intégralement comptées, comptées partiellement, ou exclues, notamment pour le congé de maternité, le congé de paternité, le congé d'adoption et les périodes d'accident du travail ou de maladie professionnelle, qui bénéficient de règles légales d'assimilation propres. Ce résultat est fourni à titre indicatif et ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
+</section>
+
+<section class="sources">
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006901222" target="_blank" rel="noopener">Code du travail, article L1243-11</a> — reprise d'ancienneté en cas de CDD suivi d'un CDI sans interruption</li>
+    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033020084/" target="_blank" rel="noopener">Code du travail, article L3123-5</a> — décompte de l'ancienneté pour un salarié à temps partiel</li>
+    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000018764607" target="_blank" rel="noopener">Code du travail, article L1225-24</a> — assimilation du congé de maternité</li>
+    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000047285498" target="_blank" rel="noopener">Code du travail, article L1225-35-2</a> — assimilation du congé de paternité et d'accueil de l'enfant</li>
+    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000018764619" target="_blank" rel="noopener">Code du travail, article L1225-42</a> — assimilation du congé d'adoption</li>
+    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000023272293" target="_blank" rel="noopener">Code du travail, article L1226-7</a> — assimilation en cas d'accident du travail ou de maladie professionnelle</li>
+    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000047293349" target="_blank" rel="noopener">Code du travail, article L1225-54</a> — congé parental d'éducation</li>
+    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000049461613/2024-07-09" target="_blank" rel="noopener">Code du travail, article L3141-5</a> — assimilation pour le calcul des congés payés</li>
+    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006650266" target="_blank" rel="noopener">Code du travail, article L2511-1</a> — protection de l'exercice du droit de grève</li>
+    <li><a href="https://www.service-public.fr/particuliers/vosdroits/F371" target="_blank" rel="noopener">Service-public.fr — Indemnité de licenciement</a></li>
+  </ul>
+</section>
+
+  <footer>
+    Calcul de la durée d'ancienneté entre deux dates (années, mois, jours). Durée calendaire brute, sans déduction de période de suspension du contrat — leur traitement dépend du droit recherché et de la convention collective applicable. Outil indicatif, ne remplace pas un bulletin de paie.
+    <p style="margin-top:12px">Autres calculateurs : <a href="/" style="color:var(--vert);font-weight:600">Calcul heure de travail</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps de travail réel</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Heures complémentaires temps partiel</a></p>
+    <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a></p>
+  </footer>
+</div>
+
+<script is:inline>
+/* Ajoute n mois à une date, en plafonnant sur le dernier jour du mois cible
+   si le jour d'origine n'existe pas (ex: 31 janvier + 1 mois -> 28/29 février,
+   pas "3 mars" comme le ferait un objet Date natif). */
+function ajouterMois(date, n){
+  const d = new Date(date.getFullYear(), date.getMonth() + n, date.getDate());
+  if(d.getDate() !== date.getDate()){
+    return new Date(date.getFullYear(), date.getMonth() + n + 1, 0);
+  }
+  return d;
+}
+
+/* Calcule la durée exacte en années/mois/jours entre deux dates.
+   Méthode robuste (par ajout de mois plafonné) : gère correctement les
+   dates de fin de mois (31, 29 février) sans jamais produire de jours négatifs. */
+function diffDates(debut, fin){
+  const approx = (fin.getFullYear() - debut.getFullYear()) * 12 + (fin.getMonth() - debut.getMonth());
+  let totalMois = approx;
+  let candidat = ajouterMois(debut, totalMois);
+  if(candidat > fin){
+    totalMois -= 1;
+    candidat = ajouterMois(debut, totalMois);
+  } else {
+    let suivant = ajouterMois(debut, totalMois + 1);
+    while(suivant <= fin){
+      totalMois += 1;
+      candidat = suivant;
+      suivant = ajouterMois(debut, totalMois + 1);
+    }
+  }
+  const jours = Math.round((fin - candidat) / 86400000);
+  const annees = Math.floor(totalMois / 12);
+  const mois = totalMois % 12;
+  const totalJours = Math.round((fin - debut) / 86400000);
+  return {annees, mois, jours, totalJours};
+}
+
+function parseDate(str){
+  if(!str) return null;
+  const [a,m,j] = str.split("-").map(Number);
+  return new Date(a, m-1, j);
+}
+
+function formatDuree(r){
+  const parts = [];
+  parts.push(r.annees + (r.annees === 1 ? " an" : " ans"));
+  parts.push(r.mois + (r.mois === 1 ? " mois" : " mois"));
+  parts.push(r.jours + (r.jours === 1 ? " jour" : " jours"));
+  return parts.join(", ");
+}
+
+const MSG_ORDRE = "La date de calcul doit être postérieure ou égale à la date d'entrée.";
+const MSG_INVALIDE = "Date invalide : vérifiez que le jour saisi existe bien dans le mois choisi (par exemple, il n'y a pas de 30 février).";
+
+function calculer(){
+  const inpDebut = document.getElementById("date-entree");
+  const inpFin = document.getElementById("date-calcul");
+  const erreur = document.getElementById("erreur-dates");
+
+  /* badInput = true quand le navigateur a reçu une saisie qu'il ne peut pas
+     convertir en date valide (ex: 30 février) : le champ reste vide en interne
+     même si du texte est encore visible à l'écran. On distingue ce cas d'une
+     simple date manquante pour donner un message utile plutôt qu'un silence. */
+  if(inpDebut.validity.badInput || inpFin.validity.badInput){
+    erreur.textContent = MSG_INVALIDE;
+    erreur.classList.add("visible");
+    document.getElementById("r-principal").textContent = "—";
+    document.getElementById("r-jours").textContent = "—";
+    return;
+  }
+
+  const debut = parseDate(inpDebut.value);
+  const fin = parseDate(inpFin.value);
+
+  if(!debut || !fin){
+    document.getElementById("r-principal").textContent = "—";
+    document.getElementById("r-jours").textContent = "—";
+    erreur.classList.remove("visible");
+    return;
+  }
+  if(fin < debut){
+    erreur.textContent = MSG_ORDRE;
+    erreur.classList.add("visible");
+    document.getElementById("r-principal").textContent = "—";
+    document.getElementById("r-jours").textContent = "—";
+    return;
+  }
+  erreur.classList.remove("visible");
+  const r = diffDates(debut, fin);
+  document.getElementById("r-principal").textContent = formatDuree(r);
+  document.getElementById("r-jours").innerHTML = r.totalJours + "<small> jours</small>";
+}
+
+function ajdISO(){
+  const d = new Date();
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+
+document.getElementById("date-entree").addEventListener("change", calculer);
+document.getElementById("date-calcul").addEventListener("change", calculer);
+document.getElementById("date-entree").addEventListener("input", calculer);
+document.getElementById("date-calcul").addEventListener("input", calculer);
+document.getElementById("aujourdhui").addEventListener("click", ()=>{
+  document.getElementById("date-calcul").value = ajdISO();
+  calculer();
+});
+document.getElementById("vider").addEventListener("click", ()=>{
+  document.getElementById("date-entree").value = "";
+  document.getElementById("date-calcul").value = "";
+  calculer();
+});
+
+document.getElementById("date-calcul").value = ajdISO();
+</script>
+</body>
+</html>
