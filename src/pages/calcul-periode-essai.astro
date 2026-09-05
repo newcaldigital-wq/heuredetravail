@@ -1,0 +1,547 @@
+---
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul période d'essai CDD CDI — durée, date de fin, préavis | France</title>
+<meta name="description" content="Calculez la durée maximale d'une période d'essai (CDD ou CDI), sa date de fin exacte selon la règle de calendrier applicable, et le délai de prévenance en cas de rupture. Outil gratuit et indicatif.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<style is:global>
+  :root{
+    --encre:#152238;--encre-2:#22334f;--papier:#F5F3EE;--papier-2:#ECE8DF;
+    --trait:#D8D2C4;--vert:#2F6F63;--gris:#6A6558;
+    --alerte:#A6472E;--alerte-bg:#F6E5E1;
+    --accent:#8A6FA8;--accent-bg:#EDE6F2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--papier);color:var(--encre);line-height:1.5;padding:24px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  header.hero{margin-bottom:24px;border-bottom:2px solid var(--encre);padding-bottom:18px}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
+  h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
+  h1 .light{font-weight:700;color:var(--encre-2)}
+  .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:680px}
+  .sub a{color:var(--vert);font-weight:600}
+  .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
+  .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .panneau h2 .num{background:var(--encre);color:#fff;width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .segmented{display:flex;border:1px solid var(--trait);border-radius:6px;overflow:hidden;width:fit-content}
+  .seg-btn{font-family:inherit;font-size:13px;padding:8px 16px;border:none;background:var(--papier);color:var(--encre);cursor:pointer;font-weight:600}
+  .seg-btn.active{background:var(--encre);color:#fff}
+  .seg-btn:not(.active):hover{background:var(--papier-2)}
+  .champs{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;margin-top:14px}
+  .champ{display:flex;flex-direction:column;gap:6px}
+  .champ label{font-size:13px;color:var(--gris);font-weight:600}
+  .champ select,.champ input[type=date],.champ input[type=number]{padding:10px 12px;border:1px solid var(--trait);border-radius:7px;font-size:15px;background:var(--papier);color:var(--encre);font-family:inherit}
+  .champ select:focus,.champ input:focus{outline:2px solid var(--vert)}
+  .champ.optionnel{padding:12px 14px;background:var(--papier-2);border-radius:8px}
+  .hint{font-size:11.5px;color:var(--gris);font-style:italic;margin-top:6px}
+  .checkline{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:14px}
+  .checkline input{width:16px;height:16px}
+  .cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
+  .carte{border:1px solid var(--trait);border-radius:8px;padding:14px;background:var(--papier)}
+  .carte .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:600}
+  .carte .val{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:4px;color:var(--encre)}
+  .carte .val small{font-size:13px;font-weight:400;color:var(--gris)}
+  .carte.retenue{border-top:3px solid var(--vert)} .carte.retenue .val{color:var(--vert)}
+  .resultat-principal{margin-top:16px;padding:20px;background:var(--encre);color:#fff;border-radius:10px;text-align:center}
+  .resultat-principal .lbl{font-size:12px;text-transform:uppercase;letter-spacing:1px;opacity:.8}
+  .resultat-principal .date{font-size:28px;font-weight:700;margin-top:6px}
+  .resultat-principal .date.vide{opacity:.5;font-size:20px;font-weight:400}
+  .note{margin-top:14px;padding:11px 14px;border-radius:6px;font-size:13px;line-height:1.6}
+  .note-info{background:var(--papier-2);border-left:4px solid var(--vert);color:var(--encre-2)}
+  .note-info b{color:var(--encre)}
+  .note-info a{color:var(--vert);font-weight:600}
+  .note-convention{background:var(--accent-bg);border-left:4px solid var(--accent);color:#3d2f4d;display:none}
+  .note-convention.visible{display:block}
+  .note-alerte{background:var(--alerte-bg);border-left:4px solid var(--alerte);color:#5a2418;display:none}
+  .note-alerte.visible{display:block}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
+  @media(max-width:640px){h1{font-size:26px}.champs{flex-direction:column;align-items:stretch}}
+
+  .contenu-seo{
+    max-width:760px;
+    margin:36px auto 0;
+    padding:28px 4px 0;
+    border-top:2px solid var(--encre);
+  }
+  .contenu-seo h2{
+    font-size:21px;
+    color:var(--encre);
+    margin:28px 0 10px;
+    letter-spacing:-0.2px;
+  }
+  .contenu-seo h2:first-of-type{margin-top:0}
+  .contenu-seo p{
+    font-size:15.5px;
+    color:var(--encre-2);
+    line-height:1.7;
+    margin-bottom:14px;
+  }
+  .contenu-seo .avert{
+    margin-top:24px;
+    padding:14px 16px;
+    background:var(--papier-2);
+    border-radius:8px;
+    font-size:13px;
+    color:var(--gris);
+    line-height:1.6;
+  }
+  .sources{
+    margin-top:24px;
+    padding:16px 18px;
+    background:#fff;
+    border:1px solid var(--trait);
+    border-radius:8px;
+  }
+  .sources h3{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+    color:var(--gris);
+    margin-bottom:10px;
+    font-weight:700;
+  }
+  .sources ul{list-style:none;padding:0;margin:0}
+  .sources li{
+    font-size:13px;
+    color:var(--encre-2);
+    margin-bottom:6px;
+    padding-left:14px;
+    position:relative;
+  }
+  .sources li::before{content:"—";position:absolute;left:0;color:var(--vert)}
+  .sources a{color:var(--vert);font-weight:600;text-decoration:none}
+  .sources a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Période d'essai · France</div>
+    <h1>Calcul de la <span class="light">période d'essai</span></h1>
+    <p class="sub">Salarié en CDD ou CDI ? Employeur ou service RH ? Déterminez la durée maximale d'une période d'essai, la date exacte à laquelle elle se termine, et le délai de prévenance applicable en cas de rupture. Besoin de calculer une ancienneté ou des heures de travail ? Direction le <a href="/calcul-anciennete">calcul d'ancienneté</a> ou le <a href="/">calcul heure de travail</a>.</p>
+  </header>
+
+  <section class="panneau">
+    <h2><span class="num">1</span> Durée maximale de la période d'essai</h2>
+
+    <div class="champs">
+      <div class="champ">
+        <label for="date-debut">Date de début du contrat</label>
+        <input type="date" id="date-debut">
+      </div>
+    </div>
+
+    <div class="segmented" id="type-contrat" style="margin-top:16px">
+      <button type="button" class="seg-btn active" data-type="cdi">CDI</button>
+      <button type="button" class="seg-btn" data-type="cdd">CDD</button>
+    </div>
+
+    <div id="bloc-cdi" class="champs">
+      <div class="champ">
+        <label for="categorie">Catégorie professionnelle</label>
+        <select id="categorie">
+          <option value="" selected disabled>— Choisir une catégorie —</option>
+          <option value="ouvrier">Ouvrier / employé</option>
+          <option value="maitrise">Agent de maîtrise / technicien</option>
+          <option value="cadre">Cadre</option>
+        </select>
+      </div>
+    </div>
+    <div class="checkline" id="renouvellement-wrap">
+      <input type="checkbox" id="renouvellement">
+      <label for="renouvellement">Renouvellement prévu (une seule fois, durée égale à la durée initiale)</label>
+    </div>
+    <p class="hint" id="hint-renouvellement">Le renouvellement suppose trois conditions cumulatives : un accord de branche étendu qui l'autorise, une clause en ce sens dans le contrat, et l'accord écrit du salarié donné pendant la période d'essai initiale (pas après coup).</p>
+
+    <div id="bloc-cdd" style="display:none">
+      <div class="segmented" id="cdd-duree">
+        <button type="button" class="seg-btn active" data-duree="court">Contrat ≤ 6 mois</button>
+        <button type="button" class="seg-btn" data-duree="long">Contrat &gt; 6 mois</button>
+      </div>
+      <div class="champs" id="cdd-semaines-wrap">
+        <div class="champ">
+          <label for="cdd-fin">Date de fin prévue du CDD</label>
+          <input type="date" id="cdd-fin">
+        </div>
+      </div>
+      <p class="hint" id="hint-cdd">La période d'essai d'un CDD ne se renouvelle jamais. Pour un contrat de 6 mois ou moins, elle est plafonnée à 1 jour par semaine de contrat — calculée automatiquement à partir de la date de début (ci-dessus) et de la date de fin du CDD — avec un maximum absolu de 2 semaines (14 jours). Au-delà de 6 mois, elle est plafonnée à 1 mois, quelle que soit la durée exacte du contrat.</p>
+    </div>
+
+    <div class="champ optionnel" style="margin-top:16px;max-width:420px">
+      <label for="convention">Durée prévue par la convention collective ou le contrat applicable, si elle est plus courte (facultatif)</label>
+      <input type="number" id="convention" min="0" step="1" placeholder="Laisser vide si non concerné">
+      <span class="hint">En <span id="convention-unite">mois</span>. Une convention ou un accord de branche étendu ne peut jamais prévoir une durée plus longue que le plafond légal — seulement plus courte.</span>
+    </div>
+
+    <div class="cartes">
+      <div class="carte"><div class="lbl">Plafond légal</div><div class="val" id="r-duree-legale">—</div></div>
+      <div class="carte retenue"><div class="lbl">Durée retenue pour le calcul</div><div class="val" id="r-duree-retenue">—</div></div>
+    </div>
+    <div class="note note-convention" id="note-convention">
+      La convention collective (ou le contrat) prévoit une durée plus courte que le plafond légal : c'est elle qui s'applique. C'est cette durée qui est utilisée ci-dessous pour calculer la date de fin.
+    </div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">2</span> Date de fin de la période d'essai</h2>
+    <div class="resultat-principal">
+      <div class="lbl">La période d'essai se termine le</div>
+      <div class="date vide" id="r-date-fin">Renseignez une date de début</div>
+    </div>
+    <div class="note note-info">
+      Le décompte est <b>calendaire</b> (jours fériés et week-ends inclus), jamais en jours ouvrés — sauf disposition contraire du contrat ou de la convention collective applicable. Pour une durée exprimée en <b>mois</b>, la période expire la veille de la date anniversaire (ex. début le 14 mai, 2 mois : fin le 13 juillet). Pour une durée exprimée en <b>jours</b>, le jour de début compte comme premier jour (ex. début le 1<sup>er</sup> juin, 8 jours : fin le 8 juin).
+    </div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">3</span> Délai de prévenance en cas de rupture</h2>
+    <div class="note note-alerte" id="pas-essai" style="display:none">
+      Aucune période d'essai n'est légalement applicable pour cette durée de contrat (voir bloc 1) : le délai de prévenance, qui suppose une rupture pendant une période d'essai existante, ne s'applique pas ici. Une rupture anticipée de ce contrat relèverait d'un autre régime juridique, non couvert par cet outil.
+    </div>
+    <div id="bloc3-contenu">
+    <div class="segmented" id="qui-rompt">
+      <button type="button" class="seg-btn active" data-qui="employeur">L'employeur rompt</button>
+      <button type="button" class="seg-btn" data-qui="salarie">Le salarié rompt</button>
+    </div>
+    <div class="champs">
+      <div class="champ">
+        <label for="date-rupture">Date de notification de la rupture</label>
+        <input type="date" id="date-rupture">
+      </div>
+    </div>
+    <div class="note note-alerte" id="alerte-hors-essai"></div>
+    <div class="cartes">
+      <div class="carte retenue"><div class="lbl">Délai de prévenance applicable</div><div class="val" id="r-delai">—</div></div>
+    </div>
+    <div class="note note-alerte" id="alerte-courte">
+      ⚠ La période d'essai retenue ici est inférieure à une semaine. Dans ce cas, le délai légal de prévenance ne s'applique pas : seule la convention collective ou le contrat, s'ils en prévoient un, fixent alors le délai applicable.
+    </div>
+    <div class="note note-alerte" id="alerte-debordement"></div>
+    <div class="note note-info">
+      Le délai de prévenance ne peut jamais avoir pour effet de prolonger la période d'essai au-delà de sa durée maximale. Attention également : toute rupture notifiée après l'expiration de la période d'essai — même avec un seul jour de retard — n'est plus une rupture d'essai, mais un licenciement (ou une rupture de CDD) sans cause réelle et sérieuse si elle n'est pas autrement justifiée.
+    </div>
+    </div>
+  </section>
+
+<section class="contenu-seo">
+  <h2>Comment calculer sa période d'essai ?</h2>
+  <p>La période d'essai permet à l'employeur d'évaluer les compétences du salarié dans son travail, et au salarié d'apprécier si les fonctions occupées lui conviennent. Sa durée maximale dépend du type de contrat, et pour un CDI, de la catégorie professionnelle du salarié.</p>
+  <p>C'est ce que calcule l'outil ci-dessus : à partir du type de contrat et, le cas échéant, de la catégorie professionnelle, il détermine la durée maximale légale, puis applique la durée conventionnelle si elle est plus courte, et enfin calcule la date exacte de fin à partir de la date de début du contrat.</p>
+
+  <h2>Les durées maximales en CDI</h2>
+  <p>Pour un contrat à durée indéterminée, la durée maximale de la période d'essai initiale est de 2 mois pour les ouvriers et employés, 3 mois pour les agents de maîtrise et techniciens, et 4 mois pour les cadres.</p>
+  <p>Cette période peut être renouvelée une seule fois, pour une durée égale à la durée initiale — mais seulement si trois conditions sont réunies : un accord de branche étendu doit prévoir cette possibilité, le contrat de travail (ou la lettre d'engagement) doit le stipuler expressément, et le salarié doit donner son accord écrit pendant la période d'essai initiale, avant son terme. Un renouvellement décidé ou signé après l'expiration de l'essai initial est tardif et sans effet : le contrat est alors définitivement conclu.</p>
+  <p>Après renouvellement, la durée totale maximale atteint donc 4 mois (ouvriers/employés), 6 mois (agents de maîtrise/techniciens), ou 8 mois (cadres).</p>
+
+  <h2>Les durées maximales en CDD</h2>
+  <p>Pour un contrat à durée déterminée d'une durée initiale de 6 mois ou moins, la période d'essai ne peut excéder une durée calculée à raison d'un jour par semaine de contrat, dans la limite de 2 semaines (14 jours) au maximum. Un CDD de 8 semaines ne peut donc pas dépasser 8 jours d'essai ; un CDD de 20 semaines est plafonné à 14 jours, le plafond des 2 semaines étant alors atteint avant le calcul au prorata.</p>
+  <p>Pour un CDD d'une durée initiale supérieure à 6 mois, la période d'essai est plafonnée à 1 mois, quelle que soit la durée exacte du contrat au-delà de ce seuil.</p>
+  <p>Contrairement au CDI, la période d'essai d'un CDD ne se renouvelle jamais.</p>
+
+  <h2>Le plafond conventionnel : toujours plus court, jamais plus long</h2>
+  <p>Une convention collective ou un accord de branche étendu peut prévoir une durée de période d'essai différente de la durée légale — mais uniquement plus courte. Depuis le 10 septembre 2023, cette règle est absolue : même les accords de branche conclus avant 2008, qui bénéficiaient auparavant d'un régime transitoire leur permettant de prévoir des durées plus longues, ne peuvent plus le faire. Les durées légales constituent donc aujourd'hui un plafond impératif, que seule une durée plus courte, prévue par convention ou par le contrat lui-même, peut réduire.</p>
+  <p>C'est pourquoi l'outil ci-dessus retient toujours la plus courte des deux durées, légale ou conventionnelle, pour calculer la date de fin.</p>
+
+  <h2>Comment se calcule la date de fin exacte ?</h2>
+  <p>Le décompte de la période d'essai se fait en jours calendaires — tous les jours de la semaine, jours fériés compris — et non en jours ouvrés ou travaillés, sauf disposition contraire du contrat ou de la convention collective. Cette règle, affirmée par la Cour de cassation depuis 2005 et étendue en 2011 à toute période d'essai exprimée en jours, en semaines ou en mois, s'applique aussi bien au CDD qu'au CDI.</p>
+  <p>La méthode de calcul diffère toutefois selon l'unité retenue. Lorsque la durée est exprimée en mois, la période d'essai expire la veille de la date anniversaire du mois de fin, et non ce jour-là : une période d'un mois renouvelée une fois (2 mois au total), commencée le 14 mai, expire ainsi le 13 juillet à minuit, et non le 14 juillet, comme l'a précisé la Cour de cassation dans un arrêt de 2006.</p>
+  <p>Lorsque la durée est exprimée en jours, en revanche, le jour de début du contrat compte comme le premier jour de la période d'essai : une période de 8 jours commençant un 1<sup>er</sup> juin se termine donc le 8 juin au soir, et non le 9 juin.</p>
+  <p>Cette même règle de calcul sert aussi bien à déterminer la date de fin qu'à apprécier si une rupture notifiée est intervenue avant ou après l'expiration de l'essai : une rupture notifiée après cette date, même de quelques heures, n'est plus une rupture d'essai.</p>
+
+  <h2>Le délai de prévenance en cas de rupture</h2>
+  <p>Si l'employeur décide de rompre la période d'essai, il doit respecter un délai de prévenance qui dépend de la durée de présence du salarié dans l'entreprise à la date de la rupture : 24 heures en dessous de 8 jours de présence, 48 heures entre 8 jours et 1 mois, 2 semaines entre 1 et 3 mois, et 1 mois au-delà de 3 mois.</p>
+  <p>Si c'est le salarié qui rompt, le délai est plus court : 24 heures en dessous de 8 jours de présence, 48 heures au-delà.</p>
+  <p>Dans tous les cas, ce délai de prévenance ne peut jamais avoir pour effet de prolonger la période d'essai au-delà de sa durée maximale.</p>
+  <p>Un cas particulier mérite attention : lorsque la période d'essai stipulée au contrat est elle-même inférieure à une semaine, le délai légal de prévenance ne s'applique pas. Seuls une convention collective ou le contrat lui-même peuvent alors prévoir un délai applicable.</p>
+
+  <p class="avert">Ce calculateur est fourni à titre indicatif. Il applique les durées légales par défaut et une convention ou un accord de branche peut, sur certains points, prévoir des règles différentes — toujours plus favorables au salarié s'agissant de la durée de l'essai. Le calcul de date de fin retient une règle de décompte calendaire conforme à la jurisprudence de la Cour de cassation, y compris pour un mois « incomplet » (par exemple un début de période d'essai le 31 du mois) ; aucun arrêt publié ne porte cependant spécifiquement sur ce cas de figure, l'outil applique donc sa méthode générale par cohérence, à vérifier auprès d'un professionnel si la situation concernée s'y prête. Cet outil ne remplace ni un contrat de travail, ni l'avis d'un professionnel.</p>
+</section>
+
+<section class="sources">
+  <h3>Sources</h3>
+  <ul>
+    <li>Durées de la période d'essai en CDI — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000019071013" target="_blank" rel="noopener">Code du travail, art. L1221-19</a></li>
+    <li>Renouvellement de la période d'essai en CDI — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000019071009" target="_blank" rel="noopener">Code du travail, art. L1221-21</a></li>
+    <li>Durée de la période d'essai en CDD — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006901222" target="_blank" rel="noopener">Code du travail, art. L1242-10</a></li>
+    <li>Délai de prévenance, rupture par l'employeur — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000019071007" target="_blank" rel="noopener">Code du travail, art. L1221-25</a></li>
+    <li>Délai de prévenance, rupture par le salarié — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000019071005" target="_blank" rel="noopener">Code du travail, art. L1221-26</a></li>
+    <li>Décompte calendaire de la période d'essai — <a href="https://www.legifrance.gouv.fr/juri/id/JURITEXT000007052787/" target="_blank" rel="noopener">Cour de cassation, chambre sociale, 15 mars 2006, n° 04-44.544</a></li>
+    <li>Fiche pédagogique — <a href="https://code.travail.gouv.fr/" target="_blank" rel="noopener">Code du travail numérique, la période d'essai</a></li>
+  </ul>
+</section>
+
+  <footer>
+    Durées légales par défaut de la période d'essai (CDD, CDI), sans tenir compte d'une éventuelle convention collective plus courte, à vérifier séparément. Décompte calendaire : la veille de la date anniversaire pour une durée en mois, jour de début inclus pour une durée en jours. Outil indicatif, ne remplace pas un contrat de travail ni l'avis d'un professionnel.
+    <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Calcul d'ancienneté</a></p>
+    <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>
+  </footer>
+</div>
+
+<script is:inline>
+/* ---------- Fonctions de date ---------- */
+function ajouterMois(date, n){
+  const d = new Date(date.getFullYear(), date.getMonth() + n, date.getDate());
+  if(d.getDate() !== date.getDate()){
+    return new Date(date.getFullYear(), date.getMonth() + n + 1, 0);
+  }
+  return d;
+}
+function veilleDe(date){
+  const d = new Date(date);
+  d.setDate(d.getDate() - 1);
+  return d;
+}
+/* Durée en mois : expire la veille de la date anniversaire (Cass. soc. 15 mars 2006) */
+function finEssaiMois(debut, nMois){
+  return veilleDe(ajouterMois(debut, nMois));
+}
+/* Durée en jours : le jour de début compte comme jour 1 */
+function finEssaiJours(debut, nJours){
+  const d = new Date(debut);
+  d.setDate(d.getDate() + (nJours - 1));
+  return d;
+}
+function parseDateInput(str){
+  if(!str) return null;
+  const [a,m,j] = str.split("-").map(Number);
+  return new Date(a, m-1, j);
+}
+function joursEntre(d1, d2){
+  return Math.round((d2 - d1) / 86400000);
+}
+/* Projette la date à laquelle le délai de prévenance serait entièrement exécuté,
+   à partir de la date de notification et du délai applicable (24h/48h/2 semaines/1 mois) */
+function finTheoriqueDelai(notification, delaiLabel){
+  const d = new Date(notification);
+  if(delaiLabel === "24 heures"){ d.setDate(d.getDate() + 1); return d; }
+  if(delaiLabel === "48 heures"){ d.setDate(d.getDate() + 2); return d; }
+  if(delaiLabel === "2 semaines"){ d.setDate(d.getDate() + 14); return d; }
+  if(delaiLabel === "1 mois"){ return ajouterMois(notification, 1); }
+  return null;
+}
+function formatDateFr(d){
+  const jours = ["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+  const mois = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+  return jours[d.getDay()] + " " + d.getDate() + " " + mois[d.getMonth()] + " " + d.getFullYear();
+}
+
+/* ---------- État de l'interface ---------- */
+let typeContrat = "cdi";
+let cddDureeType = "court";
+let quiRompt = "employeur";
+
+const DUREE_CDI = { ouvrier: 2, maitrise: 3, cadre: 4 };
+
+/* ---------- Bloc 1 : durée maximale ---------- */
+function calculerDureeMax(){
+  let unite, dureeLegale;
+  if(typeContrat === "cdi"){
+    const cat = document.getElementById("categorie").value;
+    if(!cat){
+      return { unite: "mois", dureeLegale: null, dureeRetenue: null, conventionAppliquee: false };
+    }
+    const base = DUREE_CDI[cat];
+    unite = "mois";
+    dureeLegale = document.getElementById("renouvellement").checked ? base * 2 : base;
+  } else {
+    if(cddDureeType === "court"){
+      unite = "jours";
+      const debutCDD = parseDateInput(document.getElementById("date-debut").value);
+      const finCDD = parseDateInput(document.getElementById("cdd-fin").value);
+      let semaines = 0;
+      if(debutCDD && finCDD && finCDD > debutCDD){
+        semaines = joursEntre(debutCDD, finCDD) / 7;
+      }
+      dureeLegale = Math.min(Math.floor(semaines), 14);
+    } else {
+      unite = "mois";
+      dureeLegale = 1;
+    }
+  }
+  let dureeRetenue = dureeLegale;
+  let conventionAppliquee = false;
+  const convRaw = parseFloat(document.getElementById("convention").value);
+  if(!isNaN(convRaw) && convRaw > 0){
+    const conv = Math.round(convRaw);
+    if(conv > 0 && conv < dureeLegale){
+      dureeRetenue = conv;
+      conventionAppliquee = true;
+    }
+  }
+  return { unite, dureeLegale, dureeRetenue, conventionAppliquee };
+}
+
+function afficherBloc1(info){
+  if(info.dureeLegale === null){
+    document.getElementById("r-duree-legale").textContent = "—";
+    document.getElementById("r-duree-retenue").textContent = "—";
+    document.getElementById("note-convention").classList.remove("visible");
+    return;
+  }
+  const suffixe = info.unite === "mois" ? (info.dureeLegale > 1 ? " mois" : " mois") : (info.dureeLegale > 1 ? " jours" : " jour");
+  const suffixeRetenue = info.unite === "mois" ? (info.dureeRetenue > 1 ? " mois" : " mois") : (info.dureeRetenue > 1 ? " jours" : " jour");
+  document.getElementById("r-duree-legale").innerHTML = info.dureeLegale + "<small>" + suffixe + "</small>";
+  document.getElementById("r-duree-retenue").innerHTML = info.dureeRetenue + "<small>" + suffixeRetenue + "</small>";
+  document.getElementById("convention-unite").textContent = info.unite;
+  document.getElementById("note-convention").classList.toggle("visible", info.conventionAppliquee);
+}
+
+/* ---------- Bloc 2 : date de fin ---------- */
+function afficherBloc2(info){
+  const debutStr = document.getElementById("date-debut").value;
+  const debut = parseDateInput(debutStr);
+  const el = document.getElementById("r-date-fin");
+  if(info.dureeLegale === null){
+    el.textContent = "Complétez la catégorie professionnelle";
+    el.classList.add("vide");
+    return null;
+  }
+  if(!debut){
+    el.textContent = "Renseignez une date de début";
+    el.classList.add("vide");
+    return null;
+  }
+  if(info.dureeRetenue <= 0){
+    el.textContent = "Aucune période d'essai légale possible pour cette durée de contrat";
+    el.classList.add("vide");
+    return { debut, fin: null };
+  }
+  const fin = info.unite === "mois"
+    ? finEssaiMois(debut, info.dureeRetenue)
+    : finEssaiJours(debut, Math.round(info.dureeRetenue));
+  el.textContent = formatDateFr(fin);
+  el.classList.remove("vide");
+  return { debut, fin };
+}
+
+/* ---------- Bloc 3 : délai de prévenance ---------- */
+function afficherBloc3(info, dates){
+  const pasEssai = document.getElementById("pas-essai");
+  const contenu = document.getElementById("bloc3-contenu");
+
+  if(info.dureeLegale === null){
+    pasEssai.style.display = "none";
+    contenu.style.display = "none";
+    return;
+  }
+  if(info.dureeRetenue <= 0){
+    pasEssai.style.display = "block";
+    contenu.style.display = "none";
+    return;
+  }
+  pasEssai.style.display = "none";
+  contenu.style.display = "block";
+
+  const el = document.getElementById("r-delai");
+  const alerte = document.getElementById("alerte-courte");
+  const alerteDebordement = document.getElementById("alerte-debordement");
+
+  const dureeEnJours = info.unite === "jours" ? info.dureeRetenue : info.dureeRetenue * 30;
+  alerte.classList.toggle("visible", dureeEnJours < 7);
+
+  if(!dates){
+    el.textContent = "—";
+    alerteDebordement.classList.remove("visible");
+    return;
+  }
+  const ruptureStr = document.getElementById("date-rupture").value;
+  const rupture = parseDateInput(ruptureStr);
+  const horsEssai = document.getElementById("alerte-hors-essai");
+  if(!rupture){
+    el.textContent = "—";
+    alerteDebordement.classList.remove("visible");
+    horsEssai.classList.remove("visible");
+    return;
+  }
+  if(dates.fin && rupture > dates.fin){
+    el.textContent = "—";
+    alerteDebordement.classList.remove("visible");
+    horsEssai.textContent = "⚠ La date de notification saisie (" + formatDateFr(rupture) + ") est postérieure à la fin de la période d'essai (" + formatDateFr(dates.fin) + "). Il ne s'agit alors plus d'une rupture pendant la période d'essai : le délai de prévenance ne s'applique pas. Une rupture à ce stade relève d'un autre régime juridique (licenciement pour un CDI, rupture anticipée strictement encadrée pour un CDD), non couvert par cet outil.";
+    horsEssai.classList.add("visible");
+    return;
+  }
+  if(rupture < dates.debut){
+    el.textContent = "—";
+    alerteDebordement.classList.remove("visible");
+    horsEssai.textContent = "⚠ La date de notification saisie est antérieure à la date de début du contrat. Vérifiez les dates saisies.";
+    horsEssai.classList.add("visible");
+    return;
+  }
+  horsEssai.classList.remove("visible");
+  const joursPresence = joursEntre(dates.debut, rupture);
+  let delai;
+  if(quiRompt === "employeur"){
+    if(joursPresence < 8) delai = "24 heures";
+    else if(rupture < ajouterMois(dates.debut, 1)) delai = "48 heures";
+    else if(rupture < ajouterMois(dates.debut, 3)) delai = "2 semaines";
+    else delai = "1 mois";
+  } else {
+    delai = joursPresence < 8 ? "24 heures" : "48 heures";
+  }
+  el.textContent = delai;
+
+  if(dates.fin && quiRompt === "employeur"){
+    const finTheorique = finTheoriqueDelai(rupture, delai);
+    if(finTheorique && finTheorique > dates.fin){
+      const joursIndemnite = joursEntre(dates.fin, finTheorique);
+      alerteDebordement.textContent = "⚠ Ce délai déborde de la fin de la période d'essai (" + formatDateFr(dates.fin) + "). Le contrat s'arrête à cette date au plus tard — il ne peut pas être prolongé pour exécuter le délai en entier. L'employeur doit alors verser au salarié une indemnité compensatrice, équivalente à " + joursIndemnite + " jour(s) de salaire, pour la partie du délai non exécutée.";
+      alerteDebordement.classList.add("visible");
+    } else {
+      alerteDebordement.classList.remove("visible");
+    }
+  } else {
+    alerteDebordement.classList.remove("visible");
+  }
+}
+
+/* ---------- Calcul global ---------- */
+function calculerTout(){
+  const info = calculerDureeMax();
+  afficherBloc1(info);
+  const dates = afficherBloc2(info);
+  afficherBloc3(info, dates);
+}
+
+/* ---------- Câblage de l'interface ---------- */
+document.querySelectorAll("#type-contrat .seg-btn").forEach(b => b.addEventListener("click", () => {
+  typeContrat = b.dataset.type;
+  document.querySelectorAll("#type-contrat .seg-btn").forEach(x => x.classList.toggle("active", x === b));
+  document.getElementById("bloc-cdi").style.display = typeContrat === "cdi" ? "flex" : "none";
+  document.getElementById("renouvellement-wrap").style.display = typeContrat === "cdi" ? "flex" : "none";
+  document.getElementById("hint-renouvellement").style.display = typeContrat === "cdi" ? "block" : "none";
+  document.getElementById("bloc-cdd").style.display = typeContrat === "cdd" ? "block" : "none";
+  calculerTout();
+}));
+
+document.querySelectorAll("#cdd-duree .seg-btn").forEach(b => b.addEventListener("click", () => {
+  cddDureeType = b.dataset.duree;
+  document.querySelectorAll("#cdd-duree .seg-btn").forEach(x => x.classList.toggle("active", x === b));
+  document.getElementById("cdd-semaines-wrap").style.display = cddDureeType === "court" ? "flex" : "none";
+  calculerTout();
+}));
+
+document.querySelectorAll("#qui-rompt .seg-btn").forEach(b => b.addEventListener("click", () => {
+  quiRompt = b.dataset.qui;
+  document.querySelectorAll("#qui-rompt .seg-btn").forEach(x => x.classList.toggle("active", x === b));
+  calculerTout();
+}));
+
+document.getElementById("categorie").addEventListener("change", calculerTout);
+document.getElementById("renouvellement").addEventListener("change", calculerTout);
+document.getElementById("cdd-fin").addEventListener("change", calculerTout);
+document.getElementById("convention").addEventListener("input", calculerTout);
+document.getElementById("date-debut").addEventListener("change", calculerTout);
+document.getElementById("date-rupture").addEventListener("change", calculerTout);
+
+/* Réglages initiaux : masquer le bloc CDD, afficher hint CDI */
+document.getElementById("bloc-cdd").style.display = "none";
+
+calculerTout();
+</script>
+</body>
+</html>
