@@ -1,0 +1,754 @@
+---
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul du préavis (démission, licenciement) — durée et date de fin | France</title>
+<meta name="description" content="Calculez la durée et la date de fin de votre préavis de démission ou de licenciement en CDI : décompte exact, congés payés inclus. Outil gratuit et indicatif.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<style is:global>
+  :root{
+    --encre:#152238;--encre-2:#22334f;--papier:#F5F3EE;--papier-2:#ECE8DF;
+    --trait:#D8D2C4;--vert:#2F6F63;--gris:#6A6558;
+    --alerte:#A6472E;--alerte-bg:#F6E5E1;
+    --accent:#8A6FA8;--accent-bg:#EDE6F2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--papier);color:var(--encre);line-height:1.5;padding:24px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  header.hero{margin-bottom:24px;border-bottom:2px solid var(--encre);padding-bottom:18px}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
+  h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
+  h1 .light{font-weight:700;color:var(--encre-2)}
+  .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:700px}
+  .sub a{color:var(--vert);font-weight:600}
+  .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
+  .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .panneau h2 .num{background:var(--encre);color:#fff;width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .panneau h2 .num.info{background:var(--accent)}
+  .segmented{display:flex;border:1px solid var(--trait);border-radius:6px;overflow:hidden;width:fit-content}
+  .seg-btn{font-family:inherit;font-size:13px;padding:8px 16px;border:none;background:var(--papier);color:var(--encre);cursor:pointer;font-weight:600}
+  .seg-btn.active{background:var(--encre);color:#fff}
+  .seg-btn:not(.active):hover{background:var(--papier-2)}
+  .champs{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;margin-top:14px}
+  .champ{display:flex;flex-direction:column;gap:6px}
+  .champ label{font-size:13px;color:var(--gris);font-weight:600}
+  .champ select,.champ input[type=date],.champ input[type=number]{padding:10px 12px;border:1px solid var(--trait);border-radius:7px;font-size:15px;background:var(--papier);color:var(--encre);font-family:inherit}
+  .champ select:focus,.champ input:focus{outline:2px solid var(--vert)}
+  .hint{font-size:11.5px;color:var(--gris);font-style:italic;margin-top:8px;line-height:1.5}
+  .checkline{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:14px}
+  .checkline input{width:16px;height:16px}
+  .cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
+  .carte{border:1px solid var(--trait);border-radius:8px;padding:14px;background:var(--papier)}
+  .carte .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:600}
+  .carte .val{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:4px;color:var(--encre)}
+  .carte.retenue{border-top:3px solid var(--vert)} .carte.retenue .val{color:var(--vert)}
+  .resultat-principal{margin-top:16px;padding:20px;background:var(--encre);color:#fff;border-radius:10px;text-align:center}
+  .resultat-principal .lbl{font-size:12px;text-transform:uppercase;letter-spacing:1px;opacity:.8}
+  .resultat-principal .date{font-size:26px;font-weight:700;margin-top:6px}
+  .resultat-principal .date.vide{opacity:.6;font-size:18px;font-weight:400}
+  .note{margin-top:14px;padding:11px 14px;border-radius:6px;font-size:13px;line-height:1.6}
+  .note-info{background:var(--papier-2);border-left:4px solid var(--vert);color:var(--encre-2)}
+  .note-info b{color:var(--encre)}
+  .note-alerte{background:var(--alerte-bg);border-left:4px solid var(--alerte);color:#5a2418;display:none}
+  .note-alerte.visible{display:block}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
+  @media(max-width:640px){h1{font-size:26px}.champs{flex-direction:column;align-items:stretch}}
+
+  .contenu-seo{max-width:760px;margin:36px auto 0;padding:28px 4px 0;border-top:2px solid var(--encre)}
+  .contenu-seo h2{font-size:21px;color:var(--encre);margin:28px 0 10px;letter-spacing:-0.2px}
+  .contenu-seo h2:first-of-type{margin-top:0}
+  .contenu-seo p{font-size:15.5px;color:var(--encre-2);line-height:1.7;margin-bottom:14px}
+  .contenu-seo .avert{margin-top:24px;padding:14px 16px;background:var(--papier-2);border-radius:8px;font-size:13px;color:var(--gris);line-height:1.6}
+  .sources{margin-top:24px;padding:16px 18px;background:#fff;border:1px solid var(--trait);border-radius:8px}
+  .sources h3{font-size:13px;text-transform:uppercase;letter-spacing:.4px;color:var(--gris);margin-bottom:10px;font-weight:700}
+  .sources ul{list-style:none;padding:0;margin:0}
+  .sources li{font-size:13px;color:var(--encre-2);margin-bottom:6px;padding-left:14px;position:relative}
+  .sources li::before{content:"—";position:absolute;left:0;color:var(--vert)}
+  .sources a{color:var(--vert);font-weight:600;text-decoration:none}
+  .sources a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Préavis · France</div>
+    <h1>Calcul du <span class="light">préavis</span></h1>
+    <p class="sub">Vous démissionnez, ou vous licenciez un salarié en CDI ? Indiquez la date de notification et la durée applicable : l'outil calcule la date exacte de fin du préavis, congés payés compris. Cet outil calcule une <b>durée</b>, jamais un montant — l'indemnité compensatrice de préavis (en euros) n'entre pas dans son périmètre. Besoin d'autre chose ? <a href="/calcul-anciennete">Calcul d'ancienneté</a> · <a href="/calcul-periode-essai">Période d'essai</a>.</p>
+  </header>
+
+  <section class="panneau">
+    <h2><span class="num">1</span> Type de rupture</h2>
+    <div class="segmented" id="type-rupture">
+      <button type="button" class="seg-btn active" data-type="demission">Démission</button>
+      <button type="button" class="seg-btn" data-type="licenciement">Licenciement</button>
+    </div>
+    <div id="bloc-motif-licenciement" style="display:none;margin-top:16px">
+      <div class="champ" style="max-width:360px">
+        <label for="faute-grave">Motif du licenciement</label>
+        <select id="faute-grave">
+          <option value="" selected disabled>— Choisir —</option>
+          <option value="non">Autre motif (pas de faute grave / lourde)</option>
+          <option value="oui">Faute grave ou lourde</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <div class="note note-alerte" id="alerte-faute-grave">
+    Aucun préavis n'est dû : en cas de faute grave ou de faute lourde, le contrat est rompu immédiatement. Aucune indemnité compensatrice de préavis n'est due dans ce cas, sauf disposition plus favorable prévue par la convention collective applicable.
+  </div>
+
+  <section class="panneau" id="panneau-demission">
+    <h2><span class="num">2</span> Durée du préavis de démission</h2>
+    <div class="champs">
+      <div class="champ">
+        <label for="dem-date-notif">Date de notification de la démission</label>
+        <input type="date" id="dem-date-notif">
+      </div>
+    </div>
+    <p class="hint">Cette date correspond à la première présentation de la lettre recommandée, au jour de la remise en main propre, ou au jour de l'annonce verbale — selon la manière dont vous avez démissionné. Dans les trois cas, c'est ce jour qui compte comme point de départ.</p>
+
+    <div class="champs">
+      <div class="champ">
+        <label for="dem-duree">Durée du préavis</label>
+        <input type="number" id="dem-duree" min="1" step="1" placeholder="Ex. 1">
+      </div>
+      <div class="champ">
+        <label for="dem-unite">Unité</label>
+        <select id="dem-unite">
+          <option value="" selected disabled>— Choisir —</option>
+          <option value="jours">Jours</option>
+          <option value="semaines">Semaines</option>
+          <option value="mois">Mois</option>
+        </select>
+      </div>
+      <div class="champ" id="dem-mode-jours-wrap" style="display:none">
+        <label for="dem-mode-jours">Jours…</label>
+        <select id="dem-mode-jours">
+          <option value="" selected disabled>— Choisir —</option>
+          <option value="calendaires">Calendaires</option>
+          <option value="ouvres">Ouvrés</option>
+          <option value="ouvrables">Ouvrables</option>
+        </select>
+      </div>
+    </div>
+    <p class="hint">⚠ Le Code du travail ne fixe aucune durée par défaut pour un préavis de démission dans le cas général (art. L1237-1) : elle dépend de votre convention collective, de votre contrat de travail, ou de l'usage de votre profession et de votre localité. Vérifiez cette durée — et son unité (jours, semaines ou mois) — avant de la saisir.</p>
+
+    <div class="champs">
+      <div class="champ">
+        <label for="dem-conges-select">Congés payés posés avant la notification ?</label>
+        <select id="dem-conges-select">
+          <option value="" selected disabled>— Choisir —</option>
+          <option value="non">Non</option>
+          <option value="oui">Oui</option>
+        </select>
+      </div>
+    </div>
+    <div class="champs" id="dem-conges-dates-wrap" style="display:none">
+      <div class="champ">
+        <label for="dem-conges-debut">Début des congés</label>
+        <input type="date" id="dem-conges-debut">
+      </div>
+      <div class="champ">
+        <label for="dem-conges-fin">Fin des congés</label>
+        <input type="date" id="dem-conges-fin">
+      </div>
+    </div>
+    <p class="hint" id="dem-hint-conges" style="display:none">Indiquez les dates des congés susceptibles de recouper la période de préavis, ou d'être entièrement compris dedans — pas des congés déjà terminés avant la notification, ni des congés totalement postérieurs à la fin du préavis. Seuls les jours qui tombent effectivement dans le préavis prolongent sa date de fin.</p>
+    <div class="note note-alerte" id="dem-alerte-conges"></div>
+
+    <div class="note note-info">
+      Certaines catégories ont un préavis de démission fixé par la loi, non calculé automatiquement ici : <b>journalistes</b> (1 mois si ancienneté ≤ 3 ans, 2 mois au-delà) · <b>VRP</b> (1 mois en 1ʳᵉ année, 2 mois en 2ᵉ année, 3 mois au-delà) · <b>salariés du particulier employeur</b> (1 semaine à 1 mois selon ancienneté) · <b>assistants maternels</b> (aucun si accueil &lt; 3 mois, 15 jours calendaires entre 3 mois et 1 an, 1 mois au-delà) · en <b>Alsace-Moselle</b> : 6 semaines, 15 jours, 1 semaine ou 1 jour selon la catégorie et la périodicité de la rémunération. Si vous êtes concerné, reportez-vous à votre statut plutôt qu'au calcul générique ci-dessus.
+    </div>
+  </section>
+
+  <section class="panneau" id="panneau-licenciement" style="display:none">
+    <h2><span class="num">2</span> Durée du préavis de licenciement</h2>
+
+    <div id="lic-corps">
+      <div class="champs">
+        <div class="champ">
+          <label for="lic-date-entree">Date d'entrée du salarié</label>
+          <input type="date" id="lic-date-entree">
+        </div>
+        <div class="champ">
+          <label for="lic-date-notif">Date de notification du licenciement</label>
+          <input type="date" id="lic-date-notif">
+        </div>
+      </div>
+      <div class="note note-alerte" id="lic-alerte-dates"></div>
+
+      <div class="cartes">
+        <div class="carte"><div class="lbl">Ancienneté</div><div class="val" id="lic-r-anciennete">—</div></div>
+        <div class="carte retenue"><div class="lbl">Préavis légal minimum</div><div class="val" id="lic-r-palier">—</div></div>
+      </div>
+
+      <div id="lic-bloc-libre" style="display:none">
+        <p class="hint">Ancienneté inférieure à 6 mois : l'article L1234-1 ne fixe pas de durée par défaut dans ce cas — elle dépend de la loi propre à votre catégorie, de la convention collective, du contrat, ou de l'usage. Indiquez la durée applicable :</p>
+        <div class="champs">
+          <div class="champ">
+            <label for="lic-duree-libre">Durée du préavis</label>
+            <input type="number" id="lic-duree-libre" min="1" step="1">
+          </div>
+          <div class="champ">
+            <label for="lic-unite-libre">Unité</label>
+            <select id="lic-unite-libre">
+              <option value="" selected disabled>— Choisir —</option>
+              <option value="jours">Jours</option>
+              <option value="semaines">Semaines</option>
+              <option value="mois">Mois</option>
+            </select>
+          </div>
+          <div class="champ" id="lic-mode-jours-libre-wrap" style="display:none">
+            <label for="lic-mode-jours-libre">Jours…</label>
+            <select id="lic-mode-jours-libre">
+              <option value="" selected disabled>— Choisir —</option>
+              <option value="calendaires">Calendaires</option>
+              <option value="ouvres">Ouvrés</option>
+              <option value="ouvrables">Ouvrables</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div id="lic-bloc-fixe" style="display:none">
+        <div class="checkline">
+          <input type="checkbox" id="lic-convention-check">
+          <label for="lic-convention-check">Ma convention collective ou mon contrat prévoit un préavis plus long (facultatif)</label>
+        </div>
+        <div class="champs" id="lic-convention-wrap" style="display:none">
+          <div class="champ">
+            <label for="lic-duree-conv">Durée prévue</label>
+            <input type="number" id="lic-duree-conv" min="1" step="1">
+          </div>
+          <div class="champ">
+            <label for="lic-unite-conv">Unité</label>
+            <select id="lic-unite-conv">
+              <option value="" selected disabled>— Choisir —</option>
+              <option value="jours">Jours</option>
+              <option value="semaines">Semaines</option>
+              <option value="mois">Mois</option>
+            </select>
+          </div>
+          <div class="champ" id="lic-mode-jours-conv-wrap" style="display:none">
+            <label for="lic-mode-jours-conv">Jours…</label>
+            <select id="lic-mode-jours-conv">
+              <option value="" selected disabled>— Choisir —</option>
+              <option value="calendaires">Calendaires</option>
+              <option value="ouvres">Ouvrés</option>
+              <option value="ouvrables">Ouvrables</option>
+            </select>
+          </div>
+        </div>
+        <p class="hint">N'indiquez une durée ici que si elle est <b>plus longue</b> que le minimum légal affiché ci-dessus : une convention ou un contrat ne peut jamais prévoir un préavis de licenciement plus court (art. L1234-1).</p>
+      </div>
+
+      <div class="champs">
+        <div class="champ">
+          <label for="lic-conges-select">Congés payés posés avant la notification ?</label>
+          <select id="lic-conges-select">
+            <option value="" selected disabled>— Choisir —</option>
+            <option value="non">Non</option>
+            <option value="oui">Oui</option>
+          </select>
+        </div>
+      </div>
+      <div class="champs" id="lic-conges-dates-wrap" style="display:none">
+        <div class="champ">
+          <label for="lic-conges-debut">Début des congés</label>
+          <input type="date" id="lic-conges-debut">
+        </div>
+        <div class="champ">
+          <label for="lic-conges-fin">Fin des congés</label>
+          <input type="date" id="lic-conges-fin">
+        </div>
+      </div>
+      <p class="hint" id="lic-hint-conges" style="display:none">Indiquez les dates des congés susceptibles de recouper la période de préavis, ou d'être entièrement compris dedans — pas des congés déjà terminés avant la notification, ni des congés totalement postérieurs à la fin du préavis. Seuls les jours qui tombent effectivement dans le préavis prolongent sa date de fin.</p>
+      <div class="note note-alerte" id="lic-alerte-conges"></div>
+    </div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">3</span> Date de fin du préavis</h2>
+    <div class="resultat-principal">
+      <div class="lbl" id="r-lbl">Le préavis se termine le</div>
+      <div class="date vide" id="r-date-fin">Complétez les champs ci-dessus</div>
+    </div>
+    <div class="note note-info" id="note-conges" style="display:none">
+      Cette date intègre les congés payés posés avant la notification : le préavis a été prolongé d'une durée équivalente (il est suspendu pendant les congés, puis reprend à leur issue). Si vos congés ont été posés <b>après</b> la notification, d'un commun accord, ils ne suspendent pas le préavis — la date ci-dessus ne s'applique alors pas.
+    </div>
+    <div class="note note-info">
+      Le décompte est <b>calendaire</b> pour une durée en mois (la veille de la date anniversaire) ou en jours calendaires (jour de notification inclus). Pour une durée en <b>jours ouvrés</b> (lundi-vendredi) ou <b>jours ouvrables</b> (tous les jours sauf le dimanche), l'outil compte à partir du jour de notification (ou du premier jour correspondant suivant, si la notification tombe un jour non compté) — sans tenir compte des jours fériés, qui peuvent décaler la date réelle de un ou plusieurs jours selon le calendrier applicable.
+    </div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num info">i</span> Et en cas de CDD ?</h2>
+    <p style="font-size:14.5px;color:var(--encre-2);line-height:1.6">Il n'existe pas de préavis classique en CDD arrivant à échéance normale : le contrat s'arrête à la date prévue, sans préavis ni délai à respecter — seule une indemnité de fin de contrat (prime de précarité) peut être due, sauf exceptions. Un vrai préavis n'existe qu'en cas de <b>rupture anticipée à l'initiative du salarié pour être embauché en CDI</b> : il est alors d'1 jour ouvré par semaine de contrat (renouvellements compris), plafonné à 2 semaines. En cas de faute grave, de force majeure ou d'inaptitude, la rupture est immédiate, sans préavis. Un délai de prévenance distinct d'au moins 2 mois s'applique uniquement pour les CDD « à objet défini » (ingénieurs et cadres recrutés pour la réalisation d'un objet défini, art. L1242-2, 6°), une catégorie de contrat spécifique et moins courante que le CDD classique.</p>
+  </section>
+
+<section class="contenu-seo">
+  <h2>Comment calculer un préavis de démission ou de licenciement ?</h2>
+  <p>Le préavis est la période qui s'écoule entre la notification de la rupture du contrat de travail et son terme effectif. Sa durée et son mode de calcul diffèrent selon qu'il s'agit d'une démission ou d'un licenciement — et c'est justement ce que fait cet outil : il applique la bonne règle selon votre situation, puis calcule la date exacte de fin à partir de la date de notification.</p>
+
+  <h2>Le préavis de démission : pas de durée fixée par la loi, dans le cas général</h2>
+  <p>Contrairement à une idée reçue, le Code du travail ne fixe aucune durée de préavis de démission pour la majorité des salariés (art. L1237-1). Cette durée dépend de la convention collective applicable, d'un accord d'entreprise, du contrat de travail, ou à défaut des usages pratiqués dans la localité et la profession. C'est pour cette raison que l'outil ci-dessus vous demande de saisir vous-même la durée applicable : il n'existe pas de valeur par défaut fiable à proposer.</p>
+  <p>Certaines catégories de salariés bénéficient de durées de préavis prévues directement par des textes légaux ou réglementaires spécifiques : journalistes professionnels, VRP, salariés du particulier employeur (y compris assistants maternels), et salariés relevant du droit local d'Alsace-Moselle. Ces régimes sont détaillés dans l'encart ci-dessus, mais ne sont pas intégrés au calcul automatique.</p>
+  <p>Certaines conventions collectives vont jusqu'à exprimer le préavis de démission en jours ouvrés plutôt qu'en jours calendaires pour les très faibles anciennetés : la convention collective des entreprises de prévention et de sécurité (IDCC 1351) prévoit ainsi 1 jour ouvré de préavis entre 15 jours et 1 mois d'ancienneté, puis 2 jours ouvrés jusqu'à 2 mois, avant de basculer sur des durées calendaires puis mensuelles au-delà. C'est pour couvrir ce type de cas que l'outil ci-dessus propose le choix entre jours calendaires, ouvrés et ouvrables — à vous de vérifier laquelle de ces unités s'applique dans votre situation.</p>
+
+  <h2>Le préavis de licenciement : les paliers de l'article L1234-1</h2>
+  <p>Pour un licenciement qui n'est pas motivé par une faute grave, la durée du préavis dépend de l'ancienneté du salarié : en dessous de 6 mois, aucune durée n'est fixée par la loi elle-même (même logique que la démission — convention, contrat ou usage) ; entre 6 mois et 2 ans, le préavis est d'1 mois ; à partir de 2 ans, il est de 2 mois. Une convention collective, un accord, le contrat de travail ou les usages peuvent prévoir une durée plus longue, ou un accès plus rapide à ces paliers (par exemple le palier de 2 mois applicable dès 18 mois d'ancienneté plutôt qu'à partir de 2 ans), mais jamais une durée ou une condition d'ancienneté moins favorable que ces minimums légaux : c'est l'inverse de la règle applicable à la période d'essai, où la convention ne peut jamais dépasser le plafond légal.</p>
+
+  <h2>Faute grave, faute lourde : aucun préavis</h2>
+  <p>Lorsque le licenciement est motivé par une faute grave ou une faute lourde, le contrat est rompu immédiatement : aucun préavis n'est dû, et donc aucune indemnité compensatrice de préavis n'est versée à ce titre.</p>
+
+  <h2>Et en CDD ?</h2>
+  <p>À l'échéance normale d'un CDD, il n'existe pas de préavis comparable à celui d'un CDI : le contrat prend fin à la date prévue. Ce qui peut être dû, dans ce cas, c'est une indemnité de fin de contrat (la « prime de précarité »), sauf exceptions prévues par la loi — mais il ne s'agit pas d'un délai, seulement d'une compensation financière. Un véritable préavis n'existe qu'en cas de rupture anticipée du salarié pour être embauché ailleurs en CDI (1 jour ouvré par semaine de contrat, plafonné à 2 semaines), ou d'un délai de prévenance d'au moins 2 mois pour les CDD « à objet défini » (ingénieurs et cadres recrutés pour la réalisation d'un objet défini, art. L1242-2, 6°), une catégorie de contrat spécifique et moins courante que le CDD classique.</p>
+
+  <h2>Comment se calcule la date de fin exacte ?</h2>
+  <p>Le point de départ du préavis correspond à la date à laquelle l'autre partie est présumée avoir eu connaissance de la rupture : la date de première présentation de la lettre recommandée (même si elle n'est retirée que plus tard), le jour de la remise en main propre contre décharge, ou le jour de l'annonce verbale pour une démission. Cette règle a été confirmée par la Cour de cassation, qui a jugé que le préavis court à compter de la présentation de la lettre, sans exiger son retrait effectif.</p>
+  <p>Une fois ce point de départ fixé, le décompte dépend de l'unité de durée prévue par le texte applicable. Pour une durée exprimée en mois, le préavis suit une logique « de date à date », jour de notification inclus, et expire la veille de la date anniversaire (par exemple, une notification le 8 juillet pour un préavis d'1 mois se termine le 7 août inclus). Pour une durée exprimée en jours calendaires, le jour de notification compte comme le premier jour. En revanche, pour une durée exprimée en jours ouvrés ou ouvrables, le décompte suit la définition propre à ces unités plutôt qu'un simple « de date à date » calendaire : tout dépend du texte ou de la convention applicable, jamais d'une logique automatique liée à l'unité choisie. Pour un préavis de licenciement, les grilles conventionnelles consultées s'expriment plutôt en mois, en semaines, ou en jours calendaires ; l'option jours ouvrés ou ouvrables reste toutefois disponible dans l'outil pour les conventions qui feraient ce choix.</p>
+
+  <h2>Les congés payés pendant le préavis</h2>
+  <p>Si des congés payés ont été validés avant la notification de la rupture, le préavis est suspendu pendant leur durée puis prolongé d'autant à son issue. En revanche, si les congés sont pris après la notification, d'un commun accord entre les parties, le préavis n'est pas suspendu : la date de fin de contrat reste inchangée. Si la notification intervient pendant que le salarié est déjà en congés, le préavis ne commence à courir qu'à son retour.</p>
+
+  <p class="avert">Ce calculateur est fourni à titre indicatif et calcule une durée, jamais un montant : l'indemnité compensatrice de préavis, versée en cas de dispense d'exécution du préavis, n'entre pas dans son périmètre. Il ne calcule pas non plus automatiquement les durées légales spécifiques à certaines catégories (journalistes, VRP, salariés du particulier employeur, assistants maternels, Alsace-Moselle, CDD à objet défini) : pour ces situations, reportez-vous aux textes applicables ou à un professionnel. Pour un préavis exprimé en jours ouvrés ou en jours ouvrables dont l'unité n'est pas fixée par un texte légal identifié (cas générique de la démission, ou palier de licenciement à ancienneté inférieure à 6 mois), l'outil applique sa propre méthode de décompte (ouvrés : lundi-vendredi ; ouvrables : tous les jours sauf le dimanche ; jours fériés non pris en compte dans les deux cas) à défaut de précision dans votre convention ou votre contrat — vérifiez ce point si un jour férié tombe dans la période. Cet outil ne remplace ni un contrat de travail, ni une convention collective, ni l'avis d'un professionnel du droit ou de la paie.</p>
+</section>
+
+<section class="sources">
+  <h3>Sources</h3>
+  <ul>
+    <li>Absence de durée légale de préavis de démission (cas général) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006901174" target="_blank" rel="noopener">Code du travail, art. L1237-1</a></li>
+    <li>Préavis de démission des journalistes professionnels — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000018764983" target="_blank" rel="noopener">Code du travail, art. L7112-2</a></li>
+    <li>Préavis de démission des VRP — <a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006160839/" target="_blank" rel="noopener">Code du travail, section relative aux VRP (art. L7313-9)</a></li>
+    <li>Exemple de préavis de démission en jours ouvrés (faibles anciennetés) — <a href="https://code.travail.gouv.fr/contribution/1351-quelle-est-la-duree-du-preavis-en-cas-de-demission" target="_blank" rel="noopener">Code du travail numérique, convention collective des entreprises de prévention et de sécurité (IDCC 1351)</a></li>
+    <li>Paliers du préavis de licenciement selon l'ancienneté — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006901112" target="_blank" rel="noopener">Code du travail, art. L1234-1</a></li>
+    <li>Point de départ du préavis de licenciement (date de présentation) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006901114" target="_blank" rel="noopener">Code du travail, art. L1234-3</a></li>
+    <li>Jurisprudence : le préavis court dès la présentation de la lettre, même sans retrait — <a href="https://www.legifrance.gouv.fr/juri/id/JURITEXT000007053294/" target="_blank" rel="noopener">Cass. soc., 7 novembre 2006, n° 05-42.323</a></li>
+    <li>Démission : point de départ selon le mode de notification, régime particulier d'Alsace-Moselle — <a href="https://www.service-public.fr/particuliers/vosdroits/F2883" target="_blank" rel="noopener">Service-public.fr, fiche F2883</a></li>
+    <li>Congés payés pendant le préavis — <a href="https://www.service-public.fr/particuliers/vosdroits/F2930" target="_blank" rel="noopener">Service-public.fr, fiche F2930</a></li>
+    <li>CDD, rupture anticipée pour embauche en CDI — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031087476" target="_blank" rel="noopener">Code du travail, art. L1243-2</a></li>
+    <li>CDD à objet défini, délai de prévenance — <a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006189459/" target="_blank" rel="noopener">Code du travail, art. L1242-2</a></li>
+    <li>CDD, indemnité de fin de contrat — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006901221" target="_blank" rel="noopener">Code du travail, art. L1243-10</a></li>
+  </ul>
+</section>
+
+  <footer>
+    Calcul de la durée et de la date de fin d'un préavis de démission ou de licenciement en CDI, congés payés compris. L'indemnité compensatrice de préavis (en euros) n'entre pas dans son périmètre. Outil indicatif, ne remplace pas un professionnel du droit ou de la paie.
+    <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Calcul d'ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a></p>
+    <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>
+  </footer>
+</div>
+
+<script is:inline>
+/* ---------- Fonctions de date (mêmes conventions que les autres calculateurs du site) ---------- */
+function ajouterMois(date, n){
+  const d = new Date(date.getFullYear(), date.getMonth() + n, date.getDate());
+  if(d.getDate() !== date.getDate()){
+    return new Date(date.getFullYear(), date.getMonth() + n + 1, 0);
+  }
+  return d;
+}
+function veilleDe(date){
+  const d = new Date(date);
+  d.setDate(d.getDate() - 1);
+  return d;
+}
+/* Préavis en mois : décompte "de date à date", expire la veille de la date anniversaire
+   (règle confirmée pour le préavis par service-public.fr, fiche F2883) */
+function finPreavisMois(debut, n){
+  return veilleDe(ajouterMois(debut, n));
+}
+function ajouterJoursCalendaires(debut, n){
+  const d = new Date(debut);
+  d.setDate(d.getDate() + n);
+  return d;
+}
+/* Préavis en jours calendaires : le jour de notification compte comme jour 1 */
+function finPreavisJoursCalendaires(debut, n){
+  return ajouterJoursCalendaires(debut, n - 1);
+}
+function estJourOuvre(d){
+  const j = d.getDay();
+  return j !== 0 && j !== 6;
+}
+/* Préavis en jours ouvrés : compte les jours ouvrés à partir du jour de notification
+   (ce jour comptant comme jour 1 s'il est lui-même ouvré ; sinon le premier jour ouvré
+   suivant devient le jour 1). Ne tient pas compte des jours fériés : aucun texte consulté
+   ne fixe cette règle pour le cas générique où la durée vient d'une convention ou d'un
+   contrat — c'est une méthode appliquée par cet outil à défaut de précision, signalée
+   dans l'avertissement en bas de page. */
+function finPreavisJoursOuvres(debut, n){
+  let d = new Date(debut);
+  let compte = 0;
+  while(compte < n){
+    if(estJourOuvre(d)) compte++;
+    if(compte === n) break;
+    d.setDate(d.getDate() + 1);
+  }
+  return d;
+}
+/* Jours ouvrables : tous les jours sauf le jour de repos hebdomadaire (dimanche) —
+   à distinguer des jours ouvrés (lundi-vendredi uniquement). Même limite que pour
+   les jours ouvrés : pas de gestion des jours fériés. */
+function estJourOuvrable(d){
+  return d.getDay() !== 0;
+}
+function finPreavisJoursOuvrables(debut, n){
+  let d = new Date(debut);
+  let compte = 0;
+  while(compte < n){
+    if(estJourOuvrable(d)) compte++;
+    if(compte === n) break;
+    d.setDate(d.getDate() + 1);
+  }
+  return d;
+}
+function ajouterSemaines(debut, n){
+  return ajouterJoursCalendaires(debut, n * 7 - 1);
+}
+/* Ancienneté en mois entiers, par ajout de mois plafonné (même moteur que le calculateur
+   d'ancienneté du site) : gère correctement les fins de mois sans jamais produire un
+   résultat négatif ou incohérent. */
+function totalMoisAnciennete(debut, fin){
+  const approx = (fin.getFullYear() - debut.getFullYear()) * 12 + (fin.getMonth() - debut.getMonth());
+  let totalMois = approx;
+  let candidat = ajouterMois(debut, totalMois);
+  if(candidat > fin){
+    totalMois -= 1;
+  } else {
+    let suivant = ajouterMois(debut, totalMois + 1);
+    while(suivant <= fin){
+      totalMois += 1;
+      suivant = ajouterMois(debut, totalMois + 1);
+    }
+  }
+  return totalMois;
+}
+function parseDateInput(str){
+  if(!str) return null;
+  const [a,m,j] = str.split("-").map(Number);
+  return new Date(a, m-1, j);
+}
+function formatDateFr(d){
+  const jours = ["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+  const mois = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+  return jours[d.getDay()] + " " + d.getDate() + " " + mois[d.getMonth()] + " " + d.getFullYear();
+}
+function formatAnciennete(totalMois){
+  const annees = Math.floor(totalMois / 12);
+  const mois = totalMois % 12;
+  const parts = [];
+  if(annees > 0) parts.push(annees + (annees === 1 ? " an" : " ans"));
+  parts.push(mois + (mois === 1 ? " mois" : " mois"));
+  return parts.join(", ");
+}
+
+/* Calcule la date de fin à partir d'une durée saisie librement (nombre + unité +
+   éventuellement calendaire/ouvré). Renvoie null tant qu'une information nécessaire
+   manque : on ne calcule jamais de date "par défaut" à partir de champs incomplets. */
+function calculerFinDepuisSaisie(debut, nombreStr, unite, modeJours){
+  if(!debut || !unite) return null;
+  const n = parseInt(nombreStr, 10);
+  if(isNaN(n) || n <= 0) return null;
+  if(unite === "mois") return finPreavisMois(debut, n);
+  if(unite === "semaines") return ajouterSemaines(debut, n);
+  if(unite === "jours"){
+    if(!modeJours) return null;
+    if(modeJours === "ouvres") return finPreavisJoursOuvres(debut, n);
+    if(modeJours === "ouvrables") return finPreavisJoursOuvrables(debut, n);
+    return finPreavisJoursCalendaires(debut, n);
+  }
+  return null;
+}
+
+function joursEntre(d1, d2){
+  return Math.round((d2 - d1) / 86400000);
+}
+/* Calcule l'effet des congés payés sur la date de fin du préavis.
+   Ne considère que les jours de congés qui recoupent réellement la période
+   de préavis (entre le début du préavis et sa date de fin avant prolongation) :
+   des congés entièrement avant ou entièrement après cette période n'ont aucun
+   effet, même si le choix "oui" a été fait — on calcule le recouvrement, on ne
+   fait jamais confiance à un nombre saisi à la main. */
+function calculerEffetConges(debutPreavis, finNaive, congesSelect, congeDebutStr, congeFinStr){
+  if(!finNaive || congesSelect !== "oui") return { fin: finNaive };
+  const cd = parseDateInput(congeDebutStr);
+  const cf = parseDateInput(congeFinStr);
+  if(!cd || !cf) return { fin: finNaive };
+  if(cf < cd) return { fin: finNaive, erreurOrdre: true };
+  const overlapDebut = cd > debutPreavis ? cd : debutPreavis;
+  const overlapFin = cf < finNaive ? cf : finNaive;
+  if(overlapDebut > overlapFin) return { fin: finNaive, horsPeriode: true };
+  const chevauchement = joursEntre(overlapDebut, overlapFin) + 1;
+  return { fin: ajouterJoursCalendaires(finNaive, chevauchement), congesAppliques: true, chevauchement };
+}
+
+function detecterBadInput(...inputs){
+  return inputs.some(i => i && i.validity && i.validity.badInput);
+}
+
+/* ---------- État ---------- */
+let typeRupture = "demission";
+
+/* ---------- Câblage : type de rupture ---------- */
+document.querySelectorAll("#type-rupture .seg-btn").forEach(b => b.addEventListener("click", () => {
+  typeRupture = b.dataset.type;
+  document.querySelectorAll("#type-rupture .seg-btn").forEach(x => x.classList.toggle("active", x === b));
+  document.getElementById("bloc-motif-licenciement").style.display = typeRupture === "licenciement" ? "block" : "none";
+  document.getElementById("panneau-demission").style.display = typeRupture === "demission" ? "block" : "none";
+  document.getElementById("panneau-licenciement").style.display = typeRupture === "licenciement" ? "block" : "none";
+  calculerTout();
+}));
+
+/* ---------- Câblage : sous-champs conditionnels ---------- */
+function cablerUnite(idUnite, idModeWrap){
+  document.getElementById(idUnite).addEventListener("change", function(){
+    document.getElementById(idModeWrap).style.display = this.value === "jours" ? "flex" : "none";
+    calculerTout();
+  });
+}
+cablerUnite("dem-unite", "dem-mode-jours-wrap");
+cablerUnite("lic-unite-libre", "lic-mode-jours-libre-wrap");
+cablerUnite("lic-unite-conv", "lic-mode-jours-conv-wrap");
+
+function cablerConges(idSelect, idDatesWrap, idHint){
+  document.getElementById(idSelect).addEventListener("change", function(){
+    const show = this.value === "oui";
+    document.getElementById(idDatesWrap).style.display = show ? "flex" : "none";
+    document.getElementById(idHint).style.display = show ? "block" : "none";
+    calculerTout();
+  });
+}
+cablerConges("dem-conges-select", "dem-conges-dates-wrap", "dem-hint-conges");
+cablerConges("lic-conges-select", "lic-conges-dates-wrap", "lic-hint-conges");
+
+document.getElementById("faute-grave").addEventListener("change", calculerTout);
+document.getElementById("lic-convention-check").addEventListener("change", function(){
+  document.getElementById("lic-convention-wrap").style.display = this.checked ? "flex" : "none";
+  calculerTout();
+});
+
+["dem-date-notif","dem-duree","dem-unite","dem-mode-jours","dem-conges-select","dem-conges-debut","dem-conges-fin"].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener("change", calculerTout);
+  el.addEventListener("input", calculerTout);
+});
+["lic-date-entree","lic-date-notif","lic-duree-libre","lic-unite-libre","lic-mode-jours-libre",
+ "lic-duree-conv","lic-unite-conv","lic-mode-jours-conv","lic-conges-select","lic-conges-debut","lic-conges-fin"].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener("change", calculerTout);
+  el.addEventListener("input", calculerTout);
+});
+
+/* ---------- Calcul : bloc démission ---------- */
+function calculerDemission(){
+  const inpDate = document.getElementById("dem-date-notif");
+  if(detecterBadInput(inpDate)){
+    return { erreur: "Date invalide : vérifiez que le jour saisi existe bien dans le mois choisi." };
+  }
+  const debut = parseDateInput(inpDate.value);
+  const unite = document.getElementById("dem-unite").value;
+  const modeJours = document.getElementById("dem-mode-jours").value;
+  const nombre = document.getElementById("dem-duree").value;
+
+  const finNaive = calculerFinDepuisSaisie(debut, nombre, unite, modeJours);
+  if(!finNaive) return { fin: null };
+
+  const congesSelect = document.getElementById("dem-conges-select").value;
+  const inpCd = document.getElementById("dem-conges-debut");
+  const inpCf = document.getElementById("dem-conges-fin");
+  if(congesSelect === "oui" && detecterBadInput(inpCd, inpCf)){
+    return { fin: finNaive, congesErreur: "Date de congés invalide : vérifiez que le jour saisi existe bien dans le mois choisi." };
+  }
+  const c = calculerEffetConges(debut, finNaive, congesSelect, inpCd.value, inpCf.value);
+  return { fin: c.fin, congesAppliques: !!c.congesAppliques, congesHorsPeriode: !!c.horsPeriode, congesErreurOrdre: !!c.erreurOrdre, chevauchement: c.chevauchement };
+}
+
+/* ---------- Calcul : bloc licenciement ---------- */
+function calculerLicenciement(){
+  const fauteGrave = document.getElementById("faute-grave").value;
+  if(fauteGrave === "oui") return { fauteGrave: true };
+  if(!fauteGrave) return { motifNonChoisi: true };
+
+  const inpEntree = document.getElementById("lic-date-entree");
+  const inpNotif = document.getElementById("lic-date-notif");
+  if(detecterBadInput(inpEntree, inpNotif)){
+    return { erreur: "Date invalide : vérifiez que le jour saisi existe bien dans le mois choisi." };
+  }
+  const entree = parseDateInput(inpEntree.value);
+  const notif = parseDateInput(inpNotif.value);
+  if(!entree || !notif) return { anciennete: null };
+  if(notif < entree) return { erreurOrdre: true };
+
+  const totalMois = totalMoisAnciennete(entree, notif);
+  let palier, dureeLegaleLabel;
+  if(totalMois < 6){
+    palier = "libre";
+    dureeLegaleLabel = "Non fixé par la loi";
+  } else if(totalMois < 24){
+    palier = "un_mois";
+    dureeLegaleLabel = "1 mois";
+  } else {
+    palier = "deux_mois";
+    dureeLegaleLabel = "2 mois";
+  }
+
+  let finNaive = null;
+  if(palier === "libre"){
+    const nombre = document.getElementById("lic-duree-libre").value;
+    const unite = document.getElementById("lic-unite-libre").value;
+    const modeJours = document.getElementById("lic-mode-jours-libre").value;
+    finNaive = calculerFinDepuisSaisie(notif, nombre, unite, modeJours);
+  } else {
+    const legalN = palier === "un_mois" ? 1 : 2;
+    finNaive = finPreavisMois(notif, legalN);
+    if(document.getElementById("lic-convention-check").checked){
+      const nombre = document.getElementById("lic-duree-conv").value;
+      const unite = document.getElementById("lic-unite-conv").value;
+      const modeJours = document.getElementById("lic-mode-jours-conv").value;
+      const finConv = calculerFinDepuisSaisie(notif, nombre, unite, modeJours);
+      if(finConv) finNaive = finConv;
+    }
+  }
+
+  const congesSelect = document.getElementById("lic-conges-select").value;
+  const inpCd = document.getElementById("lic-conges-debut");
+  const inpCf = document.getElementById("lic-conges-fin");
+  if(!finNaive){
+    return { totalMois, palier, dureeLegaleLabel, fin: null };
+  }
+  if(congesSelect === "oui" && detecterBadInput(inpCd, inpCf)){
+    return { totalMois, palier, dureeLegaleLabel, fin: finNaive, congesErreur: "Date de congés invalide : vérifiez que le jour saisi existe bien dans le mois choisi." };
+  }
+  const c = calculerEffetConges(notif, finNaive, congesSelect, inpCd.value, inpCf.value);
+
+  return { totalMois, palier, dureeLegaleLabel, fin: c.fin, congesAppliques: !!c.congesAppliques, congesHorsPeriode: !!c.horsPeriode, congesErreurOrdre: !!c.erreurOrdre, chevauchement: c.chevauchement };
+}
+
+/* ---------- Affichage ---------- */
+function afficherResultat(fin, texteVide, conges){
+  const el = document.getElementById("r-date-fin");
+  const noteConges = document.getElementById("note-conges");
+  if(!fin){
+    el.textContent = texteVide;
+    el.classList.add("vide");
+    noteConges.style.display = "none";
+    return;
+  }
+  el.textContent = formatDateFr(fin);
+  el.classList.remove("vide");
+  if(conges && conges.appliques){
+    noteConges.innerHTML = "Cette date intègre " + conges.chevauchement + " jour(s) de congés payés qui recoupent la période de préavis : le préavis a été prolongé d'autant (il est suspendu pendant les congés, puis reprend à leur issue). Si vos congés ont été posés <b>après</b> la notification, d'un commun accord, ils ne suspendent pas le préavis — la date ci-dessus ne s'applique alors pas.";
+    noteConges.style.display = "block";
+  } else if(conges && conges.horsPeriode){
+    noteConges.textContent = "Les congés indiqués ne recoupent pas la période de préavis (ni avant, ni pendant) : ils n'ont donc aucun effet sur la date de fin ci-dessus.";
+    noteConges.style.display = "block";
+  } else {
+    noteConges.style.display = "none";
+  }
+}
+
+function majAlerteConges(id, r){
+  const el = document.getElementById(id);
+  if(r.congesErreur){
+    el.textContent = "⚠ " + r.congesErreur;
+    el.classList.add("visible");
+  } else if(r.congesErreurOrdre){
+    el.textContent = "⚠ La date de fin des congés est antérieure à la date de début. Vérifiez les dates saisies.";
+    el.classList.add("visible");
+  } else {
+    el.classList.remove("visible");
+  }
+}
+
+function calculerTout(){
+  const alerteFaute = document.getElementById("alerte-faute-grave");
+  const rLbl = document.getElementById("r-lbl");
+  rLbl.textContent = "Le préavis se termine le";
+
+  if(typeRupture === "demission"){
+    alerteFaute.classList.remove("visible");
+    document.getElementById("lic-alerte-dates").classList.remove("visible");
+    const r = calculerDemission();
+    if(r.erreur){
+      document.getElementById("dem-alerte-conges").classList.remove("visible");
+      afficherResultat(null, r.erreur, null);
+      return;
+    }
+    majAlerteConges("dem-alerte-conges", r);
+    afficherResultat(r.fin, "Complétez la date, la durée et l'unité du préavis", { appliques: r.congesAppliques, horsPeriode: r.congesHorsPeriode, chevauchement: r.chevauchement });
+    return;
+  }
+
+  /* --- Licenciement --- */
+  const rAnc = document.getElementById("lic-r-anciennete");
+  const rPalier = document.getElementById("lic-r-palier");
+  const blocLibre = document.getElementById("lic-bloc-libre");
+  const blocFixe = document.getElementById("lic-bloc-fixe");
+  const licCorps = document.getElementById("lic-corps");
+  const alerteOrdre = document.getElementById("lic-alerte-dates");
+
+  const r = calculerLicenciement();
+
+  if(r.fauteGrave){
+    alerteFaute.classList.add("visible");
+    licCorps.style.display = "none";
+    afficherResultat(null, "Aucun préavis n'est dû", null);
+    return;
+  }
+  alerteFaute.classList.remove("visible");
+  licCorps.style.display = "block";
+
+  if(r.motifNonChoisi){
+    rAnc.textContent = "—"; rPalier.textContent = "—";
+    blocLibre.style.display = "none"; blocFixe.style.display = "none";
+    alerteOrdre.classList.remove("visible");
+    document.getElementById("lic-alerte-conges").classList.remove("visible");
+    afficherResultat(null, "Choisissez d'abord le motif du licenciement", null);
+    return;
+  }
+  if(r.erreur){
+    rAnc.textContent = "—"; rPalier.textContent = "—";
+    blocLibre.style.display = "none"; blocFixe.style.display = "none";
+    afficherResultat(null, r.erreur, null);
+    return;
+  }
+  if(r.erreurOrdre){
+    alerteOrdre.textContent = "⚠ La date d'entrée est postérieure à la date de notification. Vérifiez les dates saisies.";
+    alerteOrdre.classList.add("visible");
+    rAnc.textContent = "—"; rPalier.textContent = "—";
+    blocLibre.style.display = "none"; blocFixe.style.display = "none";
+    document.getElementById("lic-alerte-conges").classList.remove("visible");
+    afficherResultat(null, "—", null);
+    return;
+  }
+  alerteOrdre.classList.remove("visible");
+
+  if(r.totalMois === undefined){
+    rAnc.textContent = "—"; rPalier.textContent = "—";
+    blocLibre.style.display = "none"; blocFixe.style.display = "none";
+    document.getElementById("lic-alerte-conges").classList.remove("visible");
+    afficherResultat(null, "Renseignez les deux dates", null);
+    return;
+  }
+
+  rAnc.textContent = formatAnciennete(r.totalMois);
+  rPalier.textContent = r.dureeLegaleLabel;
+  blocLibre.style.display = r.palier === "libre" ? "block" : "none";
+  blocFixe.style.display = r.palier === "libre" ? "none" : "block";
+  majAlerteConges("lic-alerte-conges", r);
+  afficherResultat(r.fin, r.palier === "libre" ? "Indiquez la durée du préavis ci-dessus" : "—", { appliques: r.congesAppliques, horsPeriode: r.congesHorsPeriode, chevauchement: r.chevauchement });
+}
+
+/* ---------- Réglages initiaux ---------- */
+document.getElementById("panneau-licenciement").style.display = "none";
+document.getElementById("bloc-motif-licenciement").style.display = "none";
+calculerTout();
+</script>
+</body>
+</html>
