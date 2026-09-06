@@ -1,0 +1,219 @@
+---
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conversion heure décimale — heures:minutes ↔ décimal</title>
+<meta name="description" content="Convertissez une durée heures:minutes en décimal (8h30 → 8,5) ou l'inverse, instantanément. Outil pratique pour la saisie en logiciel de paie ou fiche de temps.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<style is:global>
+  :root{
+    --encre:#152238;--encre-2:#22334f;--papier:#F5F3EE;--papier-2:#ECE8DF;
+    --trait:#D8D2C4;--sup25:#B8862F;--sup50:#A6472E;--vert:#2F6F63;--gris:#6A6558;
+    --report:#EDE6F2;--report-b:#8A6FA8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--papier);color:var(--encre);line-height:1.5;padding:24px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  header.hero{margin-bottom:24px;border-bottom:2px solid var(--encre);padding-bottom:18px}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
+  h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
+  h1 .light{font-weight:300;color:var(--encre-2)}
+  .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:660px}
+  .sub a{color:var(--vert);font-weight:600}
+  .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
+  .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .panneau h2 .num{background:var(--encre);color:#fff;width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .bascule{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+  .bascule button{font-family:inherit;flex:1;min-width:180px;padding:11px 14px;border:1px solid var(--trait);background:var(--papier);border-radius:8px;cursor:pointer;font-size:14.5px;font-weight:600;color:var(--gris)}
+  .bascule button.actif{background:var(--encre);border-color:var(--encre);color:#fff}
+  .bascule button:hover:not(.actif){background:var(--papier-2)}
+  .champ-ligne{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
+  .champ{display:flex;flex-direction:column;gap:6px}
+  .champ label{font-size:12px;color:var(--gris);font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+  .champ input{padding:11px 12px;border:1px solid var(--trait);border-radius:7px;font-size:20px;font-variant-numeric:tabular-nums;background:var(--papier);color:var(--encre);width:120px}
+  .champ input:focus{outline:2px solid var(--vert);background:#fff}
+  .fleche{font-size:22px;color:var(--gris);padding-bottom:11px}
+  .mode{display:none}
+  .mode.actif{display:block}
+  .resultat-bloc{margin-top:22px;padding:20px;background:var(--papier-2);border-radius:10px;border-left:4px solid var(--vert)}
+  .resultat-bloc .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:600}
+  .resultat-bloc .val{font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--vert);margin-top:4px}
+  .resultat-bloc .val small{font-size:16px;font-weight:400;color:var(--gris)}
+  .hint{font-size:12.5px;color:var(--gris);margin-top:14px;font-style:italic}
+  .table-ref{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+  .table-ref th{background:var(--encre);color:#fff;padding:8px 10px;font-size:11px;letter-spacing:.4px;text-transform:uppercase;font-weight:600;text-align:left}
+  .table-ref td{border:1px solid var(--trait);padding:7px 10px}
+  .table-ref tr:nth-child(even) td{background:var(--papier-2)}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
+  @media(max-width:640px){h1{font-size:26px}.champ input{width:100px;font-size:18px}}
+.contenu-seo{
+    max-width:760px;
+    margin:36px auto 0;
+    padding:28px 4px 0;
+    border-top:2px solid var(--encre);
+  }
+  .contenu-seo h2{
+    font-size:21px;
+    color:var(--encre);
+    margin:28px 0 10px;
+    letter-spacing:-0.2px;
+  }
+  .contenu-seo h2:first-of-type{margin-top:0}
+  .contenu-seo p{
+    font-size:15.5px;
+    color:var(--encre-2);
+    line-height:1.7;
+    margin-bottom:14px;
+  }
+  .contenu-seo sup{font-size:0.7em}
+  .contenu-seo .avert{
+    margin-top:24px;
+    padding:14px 16px;
+    background:var(--papier-2);
+    border-radius:8px;
+    font-size:13px;
+    color:var(--gris);
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Conversion · Temps de travail</div>
+    <h1>Conversion heure décimale</h1>
+    <p class="sub">Passez d'une durée en heures:minutes à sa valeur décimale, ou l'inverse — utile pour saisir un temps de travail dans un logiciel de paie, remplir une fiche de temps, ou convertir une valeur isolée reçue en décimal (un compteur RTT, un export de logiciel RH, une note manuscrite).</p>
+  </header>
+
+  <section class="panneau">
+    <h2><span class="num">1</span> Sens de conversion</h2>
+    <div class="bascule">
+      <button id="btn-hm" class="actif">Heures:minutes → Décimal</button>
+      <button id="btn-dec">Décimal → Heures:minutes</button>
+    </div>
+
+    <div class="mode actif" id="mode-hm">
+      <div class="champ-ligne">
+        <div class="champ">
+          <label for="h-heures">Heures</label>
+          <input type="number" id="h-heures" min="0" max="999" step="1" value="8">
+        </div>
+        <div class="champ">
+          <label for="h-minutes">Minutes</label>
+          <input type="number" id="h-minutes" min="0" max="59" step="1" value="30">
+        </div>
+      </div>
+    </div>
+
+    <div class="mode" id="mode-dec">
+      <div class="champ-ligne">
+        <div class="champ">
+          <label for="d-decimal">Valeur décimale</label>
+          <input type="text" inputmode="decimal" id="d-decimal" value="8,5">
+        </div>
+      </div>
+    </div>
+
+    <div class="resultat-bloc">
+      <div class="lbl" id="r-lbl">Résultat en décimal</div>
+      <div class="val" id="r-val">8,50<small> h</small></div>
+    </div>
+    <p class="hint" id="r-hint">8 h 30 correspond à 8,50 heure décimale — soit 30 minutes ÷ 60 = 0,50.</p>
+  </section>
+
+<section class="contenu-seo">
+  <h2>Convertir une heure en décimal, pourquoi et comment ?</h2>
+  <p>Un temps de travail se note naturellement en heures et minutes : 8h30, 7h45. Mais la plupart des logiciels de paie, tableurs et fiches de temps demandent une valeur décimale : 8,5 ou 7,75. Les minutes ne se divisent pas par 100 comme les centièmes d'euro, elles se divisent par 60 — d'où l'erreur fréquente de confondre 8h30 avec 8,30.</p>
+  <p>Ce calculateur fait la conversion dans les deux sens, instantanément : heures:minutes vers décimal, ou décimal vers heures:minutes.</p>
+
+  <h2>Le calcul derrière la conversion</h2>
+  <p>Pour passer de heures:minutes à décimal, on divise les minutes par 60 et on ajoute le résultat aux heures. Exemple : 8h30 donne 8 + (30 ÷ 60) = 8,5.</p>
+  <p>Pour l'inverse, on garde la partie entière comme nombre d'heures, puis on multiplie la partie décimale par 60 pour obtenir les minutes. Exemple : 7,25 donne 7 heures, et 0,25 × 60 = 15 minutes, soit 7h15.</p>
+
+  <h2>Quelques repères utiles</h2>
+  <table class="table-ref">
+    <tr><th>Minutes</th><th>Équivalent décimal</th></tr>
+    <tr><td>15 min</td><td>0,25</td></tr>
+    <tr><td>30 min</td><td>0,50</td></tr>
+    <tr><td>45 min</td><td>0,75</td></tr>
+    <tr><td>10 min</td><td>0,17 (arrondi)</td></tr>
+    <tr><td>20 min</td><td>0,33 (arrondi)</td></tr>
+    <tr><td>40 min</td><td>0,67 (arrondi)</td></tr>
+  </table>
+  <p>Les quarts d'heure (15, 30, 45 min) tombent sur une valeur décimale ronde. Les autres découpages donnent un résultat arrondi à deux décimales, comme le fait ce calculateur.</p>
+
+  <h2>À quoi sert cette conversion en paie ?</h2>
+  <p>La plupart des logiciels de paie et de gestion des temps demandent une saisie en décimal plutôt qu'en heures:minutes, pour simplifier les additions et les calculs de taux horaire. C'est aussi le format généralement utilisé pour cumuler des heures sur plusieurs jours avant de les reporter dans un tableau ou un export.</p>
+  <p>Les calculateurs de <a href="/calcul-temps-de-travail">temps de travail réel</a> et d'<a href="/heures-complementaires-temps-partiel">heures complémentaires</a> affichent déjà leur résultat dans les deux formats. Ce convertisseur devient utile dans l'autre sens, ou pour une valeur isolée : un compteur RTT donné en décimal, un export de logiciel RH, un total transmis par un tiers — à reconvertir en heures:minutes pour vérification, ou inversement.</p>
+
+  <p class="avert">Cet outil réalise une conversion mathématique simple entre une notation heures:minutes et sa valeur décimale équivalente. Il ne calcule ni salaire, ni majoration, ni taux horaire — pour ces calculs, reportez-vous aux autres pages du site ou à votre logiciel de paie.</p>
+</section>
+
+  <footer>
+    Conversion heures:minutes ↔ décimal. Les minutes se divisent par 60, pas par 100 : 8h30 correspond à 8,5, pas à 8,30. Résultat arrondi à deux décimales.
+    <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps de travail réel</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Calcul d'ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> · <a href="/calcul-heure-de-nuit" style="color:var(--vert);font-weight:600">Heures de nuit</a></p>
+    <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>
+  </footer>
+</div>
+
+<script is:inline>
+const btnHM=document.getElementById("btn-hm"), btnDec=document.getElementById("btn-dec");
+const modeHM=document.getElementById("mode-hm"), modeDec=document.getElementById("mode-dec");
+const inH=document.getElementById("h-heures"), inM=document.getElementById("h-minutes"), inD=document.getElementById("d-decimal");
+const rLbl=document.getElementById("r-lbl"), rVal=document.getElementById("r-val"), rHint=document.getElementById("r-hint");
+let sens="hm";
+
+function decFr(d){return d.toFixed(2).replace(".",",");}
+function parseDec(s){if(s==null)return NaN;const t=String(s).trim().replace(",",".");const d=parseFloat(t);return isNaN(d)?NaN:d;}
+
+function calculerHM(){
+  let h=parseInt(inH.value,10); let m=parseInt(inM.value,10);
+  if(isNaN(h)||h<0)h=0; if(isNaN(m)||m<0)m=0;
+  if(m>59){h+=Math.floor(m/60);m=m%60;}
+  const dec=h+m/60;
+  rLbl.textContent="Résultat en décimal";
+  rVal.innerHTML=decFr(dec)+"<small> h</small>";
+  rHint.textContent=h+" h "+String(m).padStart(2,"0")+" équivaut à "+decFr(dec)+" en décimal — les "+m+" minutes comptent pour "+decFr(m/60)+" ("+m+" ÷ 60).";
+}
+function calculerDec(){
+  const dec=parseDec(inD.value);
+  if(isNaN(dec)||dec<0){
+    rLbl.textContent="Résultat en heures:minutes";
+    rVal.innerHTML="—";
+    rHint.textContent="Saisissez une valeur décimale positive (ex. 8,5).";
+    return;
+  }
+  let h=Math.floor(dec+1e-9);
+  let m=Math.round((dec-h)*60);
+  if(m===60){h++;m=0;}
+  rLbl.textContent="Résultat en heures:minutes";
+  rVal.innerHTML=h+"h"+String(m).padStart(2,"0")+"<small> ("+h+" h "+m+" min)</small>";
+  rHint.textContent=decFr(dec)+" en décimal équivaut à "+h+"h"+String(m).padStart(2,"0")+" — "+h+" heures pleines, et "+decFr(dec-h)+" × 60 = "+m+" minutes.";
+}
+function calculer(){ if(sens==="hm") calculerHM(); else calculerDec(); }
+
+function basculer(nouveauSens){
+  sens=nouveauSens;
+  if(sens==="hm"){
+    btnHM.classList.add("actif"); btnDec.classList.remove("actif");
+    modeHM.classList.add("actif"); modeDec.classList.remove("actif");
+  }else{
+    btnDec.classList.add("actif"); btnHM.classList.remove("actif");
+    modeDec.classList.add("actif"); modeHM.classList.remove("actif");
+  }
+  calculer();
+}
+
+btnHM.addEventListener("click",()=>basculer("hm"));
+btnDec.addEventListener("click",()=>basculer("dec"));
+[inH,inM].forEach(el=>el.addEventListener("input",calculer));
+inD.addEventListener("input",calculer);
+
+calculer();
+</script>
+</body>
+</html>
