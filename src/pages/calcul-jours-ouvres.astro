@@ -1,0 +1,467 @@
+---
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul de jours ouvrés et jours ouvrables entre deux dates | France</title>
+<meta name="description" content="Calculez le nombre de jours ouvrés et de jours ouvrables entre deux dates, jours fériés déduits. Simulateur gratuit, définitions claires, sans confusion.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<style is:global>
+  :root{
+    --encre:#152238;--encre-2:#22334f;--papier:#F5F3EE;--papier-2:#ECE8DF;
+    --trait:#D8D2C4;--vert:#2F6F63;--gris:#6A6558;--accent:#8A6FA8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--papier);color:var(--encre);line-height:1.5;padding:24px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  header.hero{margin-bottom:24px;border-bottom:2px solid var(--encre);padding-bottom:18px}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
+  h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
+  h1 .light{font-weight:700;color:var(--encre-2)}
+  .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:660px}
+  .sub a{color:var(--vert);font-weight:600}
+  .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
+  .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .panneau h2 .num{background:var(--encre);color:#fff;width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .champs{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end}
+  .champ{display:flex;flex-direction:column;gap:6px}
+  .champ label{font-size:13px;color:var(--gris);font-weight:600}
+  .champ input[type=date]{padding:10px 12px;border:1px solid var(--trait);border-radius:7px;font-size:15px;background:var(--papier);color:var(--encre);font-family:inherit}
+  .champ input[type=date]:focus{outline:2px solid var(--vert)}
+  .champ select{padding:10px 12px;border:1px solid var(--trait);border-radius:7px;font-size:15px;background:var(--papier);color:var(--encre);font-family:inherit;min-width:260px}
+  .champ select:focus{outline:2px solid var(--vert)}
+  .option-regime{display:flex;align-items:flex-start;gap:10px;margin-top:18px;padding:12px 14px;background:var(--papier-2);border-radius:8px}
+  .option-regime input[type=checkbox]{margin-top:3px;width:16px;height:16px;accent-color:var(--vert)}
+  .option-regime label{font-size:13.5px;color:var(--encre-2);cursor:pointer}
+  .option-regime label b{color:var(--encre)}
+  .option-regime .detail{display:block;color:var(--gris);font-size:12.5px;margin-top:2px}
+  .bloc-profil{margin-top:18px;padding:12px 14px;background:var(--papier-2);border-radius:8px}
+  .bloc-profil .champ{margin-bottom:0}
+  .liste-personnalisee{margin-top:12px;padding-top:12px;border-top:1px solid var(--trait)}
+  .liste-personnalisee .msg-vide{font-size:12.5px;color:var(--gris);font-style:italic}
+  .item-ferie{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:13.5px;color:var(--encre-2)}
+  .item-ferie input[type=checkbox]{width:15px;height:15px;accent-color:var(--vert)}
+  .item-ferie label{cursor:pointer}
+  .cadre-legal{font-size:12.5px;color:var(--gris);background:var(--papier-2);padding:8px 12px;border-radius:6px;margin-top:16px}
+  .cadre-legal b{color:var(--encre)}
+  .cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:4px}
+  .carte{border:1px solid var(--trait);border-radius:8px;padding:14px;background:var(--papier)}
+  .carte .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:600}
+  .carte .val{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:4px}
+  .carte .val small{font-size:14px;font-weight:400;color:var(--gris)}
+  .carte.principal{border-top:3px solid var(--vert)}
+  .carte.principal .val{color:var(--vert);font-size:30px}
+  .carte.secondaire{border-top:3px solid var(--accent)} .carte.secondaire .val{color:var(--accent);font-size:30px}
+  .carte.info{border-top:3px solid var(--trait)}
+  .erreur{margin-top:14px;padding:11px 14px;background:#F6E5E1;border-left:4px solid #A6472E;border-radius:6px;font-size:13px;color:#5a2418;display:none}
+  .erreur.visible{display:block}
+  .note-complet{margin-top:14px;padding:11px 14px;background:var(--papier-2);border-left:4px solid var(--vert);border-radius:6px;font-size:13px;color:var(--encre-2)}
+  .note-complet b{color:var(--encre)}
+  .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  button.act{font-family:inherit;font-size:14px;padding:9px 16px;border-radius:7px;border:1px solid var(--encre);cursor:pointer;font-weight:600}
+  .btn-primary{background:var(--encre);color:#fff}
+  .btn-ghost{background:transparent;color:var(--encre)}
+  button.act:hover{opacity:.9}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
+  @media(max-width:640px){h1{font-size:26px}.champs{flex-direction:column;align-items:stretch}}
+
+  .contenu-seo{
+    max-width:760px;
+    margin:36px auto 0;
+    padding:28px 4px 0;
+    border-top:2px solid var(--encre);
+  }
+  .contenu-seo h2{
+    font-size:21px;
+    color:var(--encre);
+    margin:28px 0 10px;
+    letter-spacing:-0.2px;
+  }
+  .contenu-seo h2:first-of-type{margin-top:0}
+  .contenu-seo p{
+    font-size:15.5px;
+    color:var(--encre-2);
+    line-height:1.7;
+    margin-bottom:14px;
+  }
+  .contenu-seo ul{margin:0 0 14px 20px}
+  .contenu-seo li{font-size:15.5px;color:var(--encre-2);line-height:1.7;margin-bottom:6px}
+  .contenu-seo .avert{
+    margin-top:24px;
+    padding:14px 16px;
+    background:var(--papier-2);
+    border-radius:8px;
+    font-size:13px;
+    color:var(--gris);
+    line-height:1.6;
+  }
+  .maillage{
+    margin-top:18px;
+    padding:14px 16px;
+    background:#fff;
+    border:1px solid var(--trait);
+    border-radius:8px;
+    font-size:14.5px;
+    color:var(--encre-2);
+    line-height:1.7;
+  }
+  .maillage a{color:var(--vert);font-weight:600}
+  .sources{
+    max-width:760px;
+    margin:28px auto 0;
+    padding:20px 4px 0;
+  }
+  .sources h2{font-size:16px;color:var(--encre);margin-bottom:10px}
+  .sources ul{list-style:none;font-size:13px;color:var(--gris)}
+  .sources li{margin-bottom:6px}
+  .sources a{color:var(--vert);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Jours ouvrés · Jours ouvrables · France</div>
+    <h1>Calcul de <span class="light">jours ouvrés et ouvrables</span></h1>
+    <p class="sub">Deux dates, deux résultats : l'outil compte à la fois le nombre de jours ouvrés et le nombre de jours ouvrables sur la période, jours fériés déduits. Ces deux notions sont souvent confondues — la différence est expliquée plus bas.</p>
+  </header>
+
+  <section class="panneau">
+    <h2><span class="num">1</span> Dates</h2>
+    <div class="champs">
+      <div class="champ">
+        <label for="date-debut">Date de début</label>
+        <input type="date" id="date-debut">
+      </div>
+      <div class="champ">
+        <label for="date-fin">Date de fin</label>
+        <input type="date" id="date-fin">
+      </div>
+    </div>
+    <div class="bloc-profil">
+      <div class="champ">
+        <label for="profil-feries">Jours fériés chômés</label>
+        <select id="profil-feries">
+          <option value="tous" selected>Tous les jours fériés (par défaut)</option>
+          <option value="aucun">Aucun jour férié chômé</option>
+          <option value="personnalise">Personnalisé</option>
+        </select>
+      </div>
+      <div class="option-regime" style="margin-top:12px;background:#fff;border:1px solid var(--trait)">
+        <span style="font-size:12.5px;color:var(--gris)">Seul le 1er mai est légalement obligatoirement chômé (art. L3133-4). Les 10 autres jours fériés ne sont non travaillés que si un accord d'entreprise, une convention collective ou un usage le prévoit (art. L3133-3-1, L3133-3-2). Choisissez « Personnalisé » pour cocher précisément ceux qui s'appliquent à votre cas.</span>
+      </div>
+      <div class="liste-personnalisee" id="liste-personnalisee" style="display:none"></div>
+    </div>
+    <div class="option-regime">
+      <input type="checkbox" id="alsace-moselle">
+      <label for="alsace-moselle"><b>Appliquer le régime local Alsace-Moselle</b>
+        <span class="detail">Ajoute le Vendredi Saint et le 26 décembre (Saint-Étienne) à la liste des jours fériés — spécifique aux départements du Bas-Rhin, du Haut-Rhin et de la Moselle. Le texte de loi limite le Vendredi Saint aux communes ayant un temple protestant ou une église mixte, mais il est appliqué en pratique dans l'ensemble des trois départements.</span>
+      </label>
+    </div>
+    <div class="cadre-legal">Bornes de début et de fin <b>incluses</b> dans le décompte · dimanche retenu comme jour de repos hebdomadaire (régime général) · jours fériés légaux nationaux calculés automatiquement pour l'année exacte (Pâques, Ascension et Pentecôte compris, quelle que soit la période) · le nombre de jours fériés sur la période reste toujours affiché à titre d'information, quel que soit le profil choisi</div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">2</span> Résultat</h2>
+    <div class="cartes">
+      <div class="carte principal"><div class="lbl">Jours ouvrés</div><div class="val" id="r-ouvres">—</div></div>
+      <div class="carte secondaire"><div class="lbl">Jours ouvrables</div><div class="val" id="r-ouvrables">—</div></div>
+      <div class="carte info"><div class="lbl">Jours calendaires</div><div class="val" id="r-calendaires">—</div></div>
+      <div class="carte info"><div class="lbl">Jours fériés dans la période</div><div class="val" id="r-feries">—</div></div>
+    </div>
+    <div class="erreur" id="erreur-dates">La date de fin doit être postérieure ou égale à la date de début.</div>
+    <div class="note-complet">
+      Convention retenue : <b>jour ouvré</b> = du lundi au vendredi, hors jours fériés chômés selon le profil choisi (régime de bureau standard) ; <b>jour ouvrable</b> = du lundi au samedi, hors ces mêmes jours fériés chômés, en supposant le dimanche comme jour de repos hebdomadaire (régime général). Par défaut, les 11 jours fériés sont supposés chômés — basculez sur « Personnalisé » pour cocher précisément ceux qui s'appliquent à l'entreprise concernée. Si l'entreprise applique un autre rythme (repos hebdomadaire décalé, commerce ouvert le samedi mais fermé le lundi, par exemple), le nombre de jours ouvrés et ouvrables réel peut aussi différer — voir le détail plus bas.
+    </div>
+    <div class="actions">
+      <button class="act btn-ghost" id="aujourdhui">Fin = aujourd'hui</button>
+      <button class="act btn-ghost" id="vider">Effacer</button>
+    </div>
+  </section>
+
+<section class="contenu-seo">
+  <h2>Jour ouvré ou jour ouvrable : quelle différence ?</h2>
+  <p>Les deux termes se ressemblent, mais ne désignent pas la même chose — et la confusion coûte cher dès qu'il s'agit de compter un délai, un congé ou un préavis.</p>
+  <ul>
+    <li><b>Jour ouvrable</b> : notion définie par le Code du travail — tout jour de la semaine à l'exception du jour de repos hebdomadaire (le dimanche, en principe) et des jours fériés habituellement non travaillés dans l'entreprise. Dans le régime général, une semaine sans jour férié chômé compte donc 6 jours ouvrables (lundi à samedi).</li>
+    <li><b>Jour ouvré</b> : à la différence du jour ouvrable, ce n'est pas une notion définie par le Code du travail — c'est un terme d'usage RH et de pratique, qui désigne les jours réellement travaillés dans l'entreprise. Dans la grande majorité des cas (régime de bureau classique), il s'agit du lundi au vendredi — le samedi ne compte pas, même s'il est ouvrable. Une semaine sans jour férié compte alors 5 jours ouvrés dans ce régime.</li>
+  </ul>
+  <p>Concrètement, sur une semaine sans jour férié et dans le régime général (repos dominical, régime de bureau classique) : 6 jours ouvrables, 5 jours ouvrés. La différence tient uniquement au samedi, qui est ouvrable mais pas ouvré dans ce régime.</p>
+
+  <h2>Comment l'outil calcule chaque résultat</h2>
+  <p>Vous indiquez une date de début et une date de fin, bornes incluses. L'outil parcourt chaque jour de la période et :</p>
+  <ul>
+    <li>compte un jour ouvrable si ce n'est ni un dimanche, ni un jour férié ;</li>
+    <li>compte un jour ouvré si ce n'est ni un samedi, ni un dimanche, ni un jour férié.</li>
+  </ul>
+  <p>Les jours fériés légaux (1er janvier, lundi de Pâques, 1er mai, 8 mai, Ascension, lundi de Pentecôte, 14 juillet, Assomption, Toussaint, 11 novembre, Noël) sont calculés automatiquement pour chaque année couverte par la période, y compris les fêtes mobiles dont la date dépend de Pâques. Le régime local Alsace-Moselle, s'il est coché, ajoute le Vendredi Saint et le 26 décembre.</p>
+
+  <h2>Jour férié et jour férié chômé : une nuance à ne pas manquer</h2>
+  <p>Un jour férié légal n'est pas automatiquement un jour non travaillé. Seul le 1er mai est obligatoirement chômé pour l'ensemble des salariés. Pour les 10 autres jours fériés, c'est un accord d'entreprise ou d'établissement qui fixe la liste des jours chômés — à défaut d'accord, c'est l'employeur qui la détermine. Une entreprise peut donc parfaitement faire travailler ses salariés un jour férié ordinaire — et dans ce cas, la définition légale du jour ouvrable elle-même ne l'exclut pas du décompte, exactement comme pour le jour ouvré.</p>
+  <p>Ce calculateur déduit par défaut les 11 jours fériés, ce qui correspond à la pratique la plus répandue. Deux autres profils sont proposés : « Aucun jour férié chômé » pour un décompte brut, ou « Personnalisé » pour cocher précisément, jour férié par jour férié, ceux qui sont réellement chômés dans l'entreprise concernée — utile si sa convention collective ne les chôme pas tous. Le nombre de jours fériés sur la période reste dans tous les cas affiché, à titre d'information.</p>
+
+  <h2>Pourquoi cette distinction compte en droit du travail</h2>
+  <p>Le choix entre jours ouvrés et jours ouvrables n'est pas qu'une question de vocabulaire : il change le résultat d'un décompte légal. Les congés payés, par exemple, se décomptent en jours ouvrables (soit jusqu'à 30 jours de congés annuels pour un salarié à temps plein ayant acquis la totalité de ses droits). Une entreprise peut décompter en jours ouvrés à la place — 25 jours étant l'équivalence usuelle pour un rythme de travail classique de 5 jours ouvrés par semaine, à ajuster si l'organisation du travail s'en écarte (temps partiel, cycles, etc.) — à condition que le résultat n'aboutisse jamais à une durée de congé inférieure à celle obtenue en jours ouvrables (Cass. soc., 19 mai 2010, n° 09-40.540).</p>
+  <p>D'autres délais légaux se comptent en jours ouvrés : c'est le cas, par exemple, du <a href="/calcul-preavis">préavis en cas de démission ou de licenciement</a> ou de la <a href="/calcul-periode-essai">période d'essai</a>, selon les textes ou la convention collective applicables. Vérifiez toujours, pour le délai qui vous concerne, s'il est exprimé en jours ouvrés, ouvrables ou calendaires — ce n'est pas systématique.</p>
+
+  <h2>Ce que ce calculateur ne fait pas</h2>
+  <p>Il applique un régime de référence (lundi-vendredi ouvré, lundi-samedi ouvrable, jours fériés légaux nationaux + option Alsace-Moselle) qui convient à la majorité des entreprises de bureau, mais pas à tous les secteurs. Le commerce, la restauration ou certains services organisés sur un autre rythme hebdomadaire (par exemple mardi-samedi) auront un nombre de jours ouvrés réel différent de celui affiché ici. C'est un outil de comptage de jours, pas un outil de paie : aucun montant en euros n'est calculé.</p>
+
+  <div class="avert">
+    <b>Avertissement</b> — Ce calculateur applique une convention de décompte standard (régime de bureau lundi-vendredi, jours fériés légaux nationaux déduits par défaut en supposant qu'ils sont chômés). Il ne prend pas en compte les accords d'entreprise, usages sectoriels ou conventions collectives qui peuvent définir un rythme de travail différent ou une liste de jours fériés chômés différente — seul le 1er mai est légalement obligatoire à ce titre. Pour un délai légal précis (préavis, congés, procédure), vérifiez le texte ou la convention applicable à votre situation. Outil indicatif, ne remplace pas un conseil juridique ou un bulletin de paie.
+  </div>
+
+  <div class="maillage">
+    <b>Ce calcul vous sert ailleurs sur le site :</b> pour convertir un délai de préavis en jours ouvrés, direction le <a href="/calcul-preavis">calcul de préavis</a>. Pour une durée maximale de période d'essai exprimée en jours, direction le <a href="/calcul-periode-essai">calcul de période d'essai</a>. Pour une durée totale entre deux dates (années, mois, jours calendaires), direction le <a href="/calcul-anciennete">calcul d'ancienneté</a>.
+  </div>
+</section>
+
+<section class="sources">
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://code.travail.gouv.fr/glossaire/jour-ouvrable" target="_blank" rel="noopener">code.travail.gouv.fr, glossaire « Jour ouvrable »</a> — définition officielle : jour de la semaine hors repos hebdomadaire et jours fériés habituellement non travaillés</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-1" target="_blank" rel="noopener">Code du travail, article L3133-1</a> — liste des 11 jours fériés légaux</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3132-3" target="_blank" rel="noopener">Code du travail, article L3132-3</a> — le repos hebdomadaire est donné, en principe, le dimanche</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3141-3" target="_blank" rel="noopener">Code du travail, article L3141-3</a> — décompte des congés payés en jours ouvrables (jusqu'à 30 jours ouvrables)</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3134-13" target="_blank" rel="noopener">Code du travail, article L3134-13</a> — jours fériés supplémentaires dans les départements du Bas-Rhin, du Haut-Rhin et de la Moselle</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-4" target="_blank" rel="noopener">Code du travail, article L3133-4</a> — seul le 1er mai est un jour férié obligatoirement chômé</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-3-1" target="_blank" rel="noopener">Code du travail, articles L3133-3-1 et L3133-3-2</a> — détermination des autres jours fériés chômés par accord d'entreprise ou, à défaut, par l'employeur</li>
+    <li><a href="https://www.legifrance.gouv.fr/juri/id/JURITEXT000022263312" target="_blank" rel="noopener">Cass. soc., 19 mai 2010, n° 09-40.540</a> — un décompte des congés payés en jours ouvrés est licite s'il n'est pas défavorable au salarié par rapport au décompte légal en jours ouvrables</li>
+  </ul>
+</section>
+
+  <footer>
+    Calcul du nombre de jours ouvrés et de jours ouvrables entre deux dates, jours fériés légaux déduits. Convention de décompte standard (régime de bureau lundi-vendredi) — ne tient pas compte des accords d'entreprise ni des rythmes sectoriels spécifiques. Outil indicatif, ne remplace pas un conseil juridique.
+<p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> · <a href="/calcul-heure-de-nuit" style="color:var(--vert);font-weight:600">Heures de nuit</a> · <a href="/conversion-heure-decimale" style="color:var(--vert);font-weight:600">Conversion décimale</a></p>
+    <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>
+  </footer>
+</div>
+
+<script is:inline>
+/* Calcule la date de Pâques (dimanche) pour une année donnée.
+   Algorithme de Gauss / méthode anonyme grégorienne — valable pour toute
+   année du calendrier grégorien, aucune table à maintenir. */
+function datePaques(annee){
+  const a = annee % 19;
+  const b = Math.floor(annee / 100);
+  const c = annee % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19*a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2*e + 2*i - h - k) % 7;
+  const m = Math.floor((a + 11*h + 22*l) / 451);
+  const val = h + l - 7*m + 114;
+  const mois = Math.floor(val / 31); // 3 = mars, 4 = avril
+  const jour = (val % 31) + 1;
+  return new Date(annee, mois - 1, jour);
+}
+
+function ajouterJours(date, n){
+  const d = new Date(date);
+  d.setDate(d.getDate() + n);
+  return d;
+}
+
+function iso(d){
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+
+/* Jours fériés légaux nationaux (Code du travail, art. L3133-1), dans l'ordre
+   du calendrier. Chaque définition a une clé stable (utilisée pour mémoriser
+   le choix de personnalisation) et une fonction de calcul dépendant de
+   l'année et de la date de Pâques de cette année-là. */
+const FERIES_NATIONAUX = [
+  {cle:"jour_an",        libelle:"Jour de l'an (1er janvier)",        calc:(a,p)=> new Date(a,0,1)},
+  {cle:"lundi_paques",   libelle:"Lundi de Pâques",                   calc:(a,p)=> ajouterJours(p,1)},
+  {cle:"fete_travail",   libelle:"Fête du travail (1er mai)",         calc:(a,p)=> new Date(a,4,1)},
+  {cle:"victoire_1945",  libelle:"Victoire 1945 (8 mai)",             calc:(a,p)=> new Date(a,4,8)},
+  {cle:"ascension",      libelle:"Ascension",                        calc:(a,p)=> ajouterJours(p,39)},
+  {cle:"pentecote",      libelle:"Lundi de Pentecôte",                calc:(a,p)=> ajouterJours(p,50)},
+  {cle:"fete_nationale", libelle:"Fête nationale (14 juillet)",       calc:(a,p)=> new Date(a,6,14)},
+  {cle:"assomption",     libelle:"Assomption (15 août)",              calc:(a,p)=> new Date(a,7,15)},
+  {cle:"toussaint",      libelle:"Toussaint (1er novembre)",          calc:(a,p)=> new Date(a,10,1)},
+  {cle:"armistice",      libelle:"Armistice 1918 (11 novembre)",      calc:(a,p)=> new Date(a,10,11)},
+  {cle:"noel",           libelle:"Noël (25 décembre)",                calc:(a,p)=> new Date(a,11,25)}
+];
+
+/* Jours fériés supplémentaires du régime local Alsace-Moselle, ajoutés
+   uniquement si l'option correspondante est cochée. */
+const FERIES_ALSACE_MOSELLE = [
+  {cle:"vendredi_saint", libelle:"Vendredi Saint (Alsace-Moselle)",        calc:(a,p)=> ajouterJours(p,-2)},
+  {cle:"saint_etienne",  libelle:"Saint-Étienne, 26 décembre (Alsace-Moselle)", calc:(a,p)=> new Date(a,11,26)}
+];
+
+/* Construit une carte "date ISO -> clé de jour férié" pour toutes les années
+   couvrant la période, en tenant compte ou non du régime Alsace-Moselle. */
+function carteFeries(anneeDebut, anneeFin, alsaceMoselle){
+  const defs = alsaceMoselle ? FERIES_NATIONAUX.concat(FERIES_ALSACE_MOSELLE) : FERIES_NATIONAUX;
+  const carte = new Map();
+  for(let y = anneeDebut; y <= anneeFin; y++){
+    const paques = datePaques(y);
+    defs.forEach(def => carte.set(iso(def.calc(y, paques)), def.cle));
+  }
+  return carte;
+}
+
+/* Retourne, dans l'ordre du calendrier légal, les définitions de jours
+   fériés dont au moins une occurrence tombe dans la période [debut, fin]. */
+function feriesPresents(debut, fin, alsaceMoselle){
+  const defs = alsaceMoselle ? FERIES_NATIONAUX.concat(FERIES_ALSACE_MOSELLE) : FERIES_NATIONAUX;
+  const presents = [];
+  for(let y = debut.getFullYear(); y <= fin.getFullYear(); y++){
+    const paques = datePaques(y);
+    defs.forEach(def => {
+      const d = def.calc(y, paques);
+      if(d >= debut && d <= fin && !presents.some(p => p.cle === def.cle)){
+        presents.push(def);
+      }
+    });
+  }
+  return presents;
+}
+
+function parseDate(str){
+  if(!str) return null;
+  const [a,m,j] = str.split("-").map(Number);
+  return new Date(a, m-1, j);
+}
+
+const MSG_ORDRE = "La date de fin doit être postérieure ou égale à la date de début.";
+const MSG_INVALIDE = "Date invalide : vérifiez que le jour saisi existe bien dans le mois choisi.";
+
+/* Mémorise, par clé de jour férié, si l'utilisateur l'a décoché en mode
+   personnalisé. Absent de cet objet = coché (comportement par défaut). */
+const etatPersonnalise = {};
+
+function rendreListePersonnalisee(debut, fin, alsaceMoselle){
+  const conteneur = document.getElementById("liste-personnalisee");
+  if(!debut || !fin || fin < debut){
+    conteneur.innerHTML = '<div class="msg-vide">Renseignez deux dates valides pour afficher la liste des jours fériés de la période.</div>';
+    return;
+  }
+  const presents = feriesPresents(debut, fin, alsaceMoselle);
+  if(presents.length === 0){
+    conteneur.innerHTML = '<div class="msg-vide">Aucun jour férié sur cette période.</div>';
+    return;
+  }
+  conteneur.innerHTML = presents.map(def => {
+    const coche = etatPersonnalise[def.cle] === false ? "" : "checked";
+    return '<div class="item-ferie"><input type="checkbox" id="fer-' + def.cle + '" data-cle="' + def.cle + '" ' + coche + '><label for="fer-' + def.cle + '">' + def.libelle + '</label></div>';
+  }).join("");
+}
+
+function afficherVide(){
+  document.getElementById("r-ouvres").textContent = "—";
+  document.getElementById("r-ouvrables").textContent = "—";
+  document.getElementById("r-calendaires").textContent = "—";
+  document.getElementById("r-feries").textContent = "—";
+}
+
+function calculer(){
+  const inpDebut = document.getElementById("date-debut");
+  const inpFin = document.getElementById("date-fin");
+  const erreur = document.getElementById("erreur-dates");
+  const alsaceMoselle = document.getElementById("alsace-moselle").checked;
+  const profil = document.getElementById("profil-feries").value;
+
+  if(inpDebut.validity.badInput || inpFin.validity.badInput){
+    erreur.textContent = MSG_INVALIDE;
+    erreur.classList.add("visible");
+    afficherVide();
+    return;
+  }
+
+  const debut = parseDate(inpDebut.value);
+  const fin = parseDate(inpFin.value);
+
+  document.getElementById("liste-personnalisee").style.display = (profil === "personnalise") ? "block" : "none";
+  if(profil === "personnalise"){
+    rendreListePersonnalisee(debut, fin, alsaceMoselle);
+  }
+
+  if(!debut || !fin){
+    afficherVide();
+    erreur.classList.remove("visible");
+    return;
+  }
+  if(fin < debut){
+    erreur.textContent = MSG_ORDRE;
+    erreur.classList.add("visible");
+    afficherVide();
+    return;
+  }
+  erreur.classList.remove("visible");
+
+  const carte = carteFeries(debut.getFullYear(), fin.getFullYear(), alsaceMoselle);
+
+  let jCalendaires = 0, jOuvrables = 0, jOuvres = 0, jFeries = 0;
+  let cur = new Date(debut);
+  while(cur <= fin){
+    jCalendaires++;
+    const dow = cur.getDay(); // 0 = dimanche, 6 = samedi
+    const cle = carte.get(iso(cur));
+    const estFerie = !!cle;
+    if(estFerie) jFeries++;
+
+    let exclu = false;
+    if(estFerie){
+      if(profil === "tous") exclu = true;
+      else if(profil === "aucun") exclu = false;
+      else exclu = etatPersonnalise[cle] !== false; // coché par défaut
+    }
+
+    if(dow !== 0 && !exclu) jOuvrables++;
+    if(dow !== 0 && dow !== 6 && !exclu) jOuvres++;
+    cur = ajouterJours(cur, 1);
+  }
+
+  document.getElementById("r-ouvres").innerHTML = jOuvres + "<small> j.</small>";
+  document.getElementById("r-ouvrables").innerHTML = jOuvrables + "<small> j.</small>";
+  document.getElementById("r-calendaires").innerHTML = jCalendaires + "<small> j.</small>";
+  document.getElementById("r-feries").innerHTML = jFeries + "<small> j.</small>";
+}
+
+function ajdISO(){
+  const d = new Date();
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+
+document.getElementById("date-debut").addEventListener("change", calculer);
+document.getElementById("date-fin").addEventListener("change", calculer);
+document.getElementById("date-debut").addEventListener("input", calculer);
+document.getElementById("date-fin").addEventListener("input", calculer);
+document.getElementById("alsace-moselle").addEventListener("change", calculer);
+document.getElementById("profil-feries").addEventListener("change", calculer);
+
+/* Délégation sur la liste dynamique : ses cases n'existent pas encore au
+   chargement de la page, donc on écoute sur le conteneur parent. */
+document.getElementById("liste-personnalisee").addEventListener("change", (evt) => {
+  if(evt.target && evt.target.dataset && evt.target.dataset.cle){
+    etatPersonnalise[evt.target.dataset.cle] = evt.target.checked;
+    calculer();
+  }
+});
+
+document.getElementById("aujourdhui").addEventListener("click", () => {
+  document.getElementById("date-fin").value = ajdISO();
+  calculer();
+});
+document.getElementById("vider").addEventListener("click", () => {
+  document.getElementById("date-debut").value = "";
+  document.getElementById("date-fin").value = "";
+  document.getElementById("alsace-moselle").checked = false;
+  document.getElementById("profil-feries").value = "tous";
+  for(const cle in etatPersonnalise) delete etatPersonnalise[cle];
+  calculer();
+});
+
+document.getElementById("date-debut").value = ajdISO();
+</script>
+</body>
+</html>
