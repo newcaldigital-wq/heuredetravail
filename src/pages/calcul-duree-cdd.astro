@@ -1,0 +1,427 @@
+---
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Durée d'un CDD : calcul de la durée maximale selon le motif | France</title>
+<meta name="description" content="Calculez la durée maximale autorisée d'un CDD selon son motif (remplacement, accroissement, saisonnier...), la date de fin au plus tard, et les règles de renouvellement. Outil gratuit et indicatif.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<style is:global>
+  :root{
+    --encre:#152238;--encre-2:#22334f;--papier:#F5F3EE;--papier-2:#ECE8DF;
+    --trait:#D8D2C4;--vert:#2F6F63;--gris:#6A6558;
+    --alerte:#A6472E;--alerte-bg:#F6E5E1;
+    --accent:#8A6FA8;--accent-bg:#EDE6F2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--papier);color:var(--encre);line-height:1.5;padding:24px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  header.hero{margin-bottom:24px;border-bottom:2px solid var(--encre);padding-bottom:18px}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
+  h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
+  h1 .light{font-weight:700;color:var(--encre-2)}
+  .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:680px}
+  .sub a{color:var(--vert);font-weight:600}
+  .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
+  .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .panneau h2 .num{background:var(--encre);color:#fff;width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .segmented{display:flex;border:1px solid var(--trait);border-radius:6px;overflow:hidden;width:fit-content}
+  .seg-btn{font-family:inherit;font-size:13px;padding:8px 16px;border:none;background:var(--papier);color:var(--encre);cursor:pointer;font-weight:600}
+  .seg-btn.active{background:var(--encre);color:#fff}
+  .seg-btn:not(.active):hover{background:var(--papier-2)}
+  .champs{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;margin-top:14px}
+  .champ{display:flex;flex-direction:column;gap:6px}
+  .champ label{font-size:13px;color:var(--gris);font-weight:600}
+  .champ select,.champ input[type=date],.champ input[type=number]{padding:10px 12px;border:1px solid var(--trait);border-radius:7px;font-size:15px;background:var(--papier);color:var(--encre);font-family:inherit}
+  .champ select:focus,.champ input:focus{outline:2px solid var(--vert)}
+  .champ.optionnel{padding:12px 14px;background:var(--papier-2);border-radius:8px}
+  .hint{font-size:11.5px;color:var(--gris);font-style:italic;margin-top:6px}
+  .checkline{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:14px}
+  .checkline input{width:16px;height:16px}
+  .cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
+  .carte{border:1px solid var(--trait);border-radius:8px;padding:14px;background:var(--papier)}
+  .carte .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:600}
+  .carte .val{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:4px;color:var(--encre)}
+  .carte .val small{font-size:13px;font-weight:400;color:var(--gris)}
+  .carte.retenue{border-top:3px solid var(--vert)} .carte.retenue .val{color:var(--vert)}
+  .resultat-principal{margin-top:16px;padding:20px;background:var(--encre);color:#fff;border-radius:10px;text-align:center}
+  .resultat-principal .lbl{font-size:12px;text-transform:uppercase;letter-spacing:1px;opacity:.8}
+  .resultat-principal .date{font-size:28px;font-weight:700;margin-top:6px}
+  .resultat-principal .date.vide{opacity:.5;font-size:20px;font-weight:400}
+  .note{margin-top:14px;padding:11px 14px;border-radius:6px;font-size:13px;line-height:1.6}
+  .note-info{background:var(--papier-2);border-left:4px solid var(--vert);color:var(--encre-2)}
+  .note-info b{color:var(--encre)}
+  .note-info a{color:var(--vert);font-weight:600}
+  .note-convention{background:var(--accent-bg);border-left:4px solid var(--accent);color:#3d2f4d;display:none}
+  .note-convention.visible{display:block}
+  .note-alerte{background:var(--alerte-bg);border-left:4px solid var(--alerte);color:#5a2418;display:none}
+  .note-alerte.visible{display:block}
+  #note-sans-terme{display:none}
+  #note-sans-terme.visible{display:block}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
+  @media(max-width:640px){h1{font-size:26px}.champs{flex-direction:column;align-items:stretch}}
+
+  .contenu-seo{
+    max-width:760px;
+    margin:36px auto 0;
+    padding:28px 4px 0;
+    border-top:2px solid var(--encre);
+  }
+  .contenu-seo h2{
+    font-size:21px;
+    color:var(--encre);
+    margin:28px 0 10px;
+    letter-spacing:-0.2px;
+  }
+  .contenu-seo h2:first-of-type{margin-top:0}
+  .contenu-seo p{
+    font-size:15.5px;
+    color:var(--encre-2);
+    line-height:1.7;
+    margin-bottom:14px;
+  }
+  .contenu-seo .avert{
+    margin-top:24px;
+    padding:14px 16px;
+    background:var(--papier-2);
+    border-radius:8px;
+    font-size:13px;
+    color:var(--gris);
+    line-height:1.6;
+  }
+  .sources{
+    margin-top:24px;
+    padding:16px 18px;
+    background:#fff;
+    border:1px solid var(--trait);
+    border-radius:8px;
+  }
+  .sources h3{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+    color:var(--gris);
+    margin-bottom:10px;
+    font-weight:700;
+  }
+  .sources ul{list-style:none;padding:0;margin:0}
+  .sources li{
+    font-size:13px;
+    color:var(--encre-2);
+    margin-bottom:6px;
+    padding-left:14px;
+    position:relative;
+  }
+  .sources li::before{content:"—";position:absolute;left:0;color:var(--vert)}
+  .sources a{color:var(--vert);font-weight:600;text-decoration:none}
+  .sources a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">CDD · France</div>
+    <h1>Calcul de la <span class="light">durée d'un CDD</span></h1>
+    <p class="sub">Employeur, service RH ou salarié en CDD ? Déterminez la durée maximale autorisée selon le motif du contrat, et la date de fin à ne pas dépasser. Besoin de calculer une période d'essai ou un préavis ? Direction le <a href="/calcul-periode-essai">calcul de période d'essai</a> ou le <a href="/calcul-preavis">calcul de préavis</a>.</p>
+  </header>
+
+  <section class="panneau">
+    <h2><span class="num">1</span> Motif du CDD et durée maximale</h2>
+
+    <div class="champs">
+      <div class="champ">
+        <label for="motif">Motif de recours au CDD</label>
+        <select id="motif">
+          <option value="" selected disabled>— Choisir un motif —</option>
+          <option value="remplacement">Remplacement d'un salarié absent (ou dont le contrat est suspendu)</option>
+          <option value="accroissement">Accroissement temporaire d'activité</option>
+          <option value="attente_cdi">Attente de l'entrée en service d'un salarié recruté en CDI</option>
+          <option value="depart_definitif">Départ définitif d'un salarié précédant la suppression de son poste</option>
+          <option value="travaux_urgents">Travaux urgents nécessités par des mesures de sécurité</option>
+          <option value="saisonnier_usage">Emploi saisonnier ou emploi d'usage constant (CDD d'usage)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="checkline" id="etranger-wrap" style="display:none">
+      <input type="checkbox" id="etranger">
+      <label for="etranger">Le contrat est exécuté à l'étranger</label>
+    </div>
+
+    <div id="terme-wrap" style="display:none;margin-top:16px">
+      <div class="segmented" id="terme-type">
+        <button type="button" class="seg-btn active" data-terme="precis">Terme précis (date de fin fixée)</button>
+        <button type="button" class="seg-btn" data-terme="sans">Sans terme précis</button>
+      </div>
+      <p class="hint">Un CDD saisonnier ou d'usage peut être conclu avec une date de fin fixée à l'avance (terme précis) ou sans date de fin déterminée, le contrat prenant alors fin avec l'événement qui le justifie (fin de saison, retour du salarié remplacé...).</p>
+    </div>
+
+    <div class="champ optionnel" style="margin-top:16px;max-width:460px">
+      <label for="branche">Durée fixée par un accord de branche étendu, si différente (facultatif, en mois)</label>
+      <input type="number" id="branche" min="0" step="1" placeholder="Laisser vide si non concerné">
+      <span class="hint">Un accord de branche étendu peut fixer une durée totale différente de la durée légale par défaut — plus longue ou plus courte selon les cas. C'est alors cette durée qui prime.</span>
+    </div>
+
+    <div class="cartes">
+      <div class="carte retenue"><div class="lbl">Durée maximale applicable</div><div class="val" id="r-duree-max">—</div></div>
+    </div>
+    <div class="note note-convention" id="note-convention">
+      Un accord de branche étendu fixe ici une durée différente de la règle légale par défaut : c'est cette durée qui est utilisée pour calculer la date de fin ci-dessous.
+    </div>
+    <div class="note note-info" id="note-sans-terme">
+      Ce motif permet un CDD sans terme précis : la durée n'est pas plafonnée par une date de fin fixe. Le contrat se termine avec la réalisation de son objet (retour du salarié remplacé, fin de la saison...). Aucune date de fin maximale ne peut donc être calculée dans ce cas.
+    </div>
+    <div class="note note-info">
+      Rappel sur le renouvellement : sauf accord de branche étendu fixant un nombre différent, un CDD peut être renouvelé au maximum <b>2 fois</b>. La durée totale du contrat, renouvellements compris, ne doit jamais dépasser la durée maximale indiquée ci-dessus.
+    </div>
+  </section>
+
+  <section class="panneau" id="panneau-2">
+    <h2><span class="num">2</span> Date de fin à ne pas dépasser</h2>
+
+    <div class="champs">
+      <div class="champ">
+        <label for="date-debut">Date de début du contrat</label>
+        <input type="date" id="date-debut">
+      </div>
+    </div>
+
+    <div class="resultat-principal">
+      <div class="lbl">Date de fin maximale autorisée</div>
+      <div class="date vide" id="r-date-fin-max">Choisissez un motif</div>
+    </div>
+
+    <div class="champ optionnel" style="margin-top:16px;max-width:420px">
+      <label for="date-fin-envisagee">Date de fin envisagée pour ce contrat (facultatif)</label>
+      <input type="date" id="date-fin-envisagee">
+      <span class="hint">Vérifiez si la date de fin que vous envisagez respecte la durée maximale calculée ci-dessus.</span>
+    </div>
+    <div class="note note-alerte" id="alerte-depassement"></div>
+    <div class="note note-info" id="note-conforme" style="display:none">
+      ✓ La date de fin envisagée reste dans la limite de la durée maximale applicable.
+    </div>
+
+    <div class="note note-info">
+      Le jour de début du contrat compte comme le premier jour de la durée : la date de fin est donc fixée à la veille de la date anniversaire, N mois plus tard (par exemple : début le 1<sup>er</sup> janvier, 18 mois : fin maximale le 30 juin, un an et demi plus tard, et non le 1<sup>er</sup> juillet).
+    </div>
+  </section>
+
+<section class="contenu-seo">
+  <h2>Comment calculer la durée maximale d'un CDD ?</h2>
+  <p>La durée d'un contrat à durée déterminée n'est pas libre : elle est plafonnée par la loi, et ce plafond dépend du motif de recours au CDD. Un CDD conclu pour remplacer un salarié absent n'obéit pas exactement aux mêmes règles qu'un CDD conclu dans l'attente de l'arrivée d'un salarié recruté en CDI.</p>
+  <p>C'est ce que détermine l'outil ci-dessus : à partir du motif choisi, il affiche la durée maximale légale applicable, puis calcule la date de fin à ne pas dépasser à partir de la date de début du contrat.</p>
+
+  <h2>Les durées maximales selon le motif</h2>
+  <p>Pour la plupart des motifs de recours au CDD — remplacement d'un salarié absent, accroissement temporaire d'activité — la durée maximale de droit commun est de <b>18 mois</b>, renouvellements compris. Elle est portée à <b>24 mois</b> lorsque le contrat est exécuté à l'étranger.</p>
+  <p>Deux motifs prévoient une durée réduite à <b>9 mois</b> : le CDD conclu dans l'attente de l'entrée en service effective d'un salarié recruté en CDI, et le CDD conclu pour la réalisation de travaux urgents nécessités par des mesures de sécurité.</p>
+  <p>Un motif prévoit à l'inverse une durée allongée à <b>24 mois</b> : celui du CDD conclu dans le cadre du départ définitif d'un salarié précédant la suppression de son poste de travail.</p>
+
+  <h2>Le cas particulier des CDD saisonniers et d'usage constant</h2>
+  <p>Les emplois à caractère saisonnier et les emplois pour lesquels il est d'usage constant de ne pas recourir au CDI (CDD d'usage) peuvent être conclus sans terme précis : le contrat se termine alors avec la réalisation de son objet, sans date de fin fixée à l'avance. Dans ce cas, aucune durée maximale exprimée en mois ne s'applique, puisqu'il n'y a pas de date de fin à calculer.</p>
+  <p>Si un terme précis est néanmoins fixé pour ce type de contrat, c'est la durée maximale de droit commun (18 mois) qui s'applique par défaut, sauf accord de branche étendu prévoyant une règle différente.</p>
+
+  <h2>Le renouvellement du CDD</h2>
+  <p>Sauf accord de branche étendu fixant un nombre différent, un CDD peut être renouvelé au maximum deux fois. Quel que soit le nombre de renouvellements, la durée totale du contrat — durée initiale et renouvellements cumulés — ne peut jamais dépasser la durée maximale applicable au motif concerné.</p>
+
+  <h2>Un accord de branche peut-il modifier ces durées ?</h2>
+  <p>Oui. Un accord de branche étendu peut fixer une durée totale de CDD différente de la durée légale par défaut, à la condition que cette durée ne puisse pas avoir pour objet ou pour effet de pourvoir durablement un emploi lié à l'activité normale et permanente de l'entreprise. C'est pourquoi l'outil ci-dessus permet de renseigner une durée conventionnelle, qui prime alors sur la règle légale par défaut.</p>
+
+  <p class="avert">Ce calculateur couvre les motifs de recours au CDD les plus fréquents : remplacement, accroissement temporaire d'activité, attente d'un salarié en CDI, départ définitif avant suppression de poste, travaux urgents de sécurité, et saisonnier/usage constant. D'autres motifs plus rares existent (CDD à objet défini pour ingénieurs et cadres, CDD lié à certains dispositifs d'aide à l'emploi, commande exceptionnelle à l'exportation) et obéissent à des règles de durée et de renouvellement différentes, non couvertes ici. Le calcul de la date de fin retient le jour de début comme premier jour de la durée : la date de fin est donc fixée à la veille de la date anniversaire, N mois plus tard — pratique usuelle en droit social pour les contrats de date à date, en l'absence de jurisprudence de la chambre sociale de la Cour de cassation tranchant spécifiquement ce point de calcul. Si le mois de fin ne comporte pas ce jour, la date de fin est fixée au dernier jour de ce mois. Pour une sécurité juridique optimale, il reste recommandé de faire figurer la date de fin exacte, en toutes lettres, dans le contrat lui-même. Cet outil est fourni à titre indicatif et ne remplace ni un contrat de travail, ni l'avis d'un professionnel du droit du travail.</p>
+</section>
+
+<section class="sources">
+  <h3>Sources</h3>
+  <ul>
+    <li>Durée maximale du CDD selon le motif — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035643961" target="_blank" rel="noopener">Code du travail, art. L1242-8-1</a></li>
+    <li>Durée fixée par accord de branche étendu — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035643967" target="_blank" rel="noopener">Code du travail, art. L1242-8</a></li>
+    <li>Cas de recours au CDD — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000029946296" target="_blank" rel="noopener">Code du travail, art. L1242-2</a></li>
+    <li>CDD sans terme précis (saisonnier, usage, attente CDI...) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033024651" target="_blank" rel="noopener">Code du travail, art. L1242-7</a></li>
+    <li>Nombre de renouvellements par accord de branche — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035643980" target="_blank" rel="noopener">Code du travail, art. L1243-13</a></li>
+    <li>Renouvellement de droit commun et durée totale — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035639380" target="_blank" rel="noopener">Code du travail, art. L1243-13-1</a></li>
+    <li>Calcul de la date de fin (jour de début inclus, veille de la date anniversaire) — pratique usuelle en droit social pour les contrats de date à date ; aucun arrêt de la chambre sociale de la Cour de cassation ne tranche spécifiquement ce point de calcul à ce jour</li>
+    <li>Fiche pédagogique — <a href="https://code.travail.gouv.fr/" target="_blank" rel="noopener">Code du travail numérique, le contrat à durée déterminée</a></li>
+  </ul>
+</section>
+
+  <footer>
+    Durées légales par défaut du CDD selon le motif, sans tenir compte d'une éventuelle convention collective ou d'un accord de branche différent, à vérifier séparément. Outil indicatif, ne remplace pas un contrat de travail ni l'avis d'un professionnel.
+    <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Calcul d'ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> · <a href="/calcul-heure-de-nuit" style="color:var(--vert);font-weight:600">Heures de nuit</a> · <a href="/conversion-heure-decimale" style="color:var(--vert);font-weight:600">Conversion décimale</a> · <a href="/calcul-jours-ouvres" style="color:var(--vert);font-weight:600">Jours ouvrés/ouvrables</a></p>
+    <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>
+  </footer>
+</div>
+
+<script is:inline>
+/* ---------- Fonctions de date ---------- */
+function ajouterMois(date, n){
+  const d = new Date(date.getFullYear(), date.getMonth() + n, date.getDate());
+  if(d.getDate() !== date.getDate()){
+    return new Date(date.getFullYear(), date.getMonth() + n + 1, 0);
+  }
+  return d;
+}
+function veilleDe(date){
+  const d = new Date(date);
+  d.setDate(d.getDate() - 1);
+  return d;
+}
+function parseDateInput(str){
+  if(!str) return null;
+  const [a,m,j] = str.split("-").map(Number);
+  return new Date(a, m-1, j);
+}
+function joursEntre(d1, d2){
+  return Math.round((d2 - d1) / 86400000);
+}
+function formatDateFr(d){
+  const jours = ["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+  const mois = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+  return jours[d.getDay()] + " " + d.getDate() + " " + mois[d.getMonth()] + " " + d.getFullYear();
+}
+
+/* ---------- Données des motifs ---------- */
+const MOTIFS = {
+  remplacement:     { maxDefaut: 18, etrangerPossible: true,  maxEtranger: 24 },
+  accroissement:    { maxDefaut: 18, etrangerPossible: true,  maxEtranger: 24 },
+  attente_cdi:      { maxDefaut: 9,  etrangerPossible: false },
+  depart_definitif: { maxDefaut: 24, etrangerPossible: false },
+  travaux_urgents:  { maxDefaut: 9,  etrangerPossible: false }
+};
+
+/* ---------- État de l'interface ---------- */
+let termeType = "precis";
+
+/* ---------- Calcul du plafond applicable ---------- */
+function calculerPlafond(){
+  const motifKey = document.getElementById("motif").value;
+  if(!motifKey) return null;
+
+  const brancheRaw = parseFloat(document.getElementById("branche").value);
+  const brancheValide = !isNaN(brancheRaw) && brancheRaw > 0;
+
+  if(motifKey === "saisonnier_usage"){
+    if(termeType === "sans"){
+      return { sansTerme: true };
+    }
+    let max = brancheValide ? Math.round(brancheRaw) : 18;
+    return { max, brancheAppliquee: brancheValide, sansTerme: false };
+  }
+
+  const motif = MOTIFS[motifKey];
+  let max = motif.maxDefaut;
+  if(motif.etrangerPossible && document.getElementById("etranger").checked){
+    max = motif.maxEtranger;
+  }
+  if(brancheValide){
+    max = Math.round(brancheRaw);
+  }
+  return { max, brancheAppliquee: brancheValide, sansTerme: false };
+}
+
+/* ---------- Bloc 1 : affichage du plafond ---------- */
+function afficherBloc1(info){
+  const noteSansTerme = document.getElementById("note-sans-terme");
+  const noteConvention = document.getElementById("note-convention");
+  const valEl = document.getElementById("r-duree-max");
+
+  if(!info){
+    valEl.textContent = "—";
+    noteSansTerme.classList.remove("visible");
+    noteConvention.classList.remove("visible");
+    return;
+  }
+  if(info.sansTerme){
+    valEl.innerHTML = "Non plafonnée<small> par une date</small>";
+    noteSansTerme.classList.add("visible");
+    noteConvention.classList.remove("visible");
+    return;
+  }
+  noteSansTerme.classList.remove("visible");
+  valEl.innerHTML = info.max + "<small> mois</small>";
+  noteConvention.classList.toggle("visible", info.brancheAppliquee);
+}
+
+/* ---------- Bloc 2 : date de fin maximale + conformité ---------- */
+function afficherBloc2(info){
+  const el = document.getElementById("r-date-fin-max");
+  const alerte = document.getElementById("alerte-depassement");
+  const conforme = document.getElementById("note-conforme");
+
+  if(!info){
+    el.textContent = "Choisissez un motif";
+    el.classList.add("vide");
+    alerte.classList.remove("visible");
+    conforme.style.display = "none";
+    return;
+  }
+  if(info.sansTerme){
+    el.textContent = "Sans objet — ce CDD n'a pas de terme précis";
+    el.classList.add("vide");
+    alerte.classList.remove("visible");
+    conforme.style.display = "none";
+    return;
+  }
+  const debut = parseDateInput(document.getElementById("date-debut").value);
+  if(!debut){
+    el.textContent = "Renseignez une date de début";
+    el.classList.add("vide");
+    alerte.classList.remove("visible");
+    conforme.style.display = "none";
+    return;
+  }
+
+  const finMax = veilleDe(ajouterMois(debut, info.max));
+  el.textContent = formatDateFr(finMax);
+  el.classList.remove("vide");
+
+  const finEnvisageeStr = document.getElementById("date-fin-envisagee").value;
+  const finEnvisagee = parseDateInput(finEnvisageeStr);
+  if(!finEnvisagee){
+    alerte.classList.remove("visible");
+    conforme.style.display = "none";
+    return;
+  }
+  if(finEnvisagee > finMax){
+    const depassement = joursEntre(finMax, finEnvisagee);
+    alerte.textContent = "⚠ La date de fin envisagée dépasse la durée maximale autorisée de " + depassement + " jour(s). La date de fin ne peut légalement pas dépasser le " + formatDateFr(finMax) + ".";
+    alerte.classList.add("visible");
+    conforme.style.display = "none";
+  } else {
+    alerte.classList.remove("visible");
+    conforme.style.display = "block";
+  }
+}
+
+/* ---------- Calcul global ---------- */
+function calculerTout(){
+  const info = calculerPlafond();
+  afficherBloc1(info);
+  afficherBloc2(info);
+}
+
+/* ---------- Câblage de l'interface ---------- */
+document.getElementById("motif").addEventListener("change", () => {
+  const motifKey = document.getElementById("motif").value;
+  const motif = MOTIFS[motifKey];
+  document.getElementById("etranger-wrap").style.display = (motif && motif.etrangerPossible) ? "flex" : "none";
+  document.getElementById("terme-wrap").style.display = (motifKey === "saisonnier_usage") ? "block" : "none";
+  calculerTout();
+});
+
+document.querySelectorAll("#terme-type .seg-btn").forEach(b => b.addEventListener("click", () => {
+  termeType = b.dataset.terme;
+  document.querySelectorAll("#terme-type .seg-btn").forEach(x => x.classList.toggle("active", x === b));
+  calculerTout();
+}));
+
+document.getElementById("etranger").addEventListener("change", calculerTout);
+document.getElementById("branche").addEventListener("input", calculerTout);
+document.getElementById("date-debut").addEventListener("change", calculerTout);
+document.getElementById("date-fin-envisagee").addEventListener("change", calculerTout);
+
+calculerTout();
+</script>
+</body>
+</html>
