@@ -1,0 +1,409 @@
+---
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Délai de carence entre 2 CDD : calcul de la date | France</title>
+<meta name="description" content="Calculez le délai de carence obligatoire entre deux CDD sur le même poste : durée requise, exceptions légales, et date à partir de laquelle un nouveau CDD peut être signé. Outil gratuit et indicatif.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<style is:global>
+  :root{
+    --encre:#152238;--encre-2:#22334f;--papier:#F5F3EE;--papier-2:#ECE8DF;
+    --trait:#D8D2C4;--vert:#2F6F63;--gris:#6A6558;
+    --alerte:#A6472E;--alerte-bg:#F6E5E1;
+    --accent:#8A6FA8;--accent-bg:#EDE6F2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--papier);color:var(--encre);line-height:1.5;padding:24px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  header.hero{margin-bottom:24px;border-bottom:2px solid var(--encre);padding-bottom:18px}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
+  h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
+  h1 .light{font-weight:700;color:var(--encre-2)}
+  .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:680px}
+  .sub a{color:var(--vert);font-weight:600}
+  .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
+  .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .panneau h2 .num{background:var(--encre);color:#fff;width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .segmented{display:flex;border:1px solid var(--trait);border-radius:6px;overflow:hidden;width:fit-content}
+  .seg-btn{font-family:inherit;font-size:13px;padding:8px 16px;border:none;background:var(--papier);color:var(--encre);cursor:pointer;font-weight:600}
+  .seg-btn.active{background:var(--encre);color:#fff}
+  .seg-btn:not(.active):hover{background:var(--papier-2)}
+  .champs{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;margin-top:14px}
+  .champ{display:flex;flex-direction:column;gap:6px}
+  .champ label{font-size:13px;color:var(--gris);font-weight:600}
+  .champ select,.champ input[type=date],.champ input[type=number]{padding:10px 12px;border:1px solid var(--trait);border-radius:7px;font-size:15px;background:var(--papier);color:var(--encre);font-family:inherit}
+  .champ select:focus,.champ input:focus{outline:2px solid var(--vert)}
+  .champ.optionnel{padding:12px 14px;background:var(--papier-2);border-radius:8px}
+  .hint{font-size:11.5px;color:var(--gris);font-style:italic;margin-top:6px}
+  .checkline{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:14px}
+  .checkline input{width:16px;height:16px;flex-shrink:0}
+  .cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
+  .carte{border:1px solid var(--trait);border-radius:8px;padding:14px;background:var(--papier)}
+  .carte .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:600}
+  .carte .val{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:4px;color:var(--encre)}
+  .carte .val small{font-size:13px;font-weight:400;color:var(--gris)}
+  .carte.retenue{border-top:3px solid var(--vert)} .carte.retenue .val{color:var(--vert)}
+  .resultat-principal{margin-top:16px;padding:20px;background:var(--encre);color:#fff;border-radius:10px;text-align:center}
+  .resultat-principal .lbl{font-size:12px;text-transform:uppercase;letter-spacing:1px;opacity:.8}
+  .resultat-principal .date{font-size:28px;font-weight:700;margin-top:6px}
+  .resultat-principal .date.vide{opacity:.5;font-size:18px;font-weight:400}
+  .note{margin-top:14px;padding:11px 14px;border-radius:6px;font-size:13px;line-height:1.6}
+  .note-info{background:var(--papier-2);border-left:4px solid var(--vert);color:var(--encre-2)}
+  .note-info b{color:var(--encre)}
+  .note-info a{color:var(--vert);font-weight:600}
+  .note-alerte{background:var(--alerte-bg);border-left:4px solid var(--alerte);color:#5a2418;display:none}
+  .note-alerte.visible{display:block}
+  #resultat-non-poste{display:none}
+  #resultat-non-poste.visible{display:block}
+  .jours-semaine{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+  .jour-case{display:flex;align-items:center;gap:6px;background:var(--papier-2);padding:8px 12px;border-radius:7px;font-size:13px;font-weight:600}
+  .jour-case input{width:15px;height:15px}
+  .fermeture-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+  .fermeture-row input[type=date]{padding:8px 10px;border:1px solid var(--trait);border-radius:6px;font-size:14px;font-family:inherit;background:var(--papier)}
+  .fermeture-row span{color:var(--gris);font-size:13px}
+  .btn-suppr{background:#fff;border:1px solid var(--trait);border-radius:6px;padding:6px 11px;cursor:pointer;color:var(--alerte);font-weight:700;font-size:13px}
+  .btn-suppr:hover{background:var(--alerte-bg)}
+  .btn-ajouter{margin-top:6px;background:var(--papier-2);border:1px dashed var(--gris);border-radius:7px;padding:9px 16px;cursor:pointer;font-size:13px;font-weight:600;color:var(--encre-2);font-family:inherit}
+  .btn-ajouter:hover{background:var(--trait)}
+  .checklist-exceptions{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+  .exception-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--papier);border:1px solid var(--trait);border-radius:8px;font-size:13.5px}
+  .exception-item input{width:16px;height:16px;margin-top:2px;flex-shrink:0}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
+  @media(max-width:640px){h1{font-size:26px}.champs{flex-direction:column;align-items:stretch}}
+
+  .contenu-seo{max-width:760px;margin:36px auto 0;padding:28px 4px 0;border-top:2px solid var(--encre)}
+  .contenu-seo h2{font-size:21px;color:var(--encre);margin:28px 0 10px;letter-spacing:-0.2px}
+  .contenu-seo h2:first-of-type{margin-top:0}
+  .contenu-seo p{font-size:15.5px;color:var(--encre-2);line-height:1.7;margin-bottom:14px}
+  .contenu-seo .avert{margin-top:24px;padding:14px 16px;background:var(--papier-2);border-radius:8px;font-size:13px;color:var(--gris);line-height:1.6}
+  .sources{margin-top:24px;padding:16px 18px;background:#fff;border:1px solid var(--trait);border-radius:8px}
+  .sources h3{font-size:13px;text-transform:uppercase;letter-spacing:.4px;color:var(--gris);margin-bottom:10px;font-weight:700}
+  .sources ul{list-style:none;padding:0;margin:0}
+  .sources li{font-size:13px;color:var(--encre-2);margin-bottom:6px;padding-left:14px;position:relative}
+  .sources li::before{content:"—";position:absolute;left:0;color:var(--vert)}
+  .sources a{color:var(--vert);font-weight:600;text-decoration:none}
+  .sources a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">CDD · France</div>
+    <h1>Calcul du <span class="light">délai de carence entre deux CDD</span></h1>
+    <p class="sub">Employeur, service RH ou salarié ? Déterminez le délai de carence obligatoire avant de conclure un nouveau CDD sur le même poste, et la date à partir de laquelle c'est possible. Besoin de connaître la durée maximale d'un CDD ? Direction le <a href="/calcul-duree-cdd">calcul de durée du CDD</a>.</p>
+  </header>
+
+  <section class="panneau">
+    <h2><span class="num">1</span> Le nouveau CDD concerne-t-il le même poste ?</h2>
+    <div class="segmented" id="meme-poste-type">
+      <button type="button" class="seg-btn active" data-val="oui">Oui, même poste</button>
+      <button type="button" class="seg-btn" data-val="non">Non, poste différent</button>
+    </div>
+    <p class="hint">Le délai de carence ne s'applique qu'au poste occupé par le salarié dont le CDD a pris fin. La notion de "poste équivalent" relève de la jurisprudence et s'apprécie au cas par cas — en cas de doute, ne présumez pas l'absence de délai.</p>
+
+    <div class="note note-alerte" id="resultat-non-poste">
+      Le délai de carence ne s'applique qu'au poste du salarié dont le contrat a pris fin. S'il s'agit d'un poste réellement différent, vous pouvez conclure un nouveau CDD sans attendre. Vérifiez toutefois que le poste n'est pas jugé équivalent en pratique (mêmes tâches, même qualification) : la jurisprudence peut retenir le délai de carence dans ce cas.
+    </div>
+  </section>
+
+  <div id="reste-calcul">
+
+  <section class="panneau">
+    <h2><span class="num">2</span> Durée du CDD précédent</h2>
+    <div class="champs">
+      <div class="champ">
+        <label for="precedent-debut">Date de début du CDD précédent</label>
+        <input type="date" id="precedent-debut">
+      </div>
+      <div class="champ">
+        <label for="precedent-fin">Date de fin du CDD précédent</label>
+        <input type="date" id="precedent-fin">
+      </div>
+    </div>
+    <p class="hint">Renouvellement(s) inclus : indiquez la date de fin réelle après renouvellement éventuel, pas la date de fin du contrat initial.</p>
+
+    <div class="cartes">
+      <div class="carte"><div class="lbl">Durée du CDD précédent</div><div class="val" id="r-duree-precedent">—</div></div>
+      <div class="carte"><div class="lbl">Fraction applicable</div><div class="val" id="r-fraction">—</div></div>
+      <div class="carte retenue"><div class="lbl">Délai de carence requis</div><div class="val" id="r-delai-requis">—</div></div>
+    </div>
+    <div class="note note-info">
+      Le délai de carence est égal au <b>tiers</b> de la durée du CDD précédent (renouvellement inclus) si celui-ci a duré <b>14 jours ou plus</b>, ou à la <b>moitié</b> de sa durée s'il a duré moins de 14 jours.
+    </div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">3</span> Une exception s'applique-t-elle ?</h2>
+    <p class="hint" style="margin-top:0;margin-bottom:10px">Si l'une des situations suivantes correspond au CDD précédent, aucun délai de carence n'est requis.</p>
+    <div class="checklist-exceptions">
+      <label class="exception-item"><input type="checkbox" class="exception-check" id="exc1"> Nouvelle absence du salarié précédemment remplacé (remplacement suivi d'un nouveau remplacement)</label>
+      <label class="exception-item"><input type="checkbox" class="exception-check" id="exc2"> Travaux urgents nécessités par des mesures de sécurité</label>
+      <label class="exception-item"><input type="checkbox" class="exception-check" id="exc3"> Emploi saisonnier ou emploi d'usage constant (CDD d'usage)</label>
+      <label class="exception-item"><input type="checkbox" class="exception-check" id="exc4"> Remplacement d'un chef d'entreprise, d'une personne exerçant une profession libérale, ou du chef d'une exploitation agricole (ou personne assimilée)</label>
+      <label class="exception-item"><input type="checkbox" class="exception-check" id="exc5"> Contrat conclu dans le cadre d'un dispositif légal d'aide à l'emploi</label>
+      <label class="exception-item"><input type="checkbox" class="exception-check" id="exc6"> Rupture anticipée du CDD précédent à l'initiative du salarié</label>
+      <label class="exception-item"><input type="checkbox" class="exception-check" id="exc7"> Le salarié a refusé le renouvellement de son contrat (pour la durée du contrat non renouvelé)</label>
+    </div>
+    <div class="note note-alerte" id="resultat-exception">
+      Aucun délai de carence n'est applicable : une exception légale a été cochée ci-dessus. Un nouveau CDD peut être conclu sur ce poste sans attendre.
+    </div>
+  </section>
+
+  <section class="panneau" id="panneau-calcul">
+    <h2><span class="num">4</span> Rythme d'ouverture de l'entreprise</h2>
+    <p class="hint" style="margin-top:0">Le délai de carence se décompte en <b>jours d'ouverture de l'entreprise ou de l'établissement</b> — ni en jours calendaires, ni en jours ouvrés au sens courant.</p>
+
+    <div class="jours-semaine">
+      <label class="jour-case"><input type="checkbox" class="jour-ouverture" id="jour-1" checked> Lundi</label>
+      <label class="jour-case"><input type="checkbox" class="jour-ouverture" id="jour-2" checked> Mardi</label>
+      <label class="jour-case"><input type="checkbox" class="jour-ouverture" id="jour-3" checked> Mercredi</label>
+      <label class="jour-case"><input type="checkbox" class="jour-ouverture" id="jour-4" checked> Jeudi</label>
+      <label class="jour-case"><input type="checkbox" class="jour-ouverture" id="jour-5" checked> Vendredi</label>
+      <label class="jour-case"><input type="checkbox" class="jour-ouverture" id="jour-6"> Samedi</label>
+      <label class="jour-case"><input type="checkbox" class="jour-ouverture" id="jour-7"> Dimanche</label>
+    </div>
+
+    <p class="hint" style="margin-top:16px;margin-bottom:0">Périodes de fermeture spécifiques (congés d'été, fermeture annuelle...) — facultatif :</p>
+    <div id="fermetures-liste" style="margin-top:10px"></div>
+    <button type="button" class="btn-ajouter" id="btn-ajouter-fermeture">+ Ajouter une période de fermeture</button>
+
+    <div class="resultat-principal">
+      <div class="lbl">Date à partir de laquelle un nouveau CDD peut être signé sur ce poste</div>
+      <div class="date vide" id="r-date-carence">Renseignez les dates du CDD précédent</div>
+    </div>
+  </section>
+
+  </div>
+
+<section class="contenu-seo">
+  <h2>Le délai de carence entre deux CDD, comment ça marche ?</h2>
+  <p>Avant de pouvoir conclure un nouveau CDD sur le poste occupé par un salarié dont le contrat vient de prendre fin, l'employeur doit respecter un délai de carence. Ce délai dépend de la durée du CDD précédent, et ne s'applique que sous certaines conditions.</p>
+  <p>L'outil ci-dessus calcule ce délai, vérifie les exceptions qui peuvent le supprimer, et détermine la date à partir de laquelle un nouveau contrat peut être signé.</p>
+
+  <h2>Comment se calcule la durée du délai de carence ?</h2>
+  <p>Le délai de carence est égal au <b>tiers</b> de la durée totale du CDD précédent, renouvellement compris, si cette durée est de 14 jours ou plus. Il est égal à la <b>moitié</b> de cette durée si le CDD précédent a duré moins de 14 jours. Ces règles s'appliquent à défaut de stipulation contraire d'une convention ou d'un accord de branche étendu, qui peut fixer d'autres modalités de calcul du délai.</p>
+
+  <h2>Un décompte en jours d'ouverture de l'entreprise, pas en jours calendaires</h2>
+  <p>Contrairement à une idée reçue, le délai de carence ne se compte ni en jours calendaires, ni en jours ouvrés au sens habituel (utilisés par exemple pour un <a href="/calcul-jours-ouvres">délai de rétractation</a>). La loi retient les <b>jours d'ouverture de l'entreprise ou de l'établissement concerné</b> : les jours où l'entreprise fonctionne réellement et aurait pu employer un salarié sur ce poste. C'est pourquoi l'outil permet de préciser le rythme hebdomadaire d'ouverture ainsi que d'éventuelles périodes de fermeture (congés d'été, fermeture annuelle...).</p>
+
+  <h2>Les exceptions qui suppriment le délai de carence</h2>
+  <p>En l'absence de stipulation contraire d'un accord de branche étendu, la loi supprime toute obligation de délai de carence dans les situations suivantes : nouvelle absence du salarié remplacé, travaux urgents de sécurité, emploi saisonnier ou d'usage constant, remplacement d'un chef d'entreprise ou d'une exploitation agricole, contrat lié à un dispositif d'aide à l'emploi, rupture anticipée à l'initiative du salarié, ou refus par le salarié du renouvellement de son propre contrat. Un accord de branche étendu applicable à l'entreprise peut prévoir d'autres cas de suppression du délai : il est recommandé de le vérifier avant de conclure que seules ces sept situations s'appliquent.</p>
+
+  <h2>Le délai de carence s'applique-t-il à n'importe quel poste ?</h2>
+  <p>Non : le texte vise le poste du salarié dont le contrat a pris fin. La jurisprudence apprécie l'identité du poste selon les fonctions réellement exercées et les tâches concrètement confiées, indépendamment de l'intitulé du poste — un simple changement d'intitulé ne suffit donc pas à écarter le délai de carence si le besoin de travail reste le même.</p>
+
+  <h2>Que risque-t-on en cas de non-respect du délai de carence ?</h2>
+  <p>La loi interdit de recourir à un nouveau CDD sur le même poste avant l'expiration du délai de carence, hors exception. Le non-respect de cette règle expose l'employeur à une demande de requalification du contrat en CDI, sanction dégagée par la jurisprudence de la Cour de cassation — confirmée notamment en matière de contrats de mission d'intérim — plutôt qu'écrite explicitement dans les articles relatifs au délai de carence eux-mêmes, sous réserve de la qualification exacte de la situation et de l'appréciation du juge.</p>
+
+  <p class="avert">Ni l'article L1244-3-1, ni la jurisprudence de la chambre sociale de la Cour de cassation consultée, ne fixent de règle d'arrondi lorsque le tiers ou la moitié de la durée du CDD précédent ne donne pas un nombre entier de jours, ni de règle précisant si la date de reprise possible doit elle-même être un jour d'ouverture de l'entreprise. Ce calculateur retient sur ces deux points l'approche la plus prudente : arrondi au jour d'ouverture supérieur, et démarrage du nouveau CDD sur un jour d'ouverture (jamais un jour de fermeture), même si cela allonge légèrement le délai réel par rapport au minimum strictement défendable. Cet outil est fourni à titre indicatif et ne remplace ni un contrat de travail, ni l'avis d'un professionnel du droit du travail.</p>
+</section>
+
+<section class="sources">
+  <h3>Sources</h3>
+  <ul>
+    <li>Interdiction et portée du délai de carence — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035644007" target="_blank" rel="noopener">Code du travail, art. L1244-3</a></li>
+    <li>Calcul du délai (1/3 ou 1/2) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035639421" target="_blank" rel="noopener">Code du travail, art. L1244-3-1</a></li>
+    <li>Modalités et exceptions fixées par accord de branche étendu — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035644007" target="_blank" rel="noopener">Code du travail, art. L1244-4</a></li>
+    <li>Exceptions légales au délai de carence (à défaut d'accord de branche) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035639433" target="_blank" rel="noopener">Code du travail, art. L1244-4-1</a></li>
+    <li>Cas de recours au CDD (remplacement de chef d'entreprise, exploitant agricole...) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000029946296" target="_blank" rel="noopener">Code du travail, art. L1242-2</a></li>
+    <li>Dispositifs d'aide à l'emploi — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042812961" target="_blank" rel="noopener">Code du travail, art. L1242-3</a></li>
+    <li>Fiche pédagogique — <a href="https://code.travail.gouv.fr/" target="_blank" rel="noopener">Code du travail numérique, le contrat à durée déterminée</a></li>
+  </ul>
+</section>
+
+  <footer>
+    Délai de carence calculé selon les règles légales par défaut, sans tenir compte d'une éventuelle convention collective spécifique à vérifier séparément. Outil indicatif, ne remplace pas un contrat de travail ni l'avis d'un professionnel.
+    <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Calcul d'ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> · <a href="/calcul-heure-de-nuit" style="color:var(--vert);font-weight:600">Heures de nuit</a> · <a href="/conversion-heure-decimale" style="color:var(--vert);font-weight:600">Conversion décimale</a> · <a href="/calcul-jours-ouvres" style="color:var(--vert);font-weight:600">Jours ouvrés/ouvrables</a> · <a href="/calcul-duree-cdd" style="color:var(--vert);font-weight:600">Durée du CDD</a></p>
+    <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>
+  </footer>
+</div>
+
+<script is:inline>
+/* ---------- Fonctions de date ---------- */
+function parseDateInput(str){
+  if(!str) return null;
+  const [a,m,j] = str.split("-").map(Number);
+  return new Date(a, m-1, j);
+}
+function ajouterJours(date, n){
+  const d = new Date(date);
+  d.setDate(d.getDate() + n);
+  return d;
+}
+function joursEntre(d1, d2){
+  return Math.round((d2 - d1) / 86400000);
+}
+function formatDateFr(d){
+  const jours = ["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+  const mois = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+  return jours[d.getDay()] + " " + d.getDate() + " " + mois[d.getMonth()] + " " + d.getFullYear();
+}
+
+/* ---------- État ---------- */
+let memePoste = "oui";
+let fermetureCompteur = 0;
+
+/* ---------- Bloc "même poste" ---------- */
+document.querySelectorAll("#meme-poste-type .seg-btn").forEach(b => b.addEventListener("click", () => {
+  memePoste = b.dataset.val;
+  document.querySelectorAll("#meme-poste-type .seg-btn").forEach(x => x.classList.toggle("active", x === b));
+  calculerTout();
+}));
+
+/* ---------- Bloc 2 : durée du CDD précédent ---------- */
+function calculerDelaiRequis(){
+  const debut = parseDateInput(document.getElementById("precedent-debut").value);
+  const fin = parseDateInput(document.getElementById("precedent-fin").value);
+  if(!debut || !fin || fin < debut) return null;
+  const dureeJours = joursEntre(debut, fin) + 1;
+  const fraction = dureeJours >= 14 ? (1/3) : (1/2);
+  const delaiRequis = Math.ceil(dureeJours * fraction);
+  return { debut, fin, dureeJours, fraction, delaiRequis };
+}
+
+function afficherBloc2(info){
+  const dureeEl = document.getElementById("r-duree-precedent");
+  const fractionEl = document.getElementById("r-fraction");
+  const delaiEl = document.getElementById("r-delai-requis");
+  if(!info){
+    dureeEl.textContent = "—";
+    fractionEl.textContent = "—";
+    delaiEl.textContent = "—";
+    return;
+  }
+  dureeEl.innerHTML = info.dureeJours + "<small> jour(s)</small>";
+  fractionEl.textContent = info.fraction === (1/3) ? "1/3 (≥ 14 jours)" : "1/2 (< 14 jours)";
+  delaiEl.innerHTML = info.delaiRequis + "<small> jour(s) d'ouverture</small>";
+}
+
+/* ---------- Bloc 3 : exceptions ---------- */
+function exceptionActive(){
+  return [...document.querySelectorAll(".exception-check")].some(cb => cb.checked);
+}
+document.querySelectorAll(".exception-check").forEach(cb => cb.addEventListener("change", calculerTout));
+
+/* ---------- Bloc 4 : rythme + fermetures ---------- */
+document.querySelectorAll(".jour-ouverture").forEach(cb => cb.addEventListener("change", calculerTout));
+
+function getRythme(){
+  return [1,2,3,4,5,6,7].map(i => document.getElementById("jour-" + i).checked);
+}
+function getFermetures(){
+  const out = [];
+  document.querySelectorAll(".fermeture-row").forEach(row => {
+    const d = parseDateInput(row.querySelector(".fermeture-debut").value);
+    const f = parseDateInput(row.querySelector(".fermeture-fin").value);
+    if(d && f && f >= d) out.push({ debut: d, fin: f });
+  });
+  return out;
+}
+function estJourOuverture(date, rythme, fermetures){
+  const jourSemaine = date.getDay();
+  const idx = jourSemaine === 0 ? 6 : jourSemaine - 1;
+  if(!rythme[idx]) return false;
+  for(const f of fermetures){
+    if(date >= f.debut && date <= f.fin) return false;
+  }
+  return true;
+}
+function calculerDateCarence(finPrecedent, delaiRequis, rythme, fermetures){
+  let cursor = ajouterJours(finPrecedent, 1);
+  let compte = 0;
+  let dernierJour = null;
+  let securite = 0;
+  while(compte < delaiRequis && securite < 3650){
+    if(estJourOuverture(cursor, rythme, fermetures)){
+      compte++;
+      dernierJour = cursor;
+    }
+    if(compte < delaiRequis){
+      cursor = ajouterJours(cursor, 1);
+    }
+    securite++;
+  }
+  if(!dernierJour) return null;
+  // Approche prudente : le nouveau CDD débute au premier jour d'ouverture suivant
+  // le dernier jour compté (et non n'importe quel jour calendaire).
+  let resultat = ajouterJours(dernierJour, 1);
+  let securite2 = 0;
+  while(!estJourOuverture(resultat, rythme, fermetures) && securite2 < 3650){
+    resultat = ajouterJours(resultat, 1);
+    securite2++;
+  }
+  return resultat;
+}
+
+function addFermetureRow(){
+  fermetureCompteur++;
+  const row = document.createElement("div");
+  row.className = "fermeture-row";
+  row.innerHTML =
+    '<input type="date" class="fermeture-debut" aria-label="Début de la période de fermeture">' +
+    '<span>→</span>' +
+    '<input type="date" class="fermeture-fin" aria-label="Fin de la période de fermeture">' +
+    '<button type="button" class="btn-suppr" aria-label="Supprimer cette période">✕ Retirer</button>';
+  document.getElementById("fermetures-liste").appendChild(row);
+  row.querySelectorAll("input").forEach(inp => inp.addEventListener("change", calculerTout));
+  row.querySelector(".btn-suppr").addEventListener("click", () => { row.remove(); calculerTout(); });
+}
+document.getElementById("btn-ajouter-fermeture").addEventListener("click", addFermetureRow);
+
+/* ---------- Calcul global ---------- */
+function calculerTout(){
+  const resultatNonPoste = document.getElementById("resultat-non-poste");
+  const resteCalcul = document.getElementById("reste-calcul");
+
+  if(memePoste === "non"){
+    resultatNonPoste.classList.add("visible");
+    resteCalcul.style.display = "none";
+    return;
+  }
+  resultatNonPoste.classList.remove("visible");
+  resteCalcul.style.display = "block";
+
+  const info = calculerDelaiRequis();
+  afficherBloc2(info);
+
+  const exception = exceptionActive();
+  const resultatException = document.getElementById("resultat-exception");
+  const panneauCalcul = document.getElementById("panneau-calcul");
+  const dateEl = document.getElementById("r-date-carence");
+
+  if(exception){
+    resultatException.classList.add("visible");
+    panneauCalcul.style.display = "none";
+    return;
+  }
+  resultatException.classList.remove("visible");
+  panneauCalcul.style.display = "block";
+
+  if(!info){
+    dateEl.textContent = "Renseignez les dates du CDD précédent";
+    dateEl.classList.add("vide");
+    return;
+  }
+
+  const rythme = getRythme();
+  const fermetures = getFermetures();
+  const resultat = calculerDateCarence(info.fin, info.delaiRequis, rythme, fermetures);
+
+  if(!resultat){
+    dateEl.textContent = "Aucun jour d'ouverture trouvé — vérifiez le rythme hebdomadaire";
+    dateEl.classList.add("vide");
+    return;
+  }
+  dateEl.textContent = formatDateFr(resultat);
+  dateEl.classList.remove("vide");
+}
+
+document.getElementById("precedent-debut").addEventListener("change", calculerTout);
+document.getElementById("precedent-fin").addEventListener("change", calculerTout);
+
+calculerTout();
+</script>
+</body>
+</html>
