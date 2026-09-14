@@ -1,0 +1,526 @@
+---
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul forfait jours : jours de repos (JRS) | France</title>
+<meta name="description" content="Calculez une estimation du nombre de jours de repos (JRS) du forfait jours, année complète ou incomplète. Outil indicatif gratuit, sources officielles à jour.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<style is:global>
+  :root{
+    --encre:#152238;--encre-2:#22334f;--papier:#F5F3EE;--papier-2:#ECE8DF;
+    --trait:#D8D2C4;--vert:#2F6F63;--gris:#6A6558;--accent:#8A6FA8;
+    --alerte:#A6472E;--alerte-bg:#F6E5E1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--papier);color:var(--encre);line-height:1.5;padding:24px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  header.hero{margin-bottom:16px;border-bottom:2px solid var(--encre);padding-bottom:18px}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
+  h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
+  h1 .light{font-weight:700;color:var(--encre-2)}
+  .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:680px}
+  .sub b{color:var(--encre-2)}
+  .banniere-top{background:var(--papier-2);border-left:4px solid var(--encre);border-radius:8px;padding:14px 16px;margin-bottom:20px;font-size:13.5px;color:var(--encre-2);line-height:1.55;max-width:680px}
+  .banniere-top b{color:var(--encre)}
+  .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
+  .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .panneau h2 .num{background:var(--encre);color:#fff;width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .champs{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end}
+  .champ{display:flex;flex-direction:column;gap:6px}
+  .champ label{font-size:13px;color:var(--gris);font-weight:600}
+  .champ .aide{font-size:11.5px;color:var(--gris);font-weight:400;max-width:260px}
+  .champ input[type=date],.champ input[type=number]{padding:10px 12px;border:1px solid var(--trait);border-radius:7px;font-size:15px;background:var(--papier);color:var(--encre);font-family:inherit;width:180px}
+  .champ input[type=date]:focus,.champ input[type=number]:focus{outline:2px solid var(--vert)}
+  .champ select{padding:10px 12px;border:1px solid var(--trait);border-radius:7px;font-size:15px;background:var(--papier);color:var(--encre);font-family:inherit;min-width:260px}
+  .champ select:focus{outline:2px solid var(--vert)}
+  .option-regime{display:flex;align-items:flex-start;gap:10px;margin-top:18px;padding:12px 14px;background:var(--papier-2);border-radius:8px}
+  .option-regime input[type=checkbox]{margin-top:3px;width:16px;height:16px;accent-color:var(--vert)}
+  .option-regime label{font-size:13.5px;color:var(--encre-2);cursor:pointer}
+  .option-regime label b{color:var(--encre)}
+  .option-regime .detail{display:block;color:var(--gris);font-size:12.5px;margin-top:2px}
+  .bloc-periode{margin-top:16px;padding-top:16px;border-top:1px solid var(--trait)}
+  .bloc-profil{margin-top:16px;padding-top:16px;border-top:1px solid var(--trait)}
+  .liste-personnalisee{margin-top:12px;padding-top:12px;border-top:1px solid var(--trait)}
+  .liste-personnalisee .msg-vide{font-size:12.5px;color:var(--gris);font-style:italic}
+  .item-ferie{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:13.5px;color:var(--encre-2)}
+  .item-ferie input[type=checkbox]{width:15px;height:15px;accent-color:var(--vert)}
+  .item-ferie label{cursor:pointer}
+  .cadre-legal{font-size:12.5px;color:var(--gris);background:var(--papier-2);padding:8px 12px;border-radius:6px;margin-top:16px}
+  .cadre-legal b{color:var(--encre)}
+  .cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:4px}
+  .carte{border:1px solid var(--trait);border-radius:8px;padding:14px;background:var(--papier)}
+  .carte .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:600}
+  .carte .val{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:4px}
+  .carte .val small{font-size:14px;font-weight:400;color:var(--gris)}
+  .carte.principal{border-top:3px solid var(--vert)}
+  .carte.principal .val{color:var(--vert);font-size:30px}
+  .carte.info{border-top:3px solid var(--trait)}
+  .erreur{margin-top:14px;padding:11px 14px;background:var(--alerte-bg);border-left:4px solid var(--alerte);border-radius:6px;font-size:13px;color:#5a2418;display:none}
+  .erreur.visible{display:block}
+  .note-estimatif{margin-top:14px;padding:11px 14px;background:var(--papier-2);border-left:4px solid var(--encre);border-radius:6px;font-size:13px;color:var(--encre-2)}
+  .note-estimatif b{color:var(--encre)}
+  .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  button.act{font-family:inherit;font-size:14px;padding:9px 16px;border-radius:7px;border:1px solid var(--encre);cursor:pointer;font-weight:600}
+  .btn-ghost{background:transparent;color:var(--encre)}
+  button.act:hover{opacity:.9}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
+  @media(max-width:640px){h1{font-size:26px}.champs{flex-direction:column;align-items:stretch}.champ select,.champ input{width:100%;min-width:0}}
+
+  .contenu-seo{max-width:760px;margin:36px auto 0;padding:28px 4px 0;border-top:2px solid var(--encre)}
+  .contenu-seo h2{font-size:21px;color:var(--encre);margin:28px 0 10px;letter-spacing:-0.2px}
+  .contenu-seo h2:first-of-type{margin-top:0}
+  .contenu-seo p{font-size:15.5px;color:var(--encre-2);line-height:1.7;margin-bottom:14px}
+  .contenu-seo ul{margin:0 0 14px 20px}
+  .contenu-seo li{font-size:15.5px;color:var(--encre-2);line-height:1.7;margin-bottom:6px}
+  .contenu-seo .avert{margin-top:24px;padding:14px 16px;background:var(--papier-2);border-radius:8px;font-size:13px;color:var(--gris);line-height:1.6}
+  .maillage{margin-top:18px;padding:14px 16px;background:#fff;border:1px solid var(--trait);border-radius:8px;font-size:14.5px;color:var(--encre-2);line-height:1.7}
+  .maillage a{color:var(--vert);font-weight:600}
+  .sources{max-width:760px;margin:28px auto 0;padding:20px 4px 0}
+  .sources h2{font-size:16px;color:var(--encre);margin-bottom:10px}
+  .sources ul{list-style:none;font-size:13px;color:var(--gris)}
+  .sources li{margin-bottom:6px}
+  .sources a{color:var(--vert);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Forfait jours · Jours de repos (JRS) · France</div>
+    <h1>Calcul du <span class="light">forfait jours</span></h1>
+    <p class="sub">Estimez le nombre de <b>jours de repos</b> liés à une convention de forfait annuel en jours — ce que le langage courant appelle souvent « RTT forfait jours ». <b>Résultat indicatif</b> : il n'existe pas de formule légale nationale unique, en particulier pour une année incomplète. Seul l'accord collectif applicable détermine le calcul opposable — voir le détail plus bas.</p>
+  </header>
+
+  <div class="banniere-top">
+    <b>⚠ Estimation, non opposable.</b> Ce calculateur applique un <b>prorata calendaire simplifié</b>, à titre indicatif. Votre accord collectif ou convention de branche peut prévoir une méthode de calcul différente — notamment pour les entrées/sorties en cours d'année et les congés payés non acquis. Vérifiez toujours avec votre service RH ou votre accord d'entreprise.
+  </div>
+
+  <section class="panneau">
+    <h2><span class="num">1</span> Forfait et congés payés</h2>
+    <div class="champs">
+      <div class="champ">
+        <label for="forfait-jours">Jours du forfait annuel</label>
+        <input type="number" id="forfait-jours" value="218" min="1" max="218" step="1">
+        <span class="aide">218 jours par défaut (plafond de droit commun, art. L3121-64). Réduisez cette valeur pour un forfait réduit (ex. 80 % → environ 174 jours).</span>
+      </div>
+      <div class="champ">
+        <label for="mode-cp">Décompte des congés payés</label>
+        <select id="mode-cp">
+          <option value="" selected disabled>— Choisir —</option>
+          <option value="ouvres">25 jours ouvrés</option>
+          <option value="ouvrables">30 jours ouvrables</option>
+        </select>
+        <span class="aide">Les deux expriment le même droit à congés — choisissez le mode utilisé dans l'entreprise, pas le plus favorable.</span>
+      </div>
+      <div class="champ">
+        <label for="cp-non-acquis">CP non acquis à réintégrer (facultatif)</label>
+        <input type="number" id="cp-non-acquis" value="0" min="0" max="30" step="1">
+        <span class="aide">Ne renseignez une valeur que si votre accord collectif prévoit cette réintégration (cas d'une embauche en cours d'année, CP pas encore acquis). Ne déduisez pas ces jours ailleurs si vous les indiquez ici.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">2</span> Période</h2>
+    <div class="champ">
+      <label for="type-periode">Type de période</label>
+      <select id="type-periode">
+        <option value="" selected disabled>— Choisir —</option>
+        <option value="complete">Année complète (civile)</option>
+        <option value="incomplete">Entrée/sortie en cours d'année</option>
+      </select>
+    </div>
+    <div class="bloc-periode" id="bloc-complete" style="display:none">
+      <div class="champ">
+        <label for="annee-ref">Année de référence</label>
+        <input type="number" id="annee-ref" value="2026" min="2015" max="2035" step="1">
+      </div>
+    </div>
+    <div class="bloc-periode" id="bloc-incomplete" style="display:none">
+      <div class="champs">
+        <div class="champ">
+          <label for="date-debut">Date de début</label>
+          <input type="date" id="date-debut">
+        </div>
+        <div class="champ">
+          <label for="date-fin">Date de fin</label>
+          <input type="date" id="date-fin">
+        </div>
+      </div>
+    </div>
+    <div class="bloc-profil">
+      <div class="champ">
+        <label for="profil-feries">Jours fériés chômés</label>
+        <select id="profil-feries">
+          <option value="tous" selected>Tous les jours fériés (par défaut)</option>
+          <option value="aucun">Aucun jour férié chômé</option>
+          <option value="personnalise">Personnalisé</option>
+        </select>
+        <span class="aide">Seul le 1er mai est légalement obligatoirement chômé (art. L3133-4). Les 10 autres dépendent de l'accord d'entreprise, de la convention collective ou de l'usage — choisissez « Personnalisé » pour cocher précisément ceux qui s'appliquent réellement chez vous.</span>
+      </div>
+      <div class="liste-personnalisee" id="liste-personnalisee" style="display:none"></div>
+    </div>
+    <div class="option-regime">
+      <input type="checkbox" id="alsace-moselle">
+      <label for="alsace-moselle"><b>Appliquer le régime local Alsace-Moselle</b>
+        <span class="detail">Ajoute le Vendredi Saint et le 26 décembre (Saint-Étienne) à la liste des jours fériés chômés — spécifique aux départements du Bas-Rhin, du Haut-Rhin et de la Moselle.</span>
+      </label>
+    </div>
+    <div class="cadre-legal">Le forfait et les congés payés sont proratisés au calendaire sur la période renseignée (méthode indicative — voir l'avertissement ci-dessus). Les jours fériés chômés tombant un jour normalement travaillé (lundi-vendredi) sont calculés automatiquement pour l'année exacte, fêtes mobiles comprises, selon le profil choisi ci-dessus. Un jour férié tombant un samedi ou un dimanche n'est pas déduit une seconde fois.</div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">3</span> Résultat</h2>
+    <div class="cartes">
+      <div class="carte principal"><div class="lbl">Jours de repos estimés</div><div class="val" id="r-repos">—</div></div>
+      <div class="carte info"><div class="lbl">Jours du forfait sur la période</div><div class="val" id="r-forfait-periode">—</div></div>
+      <div class="carte info"><div class="lbl">Jours calendaires de la période</div><div class="val" id="r-calendaires">—</div></div>
+      <div class="carte info"><div class="lbl">Jours fériés chômés déduits</div><div class="val" id="r-feries">—</div></div>
+      <div class="carte info"><div class="lbl">Jours de CP déduits</div><div class="val" id="r-cp">—</div></div>
+    </div>
+    <div class="erreur" id="erreur-msg"></div>
+    <div class="note-estimatif"><b>Résultat estimatif, non opposable.</b> Ce calcul applique un prorata calendaire simplifié. Vérifiez la convention collective et l'accord autorisant le forfait jours, notamment pour les entrées et sorties en cours de période et les congés payés non acquis.</div>
+    <div class="actions">
+      <button class="act btn-ghost" id="vider">Effacer</button>
+    </div>
+  </section>
+
+<section class="contenu-seo">
+  <h2>Jours de repos ou « RTT forfait jours » ? La bonne terminologie</h2>
+  <p>L'expression « RTT forfait jours » est très recherchée et parfaitement compréhensible, mais elle n'est pas la plus rigoureuse juridiquement. Le forfait jours ne repose pas sur un décompte hebdomadaire des heures comme les RTT classiques : il fonctionne par un plafond de jours travaillés sur l'année. Les jours qui en résultent sont, juridiquement, des <b>jours de repos</b> (parfois notés JRS) — et ne correspondent pas nécessairement aux JRTT issus d'un dispositif distinct de réduction ou d'aménagement collectif du temps de travail, si l'entreprise en a un par ailleurs.</p>
+
+  <h2>Comment ce calculateur estime vos jours de repos</h2>
+  <p>Pour une année complète, l'estimation applique la logique la plus courante :</p>
+  <ul>
+    <li>jours calendaires de la période</li>
+    <li>− samedis et dimanches</li>
+    <li>− jours fériés chômés tombant un jour normalement travaillé</li>
+    <li>− congés payés (25 jours ouvrés ou 30 jours ouvrables, selon le mode applicable dans l'entreprise)</li>
+    <li>− jours du forfait (218 par défaut, ou moins pour un forfait réduit)</li>
+    <li>+ éventuels jours de congés payés non acquis à réintégrer, si votre accord le prévoit</li>
+  </ul>
+  <p>Le forfait de 218 jours comprend normalement la journée de solidarité lorsqu'il est calculé pour une année complète — elle n'est donc pas déduite une seconde fois. Un jour férié tombant un jour habituellement non travaillé (samedi ou dimanche, dans une organisation classique du lundi au vendredi) n'a pas non plus à être déduit deux fois. Par défaut, l'outil suppose les 11 jours fériés légaux chômés — la pratique la plus répandue — mais seul le 1er mai l'est obligatoirement pour tous les salariés (art. L3133-4) : les 10 autres dépendent d'un accord d'entreprise, d'une convention collective ou d'un usage. Basculez sur « Personnalisé » pour cocher précisément ceux qui s'appliquent réellement à votre situation.</p>
+
+  <h2>Année incomplète : pourquoi il n'existe pas de calcul unique</h2>
+  <p><b>Estimation indicative — année incomplète.</b> En cas d'entrée, de sortie ou de mise en place du forfait jours en cours de période de référence, il n'existe pas de formule nationale unique de proratisation applicable à toutes les entreprises. Ce calculateur applique un <b>prorata calendaire simplifié</b>, à titre indicatif, en réduisant à la fois le forfait et les congés payés proportionnellement au nombre de jours calendaires couverts par la période.</p>
+  <p>L'accord collectif applicable peut imposer une autre méthode — notamment un prorata fondé sur les jours ouvrés hors jours fériés, sur les semaines restantes, ou une règle spécifique pour les congés payés non acquis. Seul l'accord collectif applicable, et le cas échéant le calcul de votre service de paie, permet de déterminer le résultat réellement opposable. C'est pourquoi un champ facultatif vous permet de réintégrer manuellement des jours de congés payés non acquis si votre accord le prévoit — sans double comptage.</p>
+
+  <h2>Renonciation à des jours de repos : un cas non couvert ici</h2>
+  <p>Ce calculateur ne traite pas la renonciation à des jours de repos. Un salarié peut, avec l'accord écrit de son employeur (avenant à la convention de forfait, non tacitement reconductible), renoncer à une partie de ses jours de repos contre une majoration de rémunération d'au moins 10 % (art. L3121-59). À défaut de plafond fixé par l'accord collectif, le nombre maximal de jours travaillés est alors de 235 jours (art. L3121-66) — ce plafond de 235 jours ne s'applique donc pas automatiquement dans toutes les entreprises, et certains accords de branche fixent un plafond inférieur. Si votre situation concerne une renonciation, vérifiez ces deux articles et votre accord collectif directement.</p>
+
+  <h2>Qui peut être au forfait jours ?</h2>
+  <p>Contrairement à une idée reçue, le forfait jours n'est pas réservé aux cadres. L'article L3121-58 vise deux catégories : les cadres disposant d'une autonomie dans l'organisation de leur emploi du temps et dont les fonctions ne les conduisent pas à suivre l'horaire collectif de leur équipe, mais aussi les salariés — cadres ou non — dont la durée du travail ne peut être prédéterminée et qui disposent d'une réelle autonomie dans l'organisation de leur emploi du temps. Un accord collectif autorisant le forfait jours, une convention individuelle écrite, et le respect des garanties de suivi de la charge de travail restent des conditions cumulatives. Le simple intitulé de cadre ou un niveau de salaire élevé ne suffit pas à rendre éligible un salarié qui ne dispose pas d'une autonomie réelle.</p>
+
+  <h2>Ce que ce calculateur ne fait pas</h2>
+  <p>C'est un calculateur de jours, pas de salaire : aucun montant en euros n'est calculé. Il ne couvre ni la renonciation à des jours de repos (voir plus haut), ni les règles spécifiques d'un accord collectif que vous n'auriez pas reproduites vous-même dans les champs proposés. Le résultat affiché reste une estimation à vérifier auprès de votre service RH ou paie.</p>
+
+  <div class="avert">
+    <b>Avertissement</b> — Ce calculateur applique une méthode d'estimation courante (prorata calendaire), non une formule légale obligatoire. L'accord collectif ou la convention de branche applicable à votre situation peut prévoir un plafond de forfait différent, une méthode de proratisation différente pour une année incomplète, ou un traitement spécifique des congés payés non acquis. Outil indicatif, ne remplace pas un conseil juridique ou un bulletin de paie.
+  </div>
+
+  <div class="maillage">
+    <b>Votre situation n'est pas au forfait jours, ou vous cherchez autre chose ?</b> Pour compter les jours ouvrés ou ouvrables entre deux dates, direction le <a href="/calcul-jours-ouvres">calcul de jours ouvrés</a>. Pour calculer une ancienneté, direction le <a href="/calcul-anciennete">calcul d'ancienneté</a>. Pour un salarié à temps complet classique (hors forfait jours), direction le <a href="/">calcul du temps complet mensualisé</a>.
+  </div>
+</section>
+
+<section class="sources">
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-64" target="_blank" rel="noopener">Code du travail, article L3121-64</a> — l'accord collectif fixe le nombre de jours du forfait, dans la limite de 218 jours pour le forfait annuel en jours</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-58" target="_blank" rel="noopener">Code du travail, article L3121-58</a> — catégories de salariés pouvant conclure une convention de forfait annuel en jours</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-59" target="_blank" rel="noopener">Code du travail, article L3121-59</a> — renonciation à des jours de repos, accord écrit et majoration de rémunération d'au moins 10 %</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-66" target="_blank" rel="noopener">Code du travail, article L3121-66</a> — plafond supplétif de 235 jours en cas de renonciation, à défaut de précision de l'accord collectif</li>
+    <li><a href="https://www.legifrance.gouv.fr/juri/id/JURITEXT000030205229/" target="_blank" rel="noopener">Cour de cassation, chambre sociale</a> — les jours de repos doivent être proratisés selon les jours non travaillés et non payés dans l'année, notamment en cas d'entrée ou de sortie en cours d'année</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-4" target="_blank" rel="noopener">Code du travail, article L3133-4</a> — seul le 1er mai est un jour férié obligatoirement chômé</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-3-1" target="_blank" rel="noopener">Code du travail, articles L3133-3-1 et L3133-3-2</a> — détermination des autres jours fériés chômés par accord d'entreprise ou, à défaut, par l'employeur</li>
+  </ul>
+</section>
+
+  <footer>
+    Calcul du nombre de jours de repos (JRS) pour un salarié au forfait jours, année complète ou incomplète. Estimation par prorata calendaire simplifié — ne remplace pas le calcul prévu par l'accord collectif applicable. Outil indicatif, ne remplace pas un conseil juridique.
+<p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> · <a href="/calcul-heure-de-nuit" style="color:var(--vert);font-weight:600">Heures de nuit</a> · <a href="/conversion-heure-decimale" style="color:var(--vert);font-weight:600">Conversion décimale</a> · <a href="/calcul-jours-ouvres" style="color:var(--vert);font-weight:600">Jours ouvrés/ouvrables</a> · <a href="/calcul-duree-cdd" style="color:var(--vert);font-weight:600">Durée du CDD</a> · <a href="/calcul-carence-cdd" style="color:var(--vert);font-weight:600">Délai de carence CDD</a></p>
+    <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>
+  </footer>
+</div>
+
+<script is:inline>
+/* Calcule la date de Pâques (dimanche) pour une année donnée.
+   Algorithme de Gauss / méthode anonyme grégorienne. */
+function datePaques(annee){
+  const a = annee % 19;
+  const b = Math.floor(annee / 100);
+  const c = annee % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19*a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2*e + 2*i - h - k) % 7;
+  const m = Math.floor((a + 11*h + 22*l) / 451);
+  const val = h + l - 7*m + 114;
+  const mois = Math.floor(val / 31);
+  const jour = (val % 31) + 1;
+  return new Date(annee, mois - 1, jour);
+}
+
+function ajouterJours(date, n){
+  const d = new Date(date);
+  d.setDate(d.getDate() + n);
+  return d;
+}
+
+function iso(d){
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+
+function estBissextile(a){
+  return (a % 4 === 0 && a % 100 !== 0) || (a % 400 === 0);
+}
+function joursDansAnnee(a){
+  return estBissextile(a) ? 366 : 365;
+}
+
+/* Jours fériés légaux nationaux (Code du travail, art. L3133-1). */
+const FERIES_NATIONAUX = [
+  {cle:"jour_an",        libelle:"Jour de l'an (1er janvier)",        calc:(a,p)=> new Date(a,0,1)},
+  {cle:"lundi_paques",   libelle:"Lundi de Pâques",                   calc:(a,p)=> ajouterJours(p,1)},
+  {cle:"fete_travail",   libelle:"Fête du travail (1er mai)",         calc:(a,p)=> new Date(a,4,1)},
+  {cle:"victoire_1945",  libelle:"Victoire 1945 (8 mai)",             calc:(a,p)=> new Date(a,4,8)},
+  {cle:"ascension",      libelle:"Ascension",                        calc:(a,p)=> ajouterJours(p,39)},
+  {cle:"pentecote",      libelle:"Lundi de Pentecôte",                calc:(a,p)=> ajouterJours(p,50)},
+  {cle:"fete_nationale", libelle:"Fête nationale (14 juillet)",       calc:(a,p)=> new Date(a,6,14)},
+  {cle:"assomption",     libelle:"Assomption (15 août)",              calc:(a,p)=> new Date(a,7,15)},
+  {cle:"toussaint",      libelle:"Toussaint (1er novembre)",          calc:(a,p)=> new Date(a,10,1)},
+  {cle:"armistice",      libelle:"Armistice 1918 (11 novembre)",      calc:(a,p)=> new Date(a,10,11)},
+  {cle:"noel",           libelle:"Noël (25 décembre)",                calc:(a,p)=> new Date(a,11,25)}
+];
+
+/* Jours fériés supplémentaires du régime local Alsace-Moselle, ajoutés
+   uniquement si l'option correspondante est cochée. */
+const FERIES_ALSACE_MOSELLE = [
+  {cle:"vendredi_saint", libelle:"Vendredi Saint (Alsace-Moselle)",        calc:(a,p)=> ajouterJours(p,-2)},
+  {cle:"saint_etienne",  libelle:"Saint-Étienne, 26 décembre (Alsace-Moselle)", calc:(a,p)=> new Date(a,11,26)}
+];
+
+function carteFeries(anneeDebut, anneeFin, alsaceMoselle){
+  const defs = alsaceMoselle ? FERIES_NATIONAUX.concat(FERIES_ALSACE_MOSELLE) : FERIES_NATIONAUX;
+  const carte = new Map();
+  for(let y = anneeDebut; y <= anneeFin; y++){
+    const paques = datePaques(y);
+    defs.forEach(def => carte.set(iso(def.calc(y, paques)), def.cle));
+  }
+  return carte;
+}
+
+/* Retourne, dans l'ordre du calendrier légal, les définitions de jours
+   fériés dont au moins une occurrence tombe dans la période [debut, fin]. */
+function feriesPresents(debut, fin, alsaceMoselle){
+  const defs = alsaceMoselle ? FERIES_NATIONAUX.concat(FERIES_ALSACE_MOSELLE) : FERIES_NATIONAUX;
+  const presents = [];
+  for(let y = debut.getFullYear(); y <= fin.getFullYear(); y++){
+    const paques = datePaques(y);
+    defs.forEach(def => {
+      const d = def.calc(y, paques);
+      if(d >= debut && d <= fin && !presents.some(p => p.cle === def.cle)){
+        presents.push(def);
+      }
+    });
+  }
+  return presents;
+}
+
+function parseDate(str){
+  if(!str) return null;
+  const [a,m,j] = str.split("-").map(Number);
+  return new Date(a, m-1, j);
+}
+
+/* Parcourt la période jour par jour et compte jours calendaires, week-ends
+   et jours fériés chômés tombant un jour normalement travaillé (lun-ven),
+   selon le profil choisi (tous / aucun / personnalisé). */
+function compterPeriode(debut, fin, alsaceMoselle, profil, etatPersonnalise){
+  const carte = carteFeries(debut.getFullYear(), fin.getFullYear(), alsaceMoselle);
+  let jCalendaires = 0, jWeekend = 0, jFeries = 0;
+  let cur = new Date(debut);
+  while(cur <= fin){
+    jCalendaires++;
+    const dow = cur.getDay(); // 0 = dimanche, 6 = samedi
+    const estWeekend = (dow === 0 || dow === 6);
+    if(estWeekend) jWeekend++;
+
+    const cle = carte.get(iso(cur));
+    const estFerie = !!cle;
+    let chome = false;
+    if(estFerie && !estWeekend){
+      if(profil === "tous") chome = true;
+      else if(profil === "aucun") chome = false;
+      else chome = etatPersonnalise[cle] !== false; // coché par défaut
+    }
+    if(chome) jFeries++;
+    cur = ajouterJours(cur, 1);
+  }
+  return {jCalendaires, jWeekend, jFeries};
+}
+
+const MSG_ORDRE = "La date de fin doit être postérieure ou égale à la date de début.";
+const MSG_INVALIDE = "Date invalide : vérifiez que le jour saisi existe bien dans le mois choisi.";
+
+/* Mémorise, par clé de jour férié, si l'utilisateur l'a décoché en mode
+   personnalisé. Absent de cet objet = coché (comportement par défaut). */
+const etatPersonnalise = {};
+
+function rendreListePersonnalisee(debut, fin, alsaceMoselle){
+  const conteneur = document.getElementById("liste-personnalisee");
+  if(!debut || !fin || fin < debut){
+    conteneur.innerHTML = '<div class="msg-vide">Renseignez une période valide pour afficher la liste des jours fériés.</div>';
+    return;
+  }
+  const presents = feriesPresents(debut, fin, alsaceMoselle);
+  if(presents.length === 0){
+    conteneur.innerHTML = '<div class="msg-vide">Aucun jour férié sur cette période.</div>';
+    return;
+  }
+  conteneur.innerHTML = presents.map(def => {
+    const coche = etatPersonnalise[def.cle] === false ? "" : "checked";
+    return '<div class="item-ferie"><input type="checkbox" id="fer-' + def.cle + '" data-cle="' + def.cle + '" ' + coche + '><label for="fer-' + def.cle + '">' + def.libelle + '</label></div>';
+  }).join("");
+}
+
+function afficherVide(){
+  ["r-repos","r-forfait-periode","r-calendaires","r-feries","r-cp"].forEach(id=>{
+    document.getElementById(id).textContent = "—";
+  });
+}
+
+function basculerBlocs(){
+  const type = document.getElementById("type-periode").value;
+  document.getElementById("bloc-complete").style.display = (type === "complete") ? "block" : "none";
+  document.getElementById("bloc-incomplete").style.display = (type === "incomplete") ? "block" : "none";
+}
+
+function calculer(){
+  const erreur = document.getElementById("erreur-msg");
+  erreur.classList.remove("visible");
+
+  const modeCP = document.getElementById("mode-cp").value;
+  const typePeriode = document.getElementById("type-periode").value;
+  const alsaceMoselle = document.getElementById("alsace-moselle").checked;
+  const profil = document.getElementById("profil-feries").value;
+
+  let forfaitRef = parseInt(document.getElementById("forfait-jours").value, 10);
+  if(!forfaitRef || forfaitRef <= 0) forfaitRef = 218;
+  if(forfaitRef > 218) forfaitRef = 218;
+
+  let cpNonAcquis = parseInt(document.getElementById("cp-non-acquis").value, 10);
+  if(!cpNonAcquis || cpNonAcquis < 0) cpNonAcquis = 0;
+
+  if(!modeCP || !typePeriode){
+    document.getElementById("liste-personnalisee").style.display = "none";
+    afficherVide();
+    return;
+  }
+
+  const cpRef = (modeCP === "ouvres") ? 25 : 30;
+
+  let debut, fin, ratioAnnee = true;
+
+  if(typePeriode === "complete"){
+    const annee = parseInt(document.getElementById("annee-ref").value, 10) || new Date().getFullYear();
+    debut = new Date(annee, 0, 1);
+    fin = new Date(annee, 11, 31);
+  } else {
+    const inpDebut = document.getElementById("date-debut");
+    const inpFin = document.getElementById("date-fin");
+
+    if(inpDebut.validity.badInput || inpFin.validity.badInput){
+      erreur.textContent = MSG_INVALIDE;
+      erreur.classList.add("visible");
+      afficherVide();
+      return;
+    }
+
+    debut = parseDate(inpDebut.value);
+    fin = parseDate(inpFin.value);
+
+    if(!debut || !fin){
+      afficherVide();
+      return;
+    }
+    if(fin < debut){
+      erreur.textContent = MSG_ORDRE;
+      erreur.classList.add("visible");
+      afficherVide();
+      return;
+    }
+    ratioAnnee = false;
+  }
+
+  document.getElementById("liste-personnalisee").style.display = (profil === "personnalise") ? "block" : "none";
+  if(profil === "personnalise"){
+    rendreListePersonnalisee(debut, fin, alsaceMoselle);
+  }
+
+  const {jCalendaires, jWeekend, jFeries} = compterPeriode(debut, fin, alsaceMoselle, profil, etatPersonnalise);
+
+  const anneeRef = debut.getFullYear();
+  const joursAnnee = joursDansAnnee(anneeRef);
+  const ratio = ratioAnnee ? 1 : (jCalendaires / joursAnnee);
+
+  const forfaitProratise = Math.round(forfaitRef * ratio);
+  const cpApplicable = Math.round(cpRef * ratio);
+
+  const joursRepos = jCalendaires - jWeekend - jFeries - cpApplicable - forfaitProratise + cpNonAcquis;
+
+  document.getElementById("r-repos").innerHTML = joursRepos + "<small> j.</small>";
+  document.getElementById("r-forfait-periode").innerHTML = forfaitProratise + "<small> j.</small>";
+  document.getElementById("r-calendaires").innerHTML = jCalendaires + "<small> j.</small>";
+  document.getElementById("r-feries").innerHTML = jFeries + "<small> j.</small>";
+  document.getElementById("r-cp").innerHTML = cpApplicable + "<small> j.</small>";
+}
+
+document.getElementById("type-periode").addEventListener("change", () => { basculerBlocs(); calculer(); });
+document.getElementById("mode-cp").addEventListener("change", calculer);
+document.getElementById("forfait-jours").addEventListener("input", calculer);
+document.getElementById("cp-non-acquis").addEventListener("input", calculer);
+document.getElementById("alsace-moselle").addEventListener("change", calculer);
+document.getElementById("profil-feries").addEventListener("change", calculer);
+document.getElementById("annee-ref").addEventListener("input", calculer);
+document.getElementById("date-debut").addEventListener("change", calculer);
+document.getElementById("date-fin").addEventListener("change", calculer);
+document.getElementById("date-debut").addEventListener("input", calculer);
+document.getElementById("date-fin").addEventListener("input", calculer);
+
+/* Délégation sur la liste dynamique : ses cases n'existent pas encore au
+   chargement de la page, donc on écoute sur le conteneur parent. */
+document.getElementById("liste-personnalisee").addEventListener("change", (evt) => {
+  if(evt.target && evt.target.dataset && evt.target.dataset.cle){
+    etatPersonnalise[evt.target.dataset.cle] = evt.target.checked;
+    calculer();
+  }
+});
+
+document.getElementById("vider").addEventListener("click", () => {
+  document.getElementById("forfait-jours").value = "218";
+  document.getElementById("mode-cp").value = "";
+  document.getElementById("cp-non-acquis").value = "0";
+  document.getElementById("alsace-moselle").checked = false;
+  document.getElementById("profil-feries").value = "tous";
+  document.getElementById("type-periode").value = "";
+  document.getElementById("annee-ref").value = "2026";
+  document.getElementById("date-debut").value = "";
+  document.getElementById("date-fin").value = "";
+  for(const cle in etatPersonnalise) delete etatPersonnalise[cle];
+  basculerBlocs();
+  afficherVide();
+  document.getElementById("erreur-msg").classList.remove("visible");
+});
+
+basculerBlocs();
+</script>
+</body>
+</html>
