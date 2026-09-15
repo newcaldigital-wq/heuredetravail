@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calcul forfait jours : jours de repos (JRS) | France</title>
-<meta name="description" content="Calculez une estimation du nombre de jours de repos (JRS) du forfait jours, année complète ou incomplète. Outil indicatif gratuit, sources officielles à jour.">
+<title>Calcul RTT : jours de repos, régime horaire (39h, 37h...) | France</title>
+<meta name="description" content="Calculez une estimation de vos jours de RTT pour un régime horaire supérieur à 35h (39h, 37h...), année complète ou incomplète. Outil gratuit et indicatif.">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <style is:global>
@@ -89,22 +89,22 @@
 <body>
 <div class="wrap">
   <header class="hero">
-    <div class="eyebrow">Forfait jours · Jours de repos (JRS) · France</div>
-    <h1>Calcul du <span class="light">forfait jours</span></h1>
-    <p class="sub">Estimez le nombre de <b>jours de repos</b> liés à une convention de forfait annuel en jours — ce que le langage courant appelle souvent « RTT forfait jours ». <b>Résultat indicatif</b> : il n'existe pas de formule légale nationale unique, en particulier pour une année incomplète. Seul l'accord collectif applicable détermine le calcul opposable — voir le détail plus bas.</p>
+    <div class="eyebrow">RTT classique · Régime horaire · France</div>
+    <h1>Calcul des <span class="light">RTT</span></h1>
+    <p class="sub">Estimez le nombre de <b>jours de RTT</b> (ou jours de repos compensateurs) pour un salarié dont la durée hebdomadaire contractuelle dépasse 35h — régime horaire, pas forfait jours. <b>Résultat indicatif</b> : aucune formule légale nationale n'impose ce calcul, seul l'accord collectif applicable fait foi. Voir le détail plus bas.</p>
   </header>
 
   <div class="banniere-top">
-    <b>⚠ Estimation, non opposable.</b> Ce calculateur applique un <b>prorata calendaire simplifié</b>, à titre indicatif. Votre accord collectif ou convention de branche peut prévoir une méthode de calcul différente — notamment pour les entrées/sorties en cours d'année et les congés payés non acquis. Vérifiez toujours avec votre service RH ou votre accord d'entreprise.
+    <b>⚠ Estimation, non opposable.</b> Ce calculateur applique une <b>méthode de calcul courante</b>, non imposée par la loi, à titre indicatif. Le nombre de RTT réel dépend exclusivement de l'accord d'entreprise ou de branche applicable dans votre situation. Vérifiez toujours avec votre service RH ou votre accord d'entreprise.
   </div>
 
   <section class="panneau">
-    <h2><span class="num">1</span> Forfait et congés payés</h2>
+    <h2><span class="num">1</span> Contrat</h2>
     <div class="champs">
       <div class="champ">
-        <label for="forfait-jours">Jours du forfait annuel</label>
-        <input type="number" id="forfait-jours" value="218" min="1" max="218" step="1">
-        <span class="aide">218 jours par défaut (plafond de droit commun, art. L3121-64). Réduisez cette valeur pour un forfait réduit (ex. 80 % → environ 174 jours).</span>
+        <label for="duree-hebdo">Durée hebdomadaire contractuelle</label>
+        <input type="number" id="duree-hebdo" min="35" max="48" step="0.25" placeholder="Ex. 39">
+        <span class="aide">Durée fixée par votre contrat ou l'accord applicable. Doit dépasser 35h pour générer des RTT. Durée maximale hebdomadaire légale absolue : 48h (art. L3121-20).</span>
       </div>
       <div class="champ">
         <label for="mode-cp">Décompte des congés payés</label>
@@ -113,12 +113,7 @@
           <option value="ouvres">25 jours ouvrés</option>
           <option value="ouvrables">30 jours ouvrables</option>
         </select>
-        <span class="aide">Les deux expriment le même droit à congés — choisissez le mode utilisé dans l'entreprise, pas le plus favorable.</span>
-      </div>
-      <div class="champ">
-        <label for="cp-non-acquis">CP non acquis à réintégrer (facultatif)</label>
-        <input type="number" id="cp-non-acquis" value="0" min="0" max="30" step="1">
-        <span class="aide">Ne renseignez une valeur que si votre accord collectif prévoit cette réintégration (cas d'une embauche en cours d'année, CP pas encore acquis). Ne déduisez pas ces jours ailleurs si vous les indiquez ici.</span>
+        <span class="aide">Utilisé pour estimer le nombre réel de semaines travaillées sur la période — choisissez le mode utilisé dans l'entreprise.</span>
       </div>
     </div>
   </section>
@@ -130,7 +125,7 @@
       <select id="type-periode">
         <option value="" selected disabled>— Choisir —</option>
         <option value="complete">Année complète (civile)</option>
-        <option value="incomplete">Entrée/sortie en cours d'année</option>
+        <option value="incomplete">Entrée/sortie ou accord mis en place en cours d'année</option>
       </select>
     </div>
     <div class="bloc-periode" id="bloc-complete" style="display:none">
@@ -169,79 +164,73 @@
         <span class="detail">Ajoute le Vendredi Saint et le 26 décembre (Saint-Étienne) à la liste des jours fériés chômés — spécifique aux départements du Bas-Rhin, du Haut-Rhin et de la Moselle.</span>
       </label>
     </div>
-    <div class="cadre-legal">Le forfait et les congés payés sont proratisés au calendaire sur la période renseignée (méthode indicative — voir l'avertissement ci-dessus). Les jours fériés chômés tombant un jour normalement travaillé (lundi-vendredi) sont calculés automatiquement pour l'année exacte, fêtes mobiles comprises, selon le profil choisi ci-dessus. Un jour férié tombant un samedi ou un dimanche n'est pas déduit une seconde fois.</div>
+    <div class="cadre-legal">Les semaines réellement travaillées sont calculées à partir du calendrier exact de la période renseignée : jours calendaires, moins week-ends, moins jours fériés chômés tombant un jour normalement travaillé, moins congés payés (proratisés si la période est incomplète). Un jour férié tombant un samedi ou un dimanche n'est pas déduit une seconde fois.</div>
   </section>
 
   <section class="panneau">
     <h2><span class="num">3</span> Résultat</h2>
     <div class="cartes">
-      <div class="carte principal"><div class="lbl">Jours de repos estimés</div><div class="val" id="r-repos">—</div></div>
-      <div class="carte info"><div class="lbl">Jours du forfait sur la période</div><div class="val" id="r-forfait-periode">—</div></div>
-      <div class="carte info"><div class="lbl">Jours calendaires de la période</div><div class="val" id="r-calendaires">—</div></div>
+      <div class="carte principal"><div class="lbl">Jours de RTT estimés</div><div class="val" id="r-rtt">—</div></div>
+      <div class="carte info"><div class="lbl">Heures RTT cumulées</div><div class="val" id="r-heures-rtt">—</div></div>
+      <div class="carte info"><div class="lbl">Semaines travaillées retenues</div><div class="val" id="r-semaines">—</div></div>
       <div class="carte info"><div class="lbl">Jours fériés chômés déduits</div><div class="val" id="r-feries">—</div></div>
       <div class="carte info"><div class="lbl">Jours de CP déduits</div><div class="val" id="r-cp">—</div></div>
     </div>
     <div class="erreur" id="erreur-msg"></div>
-    <div class="note-estimatif"><b>Résultat estimatif, non opposable.</b> Ce calcul applique un prorata calendaire simplifié. Vérifiez la convention collective et l'accord autorisant le forfait jours, notamment pour les entrées et sorties en cours de période et les congés payés non acquis.</div>
+    <div class="note-estimatif"><b>Résultat estimatif, non opposable.</b> Ce calcul applique une méthode courante, non imposée par le Code du travail. Vérifiez la convention collective et l'accord d'aménagement du temps de travail applicable, notamment pour la durée journalière de référence et les entrées/sorties en cours de période.</div>
     <div class="actions">
       <button class="act btn-ghost" id="vider">Effacer</button>
     </div>
   </section>
 
 <section class="contenu-seo">
-  <h2>Jours de repos ou « RTT forfait jours » ? La bonne terminologie</h2>
-  <p>L'expression « RTT forfait jours » est très recherchée et parfaitement compréhensible, mais elle n'est pas la plus rigoureuse juridiquement. Le forfait jours ne repose pas sur un décompte hebdomadaire des heures comme les RTT classiques : il fonctionne par un plafond de jours travaillés sur l'année. Les jours qui en résultent sont, juridiquement, des <b>jours de repos</b> (parfois notés JRS) — et ne correspondent pas nécessairement aux JRTT issus d'un dispositif distinct de réduction ou d'aménagement collectif du temps de travail, si l'entreprise en a un par ailleurs.</p>
+  <h2>RTT ou forfait jours ? Deux mécanismes à ne pas confondre</h2>
+  <p>Le mot « RTT » est utilisé au quotidien pour désigner deux dispositifs pourtant distincts. Ce calculateur traite le <b>RTT classique, en régime horaire</b> : un salarié dont la durée hebdomadaire contractuelle dépasse 35h (par exemple 37h ou 39h) génère des jours de repos compensateurs, souvent notés JRTT, pour ramener sa durée moyenne à la durée légale. Le <b>forfait jours</b> fonctionne différemment : le temps de travail n'y est pas décompté en heures mais en nombre de jours travaillés sur l'année (218 jours au plafond), et les jours de repos qui en résultent sont juridiquement des <b>jours de repos</b> (JRS), pas des JRTT. Si votre situation relève du forfait jours, direction notre <a href="/calcul-forfait-jours">calculateur de forfait jours</a> — la méthode d'estimation y est différente.</p>
 
-  <h2>Comment ce calculateur estime vos jours de repos</h2>
-  <p>Pour une année complète, l'estimation applique la logique la plus courante :</p>
+  <h2>Comment ce calculateur estime vos jours de RTT</h2>
+  <p>La méthode la plus répandue consiste à convertir en jours l'écart hebdomadaire entre votre durée contractuelle et la durée légale :</p>
   <ul>
-    <li>jours calendaires de la période</li>
-    <li>− samedis et dimanches</li>
-    <li>− jours fériés chômés tombant un jour normalement travaillé</li>
-    <li>− congés payés (25 jours ouvrés ou 30 jours ouvrables, selon le mode applicable dans l'entreprise)</li>
-    <li>− jours du forfait (218 par défaut, ou moins pour un forfait réduit)</li>
-    <li>+ éventuels jours de congés payés non acquis à réintégrer, si votre accord le prévoit</li>
+    <li>écart hebdomadaire = durée contractuelle − 35h</li>
+    <li>heures RTT cumulées = écart hebdomadaire × nombre de semaines réellement travaillées sur la période</li>
+    <li>jours de RTT = heures RTT cumulées ÷ durée journalière moyenne (durée contractuelle ÷ 5)</li>
   </ul>
-  <p>Le forfait de 218 jours comprend normalement la journée de solidarité lorsqu'il est calculé pour une année complète — elle n'est donc pas déduite une seconde fois. Un jour férié tombant un jour habituellement non travaillé (samedi ou dimanche, dans une organisation classique du lundi au vendredi) n'a pas non plus à être déduit deux fois. Par défaut, l'outil suppose les 11 jours fériés légaux chômés — la pratique la plus répandue — mais seul le 1er mai l'est obligatoirement pour tous les salariés (art. L3133-4) : les 10 autres dépendent d'un accord d'entreprise, d'une convention collective ou d'un usage. Basculez sur « Personnalisé » pour cocher précisément ceux qui s'appliquent réellement à votre situation.</p>
+  <p>Le nombre de semaines travaillées n'est pas une constante arbitraire : cet outil le calcule à partir du calendrier exact de la période choisie (jours calendaires, moins week-ends, moins jours fériés chômés tombant un jour normalement travaillé, moins congés payés). Par défaut, l'outil suppose les 11 jours fériés légaux chômés — la pratique la plus répandue — mais seul le 1er mai l'est obligatoirement pour tous les salariés (art. L3133-4) : les 10 autres dépendent d'un accord d'entreprise, d'une convention collective ou d'un usage. Basculez sur « Personnalisé » pour cocher précisément ceux qui s'appliquent réellement à votre situation.</p>
+  <p><b>Aucune de ces variables n'est fixée par le Code du travail.</b> La durée journalière de référence, le nombre de semaines pris en compte, l'arrondi retenu : tout dépend de l'accord collectif applicable. Deux salariés à 39h dans deux entreprises différentes peuvent légitimement avoir un nombre de RTT différent.</p>
+
+  <h2>D'où viennent les RTT ? Le cadre légal</h2>
+  <p>La durée légale de travail effectif à temps complet est fixée à 35 heures par semaine (art. L3121-27). Le dispositif historique de RTT, issu des lois Aubry de 1998-2000, a été remplacé par le cadre actuel d'aménagement du temps de travail sur une période supérieure à la semaine (art. L3121-41 à L3121-44), instauré par la loi du 20 août 2008. Il n'est plus possible de signer de nouveaux accords RTT au sens du dispositif Aubry d'origine — mais les entreprises concluent aujourd'hui des accords d'aménagement du temps de travail qui peuvent tout à fait prévoir des jours de repos compensateurs, toujours appelés « RTT » dans le langage courant, y compris pour des accords récents. C'est cet accord — d'entreprise ou, à défaut, de branche — qui fixe le nombre de RTT, les conditions d'acquisition et les modalités de prise.</p>
 
   <h2>Année incomplète : pourquoi il n'existe pas de calcul unique</h2>
-  <p><b>Estimation indicative — année incomplète.</b> En cas d'entrée, de sortie ou de mise en place du forfait jours en cours de période de référence, il n'existe pas de formule nationale unique de proratisation applicable à toutes les entreprises. Ce calculateur applique un <b>prorata calendaire simplifié</b>, à titre indicatif, en réduisant à la fois le forfait et les congés payés proportionnellement au nombre de jours calendaires couverts par la période.</p>
-  <p>L'accord collectif applicable peut imposer une autre méthode — notamment un prorata fondé sur les jours ouvrés hors jours fériés, sur les semaines restantes, ou une règle spécifique pour les congés payés non acquis. Seul l'accord collectif applicable, et le cas échéant le calcul de votre service de paie, permet de déterminer le résultat réellement opposable. C'est pourquoi un champ facultatif vous permet de réintégrer manuellement des jours de congés payés non acquis si votre accord le prévoit — sans double comptage.</p>
-
-  <h2>Renonciation à des jours de repos : un cas non couvert ici</h2>
-  <p>Ce calculateur ne traite pas la renonciation à des jours de repos. Un salarié peut, avec l'accord écrit de son employeur (avenant à la convention de forfait, non tacitement reconductible), renoncer à une partie de ses jours de repos contre une majoration de rémunération d'au moins 10 % (art. L3121-59). À défaut de plafond fixé par l'accord collectif, le nombre maximal de jours travaillés est alors de 235 jours (art. L3121-66) — ce plafond de 235 jours ne s'applique donc pas automatiquement dans toutes les entreprises, et certains accords de branche fixent un plafond inférieur. Si votre situation concerne une renonciation, vérifiez ces deux articles et votre accord collectif directement.</p>
-
-  <h2>Qui peut être au forfait jours ?</h2>
-  <p>Contrairement à une idée reçue, le forfait jours n'est pas réservé aux cadres. L'article L3121-58 vise deux catégories : les cadres disposant d'une autonomie dans l'organisation de leur emploi du temps et dont les fonctions ne les conduisent pas à suivre l'horaire collectif de leur équipe, mais aussi les salariés — cadres ou non — dont la durée du travail ne peut être prédéterminée et qui disposent d'une réelle autonomie dans l'organisation de leur emploi du temps. Un accord collectif autorisant le forfait jours, une convention individuelle écrite, et le respect des garanties de suivi de la charge de travail restent des conditions cumulatives. Le simple intitulé de cadre ou un niveau de salaire élevé ne suffit pas à rendre éligible un salarié qui ne dispose pas d'une autonomie réelle.</p>
+  <p><b>Estimation indicative — année incomplète.</b> En cas d'entrée, de sortie ou de mise en place de l'accord en cours de période de référence, il n'existe pas de formule nationale unique de proratisation des droits à RTT, exactement comme pour le forfait jours. Ce calculateur recalcule les semaines réellement travaillées sur la période exacte que vous renseignez, congés payés proratisés au calendaire — une méthode indicative, pas une règle opposable.</p>
+  <p>L'accord collectif applicable peut imposer une autre méthode, notamment un calcul mensuel forfaitaire (un nombre de RTT fixe par mois de présence) plutôt qu'un décompte au réel. Seul cet accord, et le cas échéant votre service de paie, permet de déterminer le résultat réellement dû.</p>
 
   <h2>Ce que ce calculateur ne fait pas</h2>
-  <p>C'est un calculateur de jours, pas de salaire : aucun montant en euros n'est calculé. Il ne couvre ni la renonciation à des jours de repos (voir plus haut), ni les règles spécifiques d'un accord collectif que vous n'auriez pas reproduites vous-même dans les champs proposés. Le résultat affiché reste une estimation à vérifier auprès de votre service RH ou paie.</p>
+  <p>C'est un calculateur de jours, pas de salaire : aucun montant en euros n'est calculé. Il ne tient pas compte de l'impact d'une absence (maladie, congé sans solde) sur l'acquisition des RTT en cours de période — cet impact dépend entièrement de la méthode retenue par l'accord (calcul au réel ou forfaitaire) et n'est pas traité ici. Le résultat affiché reste une estimation à vérifier auprès de votre service RH ou paie.</p>
 
   <div class="avert">
-    <b>Avertissement</b> — Ce calculateur applique une méthode d'estimation courante (prorata calendaire), non une formule légale obligatoire. L'accord collectif ou la convention de branche applicable à votre situation peut prévoir un plafond de forfait différent, une méthode de proratisation différente pour une année incomplète, ou un traitement spécifique des congés payés non acquis. Outil indicatif, ne remplace pas un conseil juridique ou un bulletin de paie.
+    <b>Avertissement</b> — Ce calculateur applique une méthode d'estimation courante, non une formule légale obligatoire. L'accord collectif ou la convention de branche applicable à votre situation peut prévoir une durée journalière de référence différente, un nombre de semaines forfaitaire plutôt qu'un décompte au réel, ou des règles spécifiques pour les absences et les entrées/sorties en cours d'année. Outil indicatif, ne remplace pas un conseil juridique ou un bulletin de paie.
   </div>
 
   <div class="maillage">
-    <b>Votre situation n'est pas au forfait jours, ou vous cherchez autre chose ?</b> Si votre contrat prévoit une durée hebdomadaire en heures supérieure à 35h (régime horaire, pas forfait jours), c'est le <a href="/calcul-rtt">calcul des RTT</a> qu'il vous faut — mécanisme distinct, jours de RTT et non jours de repos (JRS). Pour compter les jours ouvrés ou ouvrables entre deux dates, direction le <a href="/calcul-jours-ouvres">calcul de jours ouvrés</a>. Pour calculer une ancienneté, direction le <a href="/calcul-anciennete">calcul d'ancienneté</a>. Pour un salarié à temps complet classique (hors forfait jours), direction le <a href="/">calcul du temps complet mensualisé</a>.
+    <b>Votre situation n'est pas un régime horaire classique, ou vous cherchez autre chose ?</b> Pour un salarié au forfait annuel en jours, direction le <a href="/calcul-forfait-jours">calcul du forfait jours</a> — mécanisme distinct, jours de repos (JRS) et non JRTT. Le calcul des jours fériés utilisé ici est le même que sur le <a href="/calcul-jours-ouvres">calcul de jours ouvrés/ouvrables</a>. Pour un temps complet classique hors RTT, direction le <a href="/">calcul du temps complet mensualisé</a>.
   </div>
 </section>
 
 <section class="sources">
   <h2>Sources</h2>
   <ul>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-64" target="_blank" rel="noopener">Code du travail, article L3121-64</a> — l'accord collectif fixe le nombre de jours du forfait, dans la limite de 218 jours pour le forfait annuel en jours</li>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-58" target="_blank" rel="noopener">Code du travail, article L3121-58</a> — catégories de salariés pouvant conclure une convention de forfait annuel en jours</li>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-59" target="_blank" rel="noopener">Code du travail, article L3121-59</a> — renonciation à des jours de repos, accord écrit et majoration de rémunération d'au moins 10 %</li>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-66" target="_blank" rel="noopener">Code du travail, article L3121-66</a> — plafond supplétif de 235 jours en cas de renonciation, à défaut de précision de l'accord collectif</li>
-    <li><a href="https://www.legifrance.gouv.fr/juri/id/JURITEXT000030205229/" target="_blank" rel="noopener">Cour de cassation, chambre sociale</a> — les jours de repos doivent être proratisés selon les jours non travaillés et non payés dans l'année, notamment en cas d'entrée ou de sortie en cours d'année</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-27" target="_blank" rel="noopener">Code du travail, article L3121-27</a> — la durée légale de travail effectif des salariés à temps complet est fixée à 35 heures par semaine</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-41" target="_blank" rel="noopener">Code du travail, article L3121-41</a> — décompte des heures supplémentaires à l'issue de la période de référence, en cas d'aménagement du temps de travail sur une période supérieure à la semaine</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-44" target="_blank" rel="noopener">Code du travail, article L3121-44</a> — contenu de l'accord collectif d'aménagement du temps de travail (période de référence, conditions de prévenance, prise en compte des absences et des entrées/sorties en cours de période)</li>
+    <li><a href="https://code.travail.gouv.fr/fiche-service-public/reduction-du-temps-de-travail-rtt" target="_blank" rel="noopener">Code du travail numérique — Fiche « Réduction du temps de travail (RTT) »</a> — fonctionnement du dispositif, absence de formule nationale, rôle de l'accord collectif</li>
+    <li><a href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019347122" target="_blank" rel="noopener">Loi n° 2008-789 du 20 août 2008</a> — portant rénovation de la démocratie sociale et réforme du temps de travail, à l'origine du cadre actuel d'aménagement du temps de travail</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-4" target="_blank" rel="noopener">Code du travail, article L3133-4</a> — seul le 1er mai est un jour férié obligatoirement chômé</li>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-3-1" target="_blank" rel="noopener">Code du travail, articles L3133-3-1 et L3133-3-2</a> — détermination des autres jours fériés chômés par accord d'entreprise ou, à défaut, par l'employeur</li>
   </ul>
 </section>
 
   <footer>
-    Calcul du nombre de jours de repos (JRS) pour un salarié au forfait jours, année complète ou incomplète. Estimation par prorata calendaire simplifié — ne remplace pas le calcul prévu par l'accord collectif applicable. Outil indicatif, ne remplace pas un conseil juridique.
-<p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> · <a href="/calcul-heure-de-nuit" style="color:var(--vert);font-weight:600">Heures de nuit</a> · <a href="/conversion-heure-decimale" style="color:var(--vert);font-weight:600">Conversion décimale</a> · <a href="/calcul-jours-ouvres" style="color:var(--vert);font-weight:600">Jours ouvrés/ouvrables</a> · <a href="/calcul-duree-cdd" style="color:var(--vert);font-weight:600">Durée du CDD</a> · <a href="/calcul-carence-cdd" style="color:var(--vert);font-weight:600">Délai de carence CDD</a> · <a href="/calcul-rtt" style="color:var(--vert);font-weight:600">RTT classique</a></p>
+    Estimation du nombre de jours de RTT pour un régime horaire supérieur à 35h, année complète ou incomplète. Méthode indicative — ne remplace pas le calcul prévu par l'accord collectif applicable. Outil indicatif, ne remplace pas un conseil juridique.
+    <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> · <a href="/calcul-heure-de-nuit" style="color:var(--vert);font-weight:600">Heures de nuit</a> · <a href="/conversion-heure-decimale" style="color:var(--vert);font-weight:600">Conversion décimale</a> · <a href="/calcul-jours-ouvres" style="color:var(--vert);font-weight:600">Jours ouvrés/ouvrables</a> · <a href="/calcul-duree-cdd" style="color:var(--vert);font-weight:600">Durée du CDD</a> · <a href="/calcul-carence-cdd" style="color:var(--vert);font-weight:600">Délai de carence CDD</a> · <a href="/calcul-forfait-jours" style="color:var(--vert);font-weight:600">Forfait jours</a></p>
     <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>
   </footer>
 </div>
@@ -327,11 +316,15 @@ function feriesPresents(debut, fin, alsaceMoselle){
     defs.forEach(def => {
       const d = def.calc(y, paques);
       if(d >= debut && d <= fin && !presents.some(p => p.cle === def.cle)){
-        presents.push(def);
+        presents.push({cle: def.cle, libelle: def.libelle, date: d});
       }
     });
   }
   return presents;
+}
+
+function formatDateFr(d){
+  return d.toLocaleDateString("fr-FR", {weekday:"long", day:"numeric", month:"long", year:"numeric"});
 }
 
 function parseDate(str){
@@ -387,20 +380,38 @@ function rendreListePersonnalisee(debut, fin, alsaceMoselle){
   }
   conteneur.innerHTML = presents.map(def => {
     const coche = etatPersonnalise[def.cle] === false ? "" : "checked";
-    return '<div class="item-ferie"><input type="checkbox" id="fer-' + def.cle + '" data-cle="' + def.cle + '" ' + coche + '><label for="fer-' + def.cle + '">' + def.libelle + '</label></div>';
+    return '<div class="item-ferie"><input type="checkbox" id="fer-' + def.cle + '" data-cle="' + def.cle + '" ' + coche + '><label for="fer-' + def.cle + '">' + def.libelle + ' — <span style="color:var(--gris)">' + formatDateFr(def.date) + '</span></label></div>';
   }).join("");
 }
 
 function afficherVide(){
-  ["r-repos","r-forfait-periode","r-calendaires","r-feries","r-cp"].forEach(id=>{
+  ["r-rtt","r-heures-rtt","r-semaines","r-feries","r-cp"].forEach(id=>{
     document.getElementById(id).textContent = "—";
   });
+}
+
+/* Affiche la liste personnalisée en mode "message d'attente" (période pas
+   encore exploitable) au lieu de la laisser masquée en silence ou de
+   laisser un contenu obsolète d'un calcul précédent à l'écran. */
+function listeEnAttente(profil, message){
+  const conteneur = document.getElementById("liste-personnalisee");
+  if(profil === "personnalise"){
+    conteneur.style.display = "block";
+    conteneur.innerHTML = '<div class="msg-vide">' + message + '</div>';
+  } else {
+    conteneur.style.display = "none";
+    conteneur.innerHTML = "";
+  }
 }
 
 function basculerBlocs(){
   const type = document.getElementById("type-periode").value;
   document.getElementById("bloc-complete").style.display = (type === "complete") ? "block" : "none";
   document.getElementById("bloc-incomplete").style.display = (type === "incomplete") ? "block" : "none";
+}
+
+function arrondi1(n){
+  return Math.round(n * 10) / 10;
 }
 
 function calculer(){
@@ -412,20 +423,18 @@ function calculer(){
   const alsaceMoselle = document.getElementById("alsace-moselle").checked;
   const profil = document.getElementById("profil-feries").value;
 
-  let forfaitRef = parseInt(document.getElementById("forfait-jours").value, 10);
-  if(!forfaitRef || forfaitRef <= 0) forfaitRef = 218;
-  if(forfaitRef > 218) forfaitRef = 218;
+  const dureeHebdoStr = document.getElementById("duree-hebdo").value;
+  const dureeHebdo = parseFloat(dureeHebdoStr);
+  const dureeValide = !!dureeHebdoStr && !isNaN(dureeHebdo) && dureeHebdo > 0;
 
-  let cpNonAcquis = parseInt(document.getElementById("cp-non-acquis").value, 10);
-  if(!cpNonAcquis || cpNonAcquis < 0) cpNonAcquis = 0;
-
-  if(!modeCP || !typePeriode){
-    document.getElementById("liste-personnalisee").style.display = "none";
+  /* La période (et donc la liste des fériés personnalisables) ne dépend
+     que du type de période choisi — ni du mode CP, ni de la durée hebdo,
+     qui ne pilotent chacun que leur propre carte de résultat plus bas. */
+  if(!typePeriode){
+    listeEnAttente(profil, "Choisissez d'abord un type de période ci-dessus pour afficher la liste des jours fériés.");
     afficherVide();
     return;
   }
-
-  const cpRef = (modeCP === "ouvres") ? 25 : 30;
 
   let debut, fin, ratioAnnee = true;
 
@@ -440,6 +449,7 @@ function calculer(){
     if(inpDebut.validity.badInput || inpFin.validity.badInput){
       erreur.textContent = MSG_INVALIDE;
       erreur.classList.add("visible");
+      listeEnAttente(profil, "Corrigez la date invalide pour afficher la liste des jours fériés.");
       afficherVide();
       return;
     }
@@ -448,12 +458,14 @@ function calculer(){
     fin = parseDate(inpFin.value);
 
     if(!debut || !fin){
+      listeEnAttente(profil, "Renseignez une date de début et une date de fin pour afficher la liste des jours fériés.");
       afficherVide();
       return;
     }
     if(fin < debut){
       erreur.textContent = MSG_ORDRE;
       erreur.classList.add("visible");
+      listeEnAttente(profil, "Corrigez l'ordre des dates pour afficher la liste des jours fériés.");
       afficherVide();
       return;
     }
@@ -466,27 +478,58 @@ function calculer(){
   }
 
   const {jCalendaires, jWeekend, jFeries} = compterPeriode(debut, fin, alsaceMoselle, profil, etatPersonnalise);
+  document.getElementById("r-feries").innerHTML = jFeries + "<small> j.</small>";
 
+  if(!modeCP){
+    document.getElementById("r-semaines").textContent = "—";
+    document.getElementById("r-cp").textContent = "—";
+    document.getElementById("r-rtt").textContent = "—";
+    document.getElementById("r-heures-rtt").textContent = "—";
+    return;
+  }
+
+  const cpRef = (modeCP === "ouvres") ? 25 : 30;
   const anneeRef = debut.getFullYear();
   const joursAnnee = joursDansAnnee(anneeRef);
   const ratio = ratioAnnee ? 1 : (jCalendaires / joursAnnee);
 
-  const forfaitProratise = Math.round(forfaitRef * ratio);
-  const cpApplicable = Math.round(cpRef * ratio);
+  /* Congés payés proratisés, puis convertis en équivalent jours ouvrés
+     (lun-ven) pour être homogènes avec le décompte de semaines travaillées :
+     30 jours ouvrables équivalent conventionnellement à 25 jours ouvrés. */
+  const cpApplicable = cpRef * ratio;
+  const cpEnJoursOuvres = (modeCP === "ouvrables") ? cpApplicable * 5 / 6 : cpApplicable;
 
-  const joursRepos = jCalendaires - jWeekend - jFeries - cpApplicable - forfaitProratise + cpNonAcquis;
+  const joursOuvresBruts = jCalendaires - jWeekend - jFeries;
+  const joursOuvresTravailles = Math.max(0, joursOuvresBruts - cpEnJoursOuvres);
+  const semainesTravaillees = joursOuvresTravailles / 5;
 
-  document.getElementById("r-repos").innerHTML = joursRepos + "<small> j.</small>";
-  document.getElementById("r-forfait-periode").innerHTML = forfaitProratise + "<small> j.</small>";
-  document.getElementById("r-calendaires").innerHTML = jCalendaires + "<small> j.</small>";
-  document.getElementById("r-feries").innerHTML = jFeries + "<small> j.</small>";
-  document.getElementById("r-cp").innerHTML = cpApplicable + "<small> j.</small>";
+  document.getElementById("r-semaines").innerHTML = arrondi1(semainesTravaillees) + "<small> sem.</small>";
+  document.getElementById("r-cp").innerHTML = arrondi1(cpApplicable) + "<small> j.</small>";
+
+  if(!dureeValide){
+    document.getElementById("r-rtt").textContent = "—";
+    document.getElementById("r-heures-rtt").textContent = "—";
+    return;
+  }
+
+  if(dureeHebdo <= 35){
+    document.getElementById("r-rtt").innerHTML = "0<small> j.</small>";
+    document.getElementById("r-heures-rtt").innerHTML = "0<small> h.</small>";
+    return;
+  }
+
+  const delta = dureeHebdo - 35;
+  const dureeJournaliere = dureeHebdo / 5;
+  const heuresRTT = delta * semainesTravaillees;
+  const joursRTT = heuresRTT / dureeJournaliere;
+
+  document.getElementById("r-rtt").innerHTML = arrondi1(joursRTT) + "<small> j.</small>";
+  document.getElementById("r-heures-rtt").innerHTML = arrondi1(heuresRTT) + "<small> h.</small>";
 }
 
 document.getElementById("type-periode").addEventListener("change", () => { basculerBlocs(); calculer(); });
 document.getElementById("mode-cp").addEventListener("change", calculer);
-document.getElementById("forfait-jours").addEventListener("input", calculer);
-document.getElementById("cp-non-acquis").addEventListener("input", calculer);
+document.getElementById("duree-hebdo").addEventListener("input", calculer);
 document.getElementById("alsace-moselle").addEventListener("change", calculer);
 document.getElementById("profil-feries").addEventListener("change", calculer);
 document.getElementById("annee-ref").addEventListener("input", calculer);
@@ -505,9 +548,8 @@ document.getElementById("liste-personnalisee").addEventListener("change", (evt) 
 });
 
 document.getElementById("vider").addEventListener("click", () => {
-  document.getElementById("forfait-jours").value = "218";
+  document.getElementById("duree-hebdo").value = "";
   document.getElementById("mode-cp").value = "";
-  document.getElementById("cp-non-acquis").value = "0";
   document.getElementById("alsace-moselle").checked = false;
   document.getElementById("profil-feries").value = "tous";
   document.getElementById("type-periode").value = "";
@@ -516,8 +558,7 @@ document.getElementById("vider").addEventListener("click", () => {
   document.getElementById("date-fin").value = "";
   for(const cle in etatPersonnalise) delete etatPersonnalise[cle];
   basculerBlocs();
-  afficherVide();
-  document.getElementById("erreur-msg").classList.remove("visible");
+  calculer();
 });
 
 basculerBlocs();
