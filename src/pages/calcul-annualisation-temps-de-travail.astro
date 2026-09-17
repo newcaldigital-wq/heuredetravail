@@ -1,0 +1,383 @@
+---
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul de l'annualisation du temps de travail (1607h) | France</title>
+<meta name="description" content="Vérifiez si un volume d'heures annuel prévu respecte le plafond de 1607h, année complète ou incomplète. Outil gratuit et indicatif.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<style is:global>
+  :root{
+    --encre:#152238;--encre-2:#22334f;--papier:#F5F3EE;--papier-2:#ECE8DF;
+    --trait:#D8D2C4;--vert:#2F6F63;--gris:#6A6558;--accent:#8A6FA8;
+    --alerte:#A6472E;--alerte-bg:#F6E5E1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--papier);color:var(--encre);line-height:1.5;padding:24px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  header.hero{margin-bottom:16px;border-bottom:2px solid var(--encre);padding-bottom:18px}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
+  h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
+  h1 .light{font-weight:700;color:var(--encre-2)}
+  .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:680px}
+  .sub b{color:var(--encre-2)}
+  .banniere-top{background:var(--papier-2);border-left:4px solid var(--encre);border-radius:8px;padding:14px 16px;margin-bottom:20px;font-size:13.5px;color:var(--encre-2);line-height:1.55;max-width:680px}
+  .banniere-top b{color:var(--encre)}
+  .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
+  .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .panneau h2 .num{background:var(--encre);color:#fff;width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .champs{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end}
+  .champ{display:flex;flex-direction:column;gap:6px}
+  .champ label{font-size:13px;color:var(--gris);font-weight:600}
+  .champ .aide{font-size:11.5px;color:var(--gris);font-weight:400;max-width:280px}
+  .champ input[type=date],.champ input[type=number]{padding:10px 12px;border:1px solid var(--trait);border-radius:7px;font-size:15px;background:var(--papier);color:var(--encre);font-family:inherit;width:180px}
+  .champ input[type=date]:focus,.champ input[type=number]:focus{outline:2px solid var(--vert)}
+  .champ select{padding:10px 12px;border:1px solid var(--trait);border-radius:7px;font-size:15px;background:var(--papier);color:var(--encre);font-family:inherit;min-width:280px}
+  .champ select:focus{outline:2px solid var(--vert)}
+  .bloc-periode{margin-top:16px;padding-top:16px;border-top:1px solid var(--trait)}
+  .cadre-legal{font-size:12.5px;color:var(--gris);background:var(--papier-2);padding:8px 12px;border-radius:6px;margin-top:16px}
+  .cadre-legal b{color:var(--encre)}
+  .cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:4px}
+  .carte{border:1px solid var(--trait);border-radius:8px;padding:14px;background:var(--papier)}
+  .carte .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:600}
+  .carte .val{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:4px}
+  .carte .val small{font-size:14px;font-weight:400;color:var(--gris)}
+  .carte.principal{border-top:3px solid var(--vert)}
+  .carte.principal .val{color:var(--vert);font-size:26px}
+  .carte.alerte-carte{border-top:3px solid var(--alerte)}
+  .carte.alerte-carte .val{color:var(--alerte);font-size:26px}
+  .carte.info{border-top:3px solid var(--trait)}
+  .erreur{margin-top:14px;padding:11px 14px;background:var(--alerte-bg);border-left:4px solid var(--alerte);border-radius:6px;font-size:13px;color:#5a2418;display:none}
+  .erreur.visible{display:block}
+  .note-estimatif{margin-top:14px;padding:11px 14px;background:var(--papier-2);border-left:4px solid var(--encre);border-radius:6px;font-size:13px;color:var(--encre-2)}
+  .note-estimatif b{color:var(--encre)}
+  .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  button.act{font-family:inherit;font-size:14px;padding:9px 16px;border-radius:7px;border:1px solid var(--encre);cursor:pointer;font-weight:600}
+  .btn-ghost{background:transparent;color:var(--encre)}
+  button.act:hover{opacity:.9}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
+  @media(max-width:640px){h1{font-size:26px}.champs{flex-direction:column;align-items:stretch}.champ select,.champ input{width:100%;min-width:0}}
+
+  .contenu-seo{max-width:760px;margin:36px auto 0;padding:28px 4px 0;border-top:2px solid var(--encre)}
+  .contenu-seo h2{font-size:21px;color:var(--encre);margin:28px 0 10px;letter-spacing:-0.2px}
+  .contenu-seo h2:first-of-type{margin-top:0}
+  .contenu-seo p{font-size:15.5px;color:var(--encre-2);line-height:1.7;margin-bottom:14px}
+  .contenu-seo ul{margin:0 0 14px 20px}
+  .contenu-seo li{font-size:15.5px;color:var(--encre-2);line-height:1.7;margin-bottom:6px}
+  .contenu-seo .avert{margin-top:24px;padding:14px 16px;background:var(--papier-2);border-radius:8px;font-size:13px;color:var(--gris);line-height:1.6}
+  .maillage{margin-top:18px;padding:14px 16px;background:#fff;border:1px solid var(--trait);border-radius:8px;font-size:14.5px;color:var(--encre-2);line-height:1.7}
+  .maillage a{color:var(--vert);font-weight:600}
+  .exemple-clause{margin:16px 0;padding:18px 20px;background:var(--papier-2);border:1px solid var(--trait);border-left:4px solid var(--vert);border-radius:8px}
+  .exemple-clause .art-titre{font-size:13.5px;font-weight:700;color:var(--encre);margin:14px 0 4px}
+  .exemple-clause .art-titre:first-child{margin-top:0}
+  .exemple-clause p{font-size:13.5px;color:var(--encre-2);line-height:1.65;margin-bottom:0}
+  .sources{max-width:760px;margin:28px auto 0;padding:20px 4px 0}
+  .sources h2{font-size:16px;color:var(--encre);margin-bottom:10px}
+  .sources ul{list-style:none;font-size:13px;color:var(--gris)}
+  .sources li{margin-bottom:6px}
+  .sources a{color:var(--vert);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Annualisation · Temps complet · France</div>
+    <h1>Calcul de l'<span class="light">annualisation</span> du temps de travail</h1>
+    <p class="sub">Vérifiez si un <b>volume d'heures prévu sur l'année</b> respecte le plafond annuel de référence — <b>1607h</b> par défaut pour un temps complet. <b>Résultat indicatif</b> : voir le détail plus bas.</p>
+  </header>
+
+  <div class="banniere-top">
+    <b>⚠ Estimation, non opposable.</b> Ce calculateur compare un volume prévu au plafond annuel de référence selon une méthode courante, à titre indicatif. Seul l'accord collectif d'aménagement du temps de travail applicable dans votre entreprise fait foi, notamment pour la période de référence exacte et le traitement des entrées/sorties en cours d'année. Vérifiez toujours avec votre service RH ou votre accord d'entreprise.
+  </div>
+
+  <section class="panneau">
+    <h2><span class="num">1</span> Plafond annuel applicable</h2>
+    <div class="champ">
+      <label for="plafond">Plafond <b>annuel</b> de référence (heures)</label>
+      <input type="number" id="plafond" min="1" max="1607" step="0.5" value="1607">
+      <span class="aide">Saisissez toujours la valeur <b>annuelle</b> — 1607h par défaut pour un temps complet (art. L3121-41), journée de solidarité incluse — même si la période choisie à l'étape 3 est plus courte qu'un an. Le plafond applicable affiché en résultat est proratisé automatiquement selon cette période, vous n'avez pas à faire ce calcul vous-même. Un accord d'entreprise ou de branche peut fixer une valeur annuelle <b>inférieure</b> (art. L3121-44) — jamais supérieure.</span>
+    </div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">2</span> Temps de travail prévu</h2>
+    <div class="champ">
+      <label for="volume-annuel">Volume horaire annuel prévu</label>
+      <input type="number" id="volume-annuel" min="0" step="0.5" placeholder="Ex. 1620">
+      <span class="aide">Total des heures planifiées sur la période de référence retenue à l'étape 3 — la somme de toutes les semaines hautes et basses de votre planning, congés déjà exclus. Additionnez directement votre planning plutôt que de raisonner en moyenne hebdomadaire : sur une année, une moyenne « brute » de 35h/semaine donne environ 1825h et non 1607h, car le plafond légal a déjà retiré congés payés et jours fériés — un piège fréquent.</span>
+    </div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">3</span> Période de référence</h2>
+    <div class="champ">
+      <label for="type-periode">Type de période</label>
+      <select id="type-periode">
+        <option value="" selected disabled>— Choisir —</option>
+        <option value="complete">Année complète (civile)</option>
+        <option value="incomplete">Entrée/sortie ou accord mis en place en cours d'année</option>
+      </select>
+    </div>
+    <div class="bloc-periode" id="bloc-complete" style="display:none">
+      <div class="champ">
+        <label for="annee-ref">Année de référence</label>
+        <input type="number" id="annee-ref" value="2026" min="2015" max="2035" step="1">
+      </div>
+    </div>
+    <div class="bloc-periode" id="bloc-incomplete" style="display:none">
+      <div class="champs">
+        <div class="champ">
+          <label for="date-debut">Date de début</label>
+          <input type="date" id="date-debut">
+        </div>
+        <div class="champ">
+          <label for="date-fin">Date de fin</label>
+          <input type="date" id="date-fin">
+        </div>
+      </div>
+      <div class="cadre-legal">Période incomplète : le plafond est proratisé au calendaire (jours calendaires de la période ÷ jours de l'année). C'est une <b>estimation</b> parmi d'autres méthodes possibles — voir le détail plus bas.</div>
+    </div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">4</span> Résultat</h2>
+    <div class="cartes">
+      <div class="carte principal"><div class="lbl">Plafond applicable</div><div class="val" id="r-plafond">—</div></div>
+      <div class="carte info"><div class="lbl">Volume prévu</div><div class="val" id="r-volume">—</div></div>
+      <div class="carte info" id="carte-ecart"><div class="lbl">Écart</div><div class="val" id="r-ecart">—</div></div>
+      <div class="carte info"><div class="lbl">Statut</div><div class="val" id="r-statut" style="font-size:16px">—</div></div>
+    </div>
+    <div class="erreur" id="erreur-msg"></div>
+    <div class="note-estimatif"><b>Résultat estimatif, non opposable.</b> Ce calcul applique une méthode courante, non imposée telle quelle par le Code du travail pour la proratisation. Vérifiez l'accord d'aménagement du temps de travail applicable dans votre entreprise.</div>
+    <div class="actions">
+      <button class="act btn-ghost" id="vider">Effacer</button>
+    </div>
+  </section>
+
+<section class="contenu-seo">
+  <h2>L'annualisation, un troisième régime distinct du RTT et du forfait jours</h2>
+  <p>L'annualisation du temps de travail consiste à répartir la durée du travail sur une période de référence annuelle plutôt que sur la semaine : l'horaire varie selon les périodes — plus élevé en haute activité, plus bas en basse activité — mais le volume total sur l'année doit respecter un plafond légal. Ce mécanisme est distinct du <a href="/calcul-rtt">RTT</a>, où l'horaire hebdomadaire contractuel est fixe et dépasse 35h en générant des jours de repos, et du <a href="/calcul-forfait-jours">forfait jours</a>, où le temps de travail n'est plus décompté en heures mais en nombre de jours sur l'année. Trois régimes, trois logiques : ne les confondez pas dans votre accord ou votre bulletin de paie.</p>
+
+  <h2>Le plafond de 1607 heures</h2>
+  <p>Pour un salarié à temps complet, la référence annuelle par défaut est fixée par le Code du travail à <b>1607 heures</b> (art. L3121-41), journée de solidarité incluse. Ce chiffre s'explique traditionnellement par le calcul suivant, à titre pédagogique : 365 jours calendaires, moins 104 jours de repos hebdomadaire, moins 25 jours de congés payés, moins 8 jours fériés en moyenne, soit 228 jours travaillés × 7h = 1596h, arrondi à 1600h, plus 7h de journée de solidarité. Cette décomposition n'est cependant pas elle-même inscrite dans le Code du travail : la loi fixe le seuil de 1607h, pas sa méthode de calcul.</p>
+  <p>Au-delà de ce plafond, les heures effectuées sont des heures supplémentaires (art. L3121-41). Un accord d'entreprise ou de branche peut fixer une limite <b>inférieure</b> à 1607h pour le décompte des heures supplémentaires (art. L3121-44) — mais aucun texte ne permet de la fixer au-dessus pour un temps complet.</p>
+  <p><b>Attention à un piège de conversion fréquent :</b> 35h par semaine, multiplié de façon « brute » par les 52 semaines de l'année, donne environ 1825h — pas 1607h. L'écart s'explique entièrement par les congés payés et les jours fériés, déjà déduits dans le calcul du plafond légal : 35h reste bien la durée normale hebdomadaire <i>pendant les semaines travaillées</i>, mais elle ne se convertit pas directement en volume annuel sans tenir compte des semaines non travaillées.</p>
+
+  <h2>Comment utiliser ce calculateur</h2>
+  <p>Renseignez le plafond applicable (1607h par défaut, ou la limite conventionnelle si votre accord en prévoit une plus basse), puis le volume horaire annuel prévu — la somme totale des heures planifiées sur la période, congés déjà exclus. L'outil compare directement ce volume au plafond retenu.</p>
+
+  <h2>Année incomplète : pourquoi il n'existe pas de calcul unique</h2>
+  <p><b>Estimation indicative — année incomplète.</b> En cas d'entrée, de sortie ou de mise en place de l'accord en cours de période de référence, le Code du travail ne fixe aucune formule nationale unique de proratisation (art. L3121-44) : l'accord applicable doit prévoir les conditions de prise en compte des arrivées et départs, mais la méthode retenue varie d'un accord à l'autre. Trois approches coexistent en pratique : un prorata calendaire simple (jours sous contrat ÷ jours de l'année), un calcul « au réel » à partir des jours ouvrés, fériés et congés réellement présents sur la période, ou une version corrigée de ce calcul au réel pour rétablir l'égalité avec les salariés présents toute l'année. Ce calculateur retient la première méthode, la plus simple et la plus répandue, à titre indicatif — pas une règle opposable.</p>
+  <p>L'accord collectif applicable à votre situation peut imposer une autre méthode. Seul cet accord, et le cas échéant votre service de paie, permet de déterminer le nombre d'heures réellement dû.</p>
+
+  <h2>Exemple de clause d'accord d'annualisation</h2>
+  <p>En pratique, ce n'est presque jamais le contrat de travail individuel qui détaille l'annualisation : c'est l'accord collectif d'aménagement du temps de travail (accord d'entreprise ou, à défaut, de branche, art. L3121-44) qui pose les règles, et le contrat de travail y renvoie. Voici un exemple illustratif de ce à quoi ressemble ce type de clause, construit à partir des dispositions légales vues plus haut — à adapter à la situation réelle de votre entreprise et à l'accord effectivement applicable, jamais à copier tel quel.</p>
+  <div class="exemple-clause">
+    <p class="art-titre">Article X.1 — Période de référence</p>
+    <p>La durée du travail des salariés à temps complet visés par le présent accord est organisée sur une période de référence annuelle allant du 1er janvier au 31 décembre.</p>
+    <p class="art-titre">Article X.2 — Durée annuelle de référence</p>
+    <p>La durée annuelle de référence est fixée à 1 607 heures de travail effectif, journée de solidarité incluse, conformément à l'article L3121-41 du Code du travail.</p>
+    <p class="art-titre">Article X.3 — Programmation indicative</p>
+    <p>L'horaire hebdomadaire varie entre une limite basse de 28 heures et une limite haute de 42 heures selon les périodes d'activité, dans le respect des durées maximales légales. Un programme indicatif de la répartition de la durée du travail est communiqué aux salariés concernés avant le début de chaque période de référence.</p>
+    <p class="art-titre">Article X.4 — Lissage de la rémunération</p>
+    <p>La rémunération mensuelle des salariés concernés est indépendante de l'horaire réellement accompli dans le mois et est lissée sur la base de 151,67 heures mensuelles, calculée sur la durée annuelle de référence définie à l'article X.2.</p>
+    <p class="art-titre">Article X.5 — Décompte des heures supplémentaires</p>
+    <p>Constituent des heures supplémentaires les heures de travail effectif accomplies au-delà de 1 607 heures sur la période de référence, décomptées et rémunérées à l'issue de cette période. Les absences, quel qu'en soit le motif, ne sont pas assimilées à du temps de travail effectif pour l'appréciation de ce seuil.</p>
+    <p class="art-titre">Article X.6 — Entrées et sorties en cours de période</p>
+    <p>En cas d'entrée ou de sortie en cours de période de référence, la durée annuelle de référence est proratisée en fonction du temps de présence du salarié sur la période, selon les modalités suivantes : [méthode retenue par l'entreprise].</p>
+  </div>
+  <p>Ce qui ressort de cet exemple : le plafond de 1607h (article X.2) n'intervient qu'à un seul endroit, l'article X.5 — c'est une limite de déclenchement des heures supplémentaires, pas un paramètre du calcul des congés payés, qui restent régis par les règles habituelles indépendamment de l'annualisation.</p>
+
+  <h2>Ce que ce calculateur ne fait pas</h2>
+  <p>C'est un calculateur d'heures, pas de salaire : aucun montant en euros n'est calculé. Il ne reconstruit pas le plafond à partir d'un calendrier de jours fériés et de congés réels — pour ça, direction le <a href="/calcul-jours-ouvres">calculateur de jours ouvrés/ouvrables</a>, qui compte les jours fériés et jours ouvrés d'une période donnée. Il ne traite pas non plus le cas du temps partiel annualisé, ni le taux ou le montant des majorations d'heures supplémentaires.</p>
+
+  <div class="avert">
+    <b>Avertissement</b> — Ce calculateur applique une méthode d'estimation courante, non une formule légale obligatoire pour la proratisation en période incomplète. L'accord collectif ou la convention de branche applicable à votre situation peut prévoir un plafond inférieur, une période de référence différente, ou une méthode spécifique pour les entrées/sorties en cours d'année. Outil indicatif, ne remplace pas un conseil juridique ou un bulletin de paie.
+  </div>
+
+  <div class="maillage">
+    <b>Vous cherchez un autre régime de temps de travail ?</b> Pour un salarié dont la durée hebdomadaire contractuelle fixe dépasse 35h, direction le <a href="/calcul-rtt">calcul des RTT</a>. Pour un cadre ou salarié autonome au forfait annuel en jours, direction le <a href="/calcul-forfait-jours">calcul du forfait jours</a> — mécanisme distinct, ni RTT ni annualisation horaire. Pour compter précisément les jours ouvrés, ouvrables et fériés d'une période, direction le <a href="/calcul-jours-ouvres">calcul de jours ouvrés/ouvrables</a>. Pour un temps complet classique hors annualisation, direction le <a href="/">calcul du temps complet mensualisé</a> ou le <a href="/calcul-temps-de-travail">calcul du temps de travail réel</a>.
+  </div>
+</section>
+
+<section class="sources">
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-41" target="_blank" rel="noopener">Code du travail, article L3121-41</a> — plafond de 1607 heures pour une période de référence annuelle, décompte des heures supplémentaires à l'issue de cette période</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-44" target="_blank" rel="noopener">Code du travail, article L3121-44</a> — contenu de l'accord d'aménagement du temps de travail, possibilité de fixer une limite annuelle inférieure à 1607h, prise en compte des absences et des entrées/sorties en cours de période</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-7" target="_blank" rel="noopener">Code du travail, article L3133-7</a> — définition de la journée de solidarité</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-8" target="_blank" rel="noopener">Code du travail, article L3133-8</a> — journée de solidarité non rémunérée dans la limite de 7 heures pour les salariés mensualisés</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-27" target="_blank" rel="noopener">Code du travail, article L3121-27</a> — durée légale de travail effectif de 35 heures par semaine pour un temps complet</li>
+  </ul>
+</section>
+
+  <footer>
+    Vérification indicative d'un volume d'heures annuel prévu par rapport au plafond de référence, année complète ou incomplète. Méthode indicative — ne remplace pas le calcul prévu par l'accord collectif applicable. Outil indicatif, ne remplace pas un conseil juridique.
+    <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> · <a href="/calcul-heure-de-nuit" style="color:var(--vert);font-weight:600">Heures de nuit</a> · <a href="/conversion-heure-decimale" style="color:var(--vert);font-weight:600">Conversion décimale</a> · <a href="/calcul-jours-ouvres" style="color:var(--vert);font-weight:600">Jours ouvrés/ouvrables</a> · <a href="/calcul-duree-cdd" style="color:var(--vert);font-weight:600">Durée du CDD</a> · <a href="/calcul-carence-cdd" style="color:var(--vert);font-weight:600">Délai de carence CDD</a> · <a href="/calcul-forfait-jours" style="color:var(--vert);font-weight:600">Forfait jours</a> · <a href="/calcul-rtt" style="color:var(--vert);font-weight:600">RTT</a></p>
+    <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>
+  </footer>
+</div>
+
+<script is:inline>
+function estBissextile(a){
+  return (a % 4 === 0 && a % 100 !== 0) || (a % 400 === 0);
+}
+function joursDansAnnee(a){
+  return estBissextile(a) ? 366 : 365;
+}
+
+function parseDate(str){
+  if(!str) return null;
+  const [a,m,j] = str.split("-").map(Number);
+  return new Date(a, m-1, j);
+}
+
+function joursCalendairesEntre(debut, fin){
+  const msParJour = 24*60*60*1000;
+  return Math.round((fin - debut) / msParJour) + 1;
+}
+
+const MSG_ORDRE = "La date de fin doit être postérieure ou égale à la date de début.";
+const MSG_INVALIDE = "Date invalide : vérifiez que le jour saisi existe bien dans le mois choisi.";
+const MSG_PLAFOND = "Le plafond ne peut pas dépasser 1607 heures pour un temps complet (art. L3121-41). Seule une limite inférieure peut être fixée par accord (art. L3121-44).";
+
+function arrondi1(n){
+  return Math.round(n * 10) / 10;
+}
+
+function basculerBlocsPeriode(){
+  const type = document.getElementById("type-periode").value;
+  document.getElementById("bloc-complete").style.display = (type === "complete") ? "block" : "none";
+  document.getElementById("bloc-incomplete").style.display = (type === "incomplete") ? "block" : "none";
+}
+
+function afficherVide(){
+  document.getElementById("r-plafond").textContent = "—";
+  document.getElementById("r-volume").textContent = "—";
+  document.getElementById("r-ecart").textContent = "—";
+  document.getElementById("r-statut").textContent = "—";
+  document.getElementById("carte-ecart").className = "carte info";
+}
+
+function calculer(){
+  const erreur = document.getElementById("erreur-msg");
+  erreur.classList.remove("visible");
+
+  const typePeriode = document.getElementById("type-periode").value;
+
+  const plafondStr = document.getElementById("plafond").value;
+  const plafondSaisi = parseFloat(plafondStr);
+  const plafondValide = !!plafondStr && !isNaN(plafondSaisi) && plafondSaisi > 0;
+
+  if(plafondValide && plafondSaisi > 1607){
+    erreur.textContent = MSG_PLAFOND;
+    erreur.classList.add("visible");
+    afficherVide();
+    return;
+  }
+
+  if(!typePeriode){
+    afficherVide();
+    return;
+  }
+
+  let debut, fin, ratio = 1;
+
+  if(typePeriode === "complete"){
+    const annee = parseInt(document.getElementById("annee-ref").value, 10) || new Date().getFullYear();
+    debut = new Date(annee, 0, 1);
+    fin = new Date(annee, 11, 31);
+  } else {
+    const inpDebut = document.getElementById("date-debut");
+    const inpFin = document.getElementById("date-fin");
+
+    if(inpDebut.validity.badInput || inpFin.validity.badInput){
+      erreur.textContent = MSG_INVALIDE;
+      erreur.classList.add("visible");
+      afficherVide();
+      return;
+    }
+
+    debut = parseDate(inpDebut.value);
+    fin = parseDate(inpFin.value);
+
+    if(!debut || !fin){
+      afficherVide();
+      return;
+    }
+    if(fin < debut){
+      erreur.textContent = MSG_ORDRE;
+      erreur.classList.add("visible");
+      afficherVide();
+      return;
+    }
+  }
+
+  const jCal = joursCalendairesEntre(debut, fin);
+  const anneeRef = debut.getFullYear();
+  const joursAnnee = joursDansAnnee(anneeRef);
+  ratio = (typePeriode === "complete") ? 1 : (jCal / joursAnnee);
+
+  if(!plafondValide){
+    afficherVide();
+    return;
+  }
+
+  const plafondApplicable = plafondSaisi * ratio;
+  document.getElementById("r-plafond").innerHTML = arrondi1(plafondApplicable) + "<small> h</small>";
+
+  const volStr = document.getElementById("volume-annuel").value;
+  const vol = parseFloat(volStr);
+  const volumeValide = !!volStr && !isNaN(vol) && vol >= 0;
+
+  if(!volumeValide){
+    document.getElementById("r-volume").textContent = "—";
+    document.getElementById("r-ecart").textContent = "—";
+    document.getElementById("r-statut").textContent = "—";
+    document.getElementById("carte-ecart").className = "carte info";
+    return;
+  }
+
+  document.getElementById("r-volume").innerHTML = arrondi1(vol) + "<small> h</small>";
+
+  const ecart = vol - plafondApplicable;
+  const carteEcart = document.getElementById("carte-ecart");
+
+  if(ecart > 0.05){
+    document.getElementById("r-ecart").innerHTML = "+" + arrondi1(ecart) + "<small> h</small>";
+    document.getElementById("r-statut").textContent = "Dépassement du plafond";
+    carteEcart.className = "carte alerte-carte";
+  } else {
+    document.getElementById("r-ecart").innerHTML = arrondi1(ecart) + "<small> h</small>";
+    document.getElementById("r-statut").textContent = "Conforme au plafond";
+    carteEcart.className = "carte principal";
+  }
+}
+
+document.getElementById("plafond").addEventListener("input", calculer);
+document.getElementById("volume-annuel").addEventListener("input", calculer);
+document.getElementById("type-periode").addEventListener("change", () => { basculerBlocsPeriode(); calculer(); });
+document.getElementById("annee-ref").addEventListener("input", calculer);
+document.getElementById("date-debut").addEventListener("change", calculer);
+document.getElementById("date-fin").addEventListener("change", calculer);
+document.getElementById("date-debut").addEventListener("input", calculer);
+document.getElementById("date-fin").addEventListener("input", calculer);
+
+document.getElementById("vider").addEventListener("click", () => {
+  document.getElementById("plafond").value = "1607";
+  document.getElementById("volume-annuel").value = "";
+  document.getElementById("type-periode").value = "";
+  document.getElementById("annee-ref").value = "2026";
+  document.getElementById("date-debut").value = "";
+  document.getElementById("date-fin").value = "";
+  basculerBlocsPeriode();
+  afficherVide();
+});
+
+basculerBlocsPeriode();
+</script>
+</body>
+</html>
