@@ -1,0 +1,268 @@
+---
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul repos compensateur (COR) : contingent heures sup | France</title>
+<meta name="description" content="Calculez vos heures de repos compensateur (COR) dues au-delà du contingent annuel d'heures supplémentaires. Taux automatique selon l'effectif. Gratuit.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<style is:global>
+  :root{
+    --encre:#152238;--encre-2:#22334f;--papier:#F5F3EE;--papier-2:#ECE8DF;
+    --trait:#D8D2C4;--vert:#2F6F63;--gris:#6A6558;--accent:#8A6FA8;
+    --alerte:#A6472E;--alerte-bg:#F6E5E1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--papier);color:var(--encre);line-height:1.5;padding:24px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  header.hero{margin-bottom:16px;border-bottom:2px solid var(--encre);padding-bottom:18px}
+  .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
+  h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
+  h1 .light{font-weight:700;color:var(--encre-2)}
+  .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:680px}
+  .sub b{color:var(--encre-2)}
+  .banniere-top{background:var(--papier-2);border-left:4px solid var(--encre);border-radius:8px;padding:14px 16px;margin-bottom:20px;font-size:13.5px;color:var(--encre-2);line-height:1.55;max-width:680px}
+  .banniere-top b{color:var(--encre)}
+  .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
+  .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .panneau h2 .num{background:var(--encre);color:#fff;width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .champs{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end}
+  .champ{display:flex;flex-direction:column;gap:6px}
+  .champ label{font-size:13px;color:var(--gris);font-weight:600}
+  .champ .aide{font-size:11.5px;color:var(--gris);font-weight:400;max-width:280px}
+  .champ input[type=number]{padding:10px 12px;border:1px solid var(--trait);border-radius:7px;font-size:15px;background:var(--papier);color:var(--encre);font-family:inherit;width:180px}
+  .champ input[type=number]:focus{outline:2px solid var(--vert)}
+  .champ select{padding:10px 12px;border:1px solid var(--trait);border-radius:7px;font-size:15px;background:var(--papier);color:var(--encre);font-family:inherit;min-width:260px}
+  .champ select:focus{outline:2px solid var(--vert)}
+  .cadre-legal{font-size:12.5px;color:var(--gris);background:var(--papier-2);padding:8px 12px;border-radius:6px;margin-top:16px}
+  .cadre-legal b{color:var(--encre)}
+  .cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:4px}
+  .carte{border:1px solid var(--trait);border-radius:8px;padding:14px;background:var(--papier)}
+  .carte .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:600}
+  .carte .val{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:4px}
+  .carte .val small{font-size:14px;font-weight:400;color:var(--gris)}
+  .carte .val.texte{font-size:15px;font-weight:600;line-height:1.3;font-variant-numeric:normal}
+  .carte.principal{border-top:3px solid var(--vert);grid-column:1/-1}
+  .carte.principal .val{color:var(--vert);font-size:32px}
+  .erreur{margin-top:14px;padding:11px 14px;background:var(--alerte-bg);border-left:4px solid var(--alerte);border-radius:6px;font-size:13px;color:#5a2418;display:none}
+  .erreur.visible{display:block}
+  .note-estimatif{margin-top:14px;padding:11px 14px;background:var(--papier-2);border-left:4px solid var(--encre);border-radius:6px;font-size:13px;color:var(--encre-2)}
+  .note-estimatif b{color:var(--encre)}
+  .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  button.act{font-family:inherit;font-size:14px;padding:9px 16px;border-radius:7px;border:1px solid var(--encre);cursor:pointer;font-weight:600}
+  .btn-ghost{background:transparent;color:var(--encre)}
+  button.act:hover{opacity:.9}
+  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--trait);font-size:12.5px;color:var(--gris)}
+  @media(max-width:640px){h1{font-size:26px}.champs{flex-direction:column;align-items:stretch}.champ select,.champ input{width:100%;min-width:0}}
+
+  .contenu-seo{max-width:760px;margin:36px auto 0;padding:28px 4px 0;border-top:2px solid var(--encre)}
+  .contenu-seo h2{font-size:21px;color:var(--encre);margin:28px 0 10px;letter-spacing:-0.2px}
+  .contenu-seo h2:first-of-type{margin-top:0}
+  .contenu-seo p{font-size:15.5px;color:var(--encre-2);line-height:1.7;margin-bottom:14px}
+  .contenu-seo ul{margin:0 0 14px 20px}
+  .contenu-seo li{font-size:15.5px;color:var(--encre-2);line-height:1.7;margin-bottom:6px}
+  .contenu-seo .avert{margin-top:24px;padding:14px 16px;background:var(--papier-2);border-radius:8px;font-size:13px;color:var(--gris);line-height:1.6}
+  .maillage{margin-top:18px;padding:14px 16px;background:#fff;border:1px solid var(--trait);border-radius:8px;font-size:14.5px;color:var(--encre-2);line-height:1.7}
+  .maillage a{color:var(--vert);font-weight:600}
+  .sources{max-width:760px;margin:28px auto 0;padding:20px 4px 0}
+  .sources h2{font-size:16px;color:var(--encre);margin-bottom:10px}
+  .sources ul{list-style:none;font-size:13px;color:var(--gris)}
+  .sources li{margin-bottom:6px}
+  .sources a{color:var(--vert);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Heures supplémentaires · Contingent annuel · France</div>
+    <h1>Calcul du <span class="light">repos compensateur</span> (COR)</h1>
+    <p class="sub">Estimez vos heures de <b>contrepartie obligatoire en repos (COR)</b> — celles dues pour les heures supplémentaires accomplies au-delà du contingent annuel. Ce calculateur ne couvre ni le repos compensateur de remplacement (RCR) ni le repos compensateur du travailleur de nuit, deux dispositifs distincts sans taux légal fixe. Voir le détail plus bas.</p>
+  </header>
+
+  <div class="banniere-top">
+    <b>⚠ Règles supplétives, applicables à défaut d'accord.</b> Ce calculateur applique le contingent (220h) et les taux (50 %/100 %) prévus par le Code du travail en l'absence d'accord collectif. Si une convention collective ou un accord d'entreprise fixe des règles différentes, ce sont elles qui s'appliquent — modifiez le contingent ci-dessous si besoin.
+  </div>
+
+  <section class="panneau">
+    <h2><span class="num">1</span> Heures supplémentaires</h2>
+    <div class="champs">
+      <div class="champ">
+        <label for="heures-sup">Heures supplémentaires effectuées sur la période</label>
+        <input type="number" id="heures-sup" min="0" step="0.5" placeholder="Ex. 235">
+        <span class="aide">Cumul des heures supplémentaires réalisées depuis le début de la période de référence (l'année civile, sauf accord contraire).</span>
+      </div>
+      <div class="champ">
+        <label for="contingent">Contingent annuel applicable</label>
+        <input type="number" id="contingent" min="0" step="1" value="220">
+        <span class="aide">220h par défaut, en l'absence d'accord collectif (art. D3121-24). Modifiez cette valeur si un accord d'entreprise ou de branche fixe un contingent différent.</span>
+      </div>
+    </div>
+    <div class="cadre-legal">Les heures supplémentaires ouvrant droit au repos compensateur de remplacement (RCR), ou accomplies dans le cadre de travaux urgents (art. L3132-4), ne s'imputent pas sur ce contingent.</div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">2</span> Entreprise</h2>
+    <div class="champ">
+      <label for="effectif">Effectif de l'entreprise</label>
+      <select id="effectif">
+        <option value="" selected disabled>— Choisir —</option>
+        <option value="petit">20 salariés ou moins</option>
+        <option value="grand">Plus de 20 salariés</option>
+      </select>
+      <span class="aide">Détermine le taux de conversion applicable à défaut d'accord collectif (art. L3121-38). Effectif apprécié selon les modalités de l'art. L130-1 du Code de la sécurité sociale.</span>
+    </div>
+  </section>
+
+  <section class="panneau">
+    <h2><span class="num">3</span> Résultat</h2>
+    <div class="cartes">
+      <div class="carte principal"><div class="lbl">Repos compensateur (COR) généré</div><div class="val" id="r-cor">—</div></div>
+      <div class="carte"><div class="lbl">Heures au-delà du contingent</div><div class="val" id="r-excedent">—</div></div>
+      <div class="carte"><div class="lbl">Heures dans la limite du contingent</div><div class="val" id="r-limite">—</div></div>
+      <div class="carte"><div class="lbl">Taux de conversion appliqué</div><div class="val texte" id="r-taux">—</div></div>
+    </div>
+    <div class="erreur" id="erreur-msg"></div>
+    <div class="note-estimatif"><b>Résultat indicatif.</b> Seules les heures effectuées au-delà du contingent annuel génèrent de la COR — les heures dans la limite du contingent n'y ouvrent pas droit (sauf accord collectif contraire). Calcul ponctuel sur la période renseignée : aucun solde de COR déjà acquis ou déjà pris n'est pris en compte, aucune donnée n'est conservée.</div>
+    <div class="actions">
+      <button class="act btn-ghost" id="vider">Effacer</button>
+    </div>
+  </section>
+
+<section class="contenu-seo">
+  <h2>COR, RCR, repos compensateur de nuit : ne confondez pas ces trois dispositifs</h2>
+  <p>Le terme « repos compensateur » désigne dans le langage courant plusieurs mécanismes juridiquement distincts. Ce calculateur porte uniquement sur la <b>contrepartie obligatoire en repos (COR)</b> : celle due pour les heures supplémentaires accomplies au-delà du contingent annuel (art. L3121-30). Deux autres dispositifs portent aussi le nom de « repos compensateur » et fonctionnent différemment :</p>
+  <ul>
+    <li><b>Le repos compensateur de remplacement (RCR)</b>, art. L3121-28 : remplace tout ou partie du paiement des heures supplémentaires et de leur majoration par du repos, dès la première heure supplémentaire — pas besoin de dépasser le contingent. Aucun taux national fixe : les modalités dépendent d'un accord collectif ou, en l'absence de délégué syndical, d'une décision unilatérale de l'employeur sous réserve de non-opposition du CSE (art. L3121-37). Il ne peut donc pas être calculé par un outil générique.</li>
+    <li><b>Le repos compensateur du travailleur de nuit</b>, art. L3122-8 : dû automatiquement au salarié ayant le statut de travailleur de nuit (art. L3122-5), indépendamment de tout contingent d'heures supplémentaires. Là non plus, aucun taux national fixe : les contreparties sont déterminées par accord collectif.</li>
+  </ul>
+  <p>Si votre recherche porte sur l'un de ces deux derniers dispositifs, ce calculateur ne pourra pas vous donner de résultat chiffré fiable — reportez-vous à l'accord applicable dans votre entreprise.</p>
+
+  <h2>Comment ce calculateur calcule votre COR</h2>
+  <p>Renseignez trois éléments : les heures supplémentaires déjà effectuées sur la période, le contingent annuel applicable (220h par défaut, modifiable si votre accord prévoit un chiffre différent), et l'effectif de votre entreprise. Le calcul se fait en deux temps :</p>
+  <ul>
+    <li>heures au-delà du contingent = heures supplémentaires effectuées − contingent annuel (retenu à zéro si négatif : aucune COR n'est due tant que le contingent n'est pas dépassé)</li>
+    <li>COR générée = heures au-delà du contingent × taux applicable (50 %, soit 30 min de repos par heure, ou 100 %, soit 1h de repos par heure, selon l'effectif)</li>
+  </ul>
+
+  <h2>Le contingent annuel : 220h par défaut, sauf accord contraire</h2>
+  <p>À défaut d'accord collectif d'entreprise ou de branche, le contingent annuel d'heures supplémentaires est fixé par décret à 220 heures par salarié et par an (art. D3121-24). C'est ce chiffre que l'outil utilise par défaut — modifiez-le si un accord applicable dans votre entreprise prévoit un contingent différent, à la hausse comme à la baisse. Les heures supplémentaires ouvrant droit au RCR, ou accomplies dans le cadre de travaux urgents (art. L3132-4), ne s'imputent pas sur ce contingent.</p>
+
+  <h2>Fin de contrat avant la prise du repos : une indemnité, pas une perte de droits</h2>
+  <p>Un salarié dont le contrat se termine avant d'avoir pu prendre sa COR, ou avant d'avoir acquis des droits suffisants pour la prendre, ne perd pas ses droits : il reçoit une indemnité en espèces égale à ses droits acquis (art. D3121-23). Cette règle a encore été rappelée par la Cour de cassation le 4 décembre 2024 (n°23-20.595). Ce calculateur ne gère pas ce suivi — il calcule la COR générée sur une période donnée, pas son cumul jusqu'à la prise effective du repos ou la fin du contrat.</p>
+
+  <h2>Ce que ce calculateur ne fait pas</h2>
+  <p>C'est un calcul ponctuel, pas un suivi. Il ne conserve aucune donnée, ne cumule rien d'une visite à l'autre, et ne remplace pas un compteur d'heures de repos tenu en paie. Il ne calcule pas non plus de montant en euros — uniquement des heures. Pour le RCR ou le repos compensateur du travailleur de nuit, voir plus haut : ces dispositifs ne sont pas couverts par cet outil.</p>
+
+  <div class="avert">
+    <b>Avertissement</b> — Ce calculateur applique les règles supplétives du Code du travail (contingent 220h, taux 50 %/100 %), applicables à défaut d'accord collectif. Si une convention collective, un accord de branche ou d'entreprise prévoit des règles différentes — contingent, taux, modalités de prise du repos — ce sont elles qui priment. Vérifiez toujours l'accord applicable dans votre entreprise. Outil indicatif, ne remplace pas un conseil juridique ou un bulletin de paie.
+  </div>
+
+  <div class="maillage">
+    <b>Vous cherchez autre chose ?</b> Pour connaître le nombre d'heures supplémentaires à l'origine de ce calcul, direction le <a href="/">calcul heure de travail</a> ou le <a href="/calcul-temps-de-travail">calcul du temps de travail réel</a>. RTT et COR sont deux dispositifs différents : voir le <a href="/calcul-rtt">calcul RTT</a> si votre régime horaire dépasse 35h/semaine. Pour un salarié de nuit, consultez d'abord le <a href="/calcul-heure-de-nuit">calcul des heures de nuit</a>. Pour convertir le résultat en heures et minutes, utilisez le <a href="/conversion-heure-decimale">convertisseur heures décimales</a>.
+  </div>
+</section>
+
+<section class="sources">
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/d3121-24" target="_blank" rel="noopener">Code du travail, article D3121-24</a> — contingent annuel d'heures supplémentaires supplétif fixé à 220 heures par salarié, à défaut d'accord collectif</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-30" target="_blank" rel="noopener">Code du travail, article L3121-30</a> — les heures supplémentaires accomplies au-delà du contingent annuel ouvrent droit à la contrepartie obligatoire en repos (COR)</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-38" target="_blank" rel="noopener">Code du travail, article L3121-38</a> — taux supplétif de la COR : 50 % pour les entreprises de 20 salariés au plus, 100 % au-delà</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-33" target="_blank" rel="noopener">Code du travail, article L3121-33</a> — rôle de l'accord collectif dans la fixation du contingent et des conditions de prise de la COR</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/d3121-23" target="_blank" rel="noopener">Code du travail, article D3121-23</a> — indemnité en espèces due au salarié dont le contrat se termine avant la prise de la COR</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-28" target="_blank" rel="noopener">Code du travail, article L3121-28</a> — repos compensateur de remplacement (RCR), dispositif distinct de la COR</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-37" target="_blank" rel="noopener">Code du travail, article L3121-37</a> — mise en place du RCR par décision unilatérale de l'employeur, en l'absence de délégué syndical et sous réserve de non-opposition du CSE</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3132-4" target="_blank" rel="noopener">Code du travail, article L3132-4</a> — heures accomplies dans le cadre de travaux urgents, exclues du contingent annuel</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3122-8" target="_blank" rel="noopener">Code du travail, article L3122-8</a> — repos compensateur du travailleur de nuit, régime distinct de la COR</li>
+    <li><a href="https://www.legifrance.gouv.fr/juri/id/JURITEXT000050784303/" target="_blank" rel="noopener">Cour de cassation, chambre sociale, 4 décembre 2024, n°23-20.595</a> — confirmation de l'indemnisation des droits à COR non pris en cas de rupture du contrat</li>
+  </ul>
+</section>
+
+  <footer>
+    Estimation des heures de contrepartie obligatoire en repos (COR) pour les heures supplémentaires accomplies au-delà du contingent annuel. Calcul indicatif, applicable à défaut d'accord collectif — ne remplace pas un conseil juridique.
+    <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> · <a href="/calcul-heure-de-nuit" style="color:var(--vert);font-weight:600">Heures de nuit</a> · <a href="/conversion-heure-decimale" style="color:var(--vert);font-weight:600">Conversion décimale</a> · <a href="/calcul-jours-ouvres" style="color:var(--vert);font-weight:600">Jours ouvrés/ouvrables</a> · <a href="/calcul-duree-cdd" style="color:var(--vert);font-weight:600">Durée du CDD</a> · <a href="/calcul-carence-cdd" style="color:var(--vert);font-weight:600">Délai de carence CDD</a> · <a href="/calcul-forfait-jours" style="color:var(--vert);font-weight:600">Forfait jours</a> · <a href="/calcul-rtt" style="color:var(--vert);font-weight:600">RTT</a> · <a href="/calcul-annualisation-temps-de-travail" style="color:var(--vert);font-weight:600">Annualisation</a></p>
+    <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>
+  </footer>
+</div>
+
+<script is:inline>
+function decFr(d){return d.toFixed(2).replace(".", ",");}
+
+const MSG_NEGATIF = "Les heures ne peuvent pas être négatives.";
+
+function afficherVide(){
+  ["r-cor","r-excedent","r-limite","r-taux"].forEach(id=>{
+    document.getElementById(id).textContent = "—";
+  });
+}
+
+function calculer(){
+  const erreur = document.getElementById("erreur-msg");
+  erreur.classList.remove("visible");
+
+  const heuresSupStr = document.getElementById("heures-sup").value;
+  const contingentStr = document.getElementById("contingent").value;
+  const effectif = document.getElementById("effectif").value;
+
+  const heuresSup = parseFloat(heuresSupStr);
+  const contingent = parseFloat(contingentStr);
+
+  const heuresSupRenseigne = heuresSupStr !== "";
+  const contingentRenseigne = contingentStr !== "";
+
+  if(heuresSupRenseigne && (isNaN(heuresSup) || heuresSup < 0)){
+    erreur.textContent = MSG_NEGATIF;
+    erreur.classList.add("visible");
+    afficherVide();
+    return;
+  }
+  if(contingentRenseigne && (isNaN(contingent) || contingent < 0)){
+    erreur.textContent = MSG_NEGATIF;
+    erreur.classList.add("visible");
+    afficherVide();
+    return;
+  }
+
+  if(!heuresSupRenseigne || !contingentRenseigne){
+    afficherVide();
+    return;
+  }
+
+  const excedent = Math.max(0, heuresSup - contingent);
+  const dansLaLimite = Math.min(heuresSup, contingent);
+
+  document.getElementById("r-excedent").innerHTML = decFr(excedent) + "<small> h</small>";
+  document.getElementById("r-limite").innerHTML = decFr(dansLaLimite) + "<small> h</small>";
+
+  if(!effectif){
+    document.getElementById("r-taux").textContent = "—";
+    document.getElementById("r-cor").textContent = "—";
+    return;
+  }
+
+  const taux = (effectif === "petit") ? 0.5 : 1;
+  const tauxLabel = (effectif === "petit") ? "50 % — 30 min / heure" : "100 % — 1 h / heure";
+  const cor = excedent * taux;
+
+  document.getElementById("r-taux").textContent = tauxLabel;
+  document.getElementById("r-cor").innerHTML = decFr(cor) + "<small> h</small>";
+}
+
+document.getElementById("heures-sup").addEventListener("input", calculer);
+document.getElementById("contingent").addEventListener("input", calculer);
+document.getElementById("effectif").addEventListener("change", calculer);
+
+document.getElementById("vider").addEventListener("click", () => {
+  document.getElementById("heures-sup").value = "";
+  document.getElementById("contingent").value = "220";
+  document.getElementById("effectif").value = "";
+  calculer();
+});
+
+calculer();
+</script>
+</body>
+</html>
