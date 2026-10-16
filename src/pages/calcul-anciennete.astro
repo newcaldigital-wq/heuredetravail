@@ -45,6 +45,11 @@
   .erreur.visible{display:block}
   .note-complet{margin-top:14px;padding:11px 14px;background:var(--papier-2);border-left:4px solid var(--vert);border-radius:6px;font-size:13px;color:var(--encre-2)}
   .note-complet b{color:var(--encre)}
+  .checkline{display:flex;gap:9px;align-items:center;margin-top:16px;font-size:14px;color:var(--encre);font-weight:600;cursor:pointer}
+  .checkline input{width:18px;height:18px;accent-color:var(--vert);cursor:pointer}
+  .hint-champ{font-size:12.5px;color:var(--gris);margin-top:6px;max-width:660px}
+  .note-jour{margin-top:14px;padding:11px 14px;background:#E7F0EE;border-left:4px solid var(--vert);border-radius:6px;font-size:13px;color:var(--encre-2);display:none}
+  .note-jour.visible{display:block}
   .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
   button.act{font-family:inherit;font-size:14px;padding:9px 16px;border-radius:7px;border:1px solid var(--encre);cursor:pointer;font-weight:600}
   .btn-primary{background:var(--encre);color:#fff}
@@ -112,6 +117,8 @@
         <input type="date" id="date-calcul">
       </div>
     </div>
+    <label class="checkline" for="dernier-jour"><input type="checkbox" id="dernier-jour"> Cette date est le dernier jour du contrat (ce jour compte)</label>
+    <p class="hint-champ">À cocher si la date de calcul est une fin de contrat (dernier jour travaillé ou dernier jour du préavis) : ce jour-là compte dans l'ancienneté. À une date de référence (aujourd'hui, date d'envoi d'une lettre), laissez décoché : seuls les jours déjà écoulés comptent.</p>
     <div class="cadre-legal">Décompte calendaire exact (méthode années/mois/jours) &middot; adapté à toute durée, y compris sur plusieurs dizaines d'années</div>
   </section>
 
@@ -121,6 +128,7 @@
       <div class="carte principal"><div class="lbl">Ancienneté</div><div class="val" id="r-principal">—</div></div>
       <div class="carte total"><div class="lbl">Total en jours</div><div class="val" id="r-jours">—</div></div>
     </div>
+    <div class="note-jour" id="note-dernier-jour"></div>
     <div class="erreur" id="erreur-dates">La date de calcul doit être postérieure ou égale à la date d'entrée.</div>
     <div class="note-complet">
       Ce résultat est une <b>durée calendaire brute</b> entre les deux dates saisies. Il ne déduit aucune période de suspension du contrat (congé sans solde, arrêt maladie, etc.) : leur traitement dépend du droit recherché (préavis, indemnité de licenciement, prime d'ancienneté...) et de la convention collective applicable — voir le détail plus bas.
@@ -141,41 +149,53 @@
   <p>Pour déterminer une ancienneté, il faut rechercher le début de la relation de travail pertinente avec l'employeur. Ce point de départ ne correspond pas toujours à la date de signature du contrat actuellement en vigueur.</p>
   <p>Un cas fréquent : un ou plusieurs CDD suivis immédiatement d'un CDI, sans interruption. Dans cette situation, l'ancienneté est reprise depuis le premier CDD (article L1243-11 du Code du travail). En cas de contrats séparés par une interruption, la reprise de l'ancienneté dépend du texte applicable, notamment de la convention collective : une interruption courte ne suffit pas, à elle seule, à la garantir.</p>
 
+  <h2>Jusqu'à quelle date calculer l'ancienneté ?</h2>
+  <p>Tout dépend de la date retenue. À une date de référence, comme aujourd'hui ou la date d'envoi d'une lettre de licenciement, seuls les jours déjà écoulés comptent : un salarié entré le 1er janvier a 5 mois et 29 jours d'ancienneté le 30 juin, et atteint 6 mois le 1er juillet.</p>
+  <p>À une date de fin de contrat, en revanche, le dernier jour travaillé compte. Un salarié entré le 1er janvier 2025 dont le contrat se termine le 31 août 2025 a bien 8 mois d'ancienneté. C'est le rôle de la case « dernier jour du contrat » du calculateur.</p>
+  <p>Pour l'indemnité de licenciement, les deux dates se combinent : le droit à l'indemnité s'apprécie à la date d'envoi de la lettre, tandis que son montant se calcule sur l'ancienneté acquise à la fin du préavis, même si celui-ci n'est pas exécuté.</p>
+
   <h2>Le temps partiel compte-t-il comme du temps plein pour l'ancienneté ?</h2>
   <p>Oui. L'article L3123-5 du Code du travail prévoit que, pour les droits liés à l'ancienneté, un salarié à temps partiel est décompté comme s'il avait été occupé à temps complet. Deux salariés entrés le même jour, l'un à temps plein et l'autre à mi-temps, ont donc la même ancienneté à date égale.</p>
   <p>Cette règle concerne le décompte de la durée. Le montant de certaines indemnités peut, lui, être calculé proportionnellement aux périodes travaillées à temps plein et à temps partiel lorsque le salarié a connu les deux régimes.</p>
 
   <h2>Les périodes qui comptent dans l'ancienneté</h2>
   <p>Certaines périodes sont expressément assimilées par la loi à du travail effectif pour les droits liés à l'ancienneté, notamment le congé de maternité (L1225-24), le congé de paternité et d'accueil de l'enfant (L1225-35-2), le congé d'adoption (L1225-42), ainsi que les périodes d'accident du travail ou de maladie professionnelle (L1226-7).</p>
-  <p>Une nuance sur ce dernier point : la loi vise l'accident du travail hors accident de trajet. Un accident de trajet n'ouvre pas droit à cette même assimilation automatique.</p>
+  <p>S'y ajoutent, également en totalité, le congé supplémentaire de naissance, ouvert depuis le 1er juillet 2026 (L1225-46-3), le congé de présence parentale (L1225-65) et le congé de proche aidant (L3142-19).</p>
+  <p>Une nuance sur ce dernier point : la loi vise l'accident du travail hors accident de trajet. Un accident de trajet n'ouvre pas droit à cette même assimilation automatique. La Cour de cassation l'a confirmé le 11 mars 2026 : la période d'arrêt consécutive à un accident de trajet doit être déduite de l'ancienneté servant à déterminer le droit à l'indemnité légale de licenciement et son montant, sauf disposition plus favorable.</p>
   <p>Les congés payés suivent une logique un peu différente : ils n'interrompent pas l'ancienneté et sont notamment pris en compte dans le décompte servant à l'indemnité de licenciement. L'article L3141-5 les assimile par ailleurs à du travail effectif, mais spécifiquement pour le calcul de la durée des congés payés eux-mêmes.</p>
 
   <h2>Les périodes qui ne comptent pas, ou comptent partiellement</h2>
   <p>Le congé sabbatique suspend le contrat sans faire acquérir de nouvelle ancienneté pendant sa durée. Le congé parental d'éducation à temps plein est un cas particulier : il ne compte que pour moitié dans le calcul de l'ancienneté (article L1225-54) — à temps partiel, en revanche, il est assimilé intégralement à du travail effectif.</p>
   <p>Le congé sans solde n'est pas organisé de façon générale par le Code du travail : il résulte d'un accord entre salarié et employeur. Sa durée n'est en principe pas ajoutée au décompte servant à l'indemnité légale de licenciement, sauf disposition plus favorable de la convention collective, du contrat ou d'un usage.</p>
   <p>La période de grève suit une logique proche pour ce même calcul : elle n'est en principe pas prise en compte dans le décompte de l'indemnité légale de licenciement. Cela dit, l'exercice normal du droit de grève reste protégé : il ne peut justifier ni sanction, ni discrimination, ni rupture du contrat de travail, sauf faute lourde imputable au salarié.</p>
-  <p>Le cas de l'arrêt maladie non professionnelle mérite une explication à part. La suspension du contrat ne remet pas en cause l'ancienneté déjà acquise avant l'arrêt. En revanche, en l'absence de disposition plus favorable, la durée de l'arrêt lui-même n'est en principe pas ajoutée au décompte servant au calcul de l'indemnité légale de licenciement. Pour les autres droits — préavis, congés supplémentaires, avantages conventionnels — la règle applicable dépend du texte ou de la convention collective concernée.</p>
+  <p>Le cas de l'arrêt maladie non professionnelle mérite une explication à part. La suspension du contrat ne remet pas en cause l'ancienneté déjà acquise avant l'arrêt. En revanche, en l'absence de disposition plus favorable, la durée de l'arrêt lui-même n'est en principe pas ajoutée au décompte servant au calcul de l'indemnité légale de licenciement. La même règle vaut pour l'ancienneté servant à fixer la durée du préavis légal de licenciement (article L1234-8). Pour les autres droits — congés supplémentaires, prime d'ancienneté, avantages conventionnels — la règle applicable dépend du texte ou de la convention collective concernée.</p>
 
   <h2>À quoi sert l'ancienneté ?</h2>
   <p>L'ancienneté n'est pas qu'un chiffre : elle détermine plusieurs droits, chacun avec ses propres règles de décompte. Elle intervient notamment dans la durée du préavis selon les règles légales applicables (sauf dispositions conventionnelles ou contractuelles plus favorables), dans l'ouverture et le calcul de l'indemnité de licenciement (articles L1234-9 à L1234-11), ou encore dans l'attribution de congés supplémentaires ou d'avantages prévus par certaines conventions collectives.</p>
   <p>Ce calculateur s'arrête volontairement à la durée brute entre deux dates : il ne calcule aucun montant ni aucune indemnité, et n'applique aucune des exclusions ou règles particulières propres à chaque droit. Il vous donne la donnée de base, à ajuster ensuite selon le droit précis que vous cherchez à déterminer.</p>
 
-  <p class="avert">Le calculateur ne déduit automatiquement aucune période de suspension : il affiche uniquement la durée calendaire brute entre les deux dates saisies. Selon le droit recherché — préavis, indemnité de licenciement, congés supplémentaires, prime d'ancienneté — certaines périodes peuvent être intégralement comptées, comptées partiellement, ou exclues, notamment pour le congé de maternité, le congé de paternité, le congé d'adoption et les périodes d'accident du travail ou de maladie professionnelle, qui bénéficient de règles légales d'assimilation propres. Ce résultat est fourni à titre indicatif et ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
+  <p class="avert">Le calculateur ne déduit automatiquement aucune période de suspension : il affiche uniquement la durée calendaire brute entre les deux dates saisies. Selon le droit recherché — préavis, indemnité de licenciement, congés supplémentaires, prime d'ancienneté — certaines périodes peuvent être intégralement comptées, comptées partiellement, ou exclues, notamment pour le congé de maternité, le congé de paternité, le congé d'adoption, le congé supplémentaire de naissance, le congé de présence parentale, le congé de proche aidant et les périodes d'accident du travail ou de maladie professionnelle, qui bénéficient de règles légales d'assimilation propres. Pensez aussi à cocher la case « dernier jour du contrat » si la date de calcul est une fin de contrat. Ce résultat est fourni à titre indicatif et ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
 </section>
 
 <section class="sources">
   <h2>Sources</h2>
   <ul>
-    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006901222" target="_blank" rel="noopener">Code du travail, article L1243-11</a> — reprise d'ancienneté en cas de CDD suivi d'un CDI sans interruption</li>
-    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033020084/" target="_blank" rel="noopener">Code du travail, article L3123-5</a> — décompte de l'ancienneté pour un salarié à temps partiel</li>
-    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000018764607" target="_blank" rel="noopener">Code du travail, article L1225-24</a> — assimilation du congé de maternité</li>
-    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000047285498" target="_blank" rel="noopener">Code du travail, article L1225-35-2</a> — assimilation du congé de paternité et d'accueil de l'enfant</li>
-    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000018764619" target="_blank" rel="noopener">Code du travail, article L1225-42</a> — assimilation du congé d'adoption</li>
-    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000023272293" target="_blank" rel="noopener">Code du travail, article L1226-7</a> — assimilation en cas d'accident du travail ou de maladie professionnelle</li>
-    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000047293349" target="_blank" rel="noopener">Code du travail, article L1225-54</a> — congé parental d'éducation</li>
-    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000049461613/2024-07-09" target="_blank" rel="noopener">Code du travail, article L3141-5</a> — assimilation pour le calcul des congés payés</li>
-    <li><a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006650266" target="_blank" rel="noopener">Code du travail, article L2511-1</a> — protection de l'exercice du droit de grève</li>
-    <li><a href="https://www.service-public.fr/particuliers/vosdroits/F371" target="_blank" rel="noopener">Service-public.fr — Indemnité de licenciement</a></li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l1243-11" target="_blank" rel="noopener">Code du travail, article L1243-11</a> — reprise d'ancienneté en cas de CDD suivi d'un CDI sans interruption</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3123-5" target="_blank" rel="noopener">Code du travail, article L3123-5</a> — décompte de l'ancienneté pour un salarié à temps partiel</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l1225-24" target="_blank" rel="noopener">Code du travail, article L1225-24</a> — assimilation du congé de maternité</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l1225-35-2" target="_blank" rel="noopener">Code du travail, article L1225-35-2</a> — assimilation du congé de paternité et d'accueil de l'enfant</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l1225-42" target="_blank" rel="noopener">Code du travail, article L1225-42</a> — assimilation du congé d'adoption</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l1225-46-3" target="_blank" rel="noopener">Code du travail, article L1225-46-3</a> — assimilation du congé supplémentaire de naissance</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l1225-65" target="_blank" rel="noopener">Code du travail, article L1225-65</a> — prise en compte du congé de présence parentale</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3142-19" target="_blank" rel="noopener">Code du travail, article L3142-19</a> — prise en compte du congé de proche aidant</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l1226-7" target="_blank" rel="noopener">Code du travail, article L1226-7</a> — assimilation en cas d'accident du travail ou de maladie professionnelle</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l1225-54" target="_blank" rel="noopener">Code du travail, article L1225-54</a> — congé parental d'éducation</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3141-5" target="_blank" rel="noopener">Code du travail, article L3141-5</a> — assimilation pour le calcul des congés payés</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l2511-1" target="_blank" rel="noopener">Code du travail, article L2511-1</a> — protection de l'exercice du droit de grève</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l1234-8" target="_blank" rel="noopener">Code du travail, article L1234-8</a> — suspensions du contrat et ancienneté servant au préavis de licenciement</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l1234-9" target="_blank" rel="noopener">Code du travail, article L1234-9</a> — conditions de l'indemnité légale de licenciement</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l1234-11" target="_blank" rel="noopener">Code du travail, article L1234-11</a> — suspensions du contrat et ancienneté servant à l'indemnité de licenciement</li>
+    <li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F987" target="_blank" rel="noopener">Service-public.fr — Indemnité de licenciement du salarié en CDI (fiche F987)</a> — date d'appréciation de l'ancienneté, calcul jusqu'à la fin du préavis</li>
   </ul>
 </section>
 
@@ -259,6 +279,8 @@ function calculer(){
 
   const debut = parseDate(inpDebut.value);
   const fin = parseDate(inpFin.value);
+  const noteJour = document.getElementById("note-dernier-jour");
+  noteJour.classList.remove("visible");
 
   if(!debut || !fin){
     document.getElementById("r-principal").textContent = "—";
@@ -274,9 +296,19 @@ function calculer(){
     return;
   }
   erreur.classList.remove("visible");
-  const r = diffDates(debut, fin);
+  /* Date de fin de contrat : le dernier jour travaillé compte, l'ancienneté court donc
+     jusqu'au lendemain (ex. entrée 01/01/2025, fin 31/08/2025 → 8 mois). Sans la case,
+     la date saisie est une date de référence : seuls les jours déjà écoulés comptent
+     (entrée 01/01, au 30/06 → 5 mois 29 jours ; 6 mois le 01/07). */
+  let finCalcul = fin;
+  if(document.getElementById("dernier-jour").checked){
+    finCalcul = new Date(fin.getFullYear(), fin.getMonth(), fin.getDate() + 1);
+    noteJour.textContent = "Le dernier jour du contrat est compté : l'ancienneté est calculée jusqu'à la fin de cette journée, soit l'équivalent d'un calcul au lendemain.";
+    noteJour.classList.add("visible");
+  }
+  const r = diffDates(debut, finCalcul);
   document.getElementById("r-principal").textContent = formatDuree(r);
-  document.getElementById("r-jours").innerHTML = r.totalJours + "<small> jours</small>";
+  document.getElementById("r-jours").innerHTML = r.totalJours + (r.totalJours === 1 ? "<small> jour</small>" : "<small> jours</small>");
 }
 
 function ajdISO(){
@@ -288,6 +320,7 @@ document.getElementById("date-entree").addEventListener("change", calculer);
 document.getElementById("date-calcul").addEventListener("change", calculer);
 document.getElementById("date-entree").addEventListener("input", calculer);
 document.getElementById("date-calcul").addEventListener("input", calculer);
+document.getElementById("dernier-jour").addEventListener("change", calculer);
 document.getElementById("aujourdhui").addEventListener("click", ()=>{
   document.getElementById("date-calcul").value = ajdISO();
   calculer();
