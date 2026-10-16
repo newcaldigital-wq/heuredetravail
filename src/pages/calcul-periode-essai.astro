@@ -169,7 +169,7 @@
           <input type="date" id="cdd-fin">
         </div>
       </div>
-      <p class="hint" id="hint-cdd">La période d'essai d'un CDD ne se renouvelle jamais. Pour un contrat de 6 mois ou moins, elle est plafonnée à 1 jour par semaine de contrat — calculée automatiquement à partir de la date de début (ci-dessus) et de la date de fin du CDD — avec un maximum absolu de 2 semaines (14 jours). Au-delà de 6 mois, elle est plafonnée à 1 mois, quelle que soit la durée exacte du contrat.</p>
+      <p class="hint" id="hint-cdd">La période d'essai d'un CDD ne se renouvelle jamais. Pour un contrat de 6 mois ou moins, elle est plafonnée à 1 jour par semaine de contrat — calculée automatiquement à partir de la date de début (ci-dessus) et de la date de fin du CDD — avec un maximum absolu de 2 semaines (14 jours). Au-delà de 6 mois, elle est plafonnée à 1 mois, quelle que soit la durée exacte du contrat. Pour un CDD sans terme précis, indiquez comme date de fin celle de la durée minimale prévue au contrat : c'est sur elle que se calcule la période d'essai.</p>
     </div>
 
     <div class="champ optionnel" style="margin-top:16px;max-width:420px">
@@ -244,13 +244,14 @@
   <p>Contrairement au CDI, la période d'essai d'un CDD ne se renouvelle jamais.</p>
 
   <h2>Le plafond conventionnel : toujours plus court, jamais plus long</h2>
-  <p>Une convention collective ou un accord de branche étendu peut prévoir une durée de période d'essai différente de la durée légale — mais uniquement plus courte. Depuis le 10 septembre 2023, cette règle est absolue : même les accords de branche conclus avant 2008, qui bénéficiaient auparavant d'un régime transitoire leur permettant de prévoir des durées plus longues, ne peuvent plus le faire. Les durées légales constituent donc aujourd'hui un plafond impératif, que seule une durée plus courte, prévue par convention ou par le contrat lui-même, peut réduire.</p>
+  <p>Une convention collective ou un accord de branche étendu peut prévoir une durée de période d'essai différente de la durée légale — mais uniquement plus courte. Depuis le 9 septembre 2023, cette règle est absolue : même les accords de branche conclus avant 2008, qui bénéficiaient auparavant d'un régime transitoire leur permettant de prévoir des durées plus longues, ne peuvent plus le faire. Les durées légales constituent donc aujourd'hui un plafond impératif, que seule une durée plus courte, prévue par convention ou par le contrat lui-même, peut réduire.</p>
   <p>C'est pourquoi l'outil ci-dessus retient toujours la plus courte des deux durées, légale ou conventionnelle, pour calculer la date de fin.</p>
 
   <h2>Comment se calcule la date de fin exacte ?</h2>
   <p>Le décompte de la période d'essai se fait en jours calendaires — tous les jours de la semaine, jours fériés compris — et non en jours ouvrés ou travaillés, sauf disposition contraire du contrat ou de la convention collective. Cette règle, affirmée par la Cour de cassation depuis 2005 et étendue en 2011 à toute période d'essai exprimée en jours, en semaines ou en mois, s'applique aussi bien au CDD qu'au CDI.</p>
   <p>La méthode de calcul diffère toutefois selon l'unité retenue. Lorsque la durée est exprimée en mois, la période d'essai expire la veille de la date anniversaire du mois de fin, et non ce jour-là : une période d'un mois renouvelée une fois (2 mois au total), commencée le 14 mai, expire ainsi le 13 juillet à minuit, et non le 14 juillet, comme l'a précisé la Cour de cassation dans un arrêt de 2006.</p>
   <p>Lorsque la durée est exprimée en jours, en revanche, le jour de début du contrat compte comme le premier jour de la période d'essai : une période de 8 jours commençant un 1<sup>er</sup> juin se termine donc le 8 juin au soir, et non le 9 juin.</p>
+  <p>Attention enfin aux absences : si le contrat est suspendu pendant la période d'essai (arrêt maladie, congés…), la période d'essai est prolongée d'autant, en jours calendaires, sauf disposition conventionnelle contraire. L'outil ne tient pas compte de ces absences : ajoutez-les vous-même à la date de fin affichée.</p>
   <p>Cette même règle de calcul sert aussi bien à déterminer la date de fin qu'à apprécier si une rupture notifiée est intervenue avant ou après l'expiration de l'essai : une rupture notifiée après cette date, même de quelques heures, n'est plus une rupture d'essai.</p>
 
   <h2>Le délai de prévenance en cas de rupture</h2>
@@ -259,18 +260,20 @@
   <p>Dans tous les cas, ce délai de prévenance ne peut jamais avoir pour effet de prolonger la période d'essai au-delà de sa durée maximale.</p>
   <p>Un cas particulier mérite attention : lorsque la période d'essai stipulée au contrat est elle-même inférieure à une semaine, le délai légal de prévenance ne s'applique pas. Seuls une convention collective ou le contrat lui-même peuvent alors prévoir un délai applicable.</p>
 
-  <p class="avert">Ce calculateur est fourni à titre indicatif. Il applique les durées légales par défaut et une convention ou un accord de branche peut, sur certains points, prévoir des règles différentes — toujours plus favorables au salarié s'agissant de la durée de l'essai. Le calcul de date de fin retient une règle de décompte calendaire conforme à la jurisprudence de la Cour de cassation, y compris pour un mois « incomplet » (par exemple un début de période d'essai le 31 du mois) ; aucun arrêt publié ne porte cependant spécifiquement sur ce cas de figure, l'outil applique donc sa méthode générale par cohérence, à vérifier auprès d'un professionnel si la situation concernée s'y prête. Cet outil ne remplace ni un contrat de travail, ni l'avis d'un professionnel.</p>
+  <p class="avert">Ce calculateur est fourni à titre indicatif. Il applique les durées légales par défaut et une convention ou un accord de branche peut, sur certains points, prévoir des règles différentes — toujours plus favorables au salarié s'agissant de la durée de l'essai. Le calcul de date de fin retient une règle de décompte calendaire conforme à la jurisprudence de la Cour de cassation. Lorsque le mois d'arrivée ne comporte pas le quantième de départ (par exemple un début le 31 janvier), l'outil retient la veille du dernier jour du mois : début le 31 janvier 2027, 1 mois, fin le 27 février. Aucun arrêt ne tranche ce cas ; c'est la lecture la plus prudente pour éviter une rupture après l'expiration de l'essai. Le renouvellement est calculé d'un bloc à compter du début du contrat : aucune source ne tranche ce point, et c'est la méthode qui donne la date de fin la plus précoce. Deux autres points ne sont tranchés par aucun texte ni arrêt publié, et l'outil retient l'interprétation la plus cohérente avec la loi : pour un CDD de 6 mois ou moins, seules les semaines complètes sont comptées (jour de début inclus), une semaine incomplète n'ouvrant pas droit à un jour d'essai supplémentaire ; et la durée de présence servant au délai de prévenance inclut le jour d'embauche. L'outil ne gère pas non plus la prolongation de la période d'essai en cas d'absence du salarié. Cet outil ne remplace ni un contrat de travail, ni l'avis d'un professionnel.</p>
 </section>
 
 <section class="sources">
   <h3>Sources</h3>
   <ul>
-    <li>Durées de la période d'essai en CDI — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000019071013" target="_blank" rel="noopener">Code du travail, art. L1221-19</a></li>
-    <li>Renouvellement de la période d'essai en CDI — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000019071009" target="_blank" rel="noopener">Code du travail, art. L1221-21</a></li>
-    <li>Durée de la période d'essai en CDD — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006901222" target="_blank" rel="noopener">Code du travail, art. L1242-10</a></li>
-    <li>Délai de prévenance, rupture par l'employeur — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000019071007" target="_blank" rel="noopener">Code du travail, art. L1221-25</a></li>
-    <li>Délai de prévenance, rupture par le salarié — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000019071005" target="_blank" rel="noopener">Code du travail, art. L1221-26</a></li>
-    <li>Décompte calendaire de la période d'essai — <a href="https://www.legifrance.gouv.fr/juri/id/JURITEXT000007052787/" target="_blank" rel="noopener">Cour de cassation, chambre sociale, 15 mars 2006, n° 04-44.544</a></li>
+    <li>Durées de la période d'essai en CDI — <a href="https://code.travail.gouv.fr/code-du-travail/l1221-19" target="_blank" rel="noopener">Code du travail, art. L1221-19</a></li>
+    <li>Renouvellement de la période d'essai en CDI — <a href="https://code.travail.gouv.fr/code-du-travail/l1221-21" target="_blank" rel="noopener">Code du travail, art. L1221-21</a></li>
+    <li>Caractère impératif des durées légales (version issue de la loi n° 2023-171 du 9 mars 2023, en vigueur depuis le 9 septembre 2023) — <a href="https://code.travail.gouv.fr/code-du-travail/l1221-22" target="_blank" rel="noopener">Code du travail, art. L1221-22</a></li>
+    <li>Durée de la période d'essai en CDD — <a href="https://code.travail.gouv.fr/code-du-travail/l1242-10" target="_blank" rel="noopener">Code du travail, art. L1242-10</a></li>
+    <li>Délai de prévenance, rupture par l'employeur — <a href="https://code.travail.gouv.fr/code-du-travail/l1221-25" target="_blank" rel="noopener">Code du travail, art. L1221-25</a></li>
+    <li>Délai de prévenance, rupture par le salarié — <a href="https://code.travail.gouv.fr/code-du-travail/l1221-26" target="_blank" rel="noopener">Code du travail, art. L1221-26</a></li>
+    <li>Décompte calendaire de la période d'essai — <a href="https://www.legifrance.gouv.fr/juri/id/JURITEXT000007052787/" target="_blank" rel="noopener">Cour de cassation, chambre sociale, 15 mars 2006, n° 04-44.544</a> ; <a href="https://www.legifrance.gouv.fr/juri/id/JURITEXT000023931731/" target="_blank" rel="noopener">Cour de cassation, chambre sociale, 28 avril 2011, n° 09-72.165</a></li>
+    <li>Prolongation en cas d'absence — <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F317" target="_blank" rel="noopener">Service-public.fr, la période d'essai</a></li>
     <li>Fiche pédagogique — <a href="https://code.travail.gouv.fr/" target="_blank" rel="noopener">Code du travail numérique, la période d'essai</a></li>
   </ul>
 </section>
@@ -296,7 +299,19 @@ function veilleDe(date){
   d.setDate(d.getDate() - 1);
   return d;
 }
-/* Durée en mois : expire la veille de la date anniversaire (Cass. soc. 15 mars 2006) */
+/* Durée en mois : expire la veille de la date anniversaire (Cass. soc. 15 mars 2006).
+   Choix volontaire : si le quantième n'existe pas dans le mois d'arrivée (ex. 31 janvier + 1 mois),
+   veille du dernier jour du mois (27 février et non 28). Lecture la plus prudente, contre-vérifiée
+   le 16/10/2026. Principe commun du site : à défaut de règle, l'outil retient la date qui ne fait
+   courir de risque à aucune partie — la plus précoce pour l'essai et le CDD (une date
+   tardive expose à une requalification), la plus tardive pour le préavis (une date
+   précoce expose à une indemnité de préavis non exécuté).
+   Art. 641 CPC écarté par la chambre sociale : période d'essai (Cass. soc., 15 mars 2006,
+   n° 04-44.544) ; préavis (Cass. soc., 23 juin 2004, n° 02-42.601, inédit,
+   Legifrance JURITEXT000007481158 : art. 641 CPC « inapplicable pour le calcul de l'indemnité
+   de préavis » ; litige sur le paiement d'un dernier jour de préavis — conforte l'exclusion de
+   l'art. 641 CPC sans trancher le cas du quantième inexistant).
+   Renouvellement : calculé d'un bloc depuis le début (durée initiale x 2), méthode la plus prudente. */
 function finEssaiMois(debut, nMois){
   return veilleDe(ajouterMois(debut, nMois));
 }
@@ -354,8 +369,8 @@ function calculerDureeMax(){
       const debutCDD = parseDateInput(document.getElementById("date-debut").value);
       const finCDD = parseDateInput(document.getElementById("cdd-fin").value);
       let semaines = 0;
-      if(debutCDD && finCDD && finCDD > debutCDD){
-        semaines = joursEntre(debutCDD, finCDD) / 7;
+      if(debutCDD && finCDD && finCDD >= debutCDD){
+        semaines = (joursEntre(debutCDD, finCDD) + 1) / 7; // jour de début inclus
       }
       dureeLegale = Math.min(Math.floor(semaines), 14);
     } else {
@@ -473,10 +488,12 @@ function afficherBloc3(info, dates){
     return;
   }
   horsEssai.classList.remove("visible");
-  const joursPresence = joursEntre(dates.debut, rupture);
+  const joursPresence = joursEntre(dates.debut, rupture) + 1; // jour d'embauche inclus
   let delai;
   if(quiRompt === "employeur"){
     if(joursPresence < 8) delai = "24 heures";
+    /* Seuils d'un et trois mois de présence volontairement atteints au plus tôt (ajouterMois sans veille) :
+       délai plus long, protecteur du salarié. Ne pas harmoniser avec finEssaiMois. */
     else if(rupture < ajouterMois(dates.debut, 1)) delai = "48 heures";
     else if(rupture < ajouterMois(dates.debut, 3)) delai = "2 semaines";
     else delai = "1 mois";

@@ -145,6 +145,7 @@
         </select>
       </div>
     </div>
+    <p class="hint">Remplacement sans terme précis : le contrat prend fin avec la fin de l'absence du salarié remplacé ; la date calculée ci-dessous correspond à un CDD de remplacement conclu avec une date de fin fixée. Attente d'un salarié recruté en CDI : la limite de 9 mois s'applique, que le contrat ait ou non un terme précis.</p>
 
     <div class="checkline" id="etranger-wrap" style="display:none">
       <input type="checkbox" id="etranger">
@@ -172,7 +173,7 @@
       Un accord de branche étendu fixe ici une durée différente de la règle légale par défaut : c'est cette durée qui est utilisée pour calculer la date de fin ci-dessous.
     </div>
     <div class="note note-info" id="note-sans-terme">
-      Ce motif permet un CDD sans terme précis : la durée n'est pas plafonnée par une date de fin fixe. Le contrat se termine avec la réalisation de son objet (retour du salarié remplacé, fin de la saison...). Aucune date de fin maximale ne peut donc être calculée dans ce cas.
+      Ce motif permet un CDD sans terme précis : la durée n'est pas plafonnée par une date de fin fixe. Le contrat se termine avec la réalisation de son objet (fin de la saison, fin du besoin...). Aucune date de fin maximale ne peut donc être calculée dans ce cas.
     </div>
     <div class="note note-info">
       Rappel sur le renouvellement : sauf accord de branche étendu fixant un nombre différent, un CDD peut être renouvelé au maximum <b>2 fois</b>. La durée totale du contrat, renouvellements compris, ne doit jamais dépasser la durée maximale indiquée ci-dessus.
@@ -205,7 +206,7 @@
     </div>
 
     <div class="note note-info">
-      Le jour de début du contrat compte comme le premier jour de la durée : la date de fin est donc fixée à la veille de la date anniversaire, N mois plus tard (par exemple : début le 1<sup>er</sup> janvier, 18 mois : fin maximale le 30 juin, un an et demi plus tard, et non le 1<sup>er</sup> juillet).
+      L'outil retient le jour de début du contrat comme premier jour de la durée : la date de fin est donc fixée à la veille de la date anniversaire, N mois plus tard (par exemple : début le 1<sup>er</sup> janvier, 18 mois : fin maximale le 30 juin, un an et demi plus tard, et non le 1<sup>er</sup> juillet).
     </div>
   </section>
 
@@ -229,7 +230,7 @@
   <h2>Un accord de branche peut-il modifier ces durées ?</h2>
   <p>Oui. Un accord de branche étendu peut fixer une durée totale de CDD différente de la durée légale par défaut, à la condition que cette durée ne puisse pas avoir pour objet ou pour effet de pourvoir durablement un emploi lié à l'activité normale et permanente de l'entreprise. C'est pourquoi l'outil ci-dessus permet de renseigner une durée conventionnelle, qui prime alors sur la règle légale par défaut.</p>
 
-  <p class="avert">Ce calculateur couvre les motifs de recours au CDD les plus fréquents : remplacement, accroissement temporaire d'activité, attente d'un salarié en CDI, départ définitif avant suppression de poste, travaux urgents de sécurité, et saisonnier/usage constant. D'autres motifs plus rares existent (CDD à objet défini pour ingénieurs et cadres, CDD lié à certains dispositifs d'aide à l'emploi, commande exceptionnelle à l'exportation) et obéissent à des règles de durée et de renouvellement différentes, non couvertes ici. Le calcul de la date de fin retient le jour de début comme premier jour de la durée : la date de fin est donc fixée à la veille de la date anniversaire, N mois plus tard — pratique usuelle en droit social pour les contrats de date à date, en l'absence de jurisprudence de la chambre sociale de la Cour de cassation tranchant spécifiquement ce point de calcul. Si le mois de fin ne comporte pas ce jour, la date de fin est fixée au dernier jour de ce mois. Pour une sécurité juridique optimale, il reste recommandé de faire figurer la date de fin exacte, en toutes lettres, dans le contrat lui-même. Cet outil est fourni à titre indicatif et ne remplace ni un contrat de travail, ni l'avis d'un professionnel du droit du travail.</p>
+  <p class="avert">Ce calculateur couvre les motifs de recours au CDD les plus fréquents : remplacement, accroissement temporaire d'activité, attente d'un salarié en CDI, départ définitif avant suppression de poste, travaux urgents de sécurité, et saisonnier/usage constant. D'autres motifs plus rares existent (CDD à objet défini pour ingénieurs et cadres, CDD lié à certains dispositifs d'aide à l'emploi, commande exceptionnelle à l'exportation, CDD de reconversion créé au 1er janvier 2026) et obéissent à des règles de durée et de renouvellement différentes, non couvertes ici. Le calcul de la date de fin retient le jour de début comme premier jour de la durée : la date de fin est donc fixée à la veille de la date anniversaire, N mois plus tard — pratique usuelle en droit social pour les contrats de date à date, en l'absence de jurisprudence de la chambre sociale de la Cour de cassation tranchant spécifiquement ce point de calcul. Si le mois de fin ne comporte pas ce quantième, l'outil retient la veille du dernier jour de ce mois (par exemple : début le 31 août 2027, 18 mois, fin maximale le 27 février 2029). Aucun texte ni arrêt ne tranche ce cas : c'est la lecture la plus prudente, une date de fin plus courte ne faisant courir aucun risque de dépassement de la durée maximale. Pour une sécurité juridique optimale, il reste recommandé de faire figurer la date de fin exacte, en toutes lettres, dans le contrat lui-même. Cet outil est fourni à titre indicatif et ne remplace ni un contrat de travail, ni l'avis d'un professionnel du droit du travail.</p>
 </section>
 
 <section class="sources">
@@ -237,7 +238,7 @@
   <ul>
     <li>Durée maximale du CDD selon le motif — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035643961" target="_blank" rel="noopener">Code du travail, art. L1242-8-1</a></li>
     <li>Durée fixée par accord de branche étendu — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035643967" target="_blank" rel="noopener">Code du travail, art. L1242-8</a></li>
-    <li>Cas de recours au CDD — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000029946296" target="_blank" rel="noopener">Code du travail, art. L1242-2</a></li>
+    <li>Cas de recours au CDD — <a href="https://code.travail.gouv.fr/code-du-travail/l1242-2" target="_blank" rel="noopener">Code du travail, art. L1242-2</a></li>
     <li>CDD sans terme précis (saisonnier, usage, attente CDI...) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033024651" target="_blank" rel="noopener">Code du travail, art. L1242-7</a></li>
     <li>Nombre de renouvellements par accord de branche — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035643980" target="_blank" rel="noopener">Code du travail, art. L1243-13</a></li>
     <li>Renouvellement de droit commun et durée totale — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035639380" target="_blank" rel="noopener">Code du travail, art. L1243-13-1</a></li>
@@ -372,6 +373,18 @@ function afficherBloc2(info){
     return;
   }
 
+  /* Choix volontaire : veille de la date anniversaire ; si le quantième n'existe pas
+     dans le mois d'arrivée (ex. 31 août + 18 mois), veille du dernier jour du mois
+     (27 février et non 28). Lecture la plus prudente, contre-vérifiée le 16/10/2026.
+   Principe commun du site : à défaut de règle, l'outil retient la date qui ne fait
+   courir de risque à aucune partie — la plus précoce pour l'essai et le CDD (une date
+   tardive expose à une requalification), la plus tardive pour le préavis (une date
+   précoce expose à une indemnité de préavis non exécuté).
+   Art. 641 CPC écarté par la chambre sociale : période d'essai (Cass. soc., 15 mars 2006,
+   n° 04-44.544) ; préavis (Cass. soc., 23 juin 2004, n° 02-42.601, inédit,
+   Legifrance JURITEXT000007481158 : art. 641 CPC « inapplicable pour le calcul de l'indemnité
+   de préavis » ; litige sur le paiement d'un dernier jour de préavis — conforte l'exclusion de
+   l'art. 641 CPC sans trancher le cas du quantième inexistant). */
   const finMax = veilleDe(ajouterMois(debut, info.max));
   el.textContent = formatDateFr(finMax);
   el.classList.remove("vide");
