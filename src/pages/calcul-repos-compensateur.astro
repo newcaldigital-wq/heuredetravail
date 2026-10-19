@@ -79,7 +79,7 @@
   <header class="hero">
     <div class="eyebrow">Heures supplémentaires · Contingent annuel · France</div>
     <h1>Calcul du <span class="light">repos compensateur</span> (COR)</h1>
-    <p class="sub">Estimez vos heures de <b>contrepartie obligatoire en repos (COR)</b> — celles dues pour les heures supplémentaires accomplies au-delà du contingent annuel. Ce calculateur ne couvre ni le repos compensateur de remplacement (RCR) ni le repos compensateur du travailleur de nuit, deux dispositifs distincts sans taux légal fixe. Voir le détail plus bas.</p>
+    <p class="sub">Estimez vos heures de <b>contrepartie obligatoire en repos (COR)</b> — celles dues pour les heures supplémentaires accomplies au-delà du contingent annuel. Ce calculateur ne couvre ni le repos compensateur de remplacement (RCR) ni le repos compensateur du travailleur de nuit, deux dispositifs distincts qui dépendent d'un accord collectif ou d'une décision de l'employeur. Voir le détail plus bas.</p>
   </header>
 
   <div class="banniere-top">
@@ -100,7 +100,7 @@
         <span class="aide">220h par défaut, en l'absence d'accord collectif (art. D3121-24). Modifiez cette valeur si un accord d'entreprise ou de branche fixe un contingent différent.</span>
       </div>
     </div>
-    <div class="cadre-legal">Les heures supplémentaires ouvrant droit au repos compensateur de remplacement (RCR), ou accomplies dans le cadre de travaux urgents (art. L3132-4), ne s'imputent pas sur ce contingent.</div>
+    <div class="cadre-legal">Les heures supplémentaires compensées par un repos compensateur de remplacement (RCR), ou accomplies pour des travaux urgents (définis à l'art. L3132-4), ne s'imputent pas sur ce contingent (art. L3121-30).</div>
   </section>
 
   <section class="panneau">
@@ -112,7 +112,7 @@
         <option value="petit">20 salariés ou moins</option>
         <option value="grand">Plus de 20 salariés</option>
       </select>
-      <span class="aide">Détermine le taux de conversion applicable à défaut d'accord collectif (art. L3121-38). Effectif apprécié selon les modalités de l'art. L130-1 du Code de la sécurité sociale.</span>
+      <span class="aide">Détermine le taux de conversion applicable à défaut d'accord collectif (art. L3121-38). Effectif apprécié selon l'art. L130-1 du Code de la sécurité sociale : une entreprise ne passe « au-delà de 20 salariés » qu'après avoir atteint ou dépassé ce seuil pendant 5 années civiles consécutives.</span>
     </div>
   </section>
 
@@ -135,8 +135,8 @@
   <h2>COR, RCR, repos compensateur de nuit : ne confondez pas ces trois dispositifs</h2>
   <p>Le terme « repos compensateur » désigne dans le langage courant plusieurs mécanismes juridiquement distincts. Ce calculateur porte uniquement sur la <b>contrepartie obligatoire en repos (COR)</b> : celle due pour les heures supplémentaires accomplies au-delà du contingent annuel (art. L3121-30). Deux autres dispositifs portent aussi le nom de « repos compensateur » et fonctionnent différemment :</p>
   <ul>
-    <li><b>Le repos compensateur de remplacement (RCR)</b>, art. L3121-28 : remplace tout ou partie du paiement des heures supplémentaires et de leur majoration par du repos, dès la première heure supplémentaire — pas besoin de dépasser le contingent. Aucun taux national fixe : les modalités dépendent d'un accord collectif ou, en l'absence de délégué syndical, d'une décision unilatérale de l'employeur sous réserve de non-opposition du CSE (art. L3121-37). Il ne peut donc pas être calculé par un outil générique.</li>
-    <li><b>Le repos compensateur du travailleur de nuit</b>, art. L3122-8 : dû automatiquement au salarié ayant le statut de travailleur de nuit (art. L3122-5), indépendamment de tout contingent d'heures supplémentaires. Là non plus, aucun taux national fixe : les contreparties sont déterminées par accord collectif.</li>
+    <li><b>Le repos compensateur de remplacement (RCR)</b> : il remplace tout ou partie du paiement des heures supplémentaires et de leur majoration par un repos équivalent, dès la première heure supplémentaire — pas besoin de dépasser le contingent. « Équivalent » veut dire que le repos vaut ce qu'aurait rapporté l'heure payée : une heure majorée à 25 % donne 1 h 15 de repos (art. L3121-28 et L3121-33). Il est mis en place par un accord collectif ou, dans une entreprise sans délégué syndical, par l'employeur si le CSE ne s'y oppose pas (art. L3121-37). C'est cet accord ou cette décision qui fixe les heures concernées et les modalités de prise : ce calculateur ne le traite pas.</li>
+    <li><b>Le repos compensateur du travailleur de nuit</b>, art. L3122-8 : dû automatiquement au salarié ayant le statut de travailleur de nuit (art. L3122-5), indépendamment de tout contingent d'heures supplémentaires. Là non plus, aucun taux national fixe : les contreparties sont déterminées par accord collectif (art. L3122-15).</li>
   </ul>
   <p>Si votre recherche porte sur l'un de ces deux derniers dispositifs, ce calculateur ne pourra pas vous donner de résultat chiffré fiable — reportez-vous à l'accord applicable dans votre entreprise.</p>
 
@@ -148,16 +148,21 @@
   </ul>
 
   <h2>Le contingent annuel : 220h par défaut, sauf accord contraire</h2>
-  <p>À défaut d'accord collectif d'entreprise ou de branche, le contingent annuel d'heures supplémentaires est fixé par décret à 220 heures par salarié et par an (art. D3121-24). C'est ce chiffre que l'outil utilise par défaut — modifiez-le si un accord applicable dans votre entreprise prévoit un contingent différent, à la hausse comme à la baisse. Les heures supplémentaires ouvrant droit au RCR, ou accomplies dans le cadre de travaux urgents (art. L3132-4), ne s'imputent pas sur ce contingent.</p>
+  <p>À défaut d'accord collectif d'entreprise ou de branche, le contingent annuel d'heures supplémentaires est fixé par décret à 220 heures par salarié et par an (art. D3121-24). C'est ce chiffre que l'outil utilise par défaut — modifiez-le si un accord applicable dans votre entreprise prévoit un contingent différent, à la hausse comme à la baisse. Les heures supplémentaires compensées par un RCR, ou accomplies pour des travaux urgents (définis à l'art. L3132-4), ne s'imputent pas sur ce contingent (art. L3121-30).</p>
+
+  <h2>Comment prendre le repos</h2>
+  <p>Les modalités de prise de la COR sont fixées par l'accord collectif. À défaut d'accord, le droit au repos est ouvert dès que vous avez acquis 7 heures de COR. Le repos doit alors être pris dans un délai maximum de deux mois (art. D3121-18).</p>
+  <p>Il se prend par journée entière ou par demi-journée, à votre convenance. Il compte comme du temps de travail effectif et n'entraîne aucune perte de salaire (art. D3121-19).</p>
+  <p>L'employeur doit vous informer du nombre d'heures de repos portées à votre crédit. S'il ne l'a pas fait et que vous n'avez pas pu prendre votre repos, vous pouvez obtenir une indemnisation, sous forme de dommages-intérêts. Le délai pour la réclamer est de deux ans, à partir du jour où vous avez eu connaissance de vos droits, et au plus tard de la fin du contrat (Cour de cassation, 25 juin 2025).</p>
 
   <h2>Fin de contrat avant la prise du repos : une indemnité, pas une perte de droits</h2>
-  <p>Un salarié dont le contrat se termine avant d'avoir pu prendre sa COR, ou avant d'avoir acquis des droits suffisants pour la prendre, ne perd pas ses droits : il reçoit une indemnité en espèces égale à ses droits acquis (art. D3121-23). Cette règle a encore été rappelée par la Cour de cassation le 4 décembre 2024 (n°23-20.595). Ce calculateur ne gère pas ce suivi — il calcule la COR générée sur une période donnée, pas son cumul jusqu'à la prise effective du repos ou la fin du contrat.</p>
+  <p>Un salarié dont le contrat se termine avant d'avoir pu prendre sa COR, ou avant d'avoir acquis des droits suffisants pour la prendre, ne perd pas ses droits : il reçoit une indemnité en espèces égale à ses droits acquis (art. D3121-23). Ce calculateur ne gère pas ce suivi — il calcule la COR générée sur une période donnée, pas son cumul jusqu'à la prise effective du repos ou la fin du contrat.</p>
 
   <h2>Ce que ce calculateur ne fait pas</h2>
   <p>C'est un calcul ponctuel, pas un suivi. Il ne conserve aucune donnée, ne cumule rien d'une visite à l'autre, et ne remplace pas un compteur d'heures de repos tenu en paie. Il ne calcule pas non plus de montant en euros — uniquement des heures. Pour le RCR ou le repos compensateur du travailleur de nuit, voir plus haut : ces dispositifs ne sont pas couverts par cet outil.</p>
 
   <div class="avert">
-    <b>Avertissement</b> — Ce calculateur applique les règles supplétives du Code du travail (contingent 220h, taux 50 %/100 %), applicables à défaut d'accord collectif. Si une convention collective, un accord de branche ou d'entreprise prévoit des règles différentes — contingent, taux, modalités de prise du repos — ce sont elles qui priment. Vérifiez toujours l'accord applicable dans votre entreprise. Outil indicatif, ne remplace pas un conseil juridique ou un bulletin de paie.
+    <b>Avertissement</b> — Ce calculateur applique les règles supplétives du Code du travail (contingent 220h, taux 50 %/100 %), applicables à défaut d'accord collectif. Si une convention collective, un accord de branche ou d'entreprise prévoit des règles différentes — contingent, taux, modalités de prise du repos — ce sont elles qui priment. La prise en compte des congés payés pour déclencher des heures supplémentaires (jurisprudence de 2025) porte sur leur majoration ; son effet sur le contingent et sur la COR n'est pas tranché. Vérifiez toujours l'accord applicable dans votre entreprise. Outil indicatif, ne remplace pas un conseil juridique ou un bulletin de paie.
   </div>
 
   <div class="maillage">
@@ -169,15 +174,19 @@
   <h2>Sources</h2>
   <ul>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/d3121-24" target="_blank" rel="noopener">Code du travail, article D3121-24</a> — contingent annuel d'heures supplémentaires supplétif fixé à 220 heures par salarié, à défaut d'accord collectif</li>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-30" target="_blank" rel="noopener">Code du travail, article L3121-30</a> — les heures supplémentaires accomplies au-delà du contingent annuel ouvrent droit à la contrepartie obligatoire en repos (COR)</li>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-38" target="_blank" rel="noopener">Code du travail, article L3121-38</a> — taux supplétif de la COR : 50 % pour les entreprises de 20 salariés au plus, 100 % au-delà</li>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-33" target="_blank" rel="noopener">Code du travail, article L3121-33</a> — rôle de l'accord collectif dans la fixation du contingent et des conditions de prise de la COR</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-30" target="_blank" rel="noopener">Code du travail, article L3121-30</a> — les heures supplémentaires accomplies au-delà du contingent annuel ouvrent droit à la contrepartie obligatoire en repos (COR) ; les heures compensées par un RCR et celles des travaux urgents ne s'imputent pas sur le contingent</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-38" target="_blank" rel="noopener">Code du travail, article L3121-38</a> — taux supplétif de la COR : 50 % pour les entreprises de 20 salariés au plus, 100 % au-delà ; effectif apprécié selon l'art. L130-1 du Code de la sécurité sociale</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-33" target="_blank" rel="noopener">Code du travail, article L3121-33</a> — rôle de l'accord collectif : contingent, conditions de prise de la COR, remplacement du paiement par un repos compensateur équivalent (RCR)</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/d3121-18" target="_blank" rel="noopener">Code du travail, article D3121-18</a> — à défaut d'accord, droit à la COR ouvert dès 7 heures, repos pris dans un délai maximum de deux mois</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/d3121-19" target="_blank" rel="noopener">Code du travail, article D3121-19</a> — prise par journée ou demi-journée, assimilée à du travail effectif, sans perte de rémunération</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/d3121-23" target="_blank" rel="noopener">Code du travail, article D3121-23</a> — indemnité en espèces due au salarié dont le contrat se termine avant la prise de la COR</li>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-28" target="_blank" rel="noopener">Code du travail, article L3121-28</a> — repos compensateur de remplacement (RCR), dispositif distinct de la COR</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-28" target="_blank" rel="noopener">Code du travail, article L3121-28</a> — définition des heures supplémentaires : majoration ou repos compensateur équivalent (RCR), dispositif distinct de la COR</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-37" target="_blank" rel="noopener">Code du travail, article L3121-37</a> — mise en place du RCR par décision unilatérale de l'employeur, en l'absence de délégué syndical et sous réserve de non-opposition du CSE</li>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3132-4" target="_blank" rel="noopener">Code du travail, article L3132-4</a> — heures accomplies dans le cadre de travaux urgents, exclues du contingent annuel</li>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3122-8" target="_blank" rel="noopener">Code du travail, article L3122-8</a> — repos compensateur du travailleur de nuit, régime distinct de la COR</li>
-    <li><a href="https://www.legifrance.gouv.fr/juri/id/JURITEXT000050784303/" target="_blank" rel="noopener">Cour de cassation, chambre sociale, 4 décembre 2024, n°23-20.595</a> — confirmation de l'indemnisation des droits à COR non pris en cas de rupture du contrat</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3132-4" target="_blank" rel="noopener">Code du travail, article L3132-4</a> — définition des travaux urgents (leurs heures ne s'imputent pas sur le contingent, art. L3121-30)</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3122-8" target="_blank" rel="noopener">Code du travail, article L3122-8</a> — contreparties du travailleur de nuit (repos compensateur), régime distinct de la COR</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3122-5" target="_blank" rel="noopener">Code du travail, article L3122-5</a> — définition du travailleur de nuit</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3122-15" target="_blank" rel="noopener">Code du travail, article L3122-15</a> — contreparties du travail de nuit fixées par accord collectif</li>
+    <li><a href="https://www.courdecassation.fr/decision/685ce25e0c5506317f3be854" target="_blank" rel="noopener">Cour de cassation, chambre sociale, 25 juin 2025, n° 23-19.887, publié</a> — COR non prise faute d'information du salarié : indemnisation sous forme de dommages-intérêts, prescription de deux ans</li>
   </ul>
 </section>
 
@@ -189,14 +198,31 @@
 </div>
 
 <script is:inline>
-function decFr(d){return d.toFixed(2).replace(".", ",");}
+/* COR (contrepartie obligatoire en repos) : heures au-delà du contingent x taux supplétif (L3121-38 :
+   50 % jusqu'à 20 salariés, 100 % au-delà ; effectif selon L130-1 CSS, franchissement sur 5 ans).
+   Calcul ponctuel, en heures uniquement.
+   Mémo interne, non cité dans le texte public : Cass. soc. 4 déc. 2024, n° 23-20.595 (inédit, F-D,
+   litige de convention collective SDLM), retiré du texte, portée non vérifiée. Indemnisation de la COR
+   non prise faute d'information : Cass. soc. 25 juin 2025, n° 23-19.887 (publié), cité dans le texte.
+   Congés payés et seuil des heures sup (Cass. soc. 10 sept. 2025) : effet sur le contingent et la COR
+   non tranché ; les heures sup sont saisies par l'utilisateur, aucun traitement automatique. */
+function decPt(d){return d.toFixed(2);}
+function decHM(d){if(isNaN(d))return"";let h=Math.floor(d+1e-9),m=Math.round((d-h)*60);if(m===60){h++;m=0;}return h+"h"+String(m).padStart(2,"0");}
+function heures(d){return decPt(d)+"<small> h · "+decHM(d)+"</small>";}
 
 const MSG_NEGATIF = "Les heures ne peuvent pas être négatives.";
+const MSG_CONTINGENT = "Indiquez le contingent annuel applicable (220 h à défaut d'accord).";
+const MSG_EFFECTIF = "Choisissez l'effectif de l'entreprise pour obtenir le repos compensateur.";
 
 function afficherVide(){
   ["r-cor","r-excedent","r-limite","r-taux"].forEach(id=>{
     document.getElementById(id).textContent = "—";
   });
+}
+function message(txt){
+  const erreur = document.getElementById("erreur-msg");
+  erreur.textContent = txt;
+  erreur.classList.add("visible");
 }
 
 function calculer(){
@@ -213,20 +239,17 @@ function calculer(){
   const heuresSupRenseigne = heuresSupStr !== "";
   const contingentRenseigne = contingentStr !== "";
 
-  if(heuresSupRenseigne && (isNaN(heuresSup) || heuresSup < 0)){
-    erreur.textContent = MSG_NEGATIF;
-    erreur.classList.add("visible");
+  if((heuresSupRenseigne && (isNaN(heuresSup) || heuresSup < 0)) || (contingentRenseigne && (isNaN(contingent) || contingent < 0))){
+    message(MSG_NEGATIF);
     afficherVide();
     return;
   }
-  if(contingentRenseigne && (isNaN(contingent) || contingent < 0)){
-    erreur.textContent = MSG_NEGATIF;
-    erreur.classList.add("visible");
+  if(!heuresSupRenseigne){
     afficherVide();
     return;
   }
-
-  if(!heuresSupRenseigne || !contingentRenseigne){
+  if(!contingentRenseigne){
+    message(MSG_CONTINGENT);
     afficherVide();
     return;
   }
@@ -234,12 +257,13 @@ function calculer(){
   const excedent = Math.max(0, heuresSup - contingent);
   const dansLaLimite = Math.min(heuresSup, contingent);
 
-  document.getElementById("r-excedent").innerHTML = decFr(excedent) + "<small> h</small>";
-  document.getElementById("r-limite").innerHTML = decFr(dansLaLimite) + "<small> h</small>";
+  document.getElementById("r-excedent").innerHTML = heures(excedent);
+  document.getElementById("r-limite").innerHTML = heures(dansLaLimite);
 
   if(!effectif){
     document.getElementById("r-taux").textContent = "—";
     document.getElementById("r-cor").textContent = "—";
+    message(MSG_EFFECTIF);
     return;
   }
 
@@ -248,7 +272,7 @@ function calculer(){
   const cor = excedent * taux;
 
   document.getElementById("r-taux").textContent = tauxLabel;
-  document.getElementById("r-cor").innerHTML = decFr(cor) + "<small> h</small>";
+  document.getElementById("r-cor").innerHTML = heures(cor);
 }
 
 document.getElementById("heures-sup").addEventListener("input", calculer);
