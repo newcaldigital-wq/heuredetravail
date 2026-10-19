@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calcul de l'annualisation du temps de travail (1607h) | France</title>
-<meta name="description" content="Vérifiez si un volume d'heures annuel prévu respecte le plafond de 1607h, année complète ou incomplète. Outil gratuit et indicatif.">
+<meta name="description" content="Vérifiez si un volume d'heures annuel prévu dépasse le plafond de 1607h, seuil des heures supplémentaires, année complète ou incomplète. Outil gratuit et indicatif.">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <style is:global>
@@ -50,6 +50,8 @@
   .carte.alerte-carte{border-top:3px solid var(--alerte)}
   .carte.alerte-carte .val{color:var(--alerte);font-size:26px}
   .carte.info{border-top:3px solid var(--trait)}
+  .info{margin-top:14px;padding:11px 14px;background:var(--papier-2);border-left:4px solid var(--vert);border-radius:6px;font-size:13px;color:var(--encre-2);display:none}
+  .info.visible{display:block}
   .erreur{margin-top:14px;padding:11px 14px;background:var(--alerte-bg);border-left:4px solid var(--alerte);border-radius:6px;font-size:13px;color:#5a2418;display:none}
   .erreur.visible{display:block}
   .note-estimatif{margin-top:14px;padding:11px 14px;background:var(--papier-2);border-left:4px solid var(--encre);border-radius:6px;font-size:13px;color:var(--encre-2)}
@@ -86,28 +88,28 @@
   <header class="hero">
     <div class="eyebrow">Annualisation · Temps complet · France</div>
     <h1>Calcul de l'<span class="light">annualisation</span> du temps de travail</h1>
-    <p class="sub">Vérifiez si un <b>volume d'heures prévu sur l'année</b> respecte le plafond annuel de référence — <b>1607h</b> par défaut pour un temps complet. <b>Résultat indicatif</b> : voir le détail plus bas.</p>
+    <p class="sub">Vérifiez si un <b>volume d'heures prévu sur l'année</b> dépasse le seuil annuel de référence — le « plafond » de <b>1607h</b> par défaut pour un temps complet, au-delà duquel les heures sont des heures supplémentaires. <b>Résultat indicatif</b> : voir le détail plus bas.</p>
   </header>
 
   <div class="banniere-top">
-    <b>⚠ Estimation, non opposable.</b> Ce calculateur compare un volume prévu au plafond annuel de référence selon une méthode courante, à titre indicatif. Seul l'accord collectif d'aménagement du temps de travail applicable dans votre entreprise fait foi, notamment pour la période de référence exacte et le traitement des entrées/sorties en cours d'année. Vérifiez toujours avec votre service RH ou votre accord d'entreprise.
+    <b>⚠ Estimation, non opposable.</b> Ce calculateur compare un volume prévu au seuil annuel de référence selon une méthode courante, à titre indicatif. Seul l'accord collectif d'aménagement du temps de travail applicable dans votre entreprise fait foi, notamment pour la période de référence exacte et le traitement des entrées/sorties en cours d'année. Vérifiez toujours avec votre service RH ou votre accord d'entreprise.
   </div>
 
   <section class="panneau">
-    <h2><span class="num">1</span> Plafond annuel applicable</h2>
+    <h2><span class="num">1</span> Seuil annuel applicable</h2>
     <div class="champ">
-      <label for="plafond">Plafond <b>annuel</b> de référence (heures)</label>
+      <label for="plafond">Seuil <b>annuel</b> de référence (heures)</label>
       <input type="number" id="plafond" min="1" max="1607" step="0.5" value="1607">
-      <span class="aide">Saisissez toujours la valeur <b>annuelle</b> — 1607h par défaut pour un temps complet (art. L3121-41), journée de solidarité incluse — même si la période choisie à l'étape 3 est plus courte qu'un an. Le plafond applicable affiché en résultat est proratisé automatiquement selon cette période, vous n'avez pas à faire ce calcul vous-même. Un accord d'entreprise ou de branche peut fixer une valeur annuelle <b>inférieure</b> (art. L3121-44) — jamais supérieure.</span>
+      <span class="aide">Saisissez toujours la valeur <b>annuelle</b> — 1607h par défaut pour un temps complet (art. L3121-41), journée de solidarité incluse — même si la période choisie à l'étape 3 est plus courte qu'un an. Le seuil applicable affiché en résultat est proratisé automatiquement selon cette période, vous n'avez pas à faire ce calcul vous-même. Un accord d'entreprise ou d'établissement, ou à défaut de branche, peut fixer une valeur annuelle <b>inférieure</b> (art. L3121-44) — jamais supérieure.</span>
     </div>
   </section>
 
   <section class="panneau">
     <h2><span class="num">2</span> Temps de travail prévu</h2>
     <div class="champ">
-      <label for="volume-annuel">Volume horaire annuel prévu</label>
+      <label for="volume-annuel">Volume horaire prévu sur la période</label>
       <input type="number" id="volume-annuel" min="0" step="0.5" placeholder="Ex. 1620">
-      <span class="aide">Total des heures planifiées sur la période de référence retenue à l'étape 3 — la somme de toutes les semaines hautes et basses de votre planning, congés déjà exclus. Additionnez directement votre planning plutôt que de raisonner en moyenne hebdomadaire : sur une année, une moyenne « brute » de 35h/semaine donne environ 1825h et non 1607h, car le plafond légal a déjà retiré congés payés et jours fériés — un piège fréquent.</span>
+      <span class="aide">Total des heures planifiées sur la période de référence retenue à l'étape 3 — la somme de toutes les semaines hautes et basses de votre planning, congés déjà exclus. Additionnez directement votre planning plutôt que de raisonner en moyenne hebdomadaire : sur une année, une moyenne « brute » de 35h/semaine donne 1820h (35 × 52) et non 1607h, car le seuil légal tient déjà compte des congés payés et des jours fériés — un piège fréquent.</span>
     </div>
   </section>
 
@@ -124,7 +126,7 @@
     <div class="bloc-periode" id="bloc-complete" style="display:none">
       <div class="champ">
         <label for="annee-ref">Année de référence</label>
-        <input type="number" id="annee-ref" value="2026" min="2015" max="2035" step="1">
+        <input type="number" id="annee-ref" value="2026" min="1900" max="2100" step="1">
       </div>
     </div>
     <div class="bloc-periode" id="bloc-incomplete" style="display:none">
@@ -138,19 +140,20 @@
           <input type="date" id="date-fin">
         </div>
       </div>
-      <div class="cadre-legal">Période incomplète : le plafond est proratisé au calendaire (jours calendaires de la période ÷ jours de l'année). C'est une <b>estimation</b> parmi d'autres méthodes possibles — voir le détail plus bas.</div>
+      <div class="cadre-legal">Période incomplète (12 mois au plus, dates de début et de fin incluses) : le seuil est proratisé au calendaire (jours calendaires de la période ÷ jours des 12 mois qui suivent la date de début). C'est une <b>estimation</b> parmi d'autres méthodes possibles — voir le détail plus bas.</div>
     </div>
   </section>
 
   <section class="panneau">
     <h2><span class="num">4</span> Résultat</h2>
     <div class="cartes">
-      <div class="carte principal"><div class="lbl">Plafond applicable</div><div class="val" id="r-plafond">—</div></div>
+      <div class="carte principal"><div class="lbl">Seuil applicable</div><div class="val" id="r-plafond">—</div></div>
       <div class="carte info"><div class="lbl">Volume prévu</div><div class="val" id="r-volume">—</div></div>
       <div class="carte info" id="carte-ecart"><div class="lbl">Écart</div><div class="val" id="r-ecart">—</div></div>
       <div class="carte info"><div class="lbl">Statut</div><div class="val" id="r-statut" style="font-size:16px">—</div></div>
     </div>
     <div class="erreur" id="erreur-msg"></div>
+    <div class="info" id="info-msg"></div>
     <div class="note-estimatif"><b>Résultat estimatif, non opposable.</b> Ce calcul applique une méthode courante, non imposée telle quelle par le Code du travail pour la proratisation. Vérifiez l'accord d'aménagement du temps de travail applicable dans votre entreprise.</div>
     <div class="actions">
       <button class="act btn-ghost" id="vider">Effacer</button>
@@ -162,12 +165,13 @@
   <p>L'annualisation du temps de travail consiste à répartir la durée du travail sur une période de référence annuelle plutôt que sur la semaine : l'horaire varie selon les périodes — plus élevé en haute activité, plus bas en basse activité — mais le volume total sur l'année doit respecter un plafond légal. Ce mécanisme est distinct du <a href="/calcul-rtt">RTT</a>, où l'horaire hebdomadaire contractuel est fixe et dépasse 35h en générant des jours de repos, et du <a href="/calcul-forfait-jours">forfait jours</a>, où le temps de travail n'est plus décompté en heures mais en nombre de jours sur l'année. Trois régimes, trois logiques : ne les confondez pas dans votre accord ou votre bulletin de paie.</p>
 
   <h2>Le plafond de 1607 heures</h2>
-  <p>Pour un salarié à temps complet, la référence annuelle par défaut est fixée par le Code du travail à <b>1607 heures</b> (art. L3121-41), journée de solidarité incluse. Ce chiffre s'explique traditionnellement par le calcul suivant, à titre pédagogique : 365 jours calendaires, moins 104 jours de repos hebdomadaire, moins 25 jours de congés payés, moins 8 jours fériés en moyenne, soit 228 jours travaillés × 7h = 1596h, arrondi à 1600h, plus 7h de journée de solidarité. Cette décomposition n'est cependant pas elle-même inscrite dans le Code du travail : la loi fixe le seuil de 1607h, pas sa méthode de calcul.</p>
-  <p>Au-delà de ce plafond, les heures effectuées sont des heures supplémentaires (art. L3121-41). Un accord d'entreprise ou de branche peut fixer une limite <b>inférieure</b> à 1607h pour le décompte des heures supplémentaires (art. L3121-44) — mais aucun texte ne permet de la fixer au-dessus pour un temps complet.</p>
-  <p><b>Attention à un piège de conversion fréquent :</b> 35h par semaine, multiplié de façon « brute » par les 52 semaines de l'année, donne environ 1825h — pas 1607h. L'écart s'explique entièrement par les congés payés et les jours fériés, déjà déduits dans le calcul du plafond légal : 35h reste bien la durée normale hebdomadaire <i>pendant les semaines travaillées</i>, mais elle ne se convertit pas directement en volume annuel sans tenir compte des semaines non travaillées.</p>
+  <p>Pour un salarié à temps complet, la référence annuelle par défaut est fixée par le Code du travail à <b>1607 heures</b> (art. L3121-41), journée de solidarité incluse — ses modalités sont fixées par accord (art. L3133-11) ou, à défaut, par l'employeur après consultation du CSE (art. L3133-12). Ce chiffre s'explique traditionnellement par le calcul suivant, à titre pédagogique : 365 jours calendaires, moins 104 jours de repos hebdomadaire, moins 25 jours de congés payés, moins 8 jours fériés en moyenne, soit 228 jours travaillés × 7h = 1596h, arrondi à 1600h, plus 7h de journée de solidarité. Cette décomposition n'est cependant pas elle-même inscrite dans le Code du travail : la loi fixe le seuil de 1607h, pas sa méthode de calcul.</p>
+  <p>Juridiquement, 1607h n'est pas une durée maximale de travail mais un <b>seuil de déclenchement des heures supplémentaires</b> : au-delà, les heures effectuées sont des heures supplémentaires, décomptées à l'issue de la période de référence (art. L3121-41), dans la limite du contingent annuel et des durées maximales de travail. Un accord d'entreprise ou d'établissement, ou à défaut de branche, peut fixer une limite <b>inférieure</b> à 1607h pour le décompte des heures supplémentaires (art. L3121-44) — mais aucun texte ne permet de la fixer au-dessus pour un temps complet.</p>
+  <p>Ce seuil de 1607h ne vaut que pour une période de référence <b>annuelle</b>. L'accord peut retenir une période plus courte, ou plus longue dans la limite de trois ans (neuf semaines au plus en cas de décision unilatérale de l'employeur) : les heures supplémentaires sont alors celles accomplies au-delà d'une moyenne de 35h par semaine calculée sur la période (art. L3121-41).</p>
+  <p><b>Attention à un piège de conversion fréquent :</b> 35h par semaine, multiplié de façon « brute » par les 52 semaines de l'année, donne 1820h — pas 1607h. L'écart s'explique pour l'essentiel par les congés payés et les jours fériés, déjà pris en compte dans le seuil légal : 35h reste bien la durée normale hebdomadaire <i>pendant les semaines travaillées</i>, mais elle ne se convertit pas directement en volume annuel sans tenir compte des semaines non travaillées.</p>
 
   <h2>Comment utiliser ce calculateur</h2>
-  <p>Renseignez le plafond applicable (1607h par défaut, ou la limite conventionnelle si votre accord en prévoit une plus basse), puis le volume horaire annuel prévu — la somme totale des heures planifiées sur la période, congés déjà exclus. L'outil compare directement ce volume au plafond retenu.</p>
+  <p>Renseignez le seuil applicable (1607h par défaut, ou la limite conventionnelle si votre accord en prévoit une plus basse), puis le volume horaire prévu sur la période — la somme totale des heures planifiées, congés déjà exclus. L'outil compare directement ce volume au plafond retenu.</p>
 
   <h2>Année incomplète : pourquoi il n'existe pas de calcul unique</h2>
   <p><b>Estimation indicative — année incomplète.</b> En cas d'entrée, de sortie ou de mise en place de l'accord en cours de période de référence, le Code du travail ne fixe aucune formule nationale unique de proratisation (art. L3121-44) : l'accord applicable doit prévoir les conditions de prise en compte des arrivées et départs, mais la méthode retenue varie d'un accord à l'autre. Trois approches coexistent en pratique : un prorata calendaire simple (jours sous contrat ÷ jours de l'année), un calcul « au réel » à partir des jours ouvrés, fériés et congés réellement présents sur la période, ou une version corrigée de ce calcul au réel pour rétablir l'égalité avec les salariés présents toute l'année. Ce calculateur retient la première méthode, la plus simple et la plus répandue, à titre indicatif — pas une règle opposable.</p>
@@ -185,17 +189,18 @@
     <p class="art-titre">Article X.4 — Lissage de la rémunération</p>
     <p>La rémunération mensuelle des salariés concernés est indépendante de l'horaire réellement accompli dans le mois et est lissée sur la base de 151,67 heures mensuelles, calculée sur la durée annuelle de référence définie à l'article X.2.</p>
     <p class="art-titre">Article X.5 — Décompte des heures supplémentaires</p>
-    <p>Constituent des heures supplémentaires les heures de travail effectif accomplies au-delà de 1 607 heures sur la période de référence, décomptées et rémunérées à l'issue de cette période. Les absences, quel qu'en soit le motif, ne sont pas assimilées à du temps de travail effectif pour l'appréciation de ce seuil.</p>
+    <p>Constituent des heures supplémentaires les heures de travail effectif accomplies au-delà de 1 607 heures sur la période de référence, décomptées et rémunérées à l'issue de cette période.</p>
     <p class="art-titre">Article X.6 — Entrées et sorties en cours de période</p>
     <p>En cas d'entrée ou de sortie en cours de période de référence, la durée annuelle de référence est proratisée en fonction du temps de présence du salarié sur la période, selon les modalités suivantes : [méthode retenue par l'entreprise].</p>
   </div>
-  <p>Ce qui ressort de cet exemple : le plafond de 1607h (article X.2) n'intervient qu'à un seul endroit, l'article X.5 — c'est une limite de déclenchement des heures supplémentaires, pas un paramètre du calcul des congés payés, qui restent régis par les règles habituelles indépendamment de l'annualisation.</p>
+  <p>Ce qui ressort de cet exemple : le seuil de 1607h (article X.2) n'intervient qu'à un seul endroit, l'article X.5 — c'est une limite de déclenchement des heures supplémentaires, pas un paramètre du calcul des congés payés, qui restent régis par les règles habituelles indépendamment de l'annualisation.</p>
+  <p><b>Absences et congés payés : un point à rédiger avec soin.</b> La Cour de cassation juge désormais que les congés payés doivent être pris en compte pour apprécier le seuil de déclenchement des heures supplémentaires, pour un décompte à la semaine (Cass. soc., 10 sept. 2025, n° 23-14.455) puis sur deux semaines (Cass. soc., 7 janv. 2026, n° 24-19.410). Aucun texte ni arrêt publié ne tranche à ce jour son application au seuil annuel de 1607h. Une clause qui exclurait toutes les absences, congés payés compris, de l'appréciation de ce seuil serait donc exposée : le traitement des congés payés et celui des autres absences gagnent à être rédigés séparément.</p>
 
   <h2>Ce que ce calculateur ne fait pas</h2>
-  <p>C'est un calculateur d'heures, pas de salaire : aucun montant en euros n'est calculé. Il ne reconstruit pas le plafond à partir d'un calendrier de jours fériés et de congés réels — pour ça, direction le <a href="/calcul-jours-ouvres">calculateur de jours ouvrés/ouvrables</a>, qui compte les jours fériés et jours ouvrés d'une période donnée. Il ne traite pas non plus le cas du temps partiel annualisé, ni le taux ou le montant des majorations d'heures supplémentaires.</p>
+  <p>C'est un calculateur d'heures, pas de salaire : aucun montant en euros n'est calculé. Il ne reconstruit pas le seuil à partir d'un calendrier de jours fériés et de congés réels — pour ça, direction le <a href="/calcul-jours-ouvres">calculateur de jours ouvrés/ouvrables</a>, qui compte les jours fériés et jours ouvrés d'une période donnée. Il ne traite pas non plus le cas du temps partiel annualisé, ni les périodes de référence inférieures ou supérieures à un an (seuil en moyenne de 35h par semaine), ni le taux ou le montant des majorations d'heures supplémentaires.</p>
 
   <div class="avert">
-    <b>Avertissement</b> — Ce calculateur applique une méthode d'estimation courante, non une formule légale obligatoire pour la proratisation en période incomplète. L'accord collectif ou la convention de branche applicable à votre situation peut prévoir un plafond inférieur, une période de référence différente, ou une méthode spécifique pour les entrées/sorties en cours d'année. Outil indicatif, ne remplace pas un conseil juridique ou un bulletin de paie.
+    <b>Avertissement</b> — Ce calculateur applique une méthode d'estimation courante, non une formule légale obligatoire pour la proratisation en période incomplète. L'accord collectif ou la convention de branche applicable à votre situation peut prévoir un plafond inférieur, une période de référence différente, ou une méthode spécifique pour les entrées/sorties en cours d'année. À défaut d'accord collectif, l'employeur ne peut répartir la durée du travail que sur 9 semaines au plus dans les entreprises de moins de 50 salariés, et 4 semaines dans celles de 50 salariés et plus, sauf exceptions (art. L3121-45) : une annualisation suppose donc un accord. Outil indicatif, ne remplace pas un conseil juridique ou un bulletin de paie.
   </div>
 
   <div class="maillage">
@@ -206,10 +211,14 @@
 <section class="sources">
   <h2>Sources</h2>
   <ul>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-41" target="_blank" rel="noopener">Code du travail, article L3121-41</a> — plafond de 1607 heures pour une période de référence annuelle, décompte des heures supplémentaires à l'issue de cette période</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-41" target="_blank" rel="noopener">Code du travail, article L3121-41</a> — seuil de 1607 heures pour une période de référence annuelle, moyenne de 35 heures pour une période inférieure ou supérieure à un an (trois ans au plus par accord, neuf semaines par décision unilatérale), décompte des heures supplémentaires à l'issue de la période</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-44" target="_blank" rel="noopener">Code du travail, article L3121-44</a> — contenu de l'accord d'aménagement du temps de travail, possibilité de fixer une limite annuelle inférieure à 1607h, prise en compte des absences et des entrées/sorties en cours de période</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-45" target="_blank" rel="noopener">Code du travail, article L3121-45</a> — aménagement du temps de travail par l'employeur à défaut d'accord (9 ou 4 semaines)</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-7" target="_blank" rel="noopener">Code du travail, article L3133-7</a> — définition de la journée de solidarité</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-8" target="_blank" rel="noopener">Code du travail, article L3133-8</a> — journée de solidarité non rémunérée dans la limite de 7 heures pour les salariés mensualisés</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-11" target="_blank" rel="noopener">Code du travail, article L3133-11</a> — modalités de la journée de solidarité fixées par accord</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-12" target="_blank" rel="noopener">Code du travail, article L3133-12</a> — à défaut d'accord, journée de solidarité fixée par l'employeur après consultation du CSE</li>
+    <li><a href="https://www.courdecassation.fr/decision/695e108475782d5f060d1901" target="_blank" rel="noopener">Cour de cassation, chambre sociale, 7 janvier 2026, n° 24-19.410 (publié au Bulletin)</a> — congés payés pris en compte pour le seuil de déclenchement des heures supplémentaires, décompte sur deux semaines, dans le prolongement de l'arrêt du 10 septembre 2025 (n° 23-14.455, publié) pour le décompte hebdomadaire</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-27" target="_blank" rel="noopener">Code du travail, article L3121-27</a> — durée légale de travail effectif de 35 heures par semaine pour un temps complet</li>
   </ul>
 </section>
@@ -222,27 +231,49 @@
 </div>
 
 <script is:inline>
-function estBissextile(a){
-  return (a % 4 === 0 && a % 100 !== 0) || (a % 400 === 0);
-}
-function joursDansAnnee(a){
-  return estBissextile(a) ? 366 : 365;
+/* Dates manipulées en UTC (minuit UTC) : aucun effet du fuseau horaire ni
+   des changements d'heure du navigateur sur le décompte des jours. */
+const MS_JOUR = 86400000;
+const ANNEE_MIN = 1900, ANNEE_MAX = 2100;
+const COURTE_PERIODE = 28; // en dessous, le prorata calendaire est peu significatif
+
+function dateU(annee, moisIndex, jour){
+  return new Date(Date.UTC(annee, moisIndex, jour));
 }
 
 function parseDate(str){
   if(!str) return null;
   const [a,m,j] = str.split("-").map(Number);
-  return new Date(a, m-1, j);
+  if(!a || !m || !j) return null;
+  const d = dateU(a, m-1, j);
+  d.setUTCFullYear(a); // évite l'interprétation 0050 -> 1950
+  return d;
 }
 
-function joursCalendairesEntre(debut, fin){
-  const msParJour = 24*60*60*1000;
-  return Math.round((fin - debut) / msParJour) + 1;
+function anneeHorsBornes(d){
+  return d.getUTCFullYear() < ANNEE_MIN || d.getUTCFullYear() > ANNEE_MAX;
+}
+
+/* Lendemain du dernier jour d'une période de 12 mois commençant à "debut"
+   (même quantième l'année suivante ; 29 février -> 1er mars). */
+function anniversaire(debut){
+  return dateU(debut.getUTCFullYear() + 1, debut.getUTCMonth(), debut.getUTCDate());
+}
+
+function joursEntre(debut, finExclue){
+  return Math.round((finExclue.getTime() - debut.getTime()) / MS_JOUR);
 }
 
 const MSG_ORDRE = "La date de fin doit être postérieure ou égale à la date de début.";
 const MSG_INVALIDE = "Date invalide : vérifiez que le jour saisi existe bien dans le mois choisi.";
-const MSG_PLAFOND = "Le plafond ne peut pas dépasser 1607 heures pour un temps complet (art. L3121-41). Seule une limite inférieure peut être fixée par accord (art. L3121-44).";
+const MSG_BORNES = "Saisissez des dates comprises entre 1900 et 2100.";
+const MSG_ANNEE_VIDE = "Saisissez l'année de référence.";
+const MSG_ANNEE_BORNES = "Saisissez une année comprise entre 1900 et 2100.";
+const MSG_12_MOIS = "La période ne peut pas dépasser 12 mois. Pour une période de référence supérieure à un an, le seuil n'est plus 1607h mais une moyenne de 35h par semaine sur la période (art. L3121-41) : ce cas n'est pas traité ici.";
+const MSG_PLAFOND = "Le seuil ne peut pas dépasser 1607 heures pour un temps complet (art. L3121-41). Seule une limite inférieure peut être fixée par accord (art. L3121-44).";
+const MSG_PLAFOND_NUL = "Saisissez un seuil annuel supérieur à 0.";
+const MSG_VOLUME = "Le volume prévu ne peut pas être négatif.";
+const MSG_COURTE = "Sur une période aussi courte, le prorata calendaire du seuil est peu significatif : le résultat n'est qu'un ordre de grandeur.";
 
 function arrondi1(n){
   return Math.round(n * 10) / 10;
@@ -254,105 +285,146 @@ function basculerBlocsPeriode(){
   document.getElementById("bloc-incomplete").style.display = (type === "incomplete") ? "block" : "none";
 }
 
-function afficherVide(){
-  document.getElementById("r-plafond").textContent = "—";
+function viderResultatVolume(){
   document.getElementById("r-volume").textContent = "—";
   document.getElementById("r-ecart").textContent = "—";
   document.getElementById("r-statut").textContent = "—";
   document.getElementById("carte-ecart").className = "carte info";
 }
 
+function afficherVide(){
+  document.getElementById("r-plafond").textContent = "—";
+  viderResultatVolume();
+}
+
+function montrerErreur(msg){
+  const e = document.getElementById("erreur-msg");
+  e.textContent = msg;
+  e.classList.add("visible");
+}
+
+function montrerInfo(msg){
+  const e = document.getElementById("info-msg");
+  e.textContent = msg;
+  e.classList.add("visible");
+}
+
 function calculer(){
-  const erreur = document.getElementById("erreur-msg");
-  erreur.classList.remove("visible");
+  document.getElementById("erreur-msg").classList.remove("visible");
+  document.getElementById("info-msg").classList.remove("visible");
 
   const typePeriode = document.getElementById("type-periode").value;
 
-  const plafondStr = document.getElementById("plafond").value;
+  /* Seuil annuel : champ vide (aucun message) distingué d'une valeur saisie
+     mais inexploitable (message). */
+  const inpPlafond = document.getElementById("plafond");
+  const plafondStr = inpPlafond.value.trim();
   const plafondSaisi = parseFloat(plafondStr);
-  const plafondValide = !!plafondStr && !isNaN(plafondSaisi) && plafondSaisi > 0;
-
-  if(plafondValide && plafondSaisi > 1607){
-    erreur.textContent = MSG_PLAFOND;
-    erreur.classList.add("visible");
+  if(inpPlafond.validity.badInput || (plafondStr !== "" && (isNaN(plafondSaisi) || plafondSaisi <= 0))){
+    montrerErreur(MSG_PLAFOND_NUL);
     afficherVide();
     return;
   }
+  if(plafondStr !== "" && plafondSaisi > 1607){
+    montrerErreur(MSG_PLAFOND);
+    afficherVide();
+    return;
+  }
+  const plafondValide = plafondStr !== "";
 
   if(!typePeriode){
     afficherVide();
     return;
   }
 
-  let debut, fin, ratio = 1;
+  let ratio = 1, jCal = null;
 
   if(typePeriode === "complete"){
-    const annee = parseInt(document.getElementById("annee-ref").value, 10) || new Date().getFullYear();
-    debut = new Date(annee, 0, 1);
-    fin = new Date(annee, 11, 31);
-  } else {
-    const inpDebut = document.getElementById("date-debut");
-    const inpFin = document.getElementById("date-fin");
-
-    if(inpDebut.validity.badInput || inpFin.validity.badInput){
-      erreur.textContent = MSG_INVALIDE;
-      erreur.classList.add("visible");
+    const inpAnnee = document.getElementById("annee-ref");
+    if(inpAnnee.value.trim() === "" || inpAnnee.validity.badInput){
+      montrerErreur(MSG_ANNEE_VIDE);
       afficherVide();
       return;
     }
-
-    debut = parseDate(inpDebut.value);
-    fin = parseDate(inpFin.value);
-
+    const annee = parseInt(inpAnnee.value, 10);
+    if(isNaN(annee) || annee < ANNEE_MIN || annee > ANNEE_MAX){
+      montrerErreur(MSG_ANNEE_BORNES);
+      afficherVide();
+      return;
+    }
+  } else {
+    const inpDebut = document.getElementById("date-debut");
+    const inpFin = document.getElementById("date-fin");
+    if(inpDebut.validity.badInput || inpFin.validity.badInput){
+      montrerErreur(MSG_INVALIDE);
+      afficherVide();
+      return;
+    }
+    const debut = parseDate(inpDebut.value);
+    const fin = parseDate(inpFin.value);
     if(!debut || !fin){
       afficherVide();
       return;
     }
-    if(fin < debut){
-      erreur.textContent = MSG_ORDRE;
-      erreur.classList.add("visible");
+    if(anneeHorsBornes(debut) || anneeHorsBornes(fin)){
+      montrerErreur(MSG_BORNES);
       afficherVide();
       return;
     }
+    if(fin < debut){
+      montrerErreur(MSG_ORDRE);
+      afficherVide();
+      return;
+    }
+    const anniv = anniversaire(debut);
+    if(fin >= anniv){
+      montrerErreur(MSG_12_MOIS);
+      afficherVide();
+      return;
+    }
+    /* Prorata calendaire, dates incluses, rapporté aux 12 mois qui suivent
+       la date de début (12 mois complets = ratio 1, même avec un 29 février). */
+    jCal = joursEntre(debut, fin) + 1;
+    ratio = jCal / joursEntre(debut, anniv);
   }
-
-  const jCal = joursCalendairesEntre(debut, fin);
-  const anneeRef = debut.getFullYear();
-  const joursAnnee = joursDansAnnee(anneeRef);
-  ratio = (typePeriode === "complete") ? 1 : (jCal / joursAnnee);
 
   if(!plafondValide){
     afficherVide();
     return;
   }
 
-  const plafondApplicable = plafondSaisi * ratio;
-  document.getElementById("r-plafond").innerHTML = arrondi1(plafondApplicable) + "<small> h</small>";
+  const plafondApplicable = arrondi1(plafondSaisi * ratio);
+  document.getElementById("r-plafond").innerHTML = plafondApplicable + "<small> h</small>";
+  if(jCal !== null && jCal < COURTE_PERIODE) montrerInfo(MSG_COURTE);
 
-  const volStr = document.getElementById("volume-annuel").value;
+  const inpVol = document.getElementById("volume-annuel");
+  const volStr = inpVol.value.trim();
   const vol = parseFloat(volStr);
-  const volumeValide = !!volStr && !isNaN(vol) && vol >= 0;
-
-  if(!volumeValide){
-    document.getElementById("r-volume").textContent = "—";
-    document.getElementById("r-ecart").textContent = "—";
-    document.getElementById("r-statut").textContent = "—";
-    document.getElementById("carte-ecart").className = "carte info";
+  if(volStr === "" && !inpVol.validity.badInput){
+    viderResultatVolume();
+    return;
+  }
+  if(inpVol.validity.badInput || isNaN(vol) || vol < 0){
+    montrerErreur(MSG_VOLUME);
+    viderResultatVolume();
     return;
   }
 
-  document.getElementById("r-volume").innerHTML = arrondi1(vol) + "<small> h</small>";
+  const volAffiche = arrondi1(vol);
+  document.getElementById("r-volume").innerHTML = volAffiche + "<small> h</small>";
 
-  const ecart = vol - plafondApplicable;
+  /* L'écart et le statut sont calculés sur les valeurs affichées, pour
+     rester cohérents entre eux. */
+  const ecart = arrondi1(volAffiche - plafondApplicable);
   const carteEcart = document.getElementById("carte-ecart");
 
-  if(ecart > 0.05){
-    document.getElementById("r-ecart").innerHTML = "+" + arrondi1(ecart) + "<small> h</small>";
-    document.getElementById("r-statut").textContent = "Dépassement du plafond";
+  if(ecart > 0){
+    document.getElementById("r-ecart").innerHTML = "+" + ecart + "<small> h</small>";
+    document.getElementById("r-statut").textContent = "Au-delà du seuil : " + ecart + " h d'heures supplémentaires";
     carteEcart.className = "carte alerte-carte";
   } else {
-    document.getElementById("r-ecart").innerHTML = arrondi1(ecart) + "<small> h</small>";
-    document.getElementById("r-statut").textContent = "Conforme au plafond";
+    document.getElementById("r-ecart").innerHTML = ecart + "<small> h</small>";
+    document.getElementById("r-statut").textContent = "Sous le seuil : pas d'heures supplémentaires";
     carteEcart.className = "carte principal";
   }
 }
@@ -374,7 +446,7 @@ document.getElementById("vider").addEventListener("click", () => {
   document.getElementById("date-debut").value = "";
   document.getElementById("date-fin").value = "";
   basculerBlocsPeriode();
-  afficherVide();
+  calculer();
 });
 
 basculerBlocsPeriode();
