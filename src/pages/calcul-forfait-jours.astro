@@ -61,6 +61,9 @@
   .carte.info{border-top:3px solid var(--trait)}
   .erreur{margin-top:14px;padding:11px 14px;background:var(--alerte-bg);border-left:4px solid var(--alerte);border-radius:6px;font-size:13px;color:#5a2418;display:none}
   .erreur.visible{display:block}
+  .info{margin-top:14px;padding:11px 14px;background:var(--papier-2);border-left:4px solid var(--vert);border-radius:6px;font-size:13px;color:var(--encre-2);display:none}
+  .info.visible{display:block}
+  .carte .note{font-size:11.5px;color:var(--gris);margin-top:4px}
   .note-estimatif{margin-top:14px;padding:11px 14px;background:var(--papier-2);border-left:4px solid var(--encre);border-radius:6px;font-size:13px;color:var(--encre-2)}
   .note-estimatif b{color:var(--encre)}
   .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
@@ -103,8 +106,8 @@
     <div class="champs">
       <div class="champ">
         <label for="forfait-jours">Jours du forfait annuel</label>
-        <input type="number" id="forfait-jours" value="218" min="1" max="218" step="1">
-        <span class="aide">218 jours par défaut (plafond de droit commun, art. L3121-64). Réduisez cette valeur pour un forfait réduit (ex. 80 % → environ 174 jours).</span>
+        <input type="number" id="forfait-jours" value="218" min="0.5" max="218" step="0.5">
+        <span class="aide">218 jours par défaut (plafond de droit commun, art. L3121-64). Réduisez cette valeur pour un forfait réduit (ex. 80 % → environ 174 jours). Nombre entier ou demi-journée.</span>
       </div>
       <div class="champ">
         <label for="mode-cp">Décompte des congés payés</label>
@@ -116,9 +119,9 @@
         <span class="aide">Les deux expriment le même droit à congés — choisissez le mode utilisé dans l'entreprise, pas le plus favorable.</span>
       </div>
       <div class="champ">
-        <label for="cp-non-acquis">CP non acquis à réintégrer (facultatif)</label>
+        <label for="cp-non-acquis">CP non acquis sur la période (facultatif)</label>
         <input type="number" id="cp-non-acquis" value="0" min="0" max="30" step="1">
-        <span class="aide">Ne renseignez une valeur que si votre accord collectif prévoit cette réintégration (cas d'une embauche en cours d'année, CP pas encore acquis). Ne déduisez pas ces jours ailleurs si vous les indiquez ici.</span>
+        <span class="aide">Cas d'une embauche en cours d'année, congés payés pas encore acquis (dans le mode de décompte choisi). De nombreux accords ajoutent ces jours au forfait : le salarié travaille les jours qu'il ne peut pas prendre en congé. Les jours de repos ne changent pas ; le forfait de la période augmente d'autant. Ne renseignez une valeur que si votre accord prévoit ce mécanisme.</span>
       </div>
     </div>
   </section>
@@ -136,7 +139,7 @@
     <div class="bloc-periode" id="bloc-complete" style="display:none">
       <div class="champ">
         <label for="annee-ref">Année de référence</label>
-        <input type="number" id="annee-ref" value="2026" min="2015" max="2035" step="1">
+        <input type="number" id="annee-ref" value="2026" min="1900" max="2100" step="1">
       </div>
     </div>
     <div class="bloc-periode" id="bloc-incomplete" style="display:none">
@@ -150,6 +153,7 @@
           <input type="date" id="date-fin">
         </div>
       </div>
+      <span class="aide" style="display:block;margin-top:8px;font-size:11.5px;color:var(--gris)">Période de 12 mois au plus, dates de début et de fin incluses.</span>
     </div>
     <div class="bloc-profil">
       <div class="champ">
@@ -159,29 +163,30 @@
           <option value="aucun">Aucun jour férié chômé</option>
           <option value="personnalise">Personnalisé</option>
         </select>
-        <span class="aide">Seul le 1er mai est légalement obligatoirement chômé (art. L3133-4). Les 10 autres dépendent de l'accord d'entreprise, de la convention collective ou de l'usage — choisissez « Personnalisé » pour cocher précisément ceux qui s'appliquent réellement chez vous.</span>
+        <span class="aide">Seul le 1er mai est légalement obligatoirement chômé (art. L3133-4). Les 10 autres jours fériés ne sont chômés que si un accord d'entreprise ou d'établissement, ou à défaut un accord de branche, le prévoit ; sans accord, l'employeur fixe la liste (art. L3133-3-1, L3133-3-2). Exception : en Alsace-Moselle, l'emploi de salariés les jours fériés est en principe interdit dans l'industrie, le commerce et l'artisanat, sauf dérogations sectorielles. Choisissez « Personnalisé » pour cocher précisément ceux qui s'appliquent à votre cas.</span>
       </div>
       <div class="liste-personnalisee" id="liste-personnalisee" style="display:none"></div>
     </div>
     <div class="option-regime">
       <input type="checkbox" id="alsace-moselle">
       <label for="alsace-moselle"><b>Appliquer le régime local Alsace-Moselle</b>
-        <span class="detail">Ajoute le Vendredi Saint et le 26 décembre (Saint-Étienne) à la liste des jours fériés chômés — spécifique aux départements du Bas-Rhin, du Haut-Rhin et de la Moselle.</span>
+        <span class="detail">Ajoute le Vendredi saint et le 26 décembre (Saint-Étienne) à la liste des jours fériés — spécifique aux départements du Bas-Rhin, du Haut-Rhin et de la Moselle. Le Vendredi saint n'est férié que dans les communes ayant un temple protestant ou une église mixte ; dans les commerces, des arrêtés préfectoraux peuvent en étendre ou en lever la fermeture. Vérifiez la situation locale avant de le décocher en mode « Personnalisé ».</span>
       </label>
     </div>
-    <div class="cadre-legal">Le forfait et les congés payés sont proratisés au calendaire sur la période renseignée (méthode indicative — voir l'avertissement ci-dessus). Les jours fériés chômés tombant un jour normalement travaillé (lundi-vendredi) sont calculés automatiquement pour l'année exacte, fêtes mobiles comprises, selon le profil choisi ci-dessus. Un jour férié tombant un samedi ou un dimanche n'est pas déduit une seconde fois.</div>
+    <div class="cadre-legal">Le forfait et les congés payés sont proratisés au calendaire sur la période renseignée, rapportée aux 12 mois qui suivent la date de début (méthode indicative — voir l'avertissement ci-dessus). Les 30 jours ouvrables de congés sont convertis en 25 jours ouvrés, pour être comparés aux jours du lundi au vendredi. Les jours fériés chômés tombant un jour normalement travaillé (lundi-vendredi) sont calculés automatiquement pour l'année exacte, fêtes mobiles comprises, selon le profil choisi ci-dessus. Un jour férié tombant un samedi ou un dimanche n'est pas déduit une seconde fois.</div>
   </section>
 
   <section class="panneau">
     <h2><span class="num">3</span> Résultat</h2>
     <div class="cartes">
       <div class="carte principal"><div class="lbl">Jours de repos estimés</div><div class="val" id="r-repos">—</div></div>
-      <div class="carte info"><div class="lbl">Jours du forfait sur la période</div><div class="val" id="r-forfait-periode">—</div></div>
+      <div class="carte info"><div class="lbl">Jours du forfait sur la période</div><div class="val" id="r-forfait-periode">—</div><div class="note" id="r-forfait-note"></div></div>
       <div class="carte info"><div class="lbl">Jours calendaires de la période</div><div class="val" id="r-calendaires">—</div></div>
       <div class="carte info"><div class="lbl">Jours fériés chômés déduits</div><div class="val" id="r-feries">—</div></div>
-      <div class="carte info"><div class="lbl">Jours de CP déduits</div><div class="val" id="r-cp">—</div></div>
+      <div class="carte info"><div class="lbl">Jours de CP déduits</div><div class="val" id="r-cp">—</div><div class="note" id="r-cp-note"></div></div>
     </div>
     <div class="erreur" id="erreur-msg"></div>
+    <div class="info" id="info-msg"></div>
     <div class="note-estimatif"><b>Résultat estimatif, non opposable.</b> Ce calcul applique un prorata calendaire simplifié. Vérifiez la convention collective et l'accord autorisant le forfait jours, notamment pour les entrées et sorties en cours de période et les congés payés non acquis.</div>
     <div class="actions">
       <button class="act btn-ghost" id="vider">Effacer</button>
@@ -198,21 +203,24 @@
     <li>jours calendaires de la période</li>
     <li>− samedis et dimanches</li>
     <li>− jours fériés chômés tombant un jour normalement travaillé</li>
-    <li>− congés payés (25 jours ouvrés ou 30 jours ouvrables, selon le mode applicable dans l'entreprise)</li>
+    <li>− congés payés (25 jours ouvrés ou 30 jours ouvrables, selon le mode applicable dans l'entreprise — 30 jours ouvrables correspondent à 25 jours ouvrés, le résultat est donc le même)</li>
     <li>− jours du forfait (218 par défaut, ou moins pour un forfait réduit)</li>
-    <li>+ éventuels jours de congés payés non acquis à réintégrer, si votre accord le prévoit</li>
+    <li>congés payés non acquis (embauche en cours d'année) : si votre accord le prévoit, ils sont retirés des congés déduits et ajoutés au forfait, sans modifier le nombre de jours de repos</li>
   </ul>
-  <p>Le forfait de 218 jours comprend normalement la journée de solidarité lorsqu'il est calculé pour une année complète — elle n'est donc pas déduite une seconde fois. Un jour férié tombant un jour habituellement non travaillé (samedi ou dimanche, dans une organisation classique du lundi au vendredi) n'a pas non plus à être déduit deux fois. Par défaut, l'outil suppose les 11 jours fériés légaux chômés — la pratique la plus répandue — mais seul le 1er mai l'est obligatoirement pour tous les salariés (art. L3133-4) : les 10 autres dépendent d'un accord d'entreprise, d'une convention collective ou d'un usage. Basculez sur « Personnalisé » pour cocher précisément ceux qui s'appliquent réellement à votre situation.</p>
+  <p><b>Exemple.</b> Forfait de 218 jours sur l'année civile 2026, 25 jours ouvrés de congés payés, 11 jours fériés chômés. L'année compte 365 jours, dont 104 samedis et dimanches. Sur les 11 jours fériés, 9 tombent un jour de semaine (le 15 août tombe un samedi, la Toussaint un dimanche). Calcul : 365 − 104 − 9 − 25 − 218 = <b>9 jours de repos</b> estimés.</p>
+  <p>Pour un salarié au forfait jours, la journée de solidarité est une journée de travail, accomplie sans rémunération supplémentaire dans la limite de la valeur d'une journée (art. L3133-8). Elle s'inscrit donc dans le décompte annuel des jours travaillés, plafonné à 218 jours (art. L3121-64) : l'outil ne la déduit pas une seconde fois. Ses modalités sont fixées par accord (art. L3133-11) ou, à défaut, par l'employeur après consultation du CSE (art. L3133-12). Un jour férié tombant un jour habituellement non travaillé (samedi ou dimanche, dans une organisation classique du lundi au vendredi) n'a pas non plus à être déduit deux fois.</p>
+  <p>Par défaut, l'outil suppose les 11 jours fériés légaux chômés. Seul le 1er mai l'est obligatoirement pour l'ensemble des salariés (art. L3133-4). Pour les 10 autres, la liste des jours chômés est fixée par un accord d'entreprise ou d'établissement, ou à défaut par un accord de branche — sans accord, c'est l'employeur qui la détermine (art. L3133-3-1, L3133-3-2). L'Alsace-Moselle fait exception : dans le Bas-Rhin, le Haut-Rhin et la Moselle, l'emploi de salariés les jours fériés est en principe interdit dans l'industrie, le commerce et l'artisanat, sauf dérogations sectorielles, et deux jours fériés locaux s'ajoutent (le 26 décembre, et le Vendredi saint dans les communes ayant un temple protestant ou une église mixte). Basculez sur « Personnalisé » pour cocher précisément ceux qui s'appliquent à votre situation.</p>
 
   <h2>Année incomplète : pourquoi il n'existe pas de calcul unique</h2>
-  <p><b>Estimation indicative — année incomplète.</b> En cas d'entrée, de sortie ou de mise en place du forfait jours en cours de période de référence, il n'existe pas de formule nationale unique de proratisation applicable à toutes les entreprises. Ce calculateur applique un <b>prorata calendaire simplifié</b>, à titre indicatif, en réduisant à la fois le forfait et les congés payés proportionnellement au nombre de jours calendaires couverts par la période.</p>
-  <p>L'accord collectif applicable peut imposer une autre méthode — notamment un prorata fondé sur les jours ouvrés hors jours fériés, sur les semaines restantes, ou une règle spécifique pour les congés payés non acquis. Seul l'accord collectif applicable, et le cas échéant le calcul de votre service de paie, permet de déterminer le résultat réellement opposable. C'est pourquoi un champ facultatif vous permet de réintégrer manuellement des jours de congés payés non acquis si votre accord le prévoit — sans double comptage.</p>
+  <p><b>Estimation indicative — année incomplète.</b> En cas d'entrée, de sortie ou de mise en place du forfait jours en cours de période de référence, le Code du travail ne fixe pas de méthode de proratisation : il renvoie à l'accord collectif, qui détermine les conditions de prise en compte des absences ainsi que des arrivées et départs en cours de période (art. L3121-64). Ce calculateur applique un <b>prorata calendaire simplifié</b>, à titre indicatif, en réduisant à la fois le forfait et les congés payés proportionnellement au nombre de jours calendaires couverts par la période (12 mois au plus). Sur une période très courte, ce prorata n'a plus de sens : si le calcul aboutit à un nombre négatif, l'outil affiche 0.</p>
+  <p>L'accord collectif applicable peut imposer une autre méthode — notamment un prorata fondé sur les jours ouvrés hors jours fériés, sur les semaines restantes, ou une règle spécifique pour les congés payés non acquis. Seul l'accord collectif applicable, et le cas échéant le calcul de votre service de paie, permet de déterminer le résultat réellement opposable. </p>
+  <p>Même prudence pour les congés payés non acquis d'un salarié embauché en cours de période : leur traitement relève de l'accord collectif et de la convention individuelle, aucun texte ni arrêt publié n'imposant une méthode. De nombreux accords augmentent le nombre de jours travaillés à concurrence des congés non acquis, plutôt que d'ajouter ces jours aux repos. C'est ce mécanisme que reproduit le champ facultatif « CP non acquis » : le forfait de la période augmente, les congés déduits diminuent d'autant, et le nombre de jours de repos reste inchangé. Si votre accord prévoit une autre méthode, ce champ ne s'applique pas.</p>
 
   <h2>Renonciation à des jours de repos : un cas non couvert ici</h2>
   <p>Ce calculateur ne traite pas la renonciation à des jours de repos. Un salarié peut, avec l'accord écrit de son employeur (avenant à la convention de forfait, non tacitement reconductible), renoncer à une partie de ses jours de repos contre une majoration de rémunération d'au moins 10 % (art. L3121-59). À défaut de plafond fixé par l'accord collectif, le nombre maximal de jours travaillés est alors de 235 jours (art. L3121-66) — ce plafond de 235 jours ne s'applique donc pas automatiquement dans toutes les entreprises, et certains accords de branche fixent un plafond inférieur. Si votre situation concerne une renonciation, vérifiez ces deux articles et votre accord collectif directement.</p>
 
   <h2>Qui peut être au forfait jours ?</h2>
-  <p>Contrairement à une idée reçue, le forfait jours n'est pas réservé aux cadres. L'article L3121-58 vise deux catégories : les cadres disposant d'une autonomie dans l'organisation de leur emploi du temps et dont les fonctions ne les conduisent pas à suivre l'horaire collectif de leur équipe, mais aussi les salariés — cadres ou non — dont la durée du travail ne peut être prédéterminée et qui disposent d'une réelle autonomie dans l'organisation de leur emploi du temps. Un accord collectif autorisant le forfait jours, une convention individuelle écrite, et le respect des garanties de suivi de la charge de travail restent des conditions cumulatives. Le simple intitulé de cadre ou un niveau de salaire élevé ne suffit pas à rendre éligible un salarié qui ne dispose pas d'une autonomie réelle.</p>
+  <p>Contrairement à une idée reçue, le forfait jours n'est pas réservé aux cadres. L'article L3121-58 vise deux catégories : les cadres disposant d'une autonomie dans l'organisation de leur emploi du temps et dont les fonctions ne les conduisent pas à suivre l'horaire collectif de leur équipe, mais aussi les salariés — cadres ou non — dont la durée du travail ne peut être prédéterminée et qui disposent d'une réelle autonomie dans l'organisation de leur emploi du temps. Un accord collectif autorisant le forfait jours, une convention individuelle écrite, et le respect des garanties de suivi de la charge de travail restent des conditions cumulatives. La convention individuelle doit notamment fixer le nombre de jours compris dans le forfait (art. L3121-64). À défaut des garanties requises, la convention de forfait en jours peut être annulée ou privée d'effet : le salarié relève alors des règles de droit commun de la durée du travail, avec un décompte en heures et, le cas échéant, des heures supplémentaires. Le simple intitulé de cadre ou un niveau de salaire élevé ne suffit pas à rendre éligible un salarié qui ne dispose pas d'une autonomie réelle.</p>
 
   <h2>Ce que ce calculateur ne fait pas</h2>
   <p>C'est un calculateur de jours, pas de salaire : aucun montant en euros n'est calculé. Il ne couvre ni la renonciation à des jours de repos (voir plus haut), ni les règles spécifiques d'un accord collectif que vous n'auriez pas reproduites vous-même dans les champs proposés. Le résultat affiché reste une estimation à vérifier auprès de votre service RH ou paie.</p>
@@ -229,13 +237,20 @@
 <section class="sources">
   <h2>Sources</h2>
   <ul>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-64" target="_blank" rel="noopener">Code du travail, article L3121-64</a> — l'accord collectif fixe le nombre de jours du forfait, dans la limite de 218 jours pour le forfait annuel en jours</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-64" target="_blank" rel="noopener">Code du travail, article L3121-64</a> — l'accord collectif fixe le nombre de jours du forfait (218 au plus), les conditions de prise en compte des absences, arrivées et départs en cours de période, et le contenu des conventions individuelles, qui fixent le nombre de jours</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-58" target="_blank" rel="noopener">Code du travail, article L3121-58</a> — catégories de salariés pouvant conclure une convention de forfait annuel en jours</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-59" target="_blank" rel="noopener">Code du travail, article L3121-59</a> — renonciation à des jours de repos, accord écrit et majoration de rémunération d'au moins 10 %</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-66" target="_blank" rel="noopener">Code du travail, article L3121-66</a> — plafond supplétif de 235 jours en cas de renonciation, à défaut de précision de l'accord collectif</li>
-    <li><a href="https://www.legifrance.gouv.fr/juri/id/JURITEXT000030205229/" target="_blank" rel="noopener">Cour de cassation, chambre sociale</a> — les jours de repos doivent être proratisés selon les jours non travaillés et non payés dans l'année, notamment en cas d'entrée ou de sortie en cours d'année</li>
+    <li><a href="https://www.legifrance.gouv.fr/juri/id/JURITEXT000030205229/" target="_blank" rel="noopener">Cour de cassation, chambre sociale, 4 février 2015, n° 13-20.891 (publié au Bulletin)</a> — convention de forfait en jours nulle lorsque les stipulations de l'accord collectif ne garantissent pas que l'amplitude et la charge de travail restent raisonnables</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-1" target="_blank" rel="noopener">Code du travail, article L3133-1</a> — liste des 11 fêtes légales</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-4" target="_blank" rel="noopener">Code du travail, article L3133-4</a> — seul le 1er mai est un jour férié obligatoirement chômé</li>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-3-1" target="_blank" rel="noopener">Code du travail, articles L3133-3-1 et L3133-3-2</a> — détermination des autres jours fériés chômés par accord d'entreprise ou, à défaut, par l'employeur</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-3-1" target="_blank" rel="noopener">Code du travail, article L3133-3-1</a> — jours fériés chômés définis par accord d'entreprise ou d'établissement, ou à défaut par accord de branche</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-3-2" target="_blank" rel="noopener">Code du travail, article L3133-3-2</a> — à défaut d'accord, l'employeur fixe les jours fériés chômés</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-8" target="_blank" rel="noopener">Code du travail, article L3133-8</a> — journée de solidarité des salariés au forfait annuel en jours, dans la limite de la valeur d'une journée de travail</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-11" target="_blank" rel="noopener">Code du travail, article L3133-11</a> — modalités de la journée de solidarité fixées par accord</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-12" target="_blank" rel="noopener">Code du travail, article L3133-12</a> — à défaut d'accord, journée de solidarité fixée par l'employeur après consultation du CSE</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3134-13" target="_blank" rel="noopener">Code du travail, article L3134-13</a> — jours fériés supplémentaires et chômés dans le Bas-Rhin, le Haut-Rhin et la Moselle</li>
+    <li><a href="https://grand-est.dreets.gouv.fr/sites/dreets-als-champ/files/2026-08/Guide%20droit%20local%20du%20travail%20alsace%20moselle%20-%20d%C3%A9cembre%202022.pdf" target="_blank" rel="noopener">DREETS Grand Est, guide du droit local du travail</a> — régime des jours fériés en Alsace-Moselle et dérogations sectorielles</li>
   </ul>
 </section>
 
@@ -247,6 +262,15 @@
 </div>
 
 <script is:inline>
+/* Toutes les dates sont manipulées en UTC (minuit UTC) : aucun effet du
+   fuseau horaire ni des changements d'heure du navigateur sur le décompte.
+   Moteur de jours fériés repris de la page jours ouvrés (validée le
+   17/10/2026) ; seule la logique du forfait jours est propre à cette page. */
+
+function dateU(annee, moisIndex, jour){
+  return new Date(Date.UTC(annee, moisIndex, jour));
+}
+
 /* Calcule la date de Pâques (dimanche) pour une année donnée.
    Algorithme de Gauss / méthode anonyme grégorienne. */
 function datePaques(annee){
@@ -263,112 +287,152 @@ function datePaques(annee){
   const l = (32 + 2*e + 2*i - h - k) % 7;
   const m = Math.floor((a + 11*h + 22*l) / 451);
   const val = h + l - 7*m + 114;
-  const mois = Math.floor(val / 31);
+  const mois = Math.floor(val / 31); // 3 = mars, 4 = avril
   const jour = (val % 31) + 1;
-  return new Date(annee, mois - 1, jour);
+  return dateU(annee, mois - 1, jour);
 }
 
 function ajouterJours(date, n){
-  const d = new Date(date);
-  d.setDate(d.getDate() + n);
+  const d = new Date(date.getTime());
+  d.setUTCDate(d.getUTCDate() + n);
   return d;
 }
 
 function iso(d){
-  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+  return d.getUTCFullYear() + "-" + String(d.getUTCMonth()+1).padStart(2,"0") + "-" + String(d.getUTCDate()).padStart(2,"0");
 }
 
-function estBissextile(a){
-  return (a % 4 === 0 && a % 100 !== 0) || (a % 400 === 0);
-}
-function joursDansAnnee(a){
-  return estBissextile(a) ? 366 : 365;
-}
+const MS_JOUR = 86400000;
 
 /* Jours fériés légaux nationaux (Code du travail, art. L3133-1). */
 const FERIES_NATIONAUX = [
-  {cle:"jour_an",        libelle:"Jour de l'an (1er janvier)",        calc:(a,p)=> new Date(a,0,1)},
+  {cle:"jour_an",        libelle:"Jour de l'an (1er janvier)",        calc:(a,p)=> dateU(a,0,1)},
   {cle:"lundi_paques",   libelle:"Lundi de Pâques",                   calc:(a,p)=> ajouterJours(p,1)},
-  {cle:"fete_travail",   libelle:"Fête du travail (1er mai)",         calc:(a,p)=> new Date(a,4,1)},
-  {cle:"victoire_1945",  libelle:"Victoire 1945 (8 mai)",             calc:(a,p)=> new Date(a,4,8)},
+  {cle:"fete_travail",   libelle:"Fête du travail (1er mai)",         calc:(a,p)=> dateU(a,4,1)},
+  {cle:"victoire_1945",  libelle:"Victoire 1945 (8 mai)",             calc:(a,p)=> dateU(a,4,8)},
   {cle:"ascension",      libelle:"Ascension",                        calc:(a,p)=> ajouterJours(p,39)},
   {cle:"pentecote",      libelle:"Lundi de Pentecôte",                calc:(a,p)=> ajouterJours(p,50)},
-  {cle:"fete_nationale", libelle:"Fête nationale (14 juillet)",       calc:(a,p)=> new Date(a,6,14)},
-  {cle:"assomption",     libelle:"Assomption (15 août)",              calc:(a,p)=> new Date(a,7,15)},
-  {cle:"toussaint",      libelle:"Toussaint (1er novembre)",          calc:(a,p)=> new Date(a,10,1)},
-  {cle:"armistice",      libelle:"Armistice 1918 (11 novembre)",      calc:(a,p)=> new Date(a,10,11)},
-  {cle:"noel",           libelle:"Noël (25 décembre)",                calc:(a,p)=> new Date(a,11,25)}
+  {cle:"fete_nationale", libelle:"Fête nationale (14 juillet)",       calc:(a,p)=> dateU(a,6,14)},
+  {cle:"assomption",     libelle:"Assomption (15 août)",              calc:(a,p)=> dateU(a,7,15)},
+  {cle:"toussaint",      libelle:"Toussaint (1er novembre)",          calc:(a,p)=> dateU(a,10,1)},
+  {cle:"armistice",      libelle:"Armistice 1918 (11 novembre)",      calc:(a,p)=> dateU(a,10,11)},
+  {cle:"noel",           libelle:"Noël (25 décembre)",                calc:(a,p)=> dateU(a,11,25)}
 ];
 
-/* Jours fériés supplémentaires du régime local Alsace-Moselle, ajoutés
-   uniquement si l'option correspondante est cochée. */
+/* Jours fériés supplémentaires du régime local Alsace-Moselle (art. L3134-13),
+   ajoutés uniquement si l'option est cochée. Le Vendredi saint n'est férié que
+   dans les communes ayant un temple protestant ou une église mixte. */
 const FERIES_ALSACE_MOSELLE = [
-  {cle:"vendredi_saint", libelle:"Vendredi Saint (Alsace-Moselle)",        calc:(a,p)=> ajouterJours(p,-2)},
-  {cle:"saint_etienne",  libelle:"Saint-Étienne, 26 décembre (Alsace-Moselle)", calc:(a,p)=> new Date(a,11,26)}
+  {cle:"vendredi_saint", libelle:"Vendredi saint (Alsace-Moselle, communes avec temple protestant ou église mixte)", calc:(a,p)=> ajouterJours(p,-2)},
+  {cle:"saint_etienne",  libelle:"Saint-Étienne, 26 décembre (Alsace-Moselle)", calc:(a,p)=> dateU(a,11,26)}
 ];
 
+/* Carte "date ISO -> liste des clés de jours fériés". Une liste, et non une
+   clé unique : deux fériés peuvent tomber le même jour (Ascension = 1er mai
+   en 2008 ; Ascension = 8 mai en 2059, 2070, 2081, 2092…). */
 function carteFeries(anneeDebut, anneeFin, alsaceMoselle){
   const defs = alsaceMoselle ? FERIES_NATIONAUX.concat(FERIES_ALSACE_MOSELLE) : FERIES_NATIONAUX;
   const carte = new Map();
   for(let y = anneeDebut; y <= anneeFin; y++){
     const paques = datePaques(y);
-    defs.forEach(def => carte.set(iso(def.calc(y, paques)), def.cle));
+    defs.forEach(def => {
+      const k = iso(def.calc(y, paques));
+      if(!carte.has(k)) carte.set(k, []);
+      carte.get(k).push(def.cle);
+    });
   }
   return carte;
 }
 
-/* Retourne, dans l'ordre du calendrier légal, les définitions de jours
-   fériés dont au moins une occurrence tombe dans la période [debut, fin]. */
+/* Définitions de jours fériés dont au moins une occurrence tombe dans la
+   période [debut, fin], dans l'ordre du calendrier légal. */
 function feriesPresents(debut, fin, alsaceMoselle){
   const defs = alsaceMoselle ? FERIES_NATIONAUX.concat(FERIES_ALSACE_MOSELLE) : FERIES_NATIONAUX;
   const presents = [];
-  for(let y = debut.getFullYear(); y <= fin.getFullYear(); y++){
+  for(let y = debut.getUTCFullYear(); y <= fin.getUTCFullYear(); y++){
     const paques = datePaques(y);
     defs.forEach(def => {
       const d = def.calc(y, paques);
       if(d >= debut && d <= fin && !presents.some(p => p.cle === def.cle)){
-        presents.push(def);
+        presents.push({cle: def.cle, libelle: def.libelle, date: d});
       }
     });
   }
   return presents;
 }
 
+/* Un jour férié est chômé selon le profil. En mode personnalisé, si plusieurs
+   fériés tombent le même jour, il suffit que l'un d'eux soit coché. */
+function estExclu(cles, profil, etat){
+  if(cles.length === 0) return false;
+  if(profil === "tous") return true;
+  if(profil === "aucun") return false;
+  return cles.some(c => etat[c] !== false);
+}
+
+function formatDateFr(d){
+  return d.toLocaleDateString("fr-FR", {weekday:"long", day:"numeric", month:"long", year:"numeric", timeZone:"UTC"});
+}
+
+const ANNEE_MIN = 1900, ANNEE_MAX = 2100;
+
 function parseDate(str){
   if(!str) return null;
   const [a,m,j] = str.split("-").map(Number);
-  return new Date(a, m-1, j);
+  if(!a || !m || !j) return null;
+  const d = dateU(a, m-1, j);
+  d.setUTCFullYear(a); // évite l'interprétation 0050 -> 1950
+  return d;
 }
 
-/* Parcourt la période jour par jour et compte jours calendaires, week-ends
-   et jours fériés chômés tombant un jour normalement travaillé (lun-ven),
-   selon le profil choisi (tous / aucun / personnalisé). */
-function compterPeriode(debut, fin, alsaceMoselle, profil, etatPersonnalise){
-  const carte = carteFeries(debut.getFullYear(), fin.getFullYear(), alsaceMoselle);
+function anneeHorsBornes(d){
+  return d && (d.getUTCFullYear() < ANNEE_MIN || d.getUTCFullYear() > ANNEE_MAX);
+}
+
+/* Lendemain du dernier jour d'une période de 12 mois commençant à "debut"
+   (même quantième l'année suivante ; 29 février -> 1er mars). */
+function anniversaire(debut){
+  return dateU(debut.getUTCFullYear() + 1, debut.getUTCMonth(), debut.getUTCDate());
+}
+
+/* Parcourt la période jour par jour : jours calendaires, week-ends et jours
+   fériés chômés tombant un jour normalement travaillé (lun-ven). */
+/* Parcourt la période jour par jour : jours calendaires, week-ends et jours
+   fériés chômés tombant un jour normalement travaillé (lun-ven). */
+function compterPeriode(debut, fin, alsaceMoselle, profil, etat){
+  const carte = carteFeries(debut.getUTCFullYear(), fin.getUTCFullYear(), alsaceMoselle);
   let jCalendaires = 0, jWeekend = 0, jFeries = 0;
-  let cur = new Date(debut);
+  let cur = new Date(debut.getTime());
   while(cur <= fin){
     jCalendaires++;
-    const dow = cur.getDay(); // 0 = dimanche, 6 = samedi
+    const dow = cur.getUTCDay(); // 0 = dimanche, 6 = samedi
     const estWeekend = (dow === 0 || dow === 6);
     if(estWeekend) jWeekend++;
-
-    const cle = carte.get(iso(cur));
-    const estFerie = !!cle;
-    let chome = false;
-    if(estFerie && !estWeekend){
-      if(profil === "tous") chome = true;
-      else if(profil === "aucun") chome = false;
-      else chome = etatPersonnalise[cle] !== false; // coché par défaut
-    }
-    if(chome) jFeries++;
+    else if(estExclu(carte.get(iso(cur)) || [], profil, etat)) jFeries++;
     cur = ajouterJours(cur, 1);
   }
   return {jCalendaires, jWeekend, jFeries};
 }
 
+/* Notes internes (non citées dans le texte public, faute de vérification
+   complète sur source officielle ou parce que l'arrêt est inédit) :
+   Cass. soc. 25/03/2026 n° 24-22.129 (erreur de convention collective : pas de
+   nullité) ; 9/04/2026 n° 24-21.017 (inédit : nombre de jours non stipulé,
+   forfait annulé) ; 3/06/2026 n° 25-13.970 (forfait privé d'effet : pas de
+   restitution des jours de repos) ; 16/09/2026 n° 25-18.658 (suivi de la
+   charge non organisé : nullité). Aucun ne modifie le calcul. */
+
 const MSG_ORDRE = "La date de fin doit être postérieure ou égale à la date de début.";
 const MSG_INVALIDE = "Date invalide : vérifiez que le jour saisi existe bien dans le mois choisi.";
+const MSG_BORNES = "Saisissez des dates comprises entre 1900 et 2100.";
+const MSG_ANNEE_VIDE = "Saisissez l'année de référence.";
+const MSG_ANNEE_BORNES = "Saisissez une année comprise entre 1900 et 2100.";
+const MSG_12_MOIS = "La période ne peut pas dépasser 12 mois. Pour une année civile entière, choisissez « Année complète ».";
+const MSG_FORFAIT_NUL = "Saisissez un nombre de jours de forfait supérieur à 0.";
+const MSG_FORFAIT_MAX = "Le forfait ne peut pas dépasser 218 jours (art. L3121-64). Au-delà, il s'agit d'une renonciation à des jours de repos, non traitée par ce calculateur.";
+const MSG_FORFAIT_DEMI = "Saisissez un nombre entier de jours ou une demi-journée (ex. 210 ou 210.5).";
+const MSG_CPNA = "Les CP non acquis doivent être un nombre entier compris entre 0 et le nombre de jours de congés de la période.";
+const MSG_NEGATIF = "Sur une période aussi courte, le prorata calendaire n'a plus de sens : le résultat est ramené à 0.";
 
 /* Mémorise, par clé de jour férié, si l'utilisateur l'a décoché en mode
    personnalisé. Absent de cet objet = coché (comportement par défaut). */
@@ -376,10 +440,6 @@ const etatPersonnalise = {};
 
 function rendreListePersonnalisee(debut, fin, alsaceMoselle){
   const conteneur = document.getElementById("liste-personnalisee");
-  if(!debut || !fin || fin < debut){
-    conteneur.innerHTML = '<div class="msg-vide">Renseignez une période valide pour afficher la liste des jours fériés.</div>';
-    return;
-  }
   const presents = feriesPresents(debut, fin, alsaceMoselle);
   if(presents.length === 0){
     conteneur.innerHTML = '<div class="msg-vide">Aucun jour férié sur cette période.</div>';
@@ -387,7 +447,7 @@ function rendreListePersonnalisee(debut, fin, alsaceMoselle){
   }
   conteneur.innerHTML = presents.map(def => {
     const coche = etatPersonnalise[def.cle] === false ? "" : "checked";
-    return '<div class="item-ferie"><input type="checkbox" id="fer-' + def.cle + '" data-cle="' + def.cle + '" ' + coche + '><label for="fer-' + def.cle + '">' + def.libelle + '</label></div>';
+    return '<div class="item-ferie"><input type="checkbox" id="fer-' + def.cle + '" data-cle="' + def.cle + '" ' + coche + '><label for="fer-' + def.cle + '">' + def.libelle + ' — <span style="color:var(--gris)">' + formatDateFr(def.date) + '</span></label></div>';
   }).join("");
 }
 
@@ -395,6 +455,37 @@ function afficherVide(){
   ["r-repos","r-forfait-periode","r-calendaires","r-feries","r-cp"].forEach(id=>{
     document.getElementById(id).textContent = "—";
   });
+  document.getElementById("r-cp-note").textContent = "";
+  document.getElementById("r-forfait-note").textContent = "";
+}
+
+function montrerErreur(msg){
+  const e = document.getElementById("erreur-msg");
+  e.textContent = msg;
+  e.classList.add("visible");
+}
+
+function montrerInfo(msg){
+  const e = document.getElementById("info-msg");
+  e.textContent = msg;
+  e.classList.add("visible");
+}
+
+function listeEnAttente(profil, message){
+  const conteneur = document.getElementById("liste-personnalisee");
+  if(profil === "personnalise"){
+    conteneur.style.display = "block";
+    conteneur.innerHTML = '<div class="msg-vide">' + message + '</div>';
+  } else {
+    conteneur.style.display = "none";
+    conteneur.innerHTML = "";
+  }
+}
+
+function stopPeriode(profil, msgErreur, msgListe){
+  if(msgErreur) montrerErreur(msgErreur);
+  listeEnAttente(profil, msgListe);
+  afficherVide();
 }
 
 function basculerBlocs(){
@@ -403,84 +494,167 @@ function basculerBlocs(){
   document.getElementById("bloc-incomplete").style.display = (type === "incomplete") ? "block" : "none";
 }
 
+function fmt(n){
+  return String(Math.round(n * 10) / 10);
+}
+
 function calculer(){
-  const erreur = document.getElementById("erreur-msg");
-  erreur.classList.remove("visible");
+  document.getElementById("erreur-msg").classList.remove("visible");
+  document.getElementById("info-msg").classList.remove("visible");
 
   const modeCP = document.getElementById("mode-cp").value;
   const typePeriode = document.getElementById("type-periode").value;
   const alsaceMoselle = document.getElementById("alsace-moselle").checked;
   const profil = document.getElementById("profil-feries").value;
 
-  let forfaitRef = parseInt(document.getElementById("forfait-jours").value, 10);
-  if(!forfaitRef || forfaitRef <= 0) forfaitRef = 218;
-  if(forfaitRef > 218) forfaitRef = 218;
-
-  let cpNonAcquis = parseInt(document.getElementById("cp-non-acquis").value, 10);
-  if(!cpNonAcquis || cpNonAcquis < 0) cpNonAcquis = 0;
-
-  if(!modeCP || !typePeriode){
-    document.getElementById("liste-personnalisee").style.display = "none";
-    afficherVide();
+  if(!typePeriode){
+    stopPeriode(profil, null, "Choisissez d'abord un type de période ci-dessus pour afficher la liste des jours fériés.");
     return;
   }
 
-  const cpRef = (modeCP === "ouvres") ? 25 : 30;
-
-  let debut, fin, ratioAnnee = true;
+  let debut, fin, joursReference = null;
 
   if(typePeriode === "complete"){
-    const annee = parseInt(document.getElementById("annee-ref").value, 10) || new Date().getFullYear();
-    debut = new Date(annee, 0, 1);
-    fin = new Date(annee, 11, 31);
+    const inpAnnee = document.getElementById("annee-ref");
+    if(inpAnnee.value.trim() === "" || inpAnnee.validity.badInput){
+      stopPeriode(profil, MSG_ANNEE_VIDE, "Saisissez l'année de référence pour afficher la liste des jours fériés.");
+      return;
+    }
+    const annee = parseInt(inpAnnee.value, 10);
+    if(isNaN(annee) || annee < ANNEE_MIN || annee > ANNEE_MAX){
+      stopPeriode(profil, MSG_ANNEE_BORNES, "Corrigez l'année pour afficher la liste des jours fériés.");
+      return;
+    }
+    debut = dateU(annee, 0, 1);
+    fin = dateU(annee, 11, 31);
   } else {
     const inpDebut = document.getElementById("date-debut");
     const inpFin = document.getElementById("date-fin");
-
     if(inpDebut.validity.badInput || inpFin.validity.badInput){
-      erreur.textContent = MSG_INVALIDE;
-      erreur.classList.add("visible");
-      afficherVide();
+      stopPeriode(profil, MSG_INVALIDE, "Corrigez la date invalide pour afficher la liste des jours fériés.");
       return;
     }
-
     debut = parseDate(inpDebut.value);
     fin = parseDate(inpFin.value);
-
     if(!debut || !fin){
-      afficherVide();
+      stopPeriode(profil, null, "Renseignez une date de début et une date de fin pour afficher la liste des jours fériés.");
+      return;
+    }
+    if(anneeHorsBornes(debut) || anneeHorsBornes(fin)){
+      stopPeriode(profil, MSG_BORNES, "Corrigez les dates pour afficher la liste des jours fériés.");
       return;
     }
     if(fin < debut){
-      erreur.textContent = MSG_ORDRE;
-      erreur.classList.add("visible");
-      afficherVide();
+      stopPeriode(profil, MSG_ORDRE, "Corrigez l'ordre des dates pour afficher la liste des jours fériés.");
       return;
     }
-    ratioAnnee = false;
+    const anniv = anniversaire(debut);
+    if(fin >= anniv){
+      stopPeriode(profil, MSG_12_MOIS, "Ramenez la période à 12 mois au plus pour afficher la liste des jours fériés.");
+      return;
+    }
+    /* Prorata sur les 12 mois qui suivent la date de début. */
+    joursReference = Math.round((anniv.getTime() - debut.getTime()) / MS_JOUR);
   }
 
-  document.getElementById("liste-personnalisee").style.display = (profil === "personnalise") ? "block" : "none";
-  if(profil === "personnalise"){
-    rendreListePersonnalisee(debut, fin, alsaceMoselle);
-  }
+  const conteneurListe = document.getElementById("liste-personnalisee");
+  conteneurListe.style.display = (profil === "personnalise") ? "block" : "none";
+  if(profil === "personnalise") rendreListePersonnalisee(debut, fin, alsaceMoselle);
 
   const {jCalendaires, jWeekend, jFeries} = compterPeriode(debut, fin, alsaceMoselle, profil, etatPersonnalise);
-
-  const anneeRef = debut.getFullYear();
-  const joursAnnee = joursDansAnnee(anneeRef);
-  const ratio = ratioAnnee ? 1 : (jCalendaires / joursAnnee);
-
-  const forfaitProratise = Math.round(forfaitRef * ratio);
-  const cpApplicable = Math.round(cpRef * ratio);
-
-  const joursRepos = jCalendaires - jWeekend - jFeries - cpApplicable - forfaitProratise + cpNonAcquis;
-
-  document.getElementById("r-repos").innerHTML = joursRepos + "<small> j.</small>";
-  document.getElementById("r-forfait-periode").innerHTML = forfaitProratise + "<small> j.</small>";
   document.getElementById("r-calendaires").innerHTML = jCalendaires + "<small> j.</small>";
   document.getElementById("r-feries").innerHTML = jFeries + "<small> j.</small>";
-  document.getElementById("r-cp").innerHTML = cpApplicable + "<small> j.</small>";
+
+  const ratio = (joursReference === null) ? 1 : Math.min(1, jCalendaires / joursReference);
+
+  /* Forfait : champ vide (aucun message) distingué d'une valeur saisie
+     mais inexploitable (message). Entier ou demi-journée. */
+  const inpForfait = document.getElementById("forfait-jours");
+  const forfaitStr = inpForfait.value.trim();
+  const forfaitRef = parseFloat(forfaitStr);
+  let forfaitOk = false;
+  if(forfaitStr === "" && !inpForfait.validity.badInput){
+    // champ vide : résultat non calculé, sans message
+  } else if(inpForfait.validity.badInput || isNaN(forfaitRef) || forfaitRef <= 0){
+    montrerErreur(MSG_FORFAIT_NUL);
+  } else if(forfaitRef > 218){
+    montrerErreur(MSG_FORFAIT_MAX);
+  } else if(Math.round(forfaitRef * 2) !== forfaitRef * 2){
+    montrerErreur(MSG_FORFAIT_DEMI);
+  } else {
+    forfaitOk = true;
+  }
+
+  let forfaitPeriode = null;
+  if(forfaitOk){
+    forfaitPeriode = (ratio === 1) ? forfaitRef : Math.round(forfaitRef * ratio);
+    document.getElementById("r-forfait-periode").innerHTML = fmt(forfaitPeriode) + "<small> j.</small>";
+  } else {
+    document.getElementById("r-forfait-periode").textContent = "—";
+  }
+
+  document.getElementById("r-forfait-note").textContent = "";
+
+  if(!modeCP){
+    document.getElementById("r-cp").textContent = "—";
+    document.getElementById("r-cp-note").textContent = "";
+    document.getElementById("r-repos").textContent = "—";
+    return;
+  }
+
+  /* Congés payés proratisés. Les 30 jours ouvrables correspondent à 25 jours
+     ouvrés (5 semaines) : la déduction se fait toujours en jours ouvrés, pour
+     être homogène avec le décompte du lundi au vendredi. */
+  const cpRef = (modeCP === "ouvres") ? 25 : 30;
+  const cpAffiche = Math.round(cpRef * ratio);
+  const cpOuvres = Math.round(25 * ratio);
+
+  /* CP non acquis (embauche en cours de période) : exprimés dans le mode de
+     décompte choisi, convertis en jours ouvrés. Mécanisme retenu par de
+     nombreux accords publiés (ex. Syntec, accord du 16/05/2024 ; CCN du sport,
+     avenant n° 123) : ces jours sont ajoutés au forfait et retirés des congés
+     déduits. Le nombre de jours de repos reste donc inchangé. Méthode
+     conventionnelle, aucun texte ni arrêt publié ne l'impose.
+     Champ vide = 0 (champ facultatif). */
+  const inpCpna = document.getElementById("cp-non-acquis");
+  const cpnaStr = inpCpna.value.trim();
+  let cpna = 0;
+  if(cpnaStr !== "" || inpCpna.validity.badInput){
+    cpna = Number(cpnaStr);
+    if(inpCpna.validity.badInput || !Number.isInteger(cpna) || cpna < 0 || cpna > cpAffiche){
+      montrerErreur(MSG_CPNA);
+      document.getElementById("r-cp").innerHTML = cpAffiche + "<small> j.</small>";
+      document.getElementById("r-cp-note").textContent = "";
+      document.getElementById("r-repos").textContent = "—";
+      return;
+    }
+  }
+  const cpnaOuvres = (modeCP === "ouvrables") ? cpna * 5 / 6 : cpna;
+  const cpPrisAffiche = cpAffiche - cpna;
+  const cpPrisOuvres = cpOuvres - cpnaOuvres;
+
+  document.getElementById("r-cp").innerHTML = cpPrisAffiche + "<small> j.</small>";
+  document.getElementById("r-cp-note").textContent = (modeCP === "ouvrables")
+    ? "ouvrables, soit " + fmt(cpPrisOuvres) + " j. ouvrés déduits"
+    : "ouvrés";
+
+  if(!forfaitOk){
+    document.getElementById("r-repos").textContent = "—";
+    return;
+  }
+
+  const forfaitAjuste = forfaitPeriode + cpnaOuvres;
+  document.getElementById("r-forfait-periode").innerHTML = fmt(forfaitAjuste) + "<small> j.</small>";
+  if(cpna > 0){
+    document.getElementById("r-forfait-note").textContent = "dont " + fmt(cpnaOuvres) + " j. de CP non acquis";
+  }
+
+  let joursRepos = jCalendaires - jWeekend - jFeries - cpPrisOuvres - forfaitAjuste;
+  if(joursRepos < 0){
+    joursRepos = 0;
+    montrerInfo(MSG_NEGATIF);
+  }
+  document.getElementById("r-repos").innerHTML = fmt(joursRepos) + "<small> j.</small>";
 }
 
 document.getElementById("type-periode").addEventListener("change", () => { basculerBlocs(); calculer(); });
@@ -516,8 +690,7 @@ document.getElementById("vider").addEventListener("click", () => {
   document.getElementById("date-fin").value = "";
   for(const cle in etatPersonnalise) delete etatPersonnalise[cle];
   basculerBlocs();
-  afficherVide();
-  document.getElementById("erreur-msg").classList.remove("visible");
+  calculer();
 });
 
 basculerBlocs();
