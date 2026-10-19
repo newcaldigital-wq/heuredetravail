@@ -79,6 +79,12 @@
   .sources li::before{content:"—";position:absolute;left:0;color:var(--vert)}
   .sources a{color:var(--vert);font-weight:600;text-decoration:none}
   .sources a:hover{text-decoration:underline}
+  .dst{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:var(--encre-2)}
+  .dst input{width:16px;height:16px;accent-color:var(--vert)}
+  .alertes{margin-top:14px;padding:11px 14px;background:#F8E9E4;border-left:4px solid #B5523B;border-radius:6px;font-size:13px;color:#5a2a1c}
+  .alertes ul{margin:6px 0 0 18px}
+  .alertes li{margin-bottom:3px}
+  .err-annee{margin-top:10px;font-size:13px;color:#B5523B;font-weight:600}
 </style>
 </head>
 <body>
@@ -97,8 +103,8 @@
     <div class="bandeau">
       <div class="navmois">
         <button id="prev" aria-label="Mois précédent">&lsaquo;</button>
-        <select id="mois"></select>
-        <input type="number" id="annee" value="2026" min="2020" max="2035" style="width:90px">
+        <select id="mois" aria-label="Mois"></select>
+        <input type="number" id="annee" value="2026" min="2000" max="2100" step="1" aria-label="Année" style="width:90px">
         <button id="next" aria-label="Mois suivant">&rsaquo;</button>
       </div>
       <div class="plage-nuit">
@@ -109,7 +115,9 @@
         <button id="reinit" type="button">Rétablir 21h-6h</button>
       </div>
     </div>
-    <p class="hint" style="margin-top:10px">Valeur par défaut : 21h-6h, la référence légale à défaut d'accord collectif (art. L3122-20 du Code du travail). Votre convention collective peut prévoir une autre plage — modifiez les champs ci-dessus si besoin.</p>
+    <label class="dst"><input type="checkbox" id="sansdst"> Pas de changement d'heure (outre-mer)</label>
+    <p class="err-annee" id="err-annee" hidden>Indiquez une année entre 2000 et 2100.</p>
+    <p class="hint" style="margin-top:10px">Valeur par défaut : 21h-6h, la référence légale à défaut d'accord collectif (art. L3122-20 du Code du travail). Votre convention collective peut prévoir une autre plage — modifiez les champs ci-dessus si besoin. Les nuits du changement d'heure sont comptées selon l'heure légale de métropole, sauf si vous cochez la case.</p>
   </section>
 
   <section class="panneau">
@@ -126,6 +134,7 @@
         <tbody id="corps"></tbody>
       </table>
     </div>
+    <div class="alertes" id="alertes" hidden></div>
     <div class="actions">
       <button class="act btn-primary" id="calculer">Calculer le mois</button>
       <button class="act btn-ghost" id="exemple">Remplir un exemple</button>
@@ -136,18 +145,18 @@
   <section class="panneau">
     <h2><span class="num">3</span> Résultat du mois</h2>
     <div class="cartes">
-      <div class="carte total"><div class="lbl">Total heures de nuit</div><div class="val" id="r-tot">0<small> h</small></div></div>
+      <div class="carte total"><div class="lbl">Total heures de nuit</div><div class="val" id="r-tot">0.00<small> h</small></div></div>
     </div>
     <div class="note note-cheval">
       Un poste qui chevauche minuit (ex. 20h-4h) est découpé automatiquement en deux morceaux calendaires pour le calcul, mais le total est intégralement rattaché à la journée où le poste <b>commence</b> — c'est la convention retenue par cet outil, adaptée à un compteur d'heures de nuit.
     </div>
     <div class="note note-legal">
-      Le Code du travail définit un cadre : la période de travail de nuit doit durer au moins neuf heures consécutives, comprendre obligatoirement l'intervalle minuit-5h, et se situer entre 21h et 7h (article L3122-2 du Code du travail).<br><br>
-      C'est un accord d'entreprise ou d'établissement — ou à défaut une convention ou un accord de branche — qui fixe la plage horaire exacte applicable dans votre entreprise, dans ces limites (article L3122-15 du Code du travail). En l'absence d'un tel accord, la référence légale par défaut est 21h-6h (article L3122-20 du Code du travail) — c'est la valeur par défaut de ce calculateur, mais vous pouvez la modifier si votre convention collective prévoit une autre plage.<br><br>
-      Ce calculateur compte uniquement des heures. La majoration éventuelle de ces heures — en repos compensateur, en salaire, ou les deux — dépend de votre convention collective ou, à défaut, des modalités fixées par l'employeur après consultation des délégués syndicaux et avis du comité social et économique (CSE), lorsque ces instances existent. Vérifiez ce point auprès de votre service RH ou dans votre convention collective.
+      Le Code du travail fixe un cadre : la période de travail de nuit dure au moins neuf heures consécutives, comprend l'intervalle minuit-5h, commence au plus tôt à 21h et se termine au plus tard à 7h (article L3122-2 du Code du travail). Elle peut être de sept heures seulement dans certains secteurs : presse, radio, télévision, cinéma, spectacles, discothèques (article L3122-3), ainsi que dans les commerces des zones touristiques internationales (article L3122-4).<br><br>
+      La plage exacte est fixée par un accord d'entreprise ou d'établissement, à défaut par un accord de branche (article L3122-15). Sans accord, c'est 21h-6h (article L3122-20) : c'est la valeur par défaut de ce calculateur. Une autre plage peut alors être autorisée par l'inspecteur du travail, après consultation des délégués syndicaux et avis du comité social et économique (article L3122-22).<br><br>
+      Ce calculateur compte uniquement des heures. Les contreparties (repos, majoration) dépendent de votre statut et de votre convention collective : voir le détail plus bas.
     </div>
     <div class="note note-complet">
-      Cet outil compte des <b>heures</b>, pas des euros. Il ne calcule ni taux de majoration, ni salaire, ni repos compensateur — ces éléments dépendent presque toujours de votre convention collective. Public visé : salariés en horaires décalés, 3x8, intérim, restauration et hôtellerie notamment. Pour vos heures supplémentaires en temps complet, voir le <a href="/calcul-temps-de-travail">calcul du temps de travail réel</a> ; pour un mois mensualisé, le <a href="/">calcul heure de travail</a>.
+      Cet outil compte des <b>heures</b>, pas des euros. Il ne calcule ni taux de majoration, ni salaire, ni repos compensateur — ces éléments dépendent de votre statut et de votre convention collective. Public visé : salariés en horaires décalés, 3x8, intérim, restauration et hôtellerie notamment. Pour vos heures supplémentaires en temps complet, voir le <a href="/calcul-temps-de-travail">calcul du temps de travail réel</a> ; pour un mois mensualisé, le <a href="/">calcul heure de travail</a>.
     </div>
   </section>
 
@@ -158,28 +167,55 @@
 
   <h2>Qu'est-ce que la plage horaire nocturne ?</h2>
   <p>La plage nocturne n'est pas la même partout. La loi fixe un cadre — neuf heures consécutives au minimum, comprenant obligatoirement l'intervalle minuit-5h, situées entre 21h et 7h — mais c'est votre convention collective ou un accord d'entreprise qui en précise les bornes exactes. À défaut d'accord, la référence légale est 21h-6h.</p>
+  <p>Dans certains secteurs, la plage peut être plus courte : sept heures consécutives au moins, toujours avec l'intervalle minuit-5h. C'est le cas de la presse, de la radio, de la télévision, du cinéma, des spectacles et des discothèques, et des commerces situés en zone touristique internationale.</p>
   <p>C'est pour cette raison que la plage nocturne est modifiable dans ce calculateur : certaines conventions retiennent 22h-7h, d'autres des bornes différentes, toujours dans le respect de l'intervalle minuit-5h. Vérifiez la vôtre avant de vous fier au résultat par défaut.</p>
 
   <h2>Le cas des postes qui chevauchent minuit</h2>
   <p>Un poste de 20h à 4h du matin pose une difficulté simple en apparence : sur quelle journée compter ces heures ? Ce calculateur découpe le poste en deux tranches calendaires pour le calcul — une avant minuit, une après — puis additionne les heures de nuit de chaque tranche. Le total est ensuite rattaché à la journée où le poste a commencé.</p>
   <p>Un exemple concret. Avec la plage par défaut 21h-6h, un poste de 20h à 4h compte 3 heures de nuit avant minuit (21h-24h) et 4 heures après (0h-4h), soit 7 heures de nuit au total sur les 8 heures du poste.</p>
 
-  <h2>Heures de nuit et majoration : ce que dit la loi</h2>
-  <p>Le Code du travail définit un cadre : la période de travail de nuit doit durer au moins neuf heures consécutives, comprendre obligatoirement l'intervalle minuit-5h, et se situer entre 21h et 7h.</p>
-  <p>C'est un accord d'entreprise ou d'établissement — ou à défaut une convention ou un accord de branche — qui fixe la plage horaire exacte applicable dans votre entreprise. En l'absence d'un tel accord, la référence légale par défaut est 21h-6h.</p>
-  <p>La majoration de ces heures n'est en revanche pas fixée uniformément par la loi. Elle dépend presque toujours de votre convention collective, sous forme de repos compensateur, de compensation salariale, ou des deux. C'est pour cette raison que ce calculateur ne l'affiche pas : l'afficher sans connaître votre convention donnerait une fausse impression de précision.</p>
+  <h2>La nuit du changement d'heure</h2>
+  <p>Deux nuits par an, en métropole, l'heure change au milieu de la nuit. Fin mars, on avance d'une heure : un poste de 21h à 6h dure 8 heures réelles. Fin octobre, on recule d'une heure : le même poste dure 10 heures réelles.</p>
+  <p>Aucun texte ne règle spécialement ce cas. Le temps de travail effectif, c'est le temps réellement passé au travail : le calculateur compte donc le temps réellement écoulé ces nuits-là. C'est une convention de calcul de l'outil ; votre convention collective peut prévoir autre chose.</p>
+  <p>Vous travaillez en outre-mer, sans changement d'heure ? Cochez la case « Pas de changement d'heure » : un poste de 21h à 6h compte alors toujours 9 heures.</p>
+  <p>Fin octobre, les horaires entre 2h et 3h existent deux fois. Par convention, l'outil considère qu'un poste commence au premier passage de cette heure, et se termine au second.</p>
 
-  <p class="avert">Ce calculateur est fourni à titre indicatif. C'est un outil de comptage d'heures, pas de calcul de salaire ni de majoration : le résultat est à vérifier auprès de votre service RH ou dans votre convention collective. La journée d'attribution d'un poste chevauchant minuit (rattaché à son jour de début) est une convention de calcul retenue par cet outil, et non une règle légale universelle. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
+  <h2>Êtes-vous travailleur de nuit ?</h2>
+  <p>Faire des heures de nuit ne fait pas automatiquement de vous un « travailleur de nuit ». Ce statut compte, car il ouvre droit à des protections particulières.</p>
+  <p>Vous êtes travailleur de nuit dans deux cas. Soit votre horaire habituel vous fait travailler au moins 3 heures de nuit, au moins deux fois par semaine. Soit vous atteignez un nombre minimal d'heures de nuit sur une période de référence : 270 heures sur 12 mois consécutifs à défaut d'accord, un accord collectif étendu pouvant fixer un autre seuil.</p>
+  <p>Le total affiché par ce calculateur vous aide à faire le point sur ce second critère, mois après mois.</p>
+  <p>Un travailleur de nuit ne peut pas travailler plus de 8 heures par jour, sauf dérogations prévues par accord ou autorisées par l'administration. Sur 12 semaines consécutives, sa durée de travail ne peut pas dépasser 40 heures par semaine en moyenne ; un accord collectif ou un décret peut porter cette limite à 44 heures.</p>
+
+  <h2>Heures de nuit : quelles contreparties ?</h2>
+  <p>Le Code du travail définit un cadre : la période de travail de nuit dure au moins neuf heures consécutives, comprend obligatoirement l'intervalle minuit-5h, et se situe entre 21h et 7h.</p>
+  <p>C'est un accord d'entreprise ou d'établissement — ou à défaut une convention ou un accord de branche — qui fixe la plage horaire exacte applicable dans votre entreprise. En l'absence d'un tel accord, la référence légale par défaut est 21h-6h, et le travail de nuit ne peut être mis en place qu'avec l'autorisation de l'inspecteur du travail.</p>
+  <p>Les contreparties dépendent de votre statut. Si vous êtes travailleur de nuit, vous avez droit à un repos compensateur : il est obligatoire. Une compensation salariale, c'est-à-dire une majoration, peut s'y ajouter si l'accord collectif la prévoit.</p>
+  <p>Si vous faites seulement des heures de nuit de temps en temps, le Code du travail ne prévoit pas de contrepartie générale : tout dépend de votre convention collective, de votre contrat ou des usages de l'entreprise.</p>
+  <p>C'est pour cette raison que ce calculateur n'affiche pas de majoration : l'afficher sans connaître votre convention donnerait une fausse impression de précision.</p>
+  <p>En intérim, les règles de travail de nuit sont celles de l'entreprise où vous êtes en mission : sa plage horaire, et les contreparties prévues par ses accords.</p>
+
+  <p class="avert">Ce calculateur est fourni à titre indicatif. C'est un outil de comptage d'heures, pas de calcul de salaire ni de majoration : le résultat est à vérifier auprès de votre service RH ou dans votre convention collective. La journée d'attribution d'un poste chevauchant minuit (rattaché à son jour de début) et le décompte des nuits du changement d'heure (temps réellement écoulé, heure légale de métropole) sont des conventions de calcul retenues par cet outil, et non des règles légales. Le travail de nuit est en principe interdit aux salariés de moins de 18 ans, sauf dérogations : ce calculateur ne traite pas ce cas. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
 </section>
 
 <section class="sources">
   <h3>Sources</h3>
   <ul>
-    <li>Recours au travail de nuit — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-1" target="_blank" rel="noopener">Code du travail, art. L3122-1</a></li>
-    <li>Définition de la période de travail de nuit — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-2" target="_blank" rel="noopener">Code du travail, art. L3122-2</a></li>
-    <li>Dérogation presse, spectacle, discothèque — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-3" target="_blank" rel="noopener">Code du travail, art. L3122-3</a></li>
-    <li>Mise en place du travail de nuit par accord collectif — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-15" target="_blank" rel="noopener">Code du travail, art. L3122-15</a></li>
-    <li>Règle par défaut en l'absence d'accord (21h-6h) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-20" target="_blank" rel="noopener">Code du travail, art. L3122-20</a></li>
+    <li>Recours exceptionnel au travail de nuit — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-1" target="_blank" rel="noopener">Code du travail, art. L3122-1</a></li>
+    <li>Définition de la période de travail de nuit (9 h consécutives, minuit-5h, entre 21h et 7h) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-2" target="_blank" rel="noopener">Code du travail, art. L3122-2</a></li>
+    <li>Période de 7 h : presse, audiovisuel, cinéma, spectacles, discothèques — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-3" target="_blank" rel="noopener">Code du travail, art. L3122-3</a></li>
+    <li>Commerces de détail en zone touristique internationale — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-4" target="_blank" rel="noopener">Code du travail, art. L3122-4</a></li>
+    <li>Définition du travailleur de nuit — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-5" target="_blank" rel="noopener">Code du travail, art. L3122-5</a></li>
+    <li>Durée quotidienne maximale du travailleur de nuit (8 h) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-6" target="_blank" rel="noopener">Code du travail, art. L3122-6</a></li>
+    <li>Durée hebdomadaire maximale du travailleur de nuit (40 h en moyenne sur 12 semaines) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-7" target="_blank" rel="noopener">Code du travail, art. L3122-7</a></li>
+    <li>Contreparties du travailleur de nuit : repos compensateur et, le cas échéant, compensation salariale — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-8" target="_blank" rel="noopener">Code du travail, art. L3122-8</a></li>
+    <li>Mise en place du travail de nuit et plage horaire fixées par accord collectif — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-15" target="_blank" rel="noopener">Code du travail, art. L3122-15</a></li>
+    <li>Seuil de qualification du travailleur de nuit fixé par accord collectif étendu — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-16" target="_blank" rel="noopener">Code du travail, art. L3122-16</a></li>
+    <li>Plage par défaut en l'absence d'accord (21h-6h) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-20" target="_blank" rel="noopener">Code du travail, art. L3122-20</a></li>
+    <li>Mise en place sans accord : autorisation de l'inspecteur du travail — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-21" target="_blank" rel="noopener">Code du travail, art. L3122-21</a></li>
+    <li>Autre plage de nuit autorisée par l'inspecteur du travail, à défaut d'accord — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-22" target="_blank" rel="noopener">Code du travail, art. L3122-22</a></li>
+    <li>Seuil supplétif du travailleur de nuit (270 h sur 12 mois consécutifs) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-23" target="_blank" rel="noopener">Code du travail, art. L3122-23</a></li>
+    <li>Durée hebdomadaire portée jusqu'à 44 h par décret, à défaut d'accord — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-24" target="_blank" rel="noopener">Code du travail, art. L3122-24</a></li>
+    <li>Intérim : travail de nuit régi par les règles de l'entreprise utilisatrice — <a href="https://code.travail.gouv.fr/code-du-travail/l1251-21" target="_blank" rel="noopener">Code du travail, art. L1251-21</a></li>
   </ul>
 </section>
 
@@ -191,7 +227,19 @@
 </div>
 
 <script is:inline>
+/* Compteur d'heures de nuit, poste par poste, rattaché à son jour de début (convention de l'outil).
+   - Calcul en heures d'horloge sur des numéros de jour UTC : aucun recours au fuseau horaire de
+     l'appareil (résultat identique partout dans le monde).
+   - Changement d'heure (convention de l'outil, aucun texte spécifique ; principe du temps de travail
+     effectif = temps réellement écoulé) : par défaut, heure légale de métropole. Dernier dimanche de
+     mars : l'intervalle d'horloge 2 h - 3 h n'existe pas (retiré). Dernier dimanche d'octobre :
+     l'intervalle 2 h - 3 h existe deux fois ; un poste commence au premier passage et se termine au
+     second (1 h ajoutée dès que la plage comptée touche cet intervalle). Case « pas de changement
+     d'heure » : heures d'horloge seules.
+   - Plage par défaut 21 h - 6 h (L3122-20) ; cadre L3122-2 (9 h consécutives, 0 h - 5 h incluses,
+     entre 21 h et 7 h), 7 h dans les secteurs dérogatoires (L3122-3, L3122-4) : contrôle et alerte. */
 const DATA={};
+const J=1440;
 
 function toMin(v){
   if(v==null||v==="")return null;
@@ -200,87 +248,98 @@ function toMin(v){
   return (+m[1])*60+(+m[2]);
 }
 function decHM(d){if(isNaN(d)||d===null)return"";let h=Math.floor(d+1e-9),m=Math.round((d-h)*60);if(m===60){h++;m=0;}return h+"h"+String(m).padStart(2,"0");}
-function decFr(d){return d.toFixed(2).replace(".",",");}
-function cleJour(dt){return dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");}
+function decPt(d){return d.toFixed(2);}
+function cleJour(y,m,d){return y+"-"+String(m+1).padStart(2,"0")+"-"+String(d).padStart(2,"0");}
+function numJour(y,m,d){return Math.round(Date.UTC(y,m,d)/86400000);}
+function dimancheDernier(y,m){const d=new Date(Date.UTC(y,m+1,0));return numJour(y,m,d.getUTCDate()-d.getUTCDay());}
+function chevauche(a,b,c,d){return Math.max(0,Math.min(b,d)-Math.max(a,c));}
 
-/* Instance de plage nocturne ancrée sur un jour donné (minuit de ce jour).
-   Si neMin <= nsMin, la plage traverse minuit (cas normal, ex. 21h->6h).
-   Sinon (cas atypique), la plage ne traverse pas minuit. */
-function instanceNuit(jourAncre,nsMin,neMin){
-  const debut=new Date(jourAncre);debut.setHours(0,0,0,0);debut.setMinutes(nsMin);
-  const fin=new Date(jourAncre);fin.setHours(0,0,0,0);
-  if(neMin<=nsMin){fin.setDate(fin.getDate()+1);}
-  fin.setMinutes(fin.getMinutes()+neMin);
-  return [debut,fin];
-}
-/* Intervalle du poste : ancré sur "jour" (jour de début).
-   Si fin <= début, le poste traverse minuit (se termine le lendemain). */
-function intervallePoste(jour,debutStr,finStr){
-  const s=toMin(debutStr),e=toMin(finStr);
-  if(s==null||e==null)return null;
-  const debut=new Date(jour);debut.setHours(0,0,0,0);debut.setMinutes(s);
-  const fin=new Date(jour);fin.setHours(0,0,0,0);
-  if(e<=s){fin.setDate(fin.getDate()+1);}
-  fin.setMinutes(fin.getMinutes()+e);
-  return [debut,fin];
-}
-function overlapMs(aS,aE,bS,bE){const s=Math.max(aS,bS),e=Math.min(aE,bE);return Math.max(0,e-s);}
-
-/* Heures de nuit d'un poste : on compare le poste aux instances de plage nocturne
-   ancrées sur la veille, le jour même, et le lendemain, pour ne rien manquer
-   ni double-compter (les instances successives ne se chevauchent jamais). */
-function heuresNuitPoste(jour,debutStr,finStr,nsMin,neMin){
-  const poste=intervallePoste(jour,debutStr,finStr);
-  if(!poste)return 0;
-  const [pS,pE]=poste;
-  let total=0;
-  for(let off=-1;off<=1;off++){
-    const ancre=new Date(jour);ancre.setDate(ancre.getDate()+off);
-    const [nS,nE]=instanceNuit(ancre,nsMin,neMin);
-    total+=overlapMs(pS.getTime(),pE.getTime(),nS.getTime(),nE.getTime());
+/* Ajustement « temps réel » d'un intervalle d'horloge [a,b] (minutes absolues), heure de métropole. */
+function ajustDST(a,b){
+  let adj=0;
+  const y0=new Date(Math.floor(a/J)*86400000).getUTCFullYear();
+  for(let y=y0-1;y<=y0+1;y++){
+    const mars=dimancheDernier(y,2)*J, oct=dimancheDernier(y,9)*J;
+    adj-=chevauche(a,b,mars+120,mars+180);
+    if(a<oct+180&&b>oct+120)adj+=60;
   }
-  return total/3600000;
+  return adj;
+}
+
+/* Heures de nuit d'un poste commencant le jour n (numéro de jour). Renvoie {h, err, dst}. */
+function heuresNuitPoste(n,debutStr,finStr,ns,ne,avecDST){
+  const s=toMin(debutStr),e=toMin(finStr);
+  if(s==null&&e==null)return {h:0,err:null,dst:0};
+  if(s==null||e==null)return {h:0,err:"incomplet",dst:0};
+  if(s===e)return {h:0,err:"egal",dst:0};
+  const pS=n*J+s,pE=n*J+e+(e<s?J:0);
+  let total=0,dst=0;
+  for(let off=-1;off<=1;off++){
+    const a=(n+off)*J;
+    const nS=a+ns,nE=a+ne+(ne<=ns?J:0);
+    const iS=Math.max(pS,nS),iE=Math.min(pE,nE);
+    if(iE>iS){
+      const adj=avecDST?ajustDST(iS,iE):0;
+      total+=iE-iS+adj;dst+=adj;
+    }
+  }
+  return {h:total/60,err:null,dst:dst/60};
+}
+
+/* Contrôle de la plage au regard de L3122-2 / L3122-3 / L3122-4. */
+function etatPlage(ns,ne){
+  if(ns==null||ne==null)return "vide";
+  if(ns===ne)return "nulle";
+  const traverse=ne<ns;
+  const duree=traverse?J-ns+ne:ne-ns;
+  const inclut=traverse?ne>=300:(ns===0&&ne>=300);
+  const bornes=(traverse?ns>=1260:ns===0)&&ne<=420;
+  if(!inclut||!bornes||duree<420)return "hors";
+  if(duree<540)return "derog";
+  return "ok";
 }
 
 const MOIS=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
 const JOURS=["lun","mar","mer","jeu","ven","sam","dim"];
-const selMois=document.getElementById("mois");
+const selMois=document.getElementById("mois"),inAnnee=document.getElementById("annee");
 MOIS.forEach((m,i)=>{const o=document.createElement("option");o.value=i;o.textContent=m;selMois.appendChild(o);});
-const now=new Date();selMois.value=now.getMonth();document.getElementById("annee").value=now.getFullYear();
+const now=new Date();selMois.value=now.getMonth();inAnnee.value=now.getFullYear();
 
-function plageNuit(){
-  return {ns:toMin(document.getElementById("ns").value)??1260, ne:toMin(document.getElementById("ne").value)??360};
+function anneeValide(){const v=String(inAnnee.value).trim();const n=Number(v);return (v!==""&&Number.isInteger(n)&&n>=2000&&n<=2100)?n:null;}
+function plageNuit(){return {ns:toMin(document.getElementById("ns").value),ne:toMin(document.getElementById("ne").value)};}
+function avecDST(){return !document.getElementById("sansdst").checked;}
+
+function cellule(y,m,d){
+  const k=cleJour(y,m,d),rec=DATA[k]||{},{ns,ne}=plageNuit(),ep=etatPlage(ns,ne);
+  if(ep==="vide"||ep==="nulle")return {txt:"—",r:null};
+  const r=heuresNuitPoste(numJour(y,m,d),rec.d1,rec.d2,ns,ne,avecDST());
+  if(r.err)return {txt:"⚠",r};
+  if(!rec.d1)return {txt:"—",r};
+  return {txt:decHM(r.h)+" ("+decPt(r.h)+" h)"+(r.dst?(r.dst<0?" · 1 h de moins":" · 1 h de plus"):""),r};
 }
-
 function sauveLigne(tr){
-  const k=tr.dataset.date;
-  DATA[k]={d1:tr.querySelector(".d1").value,d2:tr.querySelector(".d2").value};
-  calculerLigne(tr);
+  DATA[tr.dataset.date]={d1:tr.querySelector(".d1").value,d2:tr.querySelector(".d2").value};
   calculer();
 }
-function calculerLigne(tr){
-  const k=tr.dataset.date,jour=new Date(k+"T00:00:00"),rec=DATA[k]||{};
-  const {ns,ne}=plageNuit();
-  const h=heuresNuitPoste(jour,rec.d1,rec.d2,ns,ne);
-  tr.querySelector("[data-h]").textContent=(rec.d1&&rec.d2&&h>=0)?decHM(h)+" ("+decFr(h)+" h)":"—";
-}
-function ligneHTML(date){
-  const jw=(date.getDay()+6)%7,k=cleJour(date),rec=DATA[k]||{};
-  const cls=jw>=5?"we":"";
-  return '<tr class="'+cls+'" data-date="'+k+'">'
-    +'<td class="date">'+String(date.getDate()).padStart(2,"0")+"/"+String(date.getMonth()+1).padStart(2,"0")+'</td>'
+function ligneHTML(y,m,d){
+  const date=new Date(Date.UTC(y,m,d)),jw=(date.getUTCDay()+6)%7,k=cleJour(y,m,d),rec=DATA[k]||{};
+  const dd=String(d).padStart(2,"0")+"/"+String(m+1).padStart(2,"0");
+  return '<tr class="'+(jw>=5?"we":"")+'" data-date="'+k+'" data-d="'+d+'">'
+    +'<td class="date">'+dd+'</td>'
     +'<td class="jour">'+JOURS[jw]+'</td>'
-    +'<td><input type="time" class="d1" value="'+(rec.d1||"")+'"></td>'
-    +'<td><input type="time" class="d2" value="'+(rec.d2||"")+'"></td>'
+    +'<td><input type="time" class="d1" aria-label="Début du poste le '+dd+'" value="'+(rec.d1||"")+'"></td>'
+    +'<td><input type="time" class="d2" aria-label="Fin du poste le '+dd+'" value="'+(rec.d2||"")+'"></td>'
     +'<td class="htot" data-h>—</td></tr>';
 }
 function construire(){
-  const mois=+selMois.value,annee=+document.getElementById("annee").value;
-  const dernier=new Date(annee,mois+1,0);
+  const y=anneeValide();
+  document.getElementById("err-annee").hidden=y!==null;
+  const corps=document.getElementById("corps");
+  if(y===null){corps.innerHTML="";return;}
+  const m=+selMois.value,nb=new Date(Date.UTC(y,m+1,0)).getUTCDate();
   let html="";
-  for(let d=1;d<=dernier.getDate();d++)html+=ligneHTML(new Date(annee,mois,d));
-  const corps=document.getElementById("corps");corps.innerHTML=html;
-  corps.querySelectorAll("tr").forEach(tr=>calculerLigne(tr));
+  for(let d=1;d<=nb;d++)html+=ligneHTML(y,m,d);
+  corps.innerHTML=html;
   corps.querySelectorAll("input").forEach(inp=>{
     inp.addEventListener("input",()=>sauveLigne(inp.closest("tr")));
     inp.addEventListener("change",()=>sauveLigne(inp.closest("tr")));
@@ -288,45 +347,62 @@ function construire(){
   });
 }
 function calculer(){
-  const mois=+selMois.value,annee=+document.getElementById("annee").value;
-  const dernier=new Date(annee,mois+1,0);
-  const {ns,ne}=plageNuit();
-  let total=0;
-  for(let d=1;d<=dernier.getDate();d++){
-    const jour=new Date(annee,mois,d),k=cleJour(jour),rec=DATA[k]||{};
-    total+=heuresNuitPoste(jour,rec.d1,rec.d2,ns,ne);
+  const box=document.getElementById("alertes"),msgs=[];
+  const {ns,ne}=plageNuit(),ep=etatPlage(ns,ne);
+  if(ep==="vide")msgs.push("Indiquez le début et la fin de la plage de nuit.");
+  if(ep==="nulle")msgs.push("La plage de nuit commence et finit à la même heure : corrigez-la.");
+  if(ep==="hors")msgs.push("Cette plage ne respecte pas le cadre légal : au moins 9 heures consécutives entre 21 h et 7 h, incluant minuit – 5 h (7 heures dans certains secteurs). Le calcul est fait quand même : vérifiez votre accord.");
+  if(ep==="derog")msgs.push("Plage de moins de 9 heures : elle n'est possible que dans les secteurs dérogatoires (presse, audiovisuel, spectacles, discothèques, commerces en zone touristique internationale).");
+  const y=anneeValide(),out=document.getElementById("r-tot");
+  if(y===null||ep==="vide"||ep==="nulle"){
+    document.querySelectorAll("#corps [data-h]").forEach(td=>td.textContent="—");
+    out.innerHTML='—<small> h</small>';
+  }else{
+    const m=+selMois.value;let total=0;
+    document.querySelectorAll("#corps tr").forEach(tr=>{
+      const d=+tr.dataset.d,c=cellule(y,m,d),dd=String(d).padStart(2,"0")+"/"+String(m+1).padStart(2,"0");
+      tr.querySelector("[data-h]").textContent=c.txt;
+      if(c.r){
+        if(c.r.err==="incomplet")msgs.push(dd+" : début ou fin du poste manquant. Ce poste n'est pas compté.");
+        else if(c.r.err==="egal")msgs.push(dd+" : le poste commence et finit à la même heure. Ce poste n'est pas compté (un poste de 24 h ou plus ne peut pas être saisi).");
+        else{total+=c.r.h;if(c.r.dst)msgs.push(dd+" : nuit du changement d'heure en métropole, "+(c.r.dst<0?"1 h de moins":"1 h de plus")+" comptée (temps réellement écoulé). Cochez « Pas de changement d'heure » si vous travaillez en outre-mer.");}
+      }
+    });
+    out.innerHTML=decPt(total)+'<small> h · '+decHM(total)+'</small>';
   }
-  document.getElementById("r-tot").innerHTML=decFr(total)+'<small> h · '+decHM(total)+'</small>';
+  box.hidden=msgs.length===0;
+  box.innerHTML=msgs.length?"<b>À vérifier</b><ul>"+msgs.map(t=>"<li>"+t+"</li>").join("")+"</ul>":"";
 }
 function exemple(){
-  const mois=+selMois.value,annee=+document.getElementById("annee").value,nb=new Date(annee,mois+1,0).getDate();
-  for(let d=1;d<=nb;d++){const dt=new Date(annee,mois,d),jw=(dt.getDay()+6)%7;if(jw<5)DATA[cleJour(dt)]={d1:"20:00",d2:"04:00"};}
+  const y=anneeValide();if(y===null)return;
+  const m=+selMois.value,nb=new Date(Date.UTC(y,m+1,0)).getUTCDate();
+  for(let d=1;d<=nb;d++){const jw=(new Date(Date.UTC(y,m,d)).getUTCDay()+6)%7;if(jw<5)DATA[cleJour(y,m,d)]={d1:"20:00",d2:"04:00"};}
   construire();calculer();
 }
 function vider(){
-  const mois=+selMois.value,annee=+document.getElementById("annee").value,nb=new Date(annee,mois+1,0).getDate();
-  for(let d=1;d<=nb;d++)delete DATA[cleJour(new Date(annee,mois,d))];
-  construire();
-  document.getElementById("r-tot").innerHTML='0<small> h</small>';
+  const y=anneeValide();if(y===null)return;
+  const m=+selMois.value,nb=new Date(Date.UTC(y,m+1,0)).getUTCDate();
+  for(let d=1;d<=nb;d++)delete DATA[cleJour(y,m,d)];
+  construire();calculer();
 }
 function changeMois(delta){
-  let m=+selMois.value+delta,y=+document.getElementById("annee").value;
+  let m=+selMois.value+delta,y=anneeValide();if(y===null)y=now.getFullYear();
   if(m<0){m=11;y--;}else if(m>11){m=0;y++;}
-  selMois.value=m;document.getElementById("annee").value=y;construire();calculer();
+  selMois.value=m;inAnnee.value=y;construire();calculer();
 }
 selMois.addEventListener("change",()=>{construire();calculer();});
-document.getElementById("annee").addEventListener("change",()=>{construire();calculer();});
+inAnnee.addEventListener("change",()=>{construire();calculer();});
 document.getElementById("prev").addEventListener("click",()=>changeMois(-1));
 document.getElementById("next").addEventListener("click",()=>changeMois(1));
 document.getElementById("calculer").addEventListener("click",calculer);
 document.getElementById("exemple").addEventListener("click",exemple);
 document.getElementById("vider").addEventListener("click",vider);
-document.getElementById("ns").addEventListener("change",()=>{construire();calculer();});
-document.getElementById("ne").addEventListener("change",()=>{construire();calculer();});
+["ns","ne"].forEach(id=>{document.getElementById(id).addEventListener("change",calculer);document.getElementById(id).addEventListener("input",calculer);});
+document.getElementById("sansdst").addEventListener("change",calculer);
 document.getElementById("reinit").addEventListener("click",()=>{
   document.getElementById("ns").value="21:00";
   document.getElementById("ne").value="06:00";
-  construire();calculer();
+  calculer();
 });
 construire();calculer();
 </script>
