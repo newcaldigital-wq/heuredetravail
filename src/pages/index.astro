@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calcul des heures de travail — France</title>
-<meta name="description" content="Calculez vos heures de travail mensualisées : base légale de 151,67h et heures supplémentaires décomptées automatiquement, semaine par semaine, au-delà de 35h.">
+<meta name="description" content="Calculez vos heures de travail mensualisées : base légale de 151,67 h et heures supplémentaires décomptées semaine par semaine au-delà de 35 h, congés payés inclus.">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <style is:global>
@@ -21,7 +21,7 @@
   header.hero{margin-bottom:24px;border-bottom:2px solid var(--encre);padding-bottom:18px}
   .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--vert);font-weight:600;margin-bottom:8px}
   h1{font-size:34px;font-weight:700;letter-spacing:-0.5px;line-height:1.1}
-   h1 .light{font-weight:700;color:var(--encre-2)}  h1 .light{font-weight:700;color:var(--encre-2)}
+  h1 .light{font-weight:700;color:var(--encre-2)}
   .sub{margin-top:10px;color:var(--gris);font-size:15px;max-width:660px}
   .panneau{background:#fff;border:1px solid var(--trait);border-radius:10px;padding:20px;margin-bottom:20px}
   .panneau h2{font-size:16px;letter-spacing:.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
@@ -123,6 +123,21 @@
 .sources li::before{content:"—";position:absolute;left:0;color:var(--vert)}
 .sources a{color:var(--vert);font-weight:600;text-decoration:none}
 .sources a:hover{text-decoration:underline}
+
+  .cp-reglage{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:12px;padding:10px 12px;background:var(--papier-2);border-radius:6px;font-size:13px}
+  .cp-reglage label{font-weight:600;color:var(--encre)}
+  .cp-reglage input{padding:6px 8px;border:1px solid var(--trait);border-radius:6px;font-size:14px;background:#fff;color:var(--encre)}
+  .tableau input[type=checkbox]{width:17px;height:17px;accent-color:var(--vert);cursor:pointer}
+  .tableau input[type=checkbox]:focus-visible{outline:2px solid var(--vert);outline-offset:2px}
+  .tableau input[type=time]:disabled{opacity:.35;cursor:not-allowed}
+  .tableau tr.cp td{background:#E6F0EC}
+  .tableau tr.cp .htot{color:var(--vert)}
+  .tableau tr.err .htot{color:var(--sup50)}
+  .alertes{margin-top:14px;padding:11px 14px;background:#F8E9E4;border-left:4px solid var(--sup50);border-radius:6px;font-size:13px;color:#5a2a1c}
+  .alertes ul{margin:6px 0 0 18px}
+  .alertes li{margin-bottom:3px}
+  .err-annee{margin-top:10px;font-size:13px;color:var(--sup50);font-weight:600}
+  .cp-info{margin-top:12px;font-size:13px;color:var(--vert);font-weight:600}
 </style>
 </head>
 <body>
@@ -130,7 +145,7 @@
   <header class="hero">
     <div class="eyebrow">Temps de travail · France</div>
     <h1>Calcul des heures <span class="light">de travail</span></h1>
-    <p class="sub">Salarié à temps complet, mensualisé. Saisissez vos horaires du mois : la base est fixée à 151,67 h (durée légale), et les heures supplémentaires sont calculées automatiquement, semaine par semaine, au-delà de 35 h.
+    <p class="sub">Salarié à temps complet, mensualisé. Saisissez vos horaires du mois : la base est fixée à 151,67 h (durée légale), et les heures supplémentaires sont calculées automatiquement, semaine par semaine, au-delà de 35 h. Les jours de congés payés sont pris en compte.
 <br><br>
 Payé à l'heure réelle (intérim, saisonnier, extra) ? Utilisez plutôt le <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">calcul du temps de travail</a>.</p>
   </header>
@@ -140,22 +155,28 @@ Payé à l'heure réelle (intérim, saisonnier, extra) ? Utilisez plutôt le <a 
     <div class="bandeau">
       <div class="navmois">
         <button id="prev" aria-label="Mois précédent">&lsaquo;</button>
-        <select id="mois"></select>
-        <input type="number" id="annee" value="2026" min="2020" max="2035" style="width:90px">
+        <select id="mois" aria-label="Mois"></select>
+        <input type="number" id="annee" value="2026" min="2000" max="2100" step="1" aria-label="Année" style="width:90px">
         <button id="next" aria-label="Mois suivant">&rsaquo;</button>
       </div>
-      <div class="cadre-legal">Base légale : <b>35 h/semaine</b> &middot; <b>151,67 h/mois</b> &middot; sup. <b>+25 %</b> (36<sup>e</sup>&ndash;43<sup>e</sup>) puis <b>+50 %</b></div>
+      <div class="cadre-legal">Base légale : <b>35 h/semaine</b> &middot; <b>151,67 h/mois</b> &middot; sup. <b>+25 %</b> (36<sup>e</sup>&ndash;43<sup>e</sup>) puis <b>+50 %</b>, à défaut d'accord</div>
     </div>
+    <p class="err-annee" id="err-annee" hidden>Indiquez une année entre 2000 et 2100.</p>
   </section>
 
   <section class="panneau">
     <h2><span class="num">2</span> Vos horaires</h2>
-    <p class="hint" style="margin-bottom:12px">Laissez vide un jour non travaillé. La pause du midi est déduite automatiquement. Les lignes <span style="color:var(--report-b);font-weight:600">violettes</span> appartiennent au mois voisin&nbsp;: elles complètent une semaine à cheval.</p>
+    <p class="hint" style="margin-bottom:12px">Laissez vide un jour non travaillé (repos, jour férié chômé, maladie). Cochez <b>CP</b> pour un jour de congé payé où vous auriez travaillé. La pause du midi n'est pas comptée. Les lignes <span style="color:var(--report-b);font-weight:600">violettes</span> appartiennent au mois voisin&nbsp;: elles complètent une semaine à cheval.</p>
+    <div class="cp-reglage">
+      <label for="dureecp">Journée de congé payé</label>
+      <input type="time" id="dureecp" value="07:00">
+      <span class="hint">Durée que vous auriez travaillée ce jour-là selon votre planning (7 h pour 35 h sur 5 jours).</span>
+    </div>
     <div style="overflow-x:auto">
       <table class="tableau" id="grille">
         <thead>
           <tr>
-            <th>Sem.</th><th>Date</th><th class="jour">Jour</th>
+            <th>Sem.</th><th>Date</th><th class="jour">Jour</th><th>CP</th>
             <th>Arrivée<br>matin</th><th>Départ<br>matin</th>
             <th>Arrivée<br>a.-m.</th><th>Départ<br>a.-m.</th><th>Heures</th>
           </tr>
@@ -163,6 +184,7 @@ Payé à l'heure réelle (intérim, saisonnier, extra) ? Utilisez plutôt le <a 
         <tbody id="corps"></tbody>
       </table>
     </div>
+    <div class="alertes" id="alertes" hidden></div>
     <div class="actions">
       <button class="act btn-primary" id="calculer">Calculer le mois</button>
       <button class="act btn-ghost" id="exemple">Remplir un exemple</button>
@@ -173,15 +195,16 @@ Payé à l'heure réelle (intérim, saisonnier, extra) ? Utilisez plutôt le <a 
   <section class="panneau">
     <h2><span class="num">3</span> Résultat du mois</h2>
     <div class="cartes">
-      <div class="carte base"><div class="lbl">Base mensualisée</div><div class="val" id="r-base">151,67<small> h</small></div></div>
-      <div class="carte s25"><div class="lbl">Sup. à 25 %</div><div class="val" id="r-s25">0<small> h</small></div></div>
-      <div class="carte s50"><div class="lbl">Sup. à 50 %</div><div class="val" id="r-s50">0<small> h</small></div></div>
+      <div class="carte base"><div class="lbl">Base mensualisée</div><div class="val" id="r-base">151.67<small> h</small></div></div>
+      <div class="carte s25"><div class="lbl">Sup. à 25 %</div><div class="val" id="r-s25">0.00<small> h</small></div></div>
+      <div class="carte s50"><div class="lbl">Sup. à 50 %</div><div class="val" id="r-s50">0.00<small> h</small></div></div>
     </div>
+    <p class="cp-info" id="r-cp" hidden></p>
     <div class="note-cheval">
-      Lorsqu'une semaine est à cheval sur deux mois, le calcul global et le paiement des heures supplémentaires se font à la fin de cette semaine et sont reportés sur la fiche de paie du mois suivant.
+      Une semaine à cheval sur deux mois est rattachée au mois où elle se termine&nbsp;: ses heures supplémentaires apparaissent dans ce mois-là. C'est une convention de calcul de l'outil, pas une règle légale&nbsp;: votre entreprise peut en appliquer une autre.
     </div>
     <div class="note-complet">
-      Cet outil suppose un <b>mois complet</b> travaillé&nbsp;: la base de 151,67 h est alors acquise, et seules les heures supplémentaires varient. En cas de mois incomplet (entrée ou sortie en cours de mois, absence non rémunérée), le calcul de la base doit être régularisé séparément.
+      Cet outil suppose un <b>mois complet</b>&nbsp;: la base de 151,67 h est alors acquise, et seules les heures supplémentaires varient. En cas de mois incomplet (entrée ou sortie en cours de mois, absence non rémunérée), le calcul de la base doit être régularisé séparément.
     </div>
   </section>
 
@@ -195,13 +218,21 @@ Payé à l'heure réelle (intérim, saisonnier, extra) ? Utilisez plutôt le <a 
   <h2>Le calcul de la pause déjeuner</h2>
   <p>La pause du midi n'est pas du temps de travail effectif, dès lors que le salarié est libre de vaquer à ses occupations. Elle n'est donc ni rémunérée, ni comptée dans les heures.</p>
   <p>Prenons un exemple. Une journée de 8h30 à 12h30 le matin, puis de 13h30 à 17h30 l'après-midi, représente 8 heures de travail : la pause d'une heure, entre 12h30 et 13h30, n'est pas comptée.</p>
-  <p>Le calculateur ci-dessus déduit cette pause automatiquement. Vous indiquez seulement les heures d'arrivée et de départ, matin et après-midi, et il s'occupe du reste.</p>
+  <p>Le calculateur ci-dessus ne compte pas cette pause. Vous indiquez seulement les heures d'arrivée et de départ, matin et après-midi, et il s'occupe du reste.</p>
 
   <h2>Comment sont calculées les heures supplémentaires ?</h2>
-  <p>Les heures supplémentaires se comptent par semaine, au-delà de 35 heures. Leur majoration suit deux paliers.</p>
-  <p>Les huit premières, de la 36<sup>e</sup> à la 43<sup>e</sup> heure, sont majorées de 25 %. À partir de la 44<sup>e</sup> heure, la majoration passe à 50 %.</p>
+  <p>Les heures supplémentaires se comptent par semaine, au-delà de 35 heures. La semaine va du lundi 0 h au dimanche 24 h, sauf si un accord collectif fixe une autre période de sept jours consécutifs. Le calculateur retient la semaine du lundi au dimanche.</p>
+  <p>Leur majoration suit deux paliers. Les huit premières, de la 36<sup>e</sup> à la 43<sup>e</sup> heure, sont majorées de 25 %. À partir de la 44<sup>e</sup> heure, la majoration passe à 50 %.</p>
   <p>Un exemple concret. Une semaine de 44 heures compte donc 9 heures supplémentaires : les 8 premières à 25 %, et la 9<sup>e</sup> à 50 %.</p>
   <p>Ces taux de 25 % et 50 % sont ceux qui s'appliquent à défaut d'accord. Une convention collective ou un accord d'entreprise peut prévoir d'autres taux, mais la majoration ne peut jamais descendre en dessous de 10 %. Mieux vaut toujours vérifier ce qui s'applique à la situation concernée.</p>
+
+  <h2>Congés payés et heures supplémentaires</h2>
+  <p>Vous avez posé un jour de congé payé dans la semaine ? Il compte désormais pour savoir si vous dépassez 35 heures.</p>
+  <p>Avant, seules les heures réellement travaillées étaient prises en compte. Une semaine avec un jour de congé passait souvent sous les 35 heures, et les heures supplémentaires disparaissaient. La Cour de cassation a changé cette règle le 10 septembre 2025 : un salarié dont le temps de travail se décompte à la semaine, et qui a été en partie en congé payé, peut obtenir les heures supplémentaires qu'il aurait eues s'il avait travaillé toute la semaine.</p>
+  <p>Un exemple. Vous travaillez 32 heures du lundi au jeudi, puis vous êtes en congé payé le vendredi, un jour où vous auriez travaillé 7 heures. La semaine compte 39 heures : 4 heures supplémentaires à 25 %.</p>
+  <p>Dans le calculateur, cochez la case « CP » du jour concerné. Ce jour compte alors pour la durée indiquée dans le champ « Journée de congé payé » : 7 heures par défaut, soit 35 heures sur 5 jours. Ce n'est pas un forfait légal. Indiquez la durée que vous auriez travaillée ce jour-là selon votre planning, et ne cochez que les jours où vous auriez travaillé : un samedi habituellement non travaillé compte pour zéro. Dès qu'au moins une heure est travaillée dans la semaine, les congés payés comptent de cette façon.</p>
+  <p>Et si la semaine est entièrement en congé ? La jurisprudence ne l'a pas tranché. Par prudence, l'outil ne compte alors aucune heure supplémentaire : quand les heures supplémentaires sont habituelles, elles sont en principe déjà prises en compte dans le calcul de l'indemnité de congés payés.</p>
+  <p>Cette règle vaut pour les congés payés seulement. Les jours fériés chômés ne comptent pas pour atteindre les 35 heures, sauf si votre accord collectif ou un usage le prévoit. Il en va de même, en principe, pour les absences pour maladie. Dans le calculateur, laissez ces jours vides.</p>
 
   <h2>Le principe de la mensualisation</h2>
   <p>La plupart des salariés à temps complet sont mensualisés : le salaire de base est lissé sur l'année.</p>
@@ -215,94 +246,151 @@ Payé à l'heure réelle (intérim, saisonnier, extra) ? Utilisez plutôt le <a 
 
   <h2>Les durées maximales à respecter</h2>
   <p>Le temps de travail a des limites, et l'employeur doit les respecter.</p>
-  <p>La journée ne peut en principe pas dépasser 10 heures. La semaine est plafonnée à 48 heures. Et sur douze semaines consécutives, la moyenne ne peut pas dépasser 44 heures.</p>
-  <p>Un dernier point important : dès que 6 heures de travail continu sont atteintes dans la journée, une pause d'au moins 20 minutes consécutives est obligatoire.</p>
+  <p>La journée ne peut pas dépasser 10 heures, sauf dérogation : jusqu'à 12 heures si un accord collectif le prévoit. La semaine est plafonnée à 48 heures, et jusqu'à 60 heures seulement en cas de circonstances exceptionnelles, sur autorisation de l'administration. Sur douze semaines consécutives, la moyenne ne peut pas dépasser 44 heures, ou 46 heures si un accord collectif le prévoit.</p>
+  <p>Un dernier point important : dès que le temps de travail atteint 6 heures dans la journée, une pause d'au moins 20 minutes consécutives est obligatoire.</p>
 
-  <p class="avert">Ce calculateur est fourni à titre indicatif. Il s'applique principalement aux salariés du secteur privé à temps complet, soumis à un décompte hebdomadaire classique du temps de travail. Il ne tient pas compte des cas particuliers : convention collective, accord d'entreprise, aménagement du temps de travail sur l'année, convention de forfait, temps partiel, jours fériés ou absences. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
+  <p class="avert">Ce calculateur est fourni à titre indicatif. Il s'applique principalement aux salariés du secteur privé à temps complet, soumis à un décompte hebdomadaire du temps de travail. Il intègre les jours de congés payés au seuil des 35 heures, pour la durée que vous indiquez ; la jurisprudence n'a tranché ni le cas des congés au-delà de quatre semaines par an (cinquième semaine, congés conventionnels), ni celui d'une semaine entièrement en congé, pour laquelle l'outil ne compte aucune heure supplémentaire. Il ne tient pas compte des autres cas particuliers : convention collective, accord d'entreprise, aménagement du temps de travail sur plusieurs semaines ou sur l'année, convention de forfait, temps partiel, jours fériés ou absences assimilés à du travail effectif par un accord ou un usage. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
 </section>
 <section class="sources">
   <h3>Sources</h3>
   <ul>
-    <li>Durée légale du travail (35h/semaine) — <a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006189631/" target="_blank" rel="noopener">Code du travail, art. L3121-27</a></li>
-    <li>Majoration des heures supplémentaires (25 %/50 %) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033020341" target="_blank" rel="noopener">Code du travail, art. L3121-36</a></li>
-    <li>Taux de majoration minimal fixé par accord (10 %) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038610166" target="_blank" rel="noopener">Code du travail, art. L3121-33</a></li>
-    <li>Pause obligatoire dès 6h de travail — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000033020444" target="_blank" rel="noopener">Code du travail, art. L3121-16</a></li>
-    <li>Durées maximales de travail (10h/jour, 48h/semaine, 44h sur 12 semaines) — <a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072050/LEGISCTA000006189630/" target="_blank" rel="noopener">Code du travail, art. L3121-18 à L3121-22</a></li>
+    <li>Durée légale du travail (35h/semaine) — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-27" target="_blank" rel="noopener">Code du travail, art. L3121-27</a></li>
+    <li>Définition des heures supplémentaires — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-28" target="_blank" rel="noopener">Code du travail, art. L3121-28</a></li>
+    <li>Semaine de référence (lundi 0 h – dimanche 24 h, sauf accord) — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-32" target="_blank" rel="noopener">art. L3121-32</a> et <a href="https://code.travail.gouv.fr/code-du-travail/l3121-35" target="_blank" rel="noopener">art. L3121-35</a></li>
+    <li>Majoration des heures supplémentaires (25 %/50 %) — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-36" target="_blank" rel="noopener">Code du travail, art. L3121-36</a></li>
+    <li>Taux de majoration minimal fixé par accord (10 %) — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-33" target="_blank" rel="noopener">Code du travail, art. L3121-33</a></li>
+    <li>Temps de travail effectif — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-1" target="_blank" rel="noopener">Code du travail, art. L3121-1</a></li>
+    <li>Pause dès 6h de travail dans la journée — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-16" target="_blank" rel="noopener">Code du travail, art. L3121-16</a></li>
+    <li>Durées maximales de travail — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-18" target="_blank" rel="noopener">art. L3121-18</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-19" target="_blank" rel="noopener">L3121-19</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-20" target="_blank" rel="noopener">L3121-20</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-21" target="_blank" rel="noopener">L3121-21</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-22" target="_blank" rel="noopener">L3121-22</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-23" target="_blank" rel="noopener">L3121-23</a></li>
+    <li>Congés payés et seuil des heures supplémentaires — <a href="https://www.courdecassation.fr/decision/68c13312021d8d629a161216" target="_blank" rel="noopener">Cass. soc., 10 septembre 2025, n° 23-14.455, publié</a></li>
     <li>Fiche pédagogique — <a href="https://code.travail.gouv.fr/fiche-ministere-travail/la-duree-legale-du-travail" target="_blank" rel="noopener">Ministère du Travail, la durée légale du travail</a></li>
   </ul>
 </section>
   <footer>
-    Salarié à temps complet mensualisé (durée légale française&nbsp;: 35 h/semaine, 151,67 h/mois). Les heures supplémentaires se décomptent à la semaine, au-delà de 35 h, majorées à 25 % de la 36<sup>e</sup> à la 43<sup>e</sup> heure puis à 50 % au-delà. Une convention collective peut prévoir d'autres règles. Outil indicatif, ne remplace pas un bulletin de paie.
-         <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Calcul d'ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> <a href="/calcul-heure-de-nuit" style="color:var(--vert);font-weight:600">Heures de nuit</a> · <a href="/conversion-heure-decimale" style="color:var(--vert);font-weight:600">Conversion décimale</a> · <a href="/calcul-jours-ouvres" style="color:var(--vert);font-weight:600">Jours ouvrés/ouvrables</a> · <a href="/calcul-duree-cdd" style="color:var(--vert);font-weight:600">Durée du CDD</a> · <a href="/calcul-carence-cdd" style="color:var(--vert);font-weight:600">Délai de carence CDD</a> · <a href="/calcul-forfait-jours" style="color:var(--vert);font-weight:600">Forfait jours</a> · <a href="/calcul-rtt" style="color:var(--vert);font-weight:600">RTT classique</a> · <a href="/calcul-annualisation-temps-de-travail" style="color:var(--vert);font-weight:600">Annualisation</a> · <a href="/calcul-repos-compensateur" style="color:var(--vert);font-weight:600">Repos compensateur (COR)</a></p>      
-	  <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>  </footer>
+    Salarié à temps complet mensualisé (durée légale française&nbsp;: 35 h/semaine, 151,67 h/mois). Les heures supplémentaires se décomptent à la semaine, au-delà de 35 h, majorées à défaut d'accord à 25 % de la 36<sup>e</sup> à la 43<sup>e</sup> heure puis à 50 % au-delà. Une convention collective peut prévoir d'autres règles. Outil indicatif, ne remplace pas un bulletin de paie.
+    <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Calcul d'ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> · <a href="/calcul-heure-de-nuit" style="color:var(--vert);font-weight:600">Heures de nuit</a> · <a href="/conversion-heure-decimale" style="color:var(--vert);font-weight:600">Conversion décimale</a> · <a href="/calcul-jours-ouvres" style="color:var(--vert);font-weight:600">Jours ouvrés/ouvrables</a> · <a href="/calcul-duree-cdd" style="color:var(--vert);font-weight:600">Durée du CDD</a> · <a href="/calcul-carence-cdd" style="color:var(--vert);font-weight:600">Délai de carence CDD</a> · <a href="/calcul-forfait-jours" style="color:var(--vert);font-weight:600">Forfait jours</a> · <a href="/calcul-rtt" style="color:var(--vert);font-weight:600">RTT classique</a> · <a href="/calcul-annualisation-temps-de-travail" style="color:var(--vert);font-weight:600">Annualisation</a> · <a href="/calcul-repos-compensateur" style="color:var(--vert);font-weight:600">Repos compensateur (COR)</a></p>
+    <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>
+  </footer>
 </div>
 
 <script is:inline>
+/* Décompte hebdomadaire des heures supplémentaires (lundi 0 h - dimanche 24 h).
+   - Base mensualisée fixe 151,67 h ; tranches 36e-43e (25 %) puis au-delà (50 %), taux légaux supplétifs.
+   - Semaine rattachée au mois où elle se termine (dimanche) : convention de l'outil, pas une règle légale.
+   - Congés payés : Cass. soc. 10 sept. 2025, n° 23-14.455 (publié). Un jour de CP coché compte dans le
+     cumul de la semaine pour le seuil, pour la durée saisie (durée prévue au planning, 7 h par défaut ;
+     aucun forfait légal).
+   - Choix de prudence (contre-vérifié Perplexity, oct. 2026) : une semaine sans aucune heure travaillée
+     (entièrement en CP) ne produit pas d'heures sup. Cas non tranché : l'arrêt vise un salarié
+     « partiellement » en congé, et l'indemnité de CP au maintien inclut en principe les heures sup
+     habituelles (risque de double prise en compte). Dès 1 minute travaillée, la règle normale s'applique.
+   - Mémo interne, non cité dans le texte public : Cass. soc. 7 janv. 2026, n° 24-19.410 (décompte sur
+     deux semaines, même solution) ; Cass. soc. 3 juin 2026, n° 24-19.545 (maladie en annualisation :
+     seuil réduit) - hors champ de cette page. Jours fériés chômés et maladie : exclus du seuil sauf
+     accord ou usage. 5e semaine et congés conventionnels : non tranché.
+   - Saisie : un départ à 00:00 vaut minuit (24:00). Une demi-journée incomplète ou dont le départ
+     précède l'arrivée n'est pas comptée et est signalée. */
 const SEUIL=35, PALIER=8, BASE=151.67;
 
 function tvd(v){if(v==null||v==="")return NaN;const s=String(v).trim().replace(",",".");const m=s.match(/^(\d{1,2})\s*[:hH]\s*(\d{1,2})$/);if(m)return +m[1]+(+m[2])/60;const d=parseFloat(s);return isNaN(d)?NaN:d;}
-function hJour(a1,a2,p1,p2){let t=0;const x1=tvd(a1),x2=tvd(a2);if(!isNaN(x1)&&!isNaN(x2))t+=Math.max(0,x2-x1);const y1=tvd(p1),y2=tvd(p2);if(!isNaN(y1)&&!isNaN(y2))t+=Math.max(0,y2-y1);return t;}
+function demiJournee(a,b){
+  const x=tvd(a),y=tvd(b),va=!isNaN(x),vb=!isNaN(y);
+  if(!va&&!vb)return {h:0,err:null};
+  if(va!==vb)return {h:0,err:"incomplet"};
+  const fin=(y===0&&x>0)?24:y;
+  if(fin<x)return {h:0,err:"ordre"};
+  return {h:fin-x,err:null};
+}
+function etatJour(rec){const m=demiJournee(rec.am1,rec.am2),p=demiJournee(rec.pm1,rec.pm2);return {h:m.h+p.h,err:m.err||p.err};}
+function hJour(a1,a2,p1,p2){return etatJour({am1:a1,am2:a2,pm1:p1,pm2:p2}).h;}
 function decHM(d){if(isNaN(d))return"";let h=Math.floor(d+1e-9),m=Math.round((d-h)*60);if(m===60){h++;m=0;}return h+"h"+String(m).padStart(2,"0");}
-function decFr(d){return d.toFixed(2).replace(".",",");}
+function decPt(d){return d.toFixed(2);}
 function isoSem(dt){const d=new Date(Date.UTC(dt.getFullYear(),dt.getMonth(),dt.getDate()));const j=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-j);const y=new Date(Date.UTC(d.getUTCFullYear(),0,1));return Math.ceil(((d-y)/86400000+1)/7);}
 function cleJour(dt){return dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");}
 function lundiDe(dt){const d=new Date(dt);const j=(d.getDay()+6)%7;d.setDate(d.getDate()-j);d.setHours(0,0,0,0);return d;}
 function dimancheDe(dt){const l=lundiDe(dt);const d=new Date(l);d.setDate(l.getDate()+6);return d;}
 
 const DATA={};
+let DUREE_CP=7;
+
+/* Heures d'un jour : travaillées, ou valeur de la journée de congé payé si la case CP est cochée */
+function heuresJour(rec){
+  if(rec.cp)return {trav:0,cp:isNaN(DUREE_CP)?0:DUREE_CP,err:null};
+  const e=etatJour(rec);return {trav:e.h,cp:0,err:e.err};
+}
 
 /* Heures sup d'une semaine (lundi->dimanche), rattachées au mois du dimanche */
 function supSemaine(lundi){
-  let cumul=0,s25=0,s50=0,tot=0;const borne=SEUIL+PALIER;
+  let trav=0,cp=0,nbcp=0;
   for(let i=0;i<7;i++){
     const d=new Date(lundi);d.setDate(lundi.getDate()+i);
-    const rec=DATA[cleJour(d)]||{};const h=hJour(rec.am1,rec.am2,rec.pm1,rec.pm2);
-    const av=cumul,ap=cumul+h;
-    const p25=Math.max(0,Math.min(ap,borne)-SEUIL)-Math.max(0,Math.min(av,borne)-SEUIL);
-    const sup=Math.max(0,ap-SEUIL)-Math.max(0,av-SEUIL);
-    s25+=p25;s50+=sup-p25;tot+=h;cumul=ap;
+    const j=heuresJour(DATA[cleJour(d)]||{});trav+=j.trav;cp+=j.cp;if((DATA[cleJour(d)]||{}).cp)nbcp++;
   }
+  const cpCompte=trav>0?cp:0;
+  const tot=trav+cpCompte;
+  const s25=Math.min(PALIER,Math.max(0,tot-SEUIL)),s50=Math.max(0,tot-SEUIL-PALIER);
   const dim=new Date(lundi);dim.setDate(lundi.getDate()+6);
-  return {s25,s50,tot,moisFin:dim.getFullYear()+"-"+String(dim.getMonth()+1).padStart(2,"0")};
+  return {s25,s50,trav,cp:cpCompte,nbcp:trav>0?nbcp:0,moisFin:dim.getFullYear()+"-"+String(dim.getMonth()+1).padStart(2,"0")};
 }
 
 /* Total du mois : base fixe + sup des semaines qui se terminent dans le mois */
 function calcMois(annee,mois){
   const premier=new Date(annee,mois,1),dernier=new Date(annee,mois+1,0);
   let l=lundiDe(premier);const fin=lundiDe(dernier);
-  let s25=0,s50=0;const cle=annee+"-"+String(mois+1).padStart(2,"0");
-  while(l<=fin){const s=supSemaine(l);if(s.moisFin===cle){s25+=s.s25;s50+=s.s50;}const nx=new Date(l);nx.setDate(l.getDate()+7);l=nx;}
-  return {base:BASE,s25,s50,total:BASE+s25+s50};
+  let s25=0,s50=0,cp=0,nbcp=0;const cle=annee+"-"+String(mois+1).padStart(2,"0");
+  while(l<=fin){const s=supSemaine(l);if(s.moisFin===cle){s25+=s.s25;s50+=s.s50;cp+=s.cp;nbcp+=s.nbcp;}const nx=new Date(l);nx.setDate(l.getDate()+7);l=nx;}
+  return {base:BASE,s25,s50,cp,nbcp,total:BASE+s25+s50};
 }
 
 const MOIS=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
 const JOURS=["lun","mar","mer","jeu","ven","sam","dim"];
-const selMois=document.getElementById("mois");
+const selMois=document.getElementById("mois"),inAnnee=document.getElementById("annee"),inCP=document.getElementById("dureecp");
 MOIS.forEach((m,i)=>{const o=document.createElement("option");o.value=i;o.textContent=m;selMois.appendChild(o);});
-const now=new Date();selMois.value=now.getMonth();document.getElementById("annee").value=now.getFullYear();
+const now=new Date();selMois.value=now.getMonth();inAnnee.value=now.getFullYear();
 
+function anneeValide(){const v=String(inAnnee.value).trim();const n=Number(v);return (v!==""&&Number.isInteger(n)&&n>=2000&&n<=2100)?n:null;}
+function lireDureeCP(){DUREE_CP=tvd(inCP.value);}
+function jjmm(k){return k.slice(8,10)+"/"+k.slice(5,7);}
+function celluleHeures(k){
+  const rec=DATA[k]||{};
+  if(rec.cp)return {txt:"CP · "+(isNaN(DUREE_CP)?"0h00":decHM(DUREE_CP)),err:null};
+  const e=etatJour(rec);
+  if(e.err)return {txt:"⚠ "+(e.h>0?decHM(e.h):""),err:e.err};
+  return {txt:e.h>0?decHM(e.h):"—",err:null};
+}
+function majLigne(tr){
+  const k=tr.dataset.date,rec=DATA[k]||{},c=celluleHeures(k);
+  tr.querySelector("[data-h]").textContent=c.txt;
+  tr.classList.toggle("cp",!!rec.cp);
+  tr.classList.toggle("err",!!c.err);
+  tr.querySelectorAll("input[type=time]").forEach(i=>{i.disabled=!!rec.cp;});
+}
 function sauveLigne(tr){
   const k=tr.dataset.date;
-  DATA[k]={am1:tr.querySelector(".am1").value,am2:tr.querySelector(".am2").value,pm1:tr.querySelector(".pm1").value,pm2:tr.querySelector(".pm2").value};
-  const h=hJour(DATA[k].am1,DATA[k].am2,DATA[k].pm1,DATA[k].pm2);
-  tr.querySelector("[data-h]").textContent=h>0?decHM(h):"—";
+  DATA[k]={am1:tr.querySelector(".am1").value,am2:tr.querySelector(".am2").value,pm1:tr.querySelector(".pm1").value,pm2:tr.querySelector(".pm2").value,cp:tr.querySelector(".cp").checked};
+  majLigne(tr);
   calculer();
 }
 function ligneHTML(date,report){
-  const jw=(date.getDay()+6)%7,sem=isoSem(date),k=cleJour(date),rec=DATA[k]||{},h=hJour(rec.am1,rec.am2,rec.pm1,rec.pm2);
-  const cls=[report?"report":"",jw>=5?"we":""].filter(Boolean).join(" ");
+  const jw=(date.getDay()+6)%7,sem=isoSem(date),k=cleJour(date),rec=DATA[k]||{},c=celluleHeures(k),dis=rec.cp?" disabled":"";
+  const cls=[report?"report":"",jw>=5?"we":"",rec.cp?"cp":"",c.err?"err":""].filter(Boolean).join(" ");
+  const dd=String(date.getDate()).padStart(2,"0")+"/"+String(date.getMonth()+1).padStart(2,"0");
   return '<tr class="'+cls+'" data-date="'+k+'">'
     +'<td class="semlabel">'+(jw===0?sem:"")+'</td>'
-    +'<td class="date">'+String(date.getDate()).padStart(2,"0")+"/"+String(date.getMonth()+1).padStart(2,"0")+'</td>'
+    +'<td class="date">'+dd+'</td>'
     +'<td class="jour">'+JOURS[jw]+'</td>'
-    +'<td><input type="time" class="am1" value="'+(rec.am1||"")+'"></td>'
-    +'<td><input type="time" class="am2" value="'+(rec.am2||"")+'"></td>'
-    +'<td><input type="time" class="pm1" value="'+(rec.pm1||"")+'"></td>'
-    +'<td><input type="time" class="pm2" value="'+(rec.pm2||"")+'"></td>'
-    +'<td class="htot" data-h>'+(h>0?decHM(h):"—")+'</td></tr>';
+    +'<td><input type="checkbox" class="cp" aria-label="Congé payé le '+dd+'"'+(rec.cp?" checked":"")+'></td>'
+    +'<td><input type="time" class="am1" aria-label="Arrivée matin le '+dd+'" value="'+(rec.am1||"")+'"'+dis+'></td>'
+    +'<td><input type="time" class="am2" aria-label="Départ matin le '+dd+'" value="'+(rec.am2||"")+'"'+dis+'></td>'
+    +'<td><input type="time" class="pm1" aria-label="Arrivée après-midi le '+dd+'" value="'+(rec.pm1||"")+'"'+dis+'></td>'
+    +'<td><input type="time" class="pm2" aria-label="Départ après-midi le '+dd+'" value="'+(rec.pm2||"")+'"'+dis+'></td>'
+    +'<td class="htot" data-h>'+c.txt+'</td></tr>';
 }
 function construire(){
-  const mois=+selMois.value,annee=+document.getElementById("annee").value;
+  const annee=anneeValide();
+  document.getElementById("err-annee").hidden=annee!==null;
+  if(annee===null){document.getElementById("corps").innerHTML="";return;}
+  const mois=+selMois.value;
   const premier=new Date(annee,mois,1),dernier=new Date(annee,mois+1,0);
   let html="";
   const lun1=lundiDe(premier);
@@ -314,41 +402,67 @@ function construire(){
   corps.querySelectorAll("input").forEach(inp=>{
     inp.addEventListener("input",()=>sauveLigne(inp.closest("tr")));
     inp.addEventListener("change",()=>sauveLigne(inp.closest("tr")));
-    inp.addEventListener("blur",()=>sauveLigne(inp.closest("tr")));
+    if(inp.type==="time")inp.addEventListener("blur",()=>sauveLigne(inp.closest("tr")));
   });
 }
+function majAlertes(){
+  const box=document.getElementById("alertes"),msgs=[];
+  let cpCoche=false;
+  document.querySelectorAll("#corps tr").forEach(tr=>{
+    const k=tr.dataset.date,rec=DATA[k]||{};
+    if(rec.cp){cpCoche=true;return;}
+    const e=etatJour(rec);
+    if(e.err==="incomplet")msgs.push(jjmm(k)+" : horaire incomplet (arrivée ou départ manquant). Cette demi-journée n'est pas comptée.");
+    if(e.err==="ordre")msgs.push(jjmm(k)+" : le départ est avant l'arrivée. Cette demi-journée n'est pas comptée. Si l'horaire passe minuit, arrêtez-le à 00:00 et saisissez la suite sur le jour suivant.");
+  });
+  if(cpCoche&&isNaN(DUREE_CP))msgs.push("La durée de la journée de congé payé est vide : les jours CP comptent pour 0 h.");
+  box.hidden=msgs.length===0;
+  box.innerHTML=msgs.length?"<b>À vérifier</b><ul>"+msgs.map(m=>"<li>"+m+"</li>").join("")+"</ul>":"";
+}
+function afficheVide(){
+  ["r-s25","r-s50"].forEach(id=>{document.getElementById(id).innerHTML='—<small> h</small>';});
+  document.getElementById("r-cp").hidden=true;
+}
 function calculer(){
-  const r=calcMois(+document.getElementById("annee").value,+selMois.value);
-  document.getElementById("r-base").innerHTML=decFr(r.base)+'<small> h</small>';
-  document.getElementById("r-s25").innerHTML=decFr(r.s25)+'<small> h · '+decHM(r.s25)+'</small>';
-  document.getElementById("r-s50").innerHTML=decFr(r.s50)+'<small> h · '+decHM(r.s50)+'</small>';
+  majAlertes();
+  const annee=anneeValide();
+  if(annee===null){afficheVide();return;}
+  const r=calcMois(annee,+selMois.value);
+  document.getElementById("r-base").innerHTML=decPt(r.base)+'<small> h</small>';
+  document.getElementById("r-s25").innerHTML=decPt(r.s25)+'<small> h · '+decHM(r.s25)+'</small>';
+  document.getElementById("r-s50").innerHTML=decPt(r.s50)+'<small> h · '+decHM(r.s50)+'</small>';
+  const pcp=document.getElementById("r-cp");
+  if(r.nbcp>0){pcp.hidden=false;pcp.textContent="Congés payés intégrés au seuil des 35 h : "+decPt(r.cp)+" h ("+r.nbcp+" jour"+(r.nbcp>1?"s":"")+").";}
+  else pcp.hidden=true;
 }
 function exemple(){
-  const mois=+selMois.value,annee=+document.getElementById("annee").value,nb=new Date(annee,mois+1,0).getDate();
+  const annee=anneeValide();if(annee===null)return;
+  const mois=+selMois.value,nb=new Date(annee,mois+1,0).getDate();
   for(let d=1;d<=nb;d++){const dt=new Date(annee,mois,d),jw=(dt.getDay()+6)%7;if(jw<5)DATA[cleJour(dt)]={am1:"08:30",am2:"12:30",pm1:"13:30",pm2:"17:30"};}
   construire();calculer();
 }
 function vider(){
-  const mois=+selMois.value,annee=+document.getElementById("annee").value,nb=new Date(annee,mois+1,0).getDate();
+  const annee=anneeValide();if(annee===null)return;
+  const mois=+selMois.value,nb=new Date(annee,mois+1,0).getDate();
   for(let d=1;d<=nb;d++)delete DATA[cleJour(new Date(annee,mois,d))];
-  construire();
-  document.getElementById("r-base").innerHTML='151,67<small> h</small>';
-  document.getElementById("r-s25").innerHTML='0<small> h</small>';
-  document.getElementById("r-s50").innerHTML='0<small> h</small>';
+  construire();calculer();
 }
 function changeMois(delta){
-  let m=+selMois.value+delta,y=+document.getElementById("annee").value;
+  let m=+selMois.value+delta,y=anneeValide();if(y===null)y=now.getFullYear();
   if(m<0){m=11;y--;}else if(m>11){m=0;y++;}
-  selMois.value=m;document.getElementById("annee").value=y;construire();calculer();
+  selMois.value=m;inAnnee.value=y;construire();calculer();
 }
 selMois.addEventListener("change",()=>{construire();calculer();});
-document.getElementById("annee").addEventListener("change",()=>{construire();calculer();});
+inAnnee.addEventListener("change",()=>{construire();calculer();});
+inCP.addEventListener("change",()=>{lireDureeCP();construire();calculer();});
+inCP.addEventListener("input",()=>{lireDureeCP();construire();calculer();});
 document.getElementById("prev").addEventListener("click",()=>changeMois(-1));
 document.getElementById("next").addEventListener("click",()=>changeMois(1));
 document.getElementById("calculer").addEventListener("click",calculer);
 document.getElementById("exemple").addEventListener("click",exemple);
 document.getElementById("vider").addEventListener("click",vider);
-construire();
+lireDureeCP();
+construire();calculer();
 </script>
 </body>
 </html>
