@@ -90,16 +90,16 @@
 <body>
 <div class="wrap">
   <header class="hero">
-    <div class="eyebrow">Heures de nuit · France</div>
+    <div class="eyebrow">Travail de nuit · France</div>
     <h1>Calcul des heures de nuit</h1>
-    <p class="sub">Vous travaillez en horaires décalés, en intérim, en restauration ou en hôtellerie ? Cet outil compte, jour par jour, les heures qui tombent dans la plage nocturne - y compris pour un poste qui commence avant minuit et se termine après.
+    <p class="sub">Vous travaillez en horaires décalés, en restauration ou en hôtellerie ? Ce calculateur additionne, date par date, ce qui tombe dans votre créneau de nuit, y compris pour un poste qui commence le soir et finit le lendemain matin.
     <br><br>
-    C'est un calculateur d'heures de nuit, pas de majoration ni de salaire.
+    Il traite des heures, pas de majoration ni de salaire.
     Pour calculer vos heures supplémentaires en temps complet, direction le <a href="/calcul-temps-de-travail">calcul du temps de travail réel</a> ou le <a href="/">calcul heure de travail</a> mensualisé.</p>
   </header>
 
   <section class="panneau">
-    <h2><span class="num">1</span> Mois et plage nocturne</h2>
+    <h2><span class="num">1</span> Calendrier et horaires de nuit</h2>
     <div class="bandeau">
       <div class="navmois">
         <button id="prev" aria-label="Mois précédent">&lsaquo;</button>
@@ -117,18 +117,18 @@
     </div>
     <label class="dst"><input type="checkbox" id="sansdst"> Pas de changement d'heure (outre-mer)</label>
     <p class="err-annee" id="err-annee" hidden>Indiquez une année entre 2000 et 2100.</p>
-    <p class="hint" style="margin-top:10px">Valeur par défaut : 21h-6h, la référence légale à défaut d'accord collectif (art. L3122-20 du Code du travail). Votre convention collective peut prévoir une autre plage — modifiez les champs ci-dessus si besoin. Les nuits du changement d'heure sont comptées selon l'heure légale de métropole, sauf si vous cochez la case.</p>
+    <p class="hint" style="margin-top:10px">Valeur par défaut : 21h-6h, celle du Code du travail à défaut d'accord collectif (article L3122-20). Votre convention collective peut prévoir d'autres bornes : modifiez les champs ci-dessus si besoin. Les nuits du changement d'heure sont comptées selon le fuseau de métropole, sauf si vous cochez la case.</p>
   </section>
 
   <section class="panneau">
     <h2><span class="num">2</span> Vos horaires</h2>
-    <p class="hint" style="margin-bottom:12px">Laissez vide un jour non travaillé. Pour un poste qui se termine après minuit (ex. 20h-4h), indiquez simplement l'heure de fin plus petite que l'heure de début : le poste est automatiquement rattaché à la journée où il commence.</p>
+    <p class="hint" style="margin-bottom:12px">Laissez vide un jour non travaillé. Pour un poste qui se termine après minuit (ex. 20h-4h), indiquez simplement une heure de fin inférieure à celle du début : le poste est rattaché automatiquement à la journée où il commence.</p>
     <div style="overflow-x:auto">
       <table class="tableau" id="grille">
         <thead>
           <tr>
             <th>Date</th><th class="jour">Jour</th>
-            <th>Début</th><th>Fin</th><th>Heures de nuit</th>
+            <th>Début</th><th>Fin</th><th>Nuit</th>
           </tr>
         </thead>
         <tbody id="corps"></tbody>
@@ -136,91 +136,117 @@
     </div>
     <div class="alertes" id="alertes" hidden></div>
     <div class="actions">
-      <button class="act btn-primary" id="calculer">Calculer le mois</button>
+      <button class="act btn-primary" id="calculer">Calculer</button>
       <button class="act btn-ghost" id="exemple">Remplir un exemple</button>
-      <button class="act btn-ghost" id="vider">Effacer ce mois</button>
+      <button class="act btn-ghost" id="vider">Tout effacer</button>
     </div>
   </section>
 
   <section class="panneau">
-    <h2><span class="num">3</span> Résultat du mois</h2>
+    <h2><span class="num">3</span> Résultat</h2>
     <div class="cartes">
-      <div class="carte total"><div class="lbl">Total heures de nuit</div><div class="val" id="r-tot">0.00<small> h</small></div></div>
+      <div class="carte total"><div class="lbl">Durée de nuit</div><div class="val" id="r-tot">0.00<small> h</small></div></div>
     </div>
     <div class="note note-cheval">
-      Un poste qui chevauche minuit (ex. 20h-4h) est découpé automatiquement en deux morceaux calendaires pour le calcul, mais le total est intégralement rattaché à la journée où le poste <b>commence</b> — c'est la convention retenue par cet outil, adaptée à un compteur d'heures de nuit.
+      Un poste qui chevauche minuit (ex. 20h-4h) est découpé en deux tranches pour le calcul, mais il est rattaché à la journée où il <b>commence</b>. C'est le choix retenu ici, adapté à un compteur de nuit.
     </div>
     <div class="note note-legal">
-      Le Code du travail fixe un cadre : la période de travail de nuit dure au moins neuf heures consécutives, comprend l'intervalle minuit-5h, commence au plus tôt à 21h et se termine au plus tard à 7h (article L3122-2 du Code du travail). Elle peut être de sept heures seulement dans certains secteurs : presse, radio, télévision, cinéma, spectacles, discothèques (article L3122-3), ainsi que dans les commerces des zones touristiques internationales (article L3122-4).<br><br>
-      La plage exacte est fixée par un accord d'entreprise ou d'établissement, à défaut par un accord de branche (article L3122-15). Sans accord, c'est 21h-6h (article L3122-20) : c'est la valeur par défaut de ce calculateur. Une autre plage peut alors être autorisée par l'inspecteur du travail, après consultation des délégués syndicaux et avis du comité social et économique (article L3122-22).<br><br>
-      Ce calculateur compte uniquement des heures. Les contreparties (repos, majoration) dépendent de votre statut et de votre convention collective : voir le détail plus bas.
+      Le Code du travail fixe un cadre : la période de travail de nuit dure au moins neuf heures consécutives, comprend l'intervalle minuit-5h, commence au plus tôt à 21h et se termine au plus tard à 7h (article L3122-2). Elle peut être de sept heures seulement dans certains secteurs : presse, radio, télévision, cinéma, spectacles, discothèques (article L3122-3), ainsi que dans les commerces des zones touristiques internationales (article L3122-4).<br><br>
+      Les bornes exactes sont fixées par un accord d'entreprise ou d'établissement, à défaut par un accord de branche (article L3122-15). Sans accord, c'est 21h-6h (article L3122-20), valeur par défaut de ce calculateur. Dans ce cas, une autre période peut être autorisée par l'inspecteur du travail, après consultation des délégués syndicaux et avis du comité social et économique (article L3122-22).<br><br>
+      Ce calculateur ne mesure que des heures. Pour les contreparties, voir plus bas.
     </div>
     <div class="note note-complet">
-      Cet outil compte des <b>heures</b>, pas des euros. Il ne calcule ni taux de majoration, ni salaire, ni repos compensateur — ces éléments dépendent de votre statut et de votre convention collective. Public visé : salariés en horaires décalés, 3x8, intérim, restauration et hôtellerie notamment. Pour vos heures supplémentaires en temps complet, voir le <a href="/calcul-temps-de-travail">calcul du temps de travail réel</a> ; pour un mois mensualisé, le <a href="/">calcul heure de travail</a>.
+      Ce calculateur mesure des <b>heures</b>, pas des euros. Il ne calcule ni taux de majoration, ni salaire, ni repos compensateur : cela dépend de votre statut et de vos accords collectifs. Public visé : salariés en horaires décalés, 3x8, restauration et hôtellerie notamment. Pour vos heures supplémentaires en temps complet, voir le <a href="/calcul-temps-de-travail">calcul du temps de travail réel</a> ; pour un mois mensualisé, le <a href="/">calcul heure de travail</a>.
     </div>
   </section>
 
 <section class="contenu-seo">
   <h2>Comment calculer ses heures de nuit ?</h2>
-  <p>Calculer ses heures de nuit, c'est repérer, pour chaque poste travaillé, la part qui tombe dans la plage horaire nocturne. Contrairement à un simple total d'heures, ce calcul exige de connaître précisément l'heure de début et l'heure de fin de chaque poste — pas seulement leur durée.</p>
-  <p>C'est exactement ce que fait le calculateur ci-dessus : vous indiquez l'heure de début et de fin de chaque poste, jour par jour, et il calcule automatiquement combien d'heures tombent dans la plage nocturne définie.</p>
+  <p>Pour chaque poste travaillé, il faut repérer la part qui tombe dans la tranche de nuit. Contrairement à un simple total, ce calcul demande l'heure de début et celle de fin de chaque poste, pas seulement leur durée.</p>
+  <p>Voilà ce que fait le calculateur ci-dessus : vous saisissez début et fin, date par date, et il calcule combien d'heures tombent dans la nuit que vous avez définie.</p>
 
-  <h2>Qu'est-ce que la plage horaire nocturne ?</h2>
-  <p>La plage nocturne n'est pas la même partout. La loi fixe un cadre — neuf heures consécutives au minimum, comprenant obligatoirement l'intervalle minuit-5h, situées entre 21h et 7h — mais c'est votre convention collective ou un accord d'entreprise qui en précise les bornes exactes. À défaut d'accord, la référence légale est 21h-6h.</p>
-  <p>Dans certains secteurs, la plage peut être plus courte : sept heures consécutives au moins, toujours avec l'intervalle minuit-5h. C'est le cas de la presse, de la radio, de la télévision, du cinéma, des spectacles et des discothèques, et des commerces situés en zone touristique internationale.</p>
-  <p>C'est pour cette raison que la plage nocturne est modifiable dans ce calculateur : certaines conventions retiennent 22h-7h, d'autres des bornes différentes, toujours dans le respect de l'intervalle minuit-5h. Vérifiez la vôtre avant de vous fier au résultat par défaut.</p>
+  <h3>Le résultat en heures décimales</h3>
+  <p>Le résultat s'affiche deux fois : en heures et minutes (7h30) et en heures décimales (7.50 h). Pour passer de l'un à l'autre, ou pour convertir d'autres durées, utilisez la <a href="/conversion-heure-decimale">conversion en heures décimales</a>. Par exemple, 7h30 correspond à 7,5 heures.</p>
+
+  <h2>Quels sont les horaires de travail de nuit ?</h2>
+  <p>Les horaires de nuit ne sont pas les mêmes partout. La loi fixe un cadre : neuf heures consécutives au minimum, comprenant l'intervalle minuit-5h, situées entre 21h et 7h. Votre convention collective ou un accord collectif en fixe les bornes exactes. À défaut d'accord, la référence légale est 21h-6h, et le travail de nuit ne peut être mis en place qu'avec l'autorisation de l'inspecteur du travail.</p>
+
+  <h3>Les secteurs où la nuit est plus courte</h3>
+  <p>Dans certains secteurs, la période de nuit peut être plus courte : sept heures consécutives au moins, toujours avec l'intervalle minuit-5h. C'est le cas de :</p>
+  <ul>
+    <li>la presse, la radio et la télévision ;</li>
+    <li>le cinéma et les spectacles ;</li>
+    <li>les discothèques ;</li>
+    <li>les commerces situés en zone touristique internationale.</li>
+  </ul>
+
+  <h3>Modifier les horaires dans le calculateur</h3>
+  <p>C'est pour cette raison que la période de nuit est modifiable ici : certains accords retiennent 22h-7h, d'autres des bornes différentes, toujours dans le respect de l'intervalle minuit-5h. Vérifiez les vôtres avant de vous fier au résultat par défaut.</p>
 
   <h2>Le cas des postes qui chevauchent minuit</h2>
-  <p>Un poste de 20h à 4h du matin pose une difficulté simple en apparence : sur quelle journée compter ces heures ? Ce calculateur découpe le poste en deux tranches calendaires pour le calcul — une avant minuit, une après — puis additionne les heures de nuit de chaque tranche. Le total est ensuite rattaché à la journée où le poste a commencé.</p>
-  <p>Un exemple concret. Avec la plage par défaut 21h-6h, un poste de 20h à 4h compte 3 heures de nuit avant minuit (21h-24h) et 4 heures après (0h-4h), soit 7 heures de nuit au total sur les 8 heures du poste.</p>
+  <p>Un poste de 20h à 4h du matin pose une question simple : sur quelle journée compter ces heures ? Le calculateur découpe le poste en deux tranches, avant et après minuit, additionne la nuit de chaque tranche, puis rattache le résultat à la journée de début.</p>
+
+  <h3>Un exemple concret</h3>
+  <p>Avec la période par défaut (21h-6h), un poste de 20h à 4h totalise 3 h entre 21h et 24h, puis 4 h entre 0h et 4h : 7 h sur les 8 h du poste tombent dans la nuit.</p>
 
   <h2>La nuit du changement d'heure</h2>
-  <p>Deux nuits par an, en métropole, l'heure change au milieu de la nuit. Fin mars, on avance d'une heure : un poste de 21h à 6h dure 8 heures réelles. Fin octobre, on recule d'une heure : le même poste dure 10 heures réelles.</p>
-  <p>Aucun texte ne règle spécialement ce cas. Le temps de travail effectif, c'est le temps réellement passé au travail : le calculateur compte donc le temps réellement écoulé ces nuits-là. C'est une convention de calcul de l'outil ; votre convention collective peut prévoir autre chose.</p>
-  <p>Vous travaillez en outre-mer, sans changement d'heure ? Cochez la case « Pas de changement d'heure » : un poste de 21h à 6h compte alors toujours 9 heures.</p>
-  <p>Fin octobre, les horaires entre 2h et 3h existent deux fois. Par convention, l'outil considère qu'un poste commence au premier passage de cette heure, et se termine au second.</p>
+  <p>Deux nuits par an, en métropole, l'heure change au milieu de la nuit. Le dernier dimanche de mars, on avance d'une heure : un poste de 21h à 6h dure 8 h. Le dernier dimanche d'octobre, on recule d'une heure : le même poste dure 10 h.</p>
+  <p>Aucun texte ne règle spécialement ce cas. Le temps de travail effectif est le temps passé au travail : le calculateur retient donc la durée écoulée ces nuits-là. C'est un choix de calcul ; vos accords peuvent prévoir autre chose.</p>
+  <p>En octobre, les horaires entre 2h et 3h existent deux fois. Le calculateur considère qu'un poste commence au premier passage de cette tranche et se termine au second.</p>
+
+  <h3>Outre-mer : pas de changement d'heure</h3>
+  <p>Vous travaillez en outre-mer, sans changement d'heure ? Cochez la case « Pas de changement d'heure » : un poste de 21h à 6h fait alors toujours 9 h.</p>
 
   <h2>Êtes-vous travailleur de nuit ?</h2>
-  <p>Faire des heures de nuit ne fait pas automatiquement de vous un « travailleur de nuit ». Ce statut compte, car il ouvre droit à des protections particulières.</p>
-  <p>Vous êtes travailleur de nuit dans deux cas. Soit votre horaire habituel vous fait travailler au moins 3 heures de nuit, au moins deux fois par semaine. Soit vous atteignez un nombre minimal d'heures de nuit sur une période de référence : 270 heures sur 12 mois consécutifs à défaut d'accord, un accord collectif étendu pouvant fixer un autre seuil.</p>
-  <p>Le total affiché par ce calculateur vous aide à faire le point sur ce second critère, mois après mois.</p>
-  <p>Un travailleur de nuit ne peut pas travailler plus de 8 heures par jour, sauf dérogations prévues par accord ou autorisées par l'administration. Sur 12 semaines consécutives, sa durée de travail ne peut pas dépasser 40 heures par semaine en moyenne ; un accord collectif ou un décret peut porter cette limite à 44 heures.</p>
+  <p>Faire de la nuit ne fait pas automatiquement de vous un « travailleur de nuit ». Ce statut compte, car il ouvre droit à des protections particulières.</p>
+  <p>Vous êtes travailleur de nuit si l'une de ces deux conditions est remplie :</p>
+  <ul>
+    <li>votre horaire habituel vous fait travailler au moins 3 heures de travail de nuit, au moins deux fois par semaine ;</li>
+    <li>ou vous atteignez un nombre minimal d'heures de travail de nuit sur une période de référence : 270 heures sur 12 mois consécutifs à défaut d'accord, un accord collectif étendu pouvant fixer un autre seuil.</li>
+  </ul>
+  <p>Le résultat affiché par ce calculateur vous aide à suivre ce second critère d'une période à l'autre.</p>
 
-  <h2>Heures de nuit : quelles contreparties ?</h2>
-  <p>Le Code du travail définit un cadre : la période de travail de nuit dure au moins neuf heures consécutives, comprend obligatoirement l'intervalle minuit-5h, et se situe entre 21h et 7h.</p>
-  <p>C'est un accord d'entreprise ou d'établissement — ou à défaut une convention ou un accord de branche — qui fixe la plage horaire exacte applicable dans votre entreprise. En l'absence d'un tel accord, la référence légale par défaut est 21h-6h, et le travail de nuit ne peut être mis en place qu'avec l'autorisation de l'inspecteur du travail.</p>
+  <h3>Les limites de durée du travailleur de nuit</h3>
+  <p>Un travailleur de nuit ne peut pas travailler plus de 8 heures par jour, sauf dérogations prévues par accord ou autorisées par l'administration. Sur 12 semaines d'affilée, sa durée hebdomadaire de travail ne peut pas dépasser 40 heures en moyenne ; un accord collectif ou un décret peut porter cette limite à 44 heures.</p>
+
+  <h2>Majorations et repos : quelles contreparties au travail de nuit ?</h2>
   <p>Les contreparties dépendent de votre statut. Si vous êtes travailleur de nuit, vous avez droit à un repos compensateur : il est obligatoire. Une compensation salariale, c'est-à-dire une majoration, peut s'y ajouter si l'accord collectif la prévoit.</p>
-  <p>Si vous faites seulement des heures de nuit de temps en temps, le Code du travail ne prévoit pas de contrepartie générale : tout dépend de votre convention collective, de votre contrat ou des usages de l'entreprise.</p>
+  <p>Si vous ne travaillez de nuit qu'occasionnellement, le Code du travail ne prévoit pas de contrepartie générale : tout dépend de votre convention collective, de votre contrat ou des usages en vigueur.</p>
   <p>C'est pour cette raison que ce calculateur n'affiche pas de majoration : l'afficher sans connaître votre convention donnerait une fausse impression de précision.</p>
-  <p>En intérim, les règles de travail de nuit sont celles de l'entreprise où vous êtes en mission : sa plage horaire, et les contreparties prévues par ses accords.</p>
 
-  <p class="avert">Ce calculateur est fourni à titre indicatif. C'est un outil de comptage d'heures, pas de calcul de salaire ni de majoration : le résultat est à vérifier auprès de votre service RH ou dans votre convention collective. La journée d'attribution d'un poste chevauchant minuit (rattaché à son jour de début) et le décompte des nuits du changement d'heure (temps réellement écoulé, heure légale de métropole) sont des conventions de calcul retenues par cet outil, et non des règles légales. Le travail de nuit est en principe interdit aux salariés de moins de 18 ans, sauf dérogations : ce calculateur ne traite pas ce cas. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
+  <h3>Et en intérim ?</h3>
+  <p>Pour une mission, ce sont les règles de l'entreprise utilisatrice qui s'appliquent : sa période de nuit et les contreparties prévues par ses accords.</p>
+
+  <h3>Ce que ce calculateur ne fait pas</h3>
+  <p>Il ne suit pas la semaine de travail ni les heures supplémentaires. Pour ce décompte hebdomadaire des heures de travail, utilisez le <a href="/calcul-temps-de-travail">calcul des heures réelles</a> ; pour suivre un repos compensateur, le <a href="/calcul-repos-compensateur">calcul du repos compensateur</a>.</p>
+
+  <p class="avert">Ce calculateur est fourni à titre indicatif. Il mesure des heures, il ne calcule ni salaire ni majoration : vérifiez le résultat auprès de votre employeur ou dans vos accords collectifs. Le rattachement d'un poste à cheval sur deux jours à sa journée de début et le décompte des nuits du changement d'heure (durée écoulée, fuseau de métropole) sont des choix de calcul retenus ici, et non des règles légales. Le travail de nuit est en principe interdit aux salariés de moins de 18 ans, sauf dérogations : ce calculateur ne traite pas ce cas. Il ne remplace pas un avis professionnel ni vos documents de paie.</p>
 </section>
 
 <section class="sources">
   <h3>Sources</h3>
   <ul>
-    <li>Recours exceptionnel au travail de nuit — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-1" target="_blank" rel="noopener">Code du travail, art. L3122-1</a></li>
-    <li>Définition de la période de travail de nuit (9 h consécutives, minuit-5h, entre 21h et 7h) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-2" target="_blank" rel="noopener">Code du travail, art. L3122-2</a></li>
-    <li>Période de 7 h : presse, audiovisuel, cinéma, spectacles, discothèques — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-3" target="_blank" rel="noopener">Code du travail, art. L3122-3</a></li>
-    <li>Commerces de détail en zone touristique internationale — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-4" target="_blank" rel="noopener">Code du travail, art. L3122-4</a></li>
-    <li>Définition du travailleur de nuit — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-5" target="_blank" rel="noopener">Code du travail, art. L3122-5</a></li>
-    <li>Durée quotidienne maximale du travailleur de nuit (8 h) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-6" target="_blank" rel="noopener">Code du travail, art. L3122-6</a></li>
-    <li>Durée hebdomadaire maximale du travailleur de nuit (40 h en moyenne sur 12 semaines) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-7" target="_blank" rel="noopener">Code du travail, art. L3122-7</a></li>
-    <li>Contreparties du travailleur de nuit : repos compensateur et, le cas échéant, compensation salariale — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-8" target="_blank" rel="noopener">Code du travail, art. L3122-8</a></li>
-    <li>Mise en place du travail de nuit et plage horaire fixées par accord collectif — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-15" target="_blank" rel="noopener">Code du travail, art. L3122-15</a></li>
-    <li>Seuil de qualification du travailleur de nuit fixé par accord collectif étendu — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-16" target="_blank" rel="noopener">Code du travail, art. L3122-16</a></li>
-    <li>Plage par défaut en l'absence d'accord (21h-6h) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-20" target="_blank" rel="noopener">Code du travail, art. L3122-20</a></li>
-    <li>Mise en place sans accord : autorisation de l'inspecteur du travail — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-21" target="_blank" rel="noopener">Code du travail, art. L3122-21</a></li>
-    <li>Autre plage de nuit autorisée par l'inspecteur du travail, à défaut d'accord — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-22" target="_blank" rel="noopener">Code du travail, art. L3122-22</a></li>
-    <li>Seuil supplétif du travailleur de nuit (270 h sur 12 mois consécutifs) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-23" target="_blank" rel="noopener">Code du travail, art. L3122-23</a></li>
-    <li>Durée hebdomadaire portée jusqu'à 44 h par décret, à défaut d'accord — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-24" target="_blank" rel="noopener">Code du travail, art. L3122-24</a></li>
-    <li>Intérim : travail de nuit régi par les règles de l'entreprise utilisatrice — <a href="https://code.travail.gouv.fr/code-du-travail/l1251-21" target="_blank" rel="noopener">Code du travail, art. L1251-21</a></li>
+    <li>Recours exceptionnel au travail de nuit — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-1" target="_blank" rel="noopener">Code du travail, L3122-1</a></li>
+    <li>Définition de la période de travail de nuit (9 h consécutives, minuit-5h, entre 21h et 7h) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-2" target="_blank" rel="noopener">Code du travail, L3122-2</a></li>
+    <li>Période de 7 h : presse, audiovisuel, cinéma, spectacles, discothèques — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-3" target="_blank" rel="noopener">Code du travail, L3122-3</a></li>
+    <li>Commerces de détail en zone touristique internationale — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-4" target="_blank" rel="noopener">Code du travail, L3122-4</a></li>
+    <li>Définition du travailleur de nuit — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-5" target="_blank" rel="noopener">Code du travail, L3122-5</a></li>
+    <li>Durée quotidienne maximale du travailleur de nuit (8 h) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-6" target="_blank" rel="noopener">Code du travail, L3122-6</a></li>
+    <li>Durée hebdomadaire maximale du travailleur de nuit (40 h en moyenne sur 12 semaines) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-7" target="_blank" rel="noopener">Code du travail, L3122-7</a></li>
+    <li>Contreparties du travailleur de nuit : repos compensateur et, le cas échéant, compensation salariale — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-8" target="_blank" rel="noopener">Code du travail, L3122-8</a></li>
+    <li>Mise en place du travail de nuit et plage horaire fixée par accord collectif — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-15" target="_blank" rel="noopener">Code du travail, L3122-15</a></li>
+    <li>Seuil de qualification du travailleur de nuit fixé par accord collectif étendu — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-16" target="_blank" rel="noopener">Code du travail, L3122-16</a></li>
+    <li>Plage par défaut en l'absence d'accord (21h-6h) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-20" target="_blank" rel="noopener">Code du travail, L3122-20</a></li>
+    <li>Mise en place sans accord : autorisation de l'inspecteur du travail — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-21" target="_blank" rel="noopener">Code du travail, L3122-21</a></li>
+    <li>Autre période de nuit autorisée par l'inspecteur du travail, à défaut d'accord — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-22" target="_blank" rel="noopener">Code du travail, L3122-22</a></li>
+    <li>Seuil supplétif du travailleur de nuit (270 h sur 12 mois consécutifs) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-23" target="_blank" rel="noopener">Code du travail, L3122-23</a></li>
+    <li>Durée hebdomadaire portée jusqu'à 44 h par décret, à défaut d'accord — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-24" target="_blank" rel="noopener">Code du travail, L3122-24</a></li>
+    <li>Intérim : travail de nuit régi par les règles de l'entreprise utilisatrice — <a href="https://code.travail.gouv.fr/code-du-travail/l1251-21" target="_blank" rel="noopener">Code du travail, L1251-21</a></li>
   </ul>
 </section>
 
   <footer>
-    Calcul des heures de nuit sur une plage horaire paramétrable (21h-6h par défaut, modifiable selon votre convention collective). Gestion des postes chevauchant minuit, rattachés à leur journée de début. Outil indicatif, ne remplace pas un bulletin de paie.
+    Calcul de la nuit de travail sur des bornes paramétrables (21h-6h par défaut, modifiables selon vos accords). Les postes à cheval sur deux jours sont rattachés à leur journée de début. Outil indicatif, il ne remplace pas vos documents de paie.
     <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Calcul d'ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> · <a href="/conversion-heure-decimale" style="color:var(--vert);font-weight:600">Conversion décimale</a> · <a href="/calcul-jours-ouvres" style="color:var(--vert);font-weight:600">Jours ouvrés/ouvrables</a> · <a href="/calcul-duree-cdd" style="color:var(--vert);font-weight:600">Durée du CDD</a> · <a href="/calcul-carence-cdd" style="color:var(--vert);font-weight:600">Délai de carence CDD</a> · <a href="/calcul-forfait-jours" style="color:var(--vert);font-weight:600">Forfait jours</a> · <a href="/calcul-rtt" style="color:var(--vert);font-weight:600">RTT classique</a> · <a href="/calcul-annualisation-temps-de-travail" style="color:var(--vert);font-weight:600">Annualisation</a> · <a href="/calcul-repos-compensateur" style="color:var(--vert);font-weight:600">Repos compensateur (COR)</a></p>
     <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>
   </footer>
