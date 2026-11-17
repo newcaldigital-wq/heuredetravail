@@ -125,14 +125,14 @@
 
     <div class="resultat-bloc">
       <div class="lbl" id="r-lbl">Résultat en décimal</div>
-      <div class="val" id="r-val">8,50<small> h</small></div>
+      <div class="val" id="r-val">8.50<small> h</small></div>
     </div>
-    <p class="hint" id="r-hint">8 h 30 correspond à 8,50 heure décimale — soit 30 minutes ÷ 60 = 0,50.</p>
+    <p class="hint" id="r-hint">8 h 30 correspond à 8.50 heure décimale — soit 30 minutes ÷ 60 = 0.50.</p>
   </section>
 
 <section class="contenu-seo">
   <h2>Convertir une heure en décimal, pourquoi et comment ?</h2>
-  <p>Un temps de travail se note naturellement en heures et minutes : 8h30, 7h45. Mais la plupart des logiciels de paie, tableurs et fiches de temps demandent une valeur décimale : 8,5 ou 7,75. Les minutes ne se divisent pas par 100 comme les centièmes d'euro, elles se divisent par 60 — d'où l'erreur fréquente de confondre 8h30 avec 8,30.</p>
+  <p>Un temps de travail se note naturellement en heures et minutes : 8h30, 7h45. Mais beaucoup de logiciels de paie, tableurs et fiches de temps demandent une valeur décimale : 8,5 ou 7,75. Les minutes ne se divisent pas par 100 comme les centièmes d'euro, elles se divisent par 60 — d'où l'erreur fréquente de confondre 8h30 avec 8,30.</p>
   <p>Ce calculateur fait la conversion dans les deux sens, instantanément : heures:minutes vers décimal, ou décimal vers heures:minutes.</p>
 
   <h2>Le calcul derrière la conversion</h2>
@@ -149,10 +149,15 @@
     <tr><td>20 min</td><td>0,33 (arrondi)</td></tr>
     <tr><td>40 min</td><td>0,67 (arrondi)</td></tr>
   </table>
-  <p>Les quarts d'heure (15, 30, 45 min) tombent sur une valeur décimale ronde. Les autres découpages donnent un résultat arrondi à deux décimales, comme le fait ce calculateur.</p>
+  <p>Les quarts d'heure (15, 30, 45 min) tombent sur une valeur ronde. Plus largement, toute durée multiple de 3 minutes donne une valeur exacte à deux décimales : 3 min = 0,05, 6 min = 0,10, 12 min = 0,20. Les autres (10, 20, 40 min…) donnent un nombre sans fin, que ce calculateur arrondit à deux décimales.</p>
+
+  <h2>Attention aux arrondis qui s'additionnent</h2>
+  <p>Un arrondi isolé ne change presque rien. Mais il se cumule. Trois fois 20 minutes, c'est une heure. Arrondi à 0,33 à chaque fois, on obtient 0,99 heure : une minute a disparu.</p>
+  <p>Le bon réflexe : additionnez d'abord les heures et les minutes, puis convertissez le total en décimal une seule fois.</p>
+  <p>Le Code du travail ne fixe pas de règle générale d'arrondi des heures travaillées. Certaines conventions collectives prévoient un arrondi, au quart d'heure par exemple : vérifiez la vôtre.</p>
 
   <h2>À quoi sert cette conversion en paie ?</h2>
-  <p>La plupart des logiciels de paie et de gestion des temps demandent une saisie en décimal plutôt qu'en heures:minutes, pour simplifier les additions et les calculs de taux horaire. C'est aussi le format généralement utilisé pour cumuler des heures sur plusieurs jours avant de les reporter dans un tableau ou un export.</p>
+  <p>Beaucoup de logiciels de paie et de gestion des temps demandent une saisie en décimal plutôt qu'en heures:minutes, pour simplifier les additions et les calculs de taux horaire. C'est aussi le format généralement utilisé pour cumuler des heures sur plusieurs jours avant de les reporter dans un tableau ou un export.</p>
   <p>Les calculateurs de <a href="/calcul-temps-de-travail">temps de travail réel</a> et d'<a href="/heures-complementaires-temps-partiel">heures complémentaires</a> affichent déjà leur résultat dans les deux formats. Ce convertisseur devient utile dans l'autre sens, ou pour une valeur isolée : un compteur RTT donné en décimal, un export de logiciel RH, un total transmis par un tiers — à reconvertir en heures:minutes pour vérification, ou inversement.</p>
 
   <p class="avert">Cet outil réalise une conversion mathématique simple entre une notation heures:minutes et sa valeur décimale équivalente. Il ne calcule ni salaire, ni majoration, ni taux horaire — pour ces calculs, reportez-vous aux autres pages du site ou à votre logiciel de paie.</p>
@@ -161,8 +166,8 @@
 <section class="sources">
   <h2>Sources</h2>
   <ul>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3171-4" target="_blank" rel="noopener">Code du travail, article L3171-4</a> — les systèmes d'enregistrement des heures de travail doivent être fiables et infalsifiables, base de l'exigence d'un décompte précis du temps de travail</li>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/d3171-8" target="_blank" rel="noopener">Code du travail, article D3171-8</a> — modalités de décompte quotidien et hebdomadaire de la durée du travail, qui déterminent le format horaire ou décimal utilisé en paie</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3171-4" target="_blank" rel="noopener">Code du travail, article L3171-4</a> — en cas de litige sur les heures, l'employeur fournit au juge les éléments justifiant les horaires réalisés ; si le décompte est assuré par un système d'enregistrement automatique, celui-ci doit être fiable et infalsifiable</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/d3171-8" target="_blank" rel="noopener">Code du travail, article D3171-8</a> — quand les salariés d'un atelier, d'un service ou d'une équipe ne suivent pas le même horaire collectif affiché, leurs heures sont décomptées chaque jour (début et fin, ou nombre d'heures) et récapitulées chaque semaine</li>
   </ul>
 </section>
 
@@ -174,38 +179,56 @@
 </div>
 
 <script is:inline>
+/* Conversion heures:minutes <-> décimal. Pur calcul, aucune dépendance aux dates.
+   Saisie décimale stricte (chiffres, une virgule ou un point) ; une saisie « 8h30 » ou « 8:30 » dans
+   le champ décimal est reconnue et convertie directement. Résultats au point décimal (convention du
+   site), arrondis à deux décimales ; « environ » / « ≈ » quand la valeur exacte est un nombre sans fin. */
 const btnHM=document.getElementById("btn-hm"), btnDec=document.getElementById("btn-dec");
 const modeHM=document.getElementById("mode-hm"), modeDec=document.getElementById("mode-dec");
 const inH=document.getElementById("h-heures"), inM=document.getElementById("h-minutes"), inD=document.getElementById("d-decimal");
 const rLbl=document.getElementById("r-lbl"), rVal=document.getElementById("r-val"), rHint=document.getElementById("r-hint");
 let sens="hm";
 
-function decFr(d){return d.toFixed(2).replace(".",",");}
-function parseDec(s){if(s==null)return NaN;const t=String(s).trim().replace(",",".");const d=parseFloat(t);return isNaN(d)?NaN:d;}
+function decPt(d){return d.toFixed(2);}
+function exact2(d){return Math.abs(d*100-Math.round(d*100))<1e-9;}
+function lireHM(s){const m=String(s).trim().match(/^(\d{1,4})\s*[hH:]\s*(\d{1,2})$/);return m?{h:+m[1],m:+m[2]}:null;}
+function lireDec(s){const t=String(s).trim();if(!/^(\d+([.,]\d*)?|[.,]\d+)$/.test(t))return NaN;return parseFloat(t.replace(",","."));}
+function vide(lbl,txt){rLbl.textContent=lbl;rVal.innerHTML="—";rHint.textContent=txt;}
 
 function calculerHM(){
-  let h=parseInt(inH.value,10); let m=parseInt(inM.value,10);
-  if(isNaN(h)||h<0)h=0; if(isNaN(m)||m<0)m=0;
-  if(m>59){h+=Math.floor(m/60);m=m%60;}
-  const dec=h+m/60;
+  const hv=String(inH.value).trim(), mv=String(inM.value).trim();
   rLbl.textContent="Résultat en décimal";
-  rVal.innerHTML=decFr(dec)+"<small> h</small>";
-  rHint.textContent=h+" h "+String(m).padStart(2,"0")+" équivaut à "+decFr(dec)+" en décimal — les "+m+" minutes comptent pour "+decFr(m/60)+" ("+m+" ÷ 60).";
+  if(hv===""&&mv===""){vide("Résultat en décimal","Saisissez des heures et des minutes (ex. 8 h 30).");return;}
+  let h=hv===""?0:Number(hv), m=mv===""?0:Number(mv);
+  if(!Number.isFinite(h)||!Number.isFinite(m)||h<0||m<0){vide("Résultat en décimal","Les heures et les minutes doivent être des nombres positifs.");return;}
+  if(!Number.isInteger(h)||!Number.isInteger(m)){vide("Résultat en décimal","Saisissez des heures et des minutes entières. Pour convertir une valeur décimale, utilisez l'autre sens.");return;}
+  let note="";
+  if(m>59){note=" ("+m+" minutes ramenées à "+Math.floor(m/60)+" h "+String(m%60).padStart(2,"0")+")";h+=Math.floor(m/60);m=m%60;}
+  const dec=h+m/60, ex=exact2(m/60);
+  rVal.innerHTML=decPt(dec)+"<small> h</small>";
+  rHint.textContent=h+" h "+String(m).padStart(2,"0")+note+" équivaut à "+(ex?"":"environ ")+decPt(dec)+" en décimal — les "+m+" minutes comptent pour "+decPt(m/60)+" ("+m+" ÷ 60"+(ex?"":", arrondi")+").";
 }
 function calculerDec(){
-  const dec=parseDec(inD.value);
-  if(isNaN(dec)||dec<0){
-    rLbl.textContent="Résultat en heures:minutes";
-    rVal.innerHTML="—";
-    rHint.textContent="Saisissez une valeur décimale positive (ex. 8,5).";
+  const v=String(inD.value).trim();
+  if(v===""){vide("Résultat en heures:minutes","Saisissez une valeur décimale positive (ex. 8,5 ou 8.5).");return;}
+  const hm=lireHM(v);
+  if(hm&&hm.m<60){
+    const dec=hm.h+hm.m/60;
+    rLbl.textContent="Résultat en décimal";
+    rVal.innerHTML=decPt(dec)+"<small> h</small>";
+    rHint.textContent="« "+v+" » est déjà en heures:minutes : "+hm.h+" h "+String(hm.m).padStart(2,"0")+" équivaut à "+(exact2(hm.m/60)?"":"environ ")+decPt(dec)+" en décimal. Pour convertir une valeur décimale en heures:minutes, saisissez-la avec une virgule ou un point (ex. 8,5).";
     return;
   }
-  let h=Math.floor(dec+1e-9);
-  let m=Math.round((dec-h)*60);
-  if(m===60){h++;m=0;}
+  const dec=lireDec(v);
+  if(isNaN(dec)){vide("Résultat en heures:minutes","Saisissez une valeur décimale positive, avec une virgule ou un point (ex. 8,5 ou 8.5).");return;}
+  const hp=Math.floor(dec+1e-9),frac=dec-hp,minBrut=frac*60;
+  let h=hp,m=Math.round(minBrut);const ex=Math.abs(minBrut-m)<1e-6;
+  let report="";
+  if(m===60){h++;m=0;report=", arrondi à l'heure suivante";}
   rLbl.textContent="Résultat en heures:minutes";
   rVal.innerHTML=h+"h"+String(m).padStart(2,"0")+"<small> ("+h+" h "+m+" min)</small>";
-  rHint.textContent=decFr(dec)+" en décimal équivaut à "+h+"h"+String(m).padStart(2,"0")+" — "+h+" heures pleines, et "+decFr(dec-h)+" × 60 = "+m+" minutes.";
+  const fracTxt=String(+frac.toFixed(4)),decTxt=v.replace(",",".");
+  rHint.textContent=decTxt+" en décimal équivaut à "+(ex?"":"environ ")+h+"h"+String(m).padStart(2,"0")+" — "+hp+" heure"+(hp>1?"s":"")+" pleine"+(hp>1?"s":"")+", et "+fracTxt+" × 60 "+(ex?"= ":"≈ ")+(report?"60":m)+" minutes"+report+".";
 }
 function calculer(){ if(sens==="hm") calculerHM(); else calculerDec(); }
 
