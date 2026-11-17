@@ -165,7 +165,7 @@ Payé à l'heure réelle (intérim, saisonnier, extra) ? Utilisez plutôt le <a 
   </section>
 
   <section class="panneau">
-    <h2><span class="num">2</span> Vos horaires</h2>
+    <h2><span class="num">2</span> Vos horaires : heures d'arrivée et de départ</h2>
     <p class="hint" style="margin-bottom:12px">Laissez vide un jour non travaillé (repos, jour férié chômé, maladie). Cochez <b>CP</b> pour un jour de congé payé où vous auriez travaillé. La pause du midi n'est pas comptée. Les lignes <span style="color:var(--report-b);font-weight:600">violettes</span> appartiennent au mois voisin&nbsp;: elles complètent une semaine à cheval.</p>
     <div class="cp-reglage">
       <label for="dureecp">Journée de congé payé</label>
@@ -193,12 +193,14 @@ Payé à l'heure réelle (intérim, saisonnier, extra) ? Utilisez plutôt le <a 
   </section>
 
   <section class="panneau">
-    <h2><span class="num">3</span> Résultat du mois</h2>
+    <h2><span class="num">3</span> Résultat du mois : heures travaillées et heures supplémentaires</h2>
     <div class="cartes">
       <div class="carte base"><div class="lbl">Base mensualisée</div><div class="val" id="r-base">151.67<small> h</small></div></div>
       <div class="carte s25"><div class="lbl">Sup. à 25 %</div><div class="val" id="r-s25">0.00<small> h</small></div></div>
       <div class="carte s50"><div class="lbl">Sup. à 50 %</div><div class="val" id="r-s50">0.00<small> h</small></div></div>
+      <div class="carte total"><div class="lbl">Heures travaillées</div><div class="val" id="r-trav">0.00<small> h</small></div></div>
     </div>
+    <p class="hint" style="margin:10px 0 0">« Heures travaillées » : total des heures saisies pour les jours du mois affiché. Les jours de congé payé n'y sont pas comptés.</p>
     <p class="cp-info" id="r-cp" hidden></p>
     <div class="note-cheval">
       Une semaine à cheval sur deux mois est rattachée au mois où elle se termine&nbsp;: ses heures supplémentaires apparaissent dans ce mois-là. C'est une convention de calcul de l'outil, pas une règle légale&nbsp;: votre entreprise peut en appliquer une autre.
@@ -363,7 +365,10 @@ function calcMois(annee,mois){
   let l=lundiDe(premier);const fin=lundiDe(dernier);
   let s25=0,s50=0,cp=0,nbcp=0;const cle=annee+"-"+String(mois+1).padStart(2,"0");
   while(l<=fin){const s=supSemaine(l);if(s.moisFin===cle){s25+=s.s25;s50+=s.s50;cp+=s.cp;nbcp+=s.nbcp;}const nx=new Date(l);nx.setDate(l.getDate()+7);l=nx;}
-  return {base:BASE,s25,s50,cp,nbcp,total:BASE+s25+s50};
+  /* Heures réellement travaillées : jours du mois affiché uniquement, hors congés payés (affichage seul) */
+  let trav=0;
+  for(let d=1;d<=dernier.getDate();d++){trav+=heuresJour(DATA[cleJour(new Date(annee,mois,d))]||{}).trav;}
+  return {base:BASE,s25,s50,cp,nbcp,trav,total:BASE+s25+s50};
 }
 
 const MOIS=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
@@ -444,7 +449,7 @@ function majAlertes(){
   box.innerHTML=msgs.length?"<b>À vérifier</b><ul>"+msgs.map(m=>"<li>"+m+"</li>").join("")+"</ul>":"";
 }
 function afficheVide(){
-  ["r-s25","r-s50"].forEach(id=>{document.getElementById(id).innerHTML='—<small> h</small>';});
+  ["r-s25","r-s50","r-trav"].forEach(id=>{document.getElementById(id).innerHTML='—<small> h</small>';});
   document.getElementById("r-cp").hidden=true;
 }
 function calculer(){
@@ -455,6 +460,7 @@ function calculer(){
   document.getElementById("r-base").innerHTML=decPt(r.base)+'<small> h</small>';
   document.getElementById("r-s25").innerHTML=decPt(r.s25)+'<small> h · '+decHM(r.s25)+'</small>';
   document.getElementById("r-s50").innerHTML=decPt(r.s50)+'<small> h · '+decHM(r.s50)+'</small>';
+  document.getElementById("r-trav").innerHTML=decPt(r.trav)+'<small> h · '+decHM(r.trav)+'</small>';
   const pcp=document.getElementById("r-cp");
   if(r.nbcp>0){pcp.hidden=false;pcp.textContent="Congés payés intégrés au seuil des 35 h : "+decPt(r.cp)+" h ("+r.nbcp+" jour"+(r.nbcp>1?"s":"")+").";}
   else pcp.hidden=true;
