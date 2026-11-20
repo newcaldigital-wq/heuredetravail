@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conversion heure décimale — heures:minutes ↔ décimal</title>
-<meta name="description" content="Convertissez une durée heures:minutes en décimal (8h30 → 8,5) ou l'inverse, instantanément. Outil pratique pour la saisie en logiciel de paie ou fiche de temps.">
+<title>Conversion heure décimale : convertisseur gratuit en ligne</title>
+<meta name="description" content="Convertissez des heures et minutes en heures décimales (1h30 = 1,5) ou l'inverse, instantanément. Outil gratuit pour vos feuilles de temps.">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <style is:global>
@@ -211,7 +211,7 @@
   <p>Beaucoup de logiciels de paie et de gestion des temps demandent une saisie en décimal plutôt qu'en heures:minutes, pour simplifier les additions et les calculs de taux horaire. C'est aussi le format généralement utilisé pour cumuler des heures sur plusieurs jours avant de les reporter dans un tableau ou un export.</p>
   <p>Les calculateurs de <a href="/calcul-temps-de-travail">temps de travail réel</a> et d'<a href="/heures-complementaires-temps-partiel">heures complémentaires</a> affichent déjà leur résultat dans les deux formats. Ce convertisseur devient utile dans l'autre sens, ou pour une valeur isolée : un compteur RTT donné en décimal, un export de logiciel RH, un total transmis par un tiers — à reconvertir en heures:minutes pour vérification, ou inversement.</p>
 
-  <p class="avert">Cet outil réalise une conversion mathématique simple entre une notation heures:minutes et sa valeur décimale équivalente. Il ne calcule ni salaire, ni majoration, ni taux horaire — pour ces calculs, reportez-vous aux autres pages du site ou à votre logiciel de paie.</p>
+  <p class="avert">Cet outil réalise une conversion mathématique simple entre une notation heures:minutes et sa valeur décimale équivalente. Il ne calcule ni salaire, ni majoration, ni taux horaire — pour ces calculs, reportez-vous à votre logiciel de paie.</p>
 </section>
 
 <section class="sources">
@@ -221,6 +221,11 @@
     <li><a href="https://code.travail.gouv.fr/code-du-travail/d3171-8" target="_blank" rel="noopener">Code du travail, article D3171-8</a> — quand les salariés d'un atelier, d'un service ou d'une équipe ne suivent pas le même horaire collectif affiché, leurs heures sont décomptées chaque jour (début et fin, ou nombre d'heures) et récapitulées chaque semaine</li>
   </ul>
 </section>
+
+<aside class="auteur" style="max-width:760px;margin:24px auto 0;padding:14px 16px;display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--trait);border-radius:8px;font-size:13.5px;color:var(--encre-2);line-height:1.55">
+  <img src="/anthony.webp" alt="Anthony Quintin" width="56" height="56" style="width:56px;height:56px;border-radius:10px;object-fit:cover;border:1px solid var(--trait);flex-shrink:0">
+  <p style="margin:0">Rédigé par <b>Anthony Quintin</b>, gestionnaire de paie indépendant depuis 14 ans (AQPS Assistance). Règles vérifiées sur Légifrance et service-public.fr, dernière mise à jour en novembre 2026. <a href="/a-propos" style="color:var(--vert);font-weight:600">En savoir plus sur l'auteur</a>.</p>
+</aside>
 
   <footer>
     Conversion heures:minutes ↔ décimal. Les minutes se divisent par 60, pas par 100 : 8h30 correspond à 8,5, pas à 8,30. Résultat arrondi à deux décimales.
@@ -301,6 +306,33 @@ btnDec.addEventListener("click",()=>basculer("dec"));
 inD.addEventListener("input",calculer);
 
 calculer();
+</script>
+
+<script type="application/ld+json" is:inline>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://heuredetravail.com/a-propos#anthony",
+      "name": "Anthony Quintin",
+      "jobTitle": "Gestionnaire de paie indépendant",
+      "worksFor": { "@type": "Organization", "name": "AQPS Assistance" },
+      "url": "https://heuredetravail.com/a-propos"
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Conversion heure décimale",
+      "url": "https://heuredetravail.com/conversion-heure-decimale",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "fr",
+      "isAccessibleForFree": true,
+      "dateModified": "2026-11-21",
+      "author": { "@id": "https://heuredetravail.com/a-propos#anthony" }
+    }
+  ]
+}
 </script>
 </body>
 </html>
