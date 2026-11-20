@@ -248,10 +248,16 @@
     <li>Mise en place sans accord : autorisation de l'inspecteur du travail — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-21" target="_blank" rel="noopener">Code du travail, L3122-21</a></li>
     <li>Autre période de nuit autorisée par l'inspecteur du travail, à défaut d'accord — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-22" target="_blank" rel="noopener">Code du travail, L3122-22</a></li>
     <li>Seuil supplétif du travailleur de nuit (270 h sur 12 mois consécutifs) — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-23" target="_blank" rel="noopener">Code du travail, L3122-23</a></li>
+    <li>Durée hebdomadaire portée à 44 h par accord collectif, si le secteur le justifie — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-18" target="_blank" rel="noopener">Code du travail, L3122-18</a></li>
     <li>Plafond entre 40 et 44 h pour certains secteurs, à défaut d'accord — <a href="https://code.travail.gouv.fr/code-du-travail/l3122-24" target="_blank" rel="noopener">Code du travail, L3122-24</a></li>
     <li>Intérim : travail de nuit régi par les règles de l'entreprise utilisatrice — <a href="https://code.travail.gouv.fr/code-du-travail/l1251-21" target="_blank" rel="noopener">Code du travail, L1251-21</a></li>
   </ul>
 </section>
+
+<aside class="auteur" style="max-width:760px;margin:24px auto 0;padding:14px 16px;display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--trait);border-radius:8px;font-size:13.5px;color:var(--encre-2);line-height:1.55">
+  <img src="/anthony.webp" alt="Anthony Quintin" width="56" height="56" style="width:56px;height:56px;border-radius:10px;object-fit:cover;border:1px solid var(--trait);flex-shrink:0">
+  <p style="margin:0">Rédigé par <b>Anthony Quintin</b>, gestionnaire de paie indépendant depuis 14 ans (AQPS Assistance). Règles vérifiées sur Légifrance et service-public.fr, dernière vérification en novembre 2026. <a href="/a-propos" style="color:var(--vert);font-weight:600">En savoir plus sur l'auteur</a>.</p>
+</aside>
 
   <footer>
     Calcul de la nuit de travail sur des bornes paramétrables (21h-6h par défaut, modifiables selon vos accords). Les postes à cheval sur deux jours sont rattachés à leur journée de début. Outil indicatif, il ne remplace pas vos documents de paie.
@@ -439,6 +445,32 @@ document.getElementById("reinit").addEventListener("click",()=>{
   calculer();
 });
 construire();calculer();
+</script>
+<script type="application/ld+json" is:inline>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://heuredetravail.com/a-propos#anthony",
+      "name": "Anthony Quintin",
+      "jobTitle": "Gestionnaire de paie indépendant",
+      "worksFor": { "@type": "Organization", "name": "AQPS Assistance" },
+      "url": "https://heuredetravail.com/a-propos"
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Calcul des heures de nuit",
+      "url": "https://heuredetravail.com/calcul-heure-de-nuit",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "fr",
+      "isAccessibleForFree": true,
+      "dateModified": "2026-11-20",
+      "author": { "@id": "https://heuredetravail.com/a-propos#anthony" }
+    }
+  ]
+}
 </script>
 </body>
 </html>
