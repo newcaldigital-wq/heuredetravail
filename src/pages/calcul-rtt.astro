@@ -192,7 +192,13 @@
 
 <section class="contenu-seo">
   <h2>RTT ou forfait jours ? Deux mécanismes à ne pas confondre</h2>
-  <p>Le mot « RTT » est utilisé au quotidien pour désigner deux dispositifs pourtant distincts. Ce calculateur traite le <b>RTT classique, en régime horaire</b> : un salarié dont la durée hebdomadaire contractuelle dépasse 35h (par exemple 37h ou 39h) génère des jours de repos, souvent notés JRTT, pour ramener sa durée moyenne à la durée légale. Le <b>forfait jours</b> fonctionne différemment : le temps de travail n'y est pas décompté en heures mais en nombre de jours travaillés sur l'année (218 jours au plafond), et les jours de repos qui en résultent sont juridiquement des <b>jours de repos</b> (JRS), pas des JRTT. Si votre situation relève du forfait jours, direction notre <a href="/calcul-forfait-jours">calculateur de forfait jours</a> — la méthode d'estimation y est différente. Autre confusion fréquente : les JRTT ne sont pas la contrepartie obligatoire en repos (COR), due pour les heures supplémentaires accomplies au-delà du contingent annuel — pour celle-ci, voir le <a href="/calcul-repos-compensateur">calculateur de repos compensateur</a>.</p>
+  <p>Le mot « RTT » est utilisé au quotidien pour désigner deux dispositifs pourtant distincts.</p>
+  <ul>
+    <li>Ce calculateur traite le <b>RTT classique, en régime horaire</b> : un salarié dont la durée hebdomadaire contractuelle dépasse 35h (par exemple 37h ou 39h) génère des jours de repos, souvent notés JRTT, pour ramener sa durée moyenne à la durée légale.</li>
+    <li>Le <b>forfait jours</b> fonctionne différemment : le temps de travail n'y est pas décompté en heures mais en nombre de jours travaillés sur l'année (218 jours au plafond), et les jours de repos qui en résultent sont juridiquement des <b>jours de repos</b> (JRS), pas des JRTT.</li>
+  </ul>
+  <p>Si votre situation relève du forfait jours, direction notre <a href="/calcul-forfait-jours">calculateur de forfait jours</a> — la méthode d'estimation y est différente.</p>
+  <p>Autre confusion fréquente : les JRTT ne sont pas la contrepartie obligatoire en repos (COR), due pour les heures supplémentaires accomplies au-delà du contingent annuel — pour celle-ci, voir le <a href="/calcul-repos-compensateur">calculateur de repos compensateur</a>.</p>
 
   <h2>Comment ce calculateur estime vos jours de RTT</h2>
   <p>La méthode la plus répandue consiste à convertir en jours l'écart hebdomadaire entre votre durée contractuelle et la durée légale :</p>
@@ -202,20 +208,39 @@
     <li>jours de RTT = heures RTT cumulées ÷ durée journalière moyenne (durée contractuelle ÷ 5)</li>
   </ul>
   <p>Le nombre de semaines travaillées n'est pas une constante arbitraire : cet outil le calcule à partir du calendrier exact de la période choisie (jours calendaires, moins week-ends, moins jours fériés chômés tombant un jour normalement travaillé, moins congés payés).</p>
-  <p><b>Exemple.</b> Un salarié à 39h, sur l'année civile 2026, avec 25 jours ouvrés de congés payés et les 11 jours fériés chômés. L'année compte 261 jours du lundi au vendredi, dont 9 jours fériés (le 15 août tombe un samedi, la Toussaint un dimanche). Il reste 252 jours, moins 25 jours de congés, soit 227 jours travaillés : 45,4 semaines. Écart hebdomadaire : 39 − 35 = 4h, soit 4 × 45,4 = 181,6 heures. Durée journalière moyenne : 39 ÷ 5 = 7,8h. Résultat : 181,6 ÷ 7,8 = <b>23,3 jours de RTT</b> estimés.</p>
-  <p>Par défaut, l'outil suppose les 11 jours fériés légaux chômés. Seul le 1er mai l'est obligatoirement pour l'ensemble des salariés (art. L3133-4). Pour les 10 autres, la liste des jours chômés est fixée par un accord d'entreprise ou d'établissement, ou à défaut par un accord de branche — sans accord, c'est l'employeur qui la détermine (art. L3133-3-1, L3133-3-2). L'Alsace-Moselle fait exception : dans le Bas-Rhin, le Haut-Rhin et la Moselle, l'emploi de salariés les jours fériés est en principe interdit dans l'industrie, le commerce et l'artisanat, sauf dérogations sectorielles, et deux jours fériés locaux s'ajoutent (le 26 décembre, et le Vendredi saint dans les communes ayant un temple protestant ou une église mixte). Basculez sur « Personnalisé » pour cocher précisément ceux qui s'appliquent à votre situation.</p>
-  <p><b>Cas fréquent : la journée de solidarité.</b> L'outil ne la modélise pas. Ses modalités sont fixées par accord (art. L3133-11) ou, à défaut, par l'employeur après consultation du CSE (art. L3133-12). L'accord peut notamment prévoir de travailler un jour de repos acquis au titre de l'accord d'aménagement du temps de travail — autrement dit un jour de RTT — ou un jour férié jusque-là chômé, autre que le 1er mai. Le lundi de Pentecôte n'est plus une date imposée par défaut depuis 2008. Vérifiez la modalité retenue dans votre entreprise.</p>
-  <p><b>Aucune de ces variables n'est fixée par le Code du travail.</b> La durée journalière de référence, le nombre de semaines pris en compte, l'arrondi retenu : tout dépend de l'accord collectif applicable. Deux salariés à 39h dans deux entreprises différentes peuvent légitimement avoir un nombre de RTT différent.</p>
+  <p><b>Exemple.</b> Un salarié à 39h, sur l'année civile 2026, avec 25 jours ouvrés de congés payés et les 11 jours fériés chômés.</p>
+  <ol>
+    <li>L'année compte 261 jours du lundi au vendredi, dont 9 jours fériés (le 15 août tombe un samedi, la Toussaint un dimanche).</li>
+    <li>Il reste 252 jours, moins 25 jours de congés, soit 227 jours travaillés : 45,4 semaines.</li>
+    <li>Écart hebdomadaire : 39 − 35 = 4h, soit 4 × 45,4 = 181,6 heures.</li>
+    <li>Durée journalière moyenne : 39 ÷ 5 = 7,8h.</li>
+  </ol>
+  <p>Résultat : 181,6 ÷ 7,8 = <b>23,3 jours de RTT</b> estimés. Le calcul des jours fériés utilisé ici est le même que sur le <a href="/calcul-jours-ouvres">calcul de jours ouvrés/ouvrables</a>.</p>
+  <p>Par défaut, l'outil suppose les 11 jours fériés légaux chômés.</p>
+  <ul>
+    <li>Seul le 1er mai l'est obligatoirement pour l'ensemble des salariés (art. L3133-4).</li>
+    <li>Pour les 10 autres, la liste des jours chômés est fixée par un accord d'entreprise ou d'établissement, ou à défaut par un accord de branche — sans accord, c'est l'employeur qui la détermine (art. L3133-3-1, L3133-3-2).</li>
+    <li>L'Alsace-Moselle fait exception : dans le Bas-Rhin, le Haut-Rhin et la Moselle, l'emploi de salariés les jours fériés est en principe interdit dans l'industrie, le commerce et l'artisanat, sauf dérogations sectorielles, et deux jours fériés locaux s'ajoutent (le 26 décembre, et le Vendredi saint dans les communes ayant un temple protestant ou une église mixte).</li>
+  </ul>
+  <p>Basculez sur « Personnalisé » pour cocher précisément ceux qui s'appliquent à votre situation.</p>
+  <p><b>Cas fréquent : la journée de solidarité.</b> L'outil ne la modélise pas. Ses modalités sont fixées par accord (art. L3133-11) ou, à défaut, par l'employeur après consultation du CSE (art. L3133-12).</p>
+  <p>L'accord peut notamment prévoir de travailler un jour de repos acquis au titre de l'accord d'aménagement du temps de travail — autrement dit un jour de RTT — ou un jour férié jusque-là chômé, autre que le 1er mai. Le lundi de Pentecôte n'est plus une date imposée par défaut depuis 2008. Vérifiez la modalité retenue dans votre entreprise.</p>
+  <p><b>Aucune de ces variables n'est fixée par le Code du travail.</b> La durée journalière de référence, le nombre de semaines pris en compte, l'arrondi retenu : tout dépend de l'accord collectif applicable.</p>
+  <p>Deux salariés à 39h dans deux entreprises différentes peuvent légitimement avoir un nombre de RTT différent.</p>
 
   <h2>D'où viennent les RTT ? Le cadre légal</h2>
-  <p>La durée légale de travail effectif à temps complet est fixée à 35 heures par semaine (art. L3121-27). Le dispositif historique de RTT, issu des lois Aubry de 1998-2000, a été remplacé par le cadre actuel d'aménagement du temps de travail sur une période supérieure à la semaine, issu de la loi du 20 août 2008 et réécrit par la loi du 8 août 2016 (actuels art. L3121-41 et suivants). Les accords de RTT conclus avant le 22 août 2008 et non dénoncés restent applicables. Il n'est plus possible de signer de nouveaux accords RTT au sens du dispositif Aubry d'origine — mais les entreprises concluent aujourd'hui des accords d'aménagement du temps de travail qui peuvent tout à fait prévoir des jours de repos compensateurs, toujours appelés « RTT » dans le langage courant, y compris pour des accords récents. C'est cet accord — d'entreprise ou, à défaut, de branche — qui fixe le nombre de RTT, les conditions d'acquisition et les modalités de prise.</p>
+  <p>La durée légale de travail effectif à temps complet est fixée à 35 heures par semaine (art. L3121-27).</p>
+  <p>Le dispositif historique de RTT, issu des lois Aubry de 1998-2000, a été remplacé par le cadre actuel d'aménagement du temps de travail sur une période supérieure à la semaine, issu de la loi du 20 août 2008 et réécrit par la loi du 8 août 2016 (actuels art. L3121-41 et suivants). Les accords de RTT conclus avant le 22 août 2008 et non dénoncés restent applicables.</p>
+  <p>Il n'est plus possible de signer de nouveaux accords RTT au sens du dispositif Aubry d'origine — mais les entreprises concluent aujourd'hui des accords d'aménagement du temps de travail qui peuvent tout à fait prévoir des jours de repos compensateurs, toujours appelés « RTT » dans le langage courant, y compris pour des accords récents. C'est cet accord — d'entreprise ou, à défaut, de branche — qui fixe le nombre de RTT, les conditions d'acquisition et les modalités de prise.</p>
 
   <h2>Année incomplète : pourquoi il n'existe pas de calcul unique</h2>
-  <p><b>Estimation indicative — année incomplète.</b> En cas d'entrée, de sortie ou de mise en place de l'accord en cours de période de référence, il n'existe pas de formule nationale unique de proratisation des droits à RTT, exactement comme pour le forfait jours. Ce calculateur recalcule les semaines réellement travaillées sur la période exacte que vous renseignez (12 mois au plus), congés payés proratisés au calendaire sur les 12 mois qui suivent la date de début — une méthode indicative, pas une règle opposable.</p>
+  <p><b>Estimation indicative — année incomplète.</b> En cas d'entrée, de sortie ou de mise en place de l'accord en cours de période de référence, il n'existe pas de formule nationale unique de proratisation des droits à RTT, exactement comme pour le forfait jours.</p>
+  <p>Ce calculateur recalcule les semaines réellement travaillées sur la période exacte que vous renseignez (12 mois au plus), congés payés proratisés au calendaire sur les 12 mois qui suivent la date de début — une méthode indicative, pas une règle opposable.</p>
   <p>L'accord collectif applicable peut retenir une autre méthode que celle de cet outil. Seul cet accord, et le cas échéant votre service de paie, permet de déterminer le résultat réellement dû.</p>
 
   <h2>Gérer ses RTT en entreprise : compteur, règles et textes</h2>
-  <p>Un solde de RTT n'est pas un chiffre universel. Il dépend des règles de votre entreprise, appliquées à votre situation. Cette section vous aide à contrôler votre compteur, que vous soyez salarié ou chargé de la gestion des RTT côté RH.</p>
+  <p>Un solde de RTT n'est pas un chiffre universel. Il dépend des règles de votre entreprise, appliquées à votre situation.</p>
+  <p>Cette section vous aide à contrôler votre compteur, que vous soyez salarié ou chargé de la gestion des RTT côté RH.</p>
 
   <h3>Vérifier le paramétrage de son compteur de RTT</h3>
   <p>Quand le solde affiché ne correspond pas à ce que vous attendiez, partez des paramètres plutôt que du résultat. Contrôlez, dans cet ordre :</p>
@@ -228,24 +253,44 @@
     <li><b>L'absence.</b> Congé sans solde, maladie : l'incidence d'une absence sur l'acquisition ou le décompte des RTT dépend des stipulations de la convention ou de l'accord.</li>
   </ol>
   <p>La journée de solidarité mérite aussi un coup d'œil : lorsque l'accord le prévoit, elle peut consister à travailler un jour de repos accordé en application de l'art. L3121-44, notamment un jour de RTT (art. <a href="https://code.travail.gouv.fr/code-du-travail/l3133-11" target="_blank" rel="noopener">L3133-11</a>). Ce calculateur ne la modélise pas.</p>
-  <p>Deux cas sortent de ce compteur. Un salarié à temps partiel n'a pas, en principe, de jours de RTT liés à un horaire hebdomadaire supérieur à 35h : les heures effectuées au-delà de la durée du contrat relèvent en principe des <a href="/heures-complementaires-temps-partiel">heures complémentaires</a>, dans les limites légales et conventionnelles. Un salarié au forfait annuel en jours est soumis à un décompte en jours, distinct du régime horaire et des RTT calculées à partir d'un horaire hebdomadaire : voir le <a href="/calcul-forfait-jours">calcul du forfait jours</a>.</p>
+  <p>Deux cas sortent de ce compteur. Un salarié à temps partiel n'a pas, en principe, de jours de RTT liés à un horaire hebdomadaire supérieur à 35h : les heures effectuées au-delà de la durée du contrat relèvent en principe des <a href="/heures-complementaires-temps-partiel">heures complémentaires</a>, dans les limites légales et conventionnelles.</p>
+  <p>Un salarié au forfait annuel en jours est soumis à un décompte en jours, distinct du régime horaire et des RTT calculées à partir d'un horaire hebdomadaire : voir le <a href="/calcul-forfait-jours">calcul du forfait jours</a>.</p>
 
   <h3>Obligations légales : ce que prévoit l'accord sur les RTT</h3>
-  <p>Lorsque l'entreprise organise le temps de travail sur plus d'une semaine, un accord d'entreprise ou d'établissement, ou à défaut un accord de branche, peut définir les modalités d'aménagement du temps de travail (art. <a href="https://code.travail.gouv.fr/code-du-travail/l3121-44" target="_blank" rel="noopener">L3121-44</a>). Il prévoit notamment la période de référence, ainsi que les conditions et délais de prévenance des changements de durée ou d'horaires.</p>
+  <p>Lorsque l'entreprise organise le temps de travail sur plus d'une semaine, un accord d'entreprise ou d'établissement, ou à défaut un accord de branche, peut définir les modalités d'aménagement du temps de travail (art. <a href="https://code.travail.gouv.fr/code-du-travail/l3121-44" target="_blank" rel="noopener">L3121-44</a>).</p>
+  <p>Il prévoit notamment la période de référence, ainsi que les conditions et délais de prévenance des changements de durée ou d'horaires.</p>
   <p>À défaut d'accord, l'employeur peut mettre en place une répartition de la durée du travail sur plusieurs semaines, dans la limite de 9 semaines dans les entreprises de moins de 50 salariés et de 4 semaines dans celles de 50 salariés et plus, dans des conditions fixées par décret (art. <a href="https://code.travail.gouv.fr/code-du-travail/l3121-45" target="_blank" rel="noopener">L3121-45</a>).</p>
 
   <h3>Sources juridiques et documents de référence : où les trouver ?</h3>
-  <p>Le texte qui organise vos RTT n'est pas publié sur ce site. Pour la gestion de vos RTT au quotidien, demandez-le à votre service RH. À défaut de texte dans l'entreprise, cherchez la convention collective de votre branche. Les règles générales sont résumées dans la fiche officielle <a href="https://code.travail.gouv.fr/fiche-service-public/reduction-du-temps-de-travail-rtt" target="_blank" rel="noopener">Réduction du temps de travail (RTT) d'un salarié du secteur privé</a>, et les textes cités ici figurent dans la liste des sources en bas de page. Ce site ne fournit pas de modèle de document : seul le texte de votre entreprise fait foi.</p>
+  <p>Le texte qui organise vos RTT n'est pas publié sur ce site.</p>
+  <ul>
+    <li>Pour la gestion de vos RTT au quotidien, demandez-le à votre service RH.</li>
+    <li>À défaut de texte dans l'entreprise, cherchez la convention collective de votre branche.</li>
+    <li>Les règles générales sont résumées dans la fiche officielle <a href="https://code.travail.gouv.fr/fiche-service-public/reduction-du-temps-de-travail-rtt" target="_blank" rel="noopener">Réduction du temps de travail (RTT) d'un salarié du secteur privé</a>.</li>
+    <li>Les textes cités ici figurent dans la liste des sources en bas de page.</li>
+  </ul>
+  <p>Ce site ne fournit pas de modèle de document : seul le texte de votre entreprise fait foi.</p>
 
   <h2>Ce que ce calculateur ne fait pas</h2>
-  <p>C'est un calculateur de jours, pas de salaire : aucun montant en euros n'est calculé. Il ne tient pas compte de l'impact d'une absence (maladie, congé sans solde) sur l'acquisition des RTT en cours de période — cet impact dépend des stipulations de l'accord ou de la convention applicable et n'est pas traité ici. Il vise les salariés à temps complet dont l'horaire dépasse 35h : un salarié à temps partiel n'a pas, en principe, de jours de RTT liés à un horaire hebdomadaire supérieur à 35h. Le résultat affiché reste une estimation à vérifier auprès de votre service RH ou paie.</p>
+  <p>C'est un calculateur de jours, pas de salaire : aucun montant en euros n'est calculé.</p>
+  <ul>
+    <li>Il ne tient pas compte de l'impact d'une absence (maladie, congé sans solde) sur l'acquisition des RTT en cours de période — cet impact dépend des stipulations de l'accord ou de la convention applicable et n'est pas traité ici.</li>
+    <li>Il vise les salariés à temps complet dont l'horaire dépasse 35h : un salarié à temps partiel n'a pas, en principe, de jours de RTT liés à un horaire hebdomadaire supérieur à 35h. Pour ses heures, voir le <a href="/heures-complementaires-temps-partiel">calcul des heures complémentaires</a>.</li>
+    <li>Le forfait annuel en jours relève d'un autre mécanisme : voir le <a href="/calcul-forfait-jours">calcul du forfait jours</a>.</li>
+  </ul>
+  <p>Le résultat affiché reste une estimation à vérifier auprès de votre service RH ou paie.</p>
 
   <div class="avert">
     <b>Avertissement</b> — Ce calculateur applique une méthode d'estimation courante, non une formule légale obligatoire. L'accord collectif ou la convention de branche applicable à votre situation peut prévoir une durée journalière de référence différente, un nombre de semaines forfaitaire plutôt qu'un décompte au réel, ou des règles spécifiques pour les absences et les entrées/sorties en cours d'année. À défaut d'accord collectif, l'employeur ne peut répartir la durée du travail que sur 9 semaines au plus dans les entreprises de moins de 50 salariés, et 4 semaines dans celles de 50 salariés et plus, sauf exceptions (art. L3121-45) : un régime de jours de RTT sur l'année suppose donc un accord. Outil indicatif, ne remplace pas un conseil juridique ou un bulletin de paie.
   </div>
 
   <div class="maillage">
-    <b>Votre situation n'est pas un régime horaire classique, ou vous cherchez autre chose ?</b> Pour un salarié au forfait annuel en jours, direction le <a href="/calcul-forfait-jours">calcul du forfait jours</a> — mécanisme distinct, jours de repos (JRS) et non JRTT. Le calcul des jours fériés utilisé ici est le même que sur le <a href="/calcul-jours-ouvres">calcul de jours ouvrés/ouvrables</a>. Pour un temps complet classique hors RTT, direction le <a href="/">calcul du temps complet mensualisé</a>.
+    <b>Votre situation n'est pas un régime horaire classique, ou vous cherchez autre chose ?</b>
+    <ul>
+      <li>Pour un salarié au forfait annuel en jours, direction le <a href="/calcul-forfait-jours">calcul du forfait jours</a> — mécanisme distinct, jours de repos (JRS) et non JRTT.</li>
+      <li>Le calcul des jours fériés utilisé ici est le même que sur le <a href="/calcul-jours-ouvres">calcul de jours ouvrés/ouvrables</a>.</li>
+      <li>Pour un temps complet classique hors RTT, direction le <a href="/">calcul du temps complet mensualisé</a>.</li>
+    </ul>
   </div>
 </section>
 
