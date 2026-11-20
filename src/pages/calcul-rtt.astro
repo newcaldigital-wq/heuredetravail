@@ -81,6 +81,10 @@
   .contenu-seo ul,.contenu-seo ol{margin:0 0 14px 20px}
   .contenu-seo li{font-size:15.5px;color:var(--encre-2);line-height:1.7;margin-bottom:6px}
   .contenu-seo a{color:var(--vert);font-weight:600}
+  .contenu-seo table{width:100%;border-collapse:collapse;margin:0 0 14px;font-size:14.5px}
+  .contenu-seo caption{text-align:left;font-size:13px;color:var(--gris);padding-bottom:6px}
+  .contenu-seo th,.contenu-seo td{border:1px solid var(--trait);padding:8px 10px;text-align:left;color:var(--encre-2)}
+  .contenu-seo th{background:var(--papier-2);color:var(--encre);font-weight:600}
   .contenu-seo .avert{margin-top:24px;padding:14px 16px;background:var(--papier-2);border-radius:8px;font-size:13px;color:var(--gris);line-height:1.6}
   .maillage{margin-top:18px;padding:14px 16px;background:#fff;border:1px solid var(--trait);border-radius:8px;font-size:14.5px;color:var(--encre-2);line-height:1.7}
   .maillage a{color:var(--vert);font-weight:600}
@@ -245,7 +249,7 @@
   <h3>Vérifier le paramétrage de son compteur de RTT</h3>
   <p>Quand le solde affiché ne correspond pas à ce que vous attendiez, partez des paramètres plutôt que du résultat. Contrôlez, dans cet ordre :</p>
   <ol>
-    <li><b>L'horaire contractuel.</b> Les jours de RTT concernent en principe un salarié dont l'horaire dépasse 35h par semaine ; leur attribution et leur nombre dépendent de la convention collective ou de l'accord d'entreprise. Pour comparer avec vos heures réellement effectuées sur un mois, voir le <a href="/calcul-temps-de-travail">calcul du temps de travail réel</a>.</li>
+    <li><b>L'horaire contractuel.</b> Les jours de RTT concernent en principe un salarié dont l'horaire dépasse 35h par semaine ; leur attribution et leur nombre dépendent de la convention collective ou de l'accord d'entreprise. Pour comparer avec vos heures réellement accomplies sur un mois, voir le <a href="/calcul-temps-de-travail">calcul du temps de travail réel</a>.</li>
     <li><b>La période de référence.</b> Année civile ou autre période : l'accord qui organise vos RTT la définit.</li>
     <li><b>Les jours fériés chômés.</b> Seule la fête du travail est obligatoirement chômée. Les autres jours fériés chômés sont définis par un accord d'entreprise ou d'établissement, ou à défaut par un accord de branche ; à défaut d'accord, l'employeur les fixe.</li>
     <li><b>Les congés payés.</b> 25 jours ouvrés ou 30 jours ouvrables : ce choix change le nombre de semaines retenues. Pour compter les jours, voir le <a href="/calcul-jours-ouvres">calcul de jours ouvrés et ouvrables</a>.</li>
@@ -253,7 +257,7 @@
     <li><b>L'absence.</b> Congé sans solde, maladie : l'incidence d'une absence sur l'acquisition ou le décompte des RTT dépend des stipulations de la convention ou de l'accord.</li>
   </ol>
   <p>La journée de solidarité mérite aussi un coup d'œil : lorsque l'accord le prévoit, elle peut consister à travailler un jour de repos accordé en application de l'art. L3121-44, notamment un jour de RTT (art. <a href="https://code.travail.gouv.fr/code-du-travail/l3133-11" target="_blank" rel="noopener">L3133-11</a>). Ce calculateur ne la modélise pas.</p>
-  <p>Deux cas sortent de ce compteur. Un salarié à temps partiel n'a pas, en principe, de jours de RTT liés à un horaire hebdomadaire supérieur à 35h : les heures effectuées au-delà de la durée du contrat relèvent en principe des <a href="/heures-complementaires-temps-partiel">heures complémentaires</a>, dans les limites légales et conventionnelles.</p>
+  <p>Deux cas sortent de ce compteur. Un salarié à temps partiel ne bénéficie pas, en principe, de jours de RTT, sauf si un accord d'entreprise le prévoit : les heures accomplies au-delà de la durée du contrat relèvent des <a href="/heures-complementaires-temps-partiel">heures complémentaires</a>, dans les limites légales et conventionnelles.</p>
   <p>Un salarié au forfait annuel en jours est soumis à un décompte en jours, distinct du régime horaire et des RTT calculées à partir d'un horaire hebdomadaire : voir le <a href="/calcul-forfait-jours">calcul du forfait jours</a>.</p>
 
   <h3>Obligations légales : ce que prévoit l'accord sur les RTT</h3>
@@ -271,11 +275,42 @@
   </ul>
   <p>Ce site ne fournit pas de modèle de document : seul le texte de votre entreprise fait foi.</p>
 
+  <h2>Autres questions sur le calcul des RTT</h2>
+
+  <h3>Quel est le tableau pour calculer les heures de travail ?</h3>
+  <p>Ce calculateur n'est pas un tableau d'heures : il estime un nombre de jours de RTT à partir de l'horaire hebdomadaire. Voici les résultats pour l'année civile 2026, avec les mêmes hypothèses que l'exemple ci-dessus (25 jours ouvrés de congés payés, 11 jours fériés chômés) :</p>
+  <table>
+    <caption>Jours de RTT estimés en 2026 selon l'horaire hebdomadaire</caption>
+    <thead>
+      <tr><th>Horaire hebdomadaire</th><th>Écart avec 35h</th><th>Heures RTT cumulées</th><th>Jours de RTT estimés</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>36h</td><td>1h</td><td>45,4h</td><td>6,3 jours</td></tr>
+      <tr><td>37h</td><td>2h</td><td>90,8h</td><td>12,3 jours</td></tr>
+      <tr><td>38h</td><td>3h</td><td>136,2h</td><td>17,9 jours</td></tr>
+      <tr><td>39h</td><td>4h</td><td>181,6h</td><td>23,3 jours</td></tr>
+    </tbody>
+  </table>
+  <p>Pour calculer vos heures de travail réelles sur un mois, voir le <a href="/calcul-temps-de-travail">calcul du temps de travail réel</a> ou le <a href="/">calcul du temps complet mensualisé</a>. Pour convertir 7h30 en 7,5h, voir la <a href="/conversion-heure-decimale">conversion en heures décimales</a>.</p>
+
+  <h3>Comment savoir le nombre de jours travaillés dans l'année 2026 ?</h3>
+  <p>L'année 2026 compte 261 jours du lundi au vendredi. Si tous les jours fériés sont chômés dans votre entreprise, 9 d'entre eux tombent un jour de semaine (le 15 août tombe un samedi, la Toussaint un dimanche) : il reste 252 jours. Retirez ensuite vos congés payés, par exemple 25 jours ouvrés : 227 jours travaillés.</p>
+  <p>Pour compter les jours d'une autre année ou d'une autre période, voir le <a href="/calcul-jours-ouvres">calcul de jours ouvrés</a>.</p>
+
+  <h3>Pourquoi pas de RTT en temps partiel ?</h3>
+  <p>Les jours de RTT concernent en principe un salarié dont la durée de travail dépasse 35 heures par semaine. Le salarié à temps partiel, dont la durée est inférieure à celle d'un temps complet, n'en bénéficie donc pas en principe, sauf disposition contraire prévue par un accord d'entreprise.</p>
+  <p>Les heures accomplies au-delà de la durée prévue au contrat relèvent des heures complémentaires, dans les limites légales et conventionnelles : voir le <a href="/heures-complementaires-temps-partiel">calcul des heures complémentaires</a>.</p>
+
+  <h3>Un cadre a-t-il droit à des RTT en fonction de son forfait horaire ?</h3>
+  <p>Le statut de cadre ne donne pas, à lui seul, droit à des RTT. Comme pour les autres salariés, l'attribution et le nombre de jours de RTT dépendent de la convention collective ou de l'accord d'entreprise, qui peut toutefois prévoir des règles spécifiques aux cadres.</p>
+  <p>Une convention de forfait en heures fixe un volume de travail exprimé en heures, sur la semaine, le mois ou, lorsqu'un accord collectif le prévoit, sur l'année. Le Code du travail n'attribue pas automatiquement des jours de RTT du seul fait du forfait : l'attribution et le nombre de jours de RTT dépendent de la convention collective ou de l'accord d'entreprise. Les heures accomplies au-delà de 35 heures par semaine, ou au-delà des limites fixées par un accord, sont des heures supplémentaires incluses dans le forfait : elles ne se transforment pas automatiquement en jours de RTT.</p>
+  <p>Un cadre au forfait annuel en jours relève d'un autre mécanisme, avec des jours de repos souvent appelés RTT dans le langage courant, mais juridiquement distincts des JRTT : voir le <a href="/calcul-forfait-jours">calcul du forfait jours</a>.</p>
+
   <h2>Ce que ce calculateur ne fait pas</h2>
   <p>C'est un calculateur de jours, pas de salaire : aucun montant en euros n'est calculé.</p>
   <ul>
     <li>Il ne tient pas compte de l'impact d'une absence (maladie, congé sans solde) sur l'acquisition des RTT en cours de période — cet impact dépend des stipulations de l'accord ou de la convention applicable et n'est pas traité ici.</li>
-    <li>Il vise les salariés à temps complet dont l'horaire dépasse 35h : un salarié à temps partiel n'a pas, en principe, de jours de RTT liés à un horaire hebdomadaire supérieur à 35h. Pour ses heures, voir le <a href="/heures-complementaires-temps-partiel">calcul des heures complémentaires</a>.</li>
+    <li>Il vise les salariés à temps complet dont l'horaire dépasse 35h : un salarié à temps partiel ne bénéficie pas, en principe, de jours de RTT, sauf si un accord d'entreprise le prévoit. Pour ses heures, voir le <a href="/heures-complementaires-temps-partiel">calcul des heures complémentaires</a>.</li>
     <li>Le forfait annuel en jours relève d'un autre mécanisme : voir le <a href="/calcul-forfait-jours">calcul du forfait jours</a>.</li>
   </ul>
   <p>Le résultat affiché reste une estimation à vérifier auprès de votre service RH ou paie.</p>
@@ -300,7 +335,7 @@
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-27" target="_blank" rel="noopener">Code du travail, article L3121-27</a> — la durée légale de travail effectif des salariés à temps complet est fixée à 35 heures par semaine</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-41" target="_blank" rel="noopener">Code du travail, article L3121-41</a> — décompte des heures supplémentaires à l'issue de la période de référence, en cas d'aménagement du temps de travail sur une période supérieure à la semaine</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-44" target="_blank" rel="noopener">Code du travail, article L3121-44</a> — accord d'aménagement du temps de travail : période de référence, conditions et délais de prévenance des changements de durée ou d'horaires, prise en compte, pour la rémunération, des absences et des arrivées et départs en cours de période</li>
-    <li><a href="https://code.travail.gouv.fr/fiche-service-public/reduction-du-temps-de-travail-rtt" target="_blank" rel="noopener">Code du travail numérique — Fiche « Réduction du temps de travail (RTT) d'un salarié du secteur privé »</a> — fonctionnement du dispositif : les RTT concernent un salarié dont la durée de travail dépasse 35 heures par semaine</li>
+    <li><a href="https://code.travail.gouv.fr/fiche-service-public/reduction-du-temps-de-travail-rtt" target="_blank" rel="noopener">Code du travail numérique — Fiche « Réduction du temps de travail (RTT) d'un salarié du secteur privé »</a> — fonctionnement du dispositif, rôle de l'accord collectif, cas du temps partiel</li>
     <li><a href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019347122" target="_blank" rel="noopener">Loi n° 2008-789 du 20 août 2008</a> — portant rénovation de la démocratie sociale et réforme du temps de travail, à l'origine du cadre actuel d'aménagement du temps de travail</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-20" target="_blank" rel="noopener">Code du travail, article L3121-20</a> — durée maximale de 48 heures au cours d'une même semaine</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-21" target="_blank" rel="noopener">Code du travail, article L3121-21</a> — dépassement exceptionnel autorisé, dans la limite de 60 heures par semaine</li>
@@ -483,7 +518,7 @@ const MSG_ANNEE_BORNES = "Saisissez une année comprise entre 1900 et 2100.";
 const MSG_12_MOIS = "La période ne peut pas dépasser 12 mois. Pour une année civile entière, choisissez « Année complète ».";
 const MSG_DUREE_NULLE = "Saisissez une durée hebdomadaire supérieure à 0.";
 const MSG_DUREE_MAX = "Au-delà de 48h au cours d'une même semaine, la durée dépasse le maximum légal (art. L3121-20) : vérifiez la saisie.";
-const MSG_SOUS_35 = "En dessous de 35h, l'horaire ne génère pas de RTT. Un salarié à temps partiel n'a pas, en principe, de jours de RTT liés à un horaire hebdomadaire supérieur à 35h.";
+const MSG_SOUS_35 = "En dessous de 35h, l'horaire ne génère pas de RTT. Un salarié à temps partiel ne bénéficie pas, en principe, de jours de RTT, sauf accord d'entreprise le prévoyant.";
 
 /* Mémorise, par clé de jour férié, si l'utilisateur l'a décoché en mode
    personnalisé. Absent de cet objet = coché (comportement par défaut). */
