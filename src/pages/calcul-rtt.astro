@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calcul RTT : jours de repos, régime horaire (39h, 37h...) | France</title>
-<meta name="description" content="Calculez une estimation de vos jours de RTT pour un régime horaire supérieur à 35h (39h, 37h...), année complète ou incomplète. Outil gratuit et indicatif.">
+<title>Calcul RTT : simulateur, formules et cas pratiques 2026</title>
+<meta name="description" content="Estimez vos jours de RTT en régime horaire (39h, 37h...) selon votre horaire, vos jours fériés et vos congés payés. Simulateur gratuit, résultat indicatif.">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <style is:global>
@@ -351,6 +351,11 @@
     <li><a href="https://grand-est.dreets.gouv.fr/sites/dreets-als-champ/files/2026-08/Guide%20droit%20local%20du%20travail%20alsace%20moselle%20-%20d%C3%A9cembre%202022.pdf" target="_blank" rel="noopener">DREETS Grand Est, guide du droit local du travail</a> — régime des jours fériés en Alsace-Moselle et dérogations sectorielles</li>
   </ul>
 </section>
+
+  <aside class="auteur" style="max-width:760px;margin:24px auto 0;padding:14px 16px;display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--trait);border-radius:8px;font-size:13.5px;color:var(--encre-2);line-height:1.55">
+    <img src="/anthony.webp" alt="Anthony Quintin" width="56" height="56" style="width:56px;height:56px;border-radius:10px;object-fit:cover;border:1px solid var(--trait);flex-shrink:0">
+    <p style="margin:0">Rédigé par <b>Anthony Quintin</b>, gestionnaire de paie indépendant depuis 14 ans (AQPS Assistance). Règles vérifiées sur Légifrance et service-public.fr, dernière mise à jour en novembre 2026. <a href="/a-propos" style="color:var(--vert);font-weight:600">En savoir plus sur l'auteur</a>.</p>
+  </aside>
 
   <footer>
     Estimation du nombre de jours de RTT pour un régime horaire supérieur à 35h, année complète ou incomplète. Méthode indicative — ne remplace pas le calcul prévu par l'accord collectif applicable. Outil indicatif, ne remplace pas un conseil juridique.
@@ -749,6 +754,32 @@ document.getElementById("vider").addEventListener("click", () => {
 });
 
 basculerBlocs();
+</script>
+<script type="application/ld+json" is:inline>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://heuredetravail.com/a-propos#anthony",
+      "name": "Anthony Quintin",
+      "jobTitle": "Gestionnaire de paie indépendant",
+      "worksFor": { "@type": "Organization", "name": "AQPS Assistance" },
+      "url": "https://heuredetravail.com/a-propos"
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Calcul des RTT",
+      "url": "https://heuredetravail.com/calcul-rtt",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "fr",
+      "isAccessibleForFree": true,
+      "dateModified": "2026-11-21",
+      "author": { "@id": "https://heuredetravail.com/a-propos#anthony" }
+    }
+  ]
+}
 </script>
 </body>
 </html>
