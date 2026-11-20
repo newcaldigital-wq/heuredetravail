@@ -147,17 +147,23 @@
   <p>Pour passer de heures:minutes à décimal, on divise les minutes par 60 et on ajoute le résultat aux heures. Exemple : 8h30 donne 8 + (30 ÷ 60) = 8,5.</p>
   <p>Pour l'inverse, on garde la partie entière comme nombre d'heures, puis on multiplie la partie décimale par 60 pour obtenir les minutes. Exemple : 7,25 donne 7 heures, et 0,25 × 60 = 15 minutes, soit 7h15.</p>
 
-  <h2>Quelques repères utiles</h2>
+  <h2>Tableau de correspondance entre minutes et heures décimales</h2>
   <table class="table-ref">
     <tr><th>Minutes</th><th>Équivalent décimal</th></tr>
-    <tr><td>15 min</td><td>0,25</td></tr>
-    <tr><td>30 min</td><td>0,50</td></tr>
-    <tr><td>45 min</td><td>0,75</td></tr>
+    <tr><td>5 min</td><td>0,08 (arrondi)</td></tr>
     <tr><td>10 min</td><td>0,17 (arrondi)</td></tr>
+    <tr><td>15 min</td><td>0,25</td></tr>
     <tr><td>20 min</td><td>0,33 (arrondi)</td></tr>
+    <tr><td>25 min</td><td>0,42 (arrondi)</td></tr>
+    <tr><td>30 min</td><td>0,50</td></tr>
+    <tr><td>35 min</td><td>0,58 (arrondi)</td></tr>
     <tr><td>40 min</td><td>0,67 (arrondi)</td></tr>
+    <tr><td>45 min</td><td>0,75</td></tr>
+    <tr><td>50 min</td><td>0,83 (arrondi)</td></tr>
+    <tr><td>55 min</td><td>0,92 (arrondi)</td></tr>
   </table>
   <p>Les quarts d'heure (15, 30, 45 min) tombent sur une valeur ronde. Plus largement, toute durée multiple de 3 minutes donne une valeur exacte à deux décimales : 3 min = 0,05, 6 min = 0,10, 12 min = 0,20. Les autres (10, 20, 40 min…) donnent un nombre sans fin, que ce calculateur arrondit à deux décimales.</p>
+  <p>Quelques exemples de durées complètes : 7h50 donne 7,83, 8h10 donne 8,17 et 35h30 donne 35,5. Dans l'autre sens, 0,10 correspond à 6 minutes, 0,60 à 36 minutes, 0,80 à 48 minutes et 0,90 à 54 minutes.</p>
 
   <h2>Attention aux arrondis qui s'additionnent</h2>
   <p>Un arrondi isolé ne change presque rien. Mais il se cumule. Trois fois 20 minutes, c'est une heure. Arrondi à 0,33 à chaque fois, on obtient 0,99 heure : une minute a disparu.</p>
