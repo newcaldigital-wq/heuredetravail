@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calcul d'ancienneté — Durée entre deux dates | France</title>
-<meta name="description" content="Calculez l'ancienneté d'un salarié entre deux dates : années, mois et jours exacts. Simulateur gratuit, sans tableur ni formule à écrire.">
+<title>Calcul ancienneté : simulateur gratuit en années, mois, jours</title>
+<meta name="description" content="Calculez l'ancienneté d'un salarié avec notre simulateur gratuit : années, mois et jours entre deux dates, et les règles sur les périodes qui comptent.">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <style is:global>
@@ -162,7 +162,7 @@
   <h2>Les périodes qui comptent dans l'ancienneté</h2>
   <p>Certaines périodes sont expressément assimilées par la loi à du travail effectif pour les droits liés à l'ancienneté, notamment le congé de maternité (L1225-24), le congé de paternité et d'accueil de l'enfant (L1225-35-2), le congé d'adoption (L1225-42), ainsi que les périodes d'accident du travail ou de maladie professionnelle (L1226-7).</p>
   <p>S'y ajoutent, également en totalité, le congé supplémentaire de naissance, ouvert depuis le 1er juillet 2026 (L1225-46-3), le congé de présence parentale (L1225-65) et le congé de proche aidant (L3142-19).</p>
-  <p>Une nuance sur ce dernier point : la loi vise l'accident du travail hors accident de trajet. Un accident de trajet n'ouvre pas droit à cette même assimilation automatique. La Cour de cassation l'a confirmé le 11 mars 2026 : la période d'arrêt consécutive à un accident de trajet doit être déduite de l'ancienneté servant à déterminer le droit à l'indemnité légale de licenciement et son montant, sauf disposition plus favorable.</p>
+  <p>Une nuance sur ce dernier point : la loi vise l'accident du travail hors accident de trajet. Un accident de trajet n'ouvre pas droit à cette même assimilation automatique. La Cour de cassation l'a confirmé le 11 mars 2026 (pourvoi n° 24-13.123) : la période d'arrêt consécutive à un accident de trajet doit être déduite de l'ancienneté servant à déterminer le droit à l'indemnité légale de licenciement et son montant, sauf disposition plus favorable.</p>
   <p>Les congés payés suivent une logique un peu différente : ils n'interrompent pas l'ancienneté et sont notamment pris en compte dans le décompte servant à l'indemnité de licenciement. L'article L3141-5 les assimile par ailleurs à du travail effectif, mais spécifiquement pour le calcul de la durée des congés payés eux-mêmes.</p>
 
   <h2>Les périodes qui ne comptent pas, ou comptent partiellement</h2>
@@ -209,6 +209,11 @@
     <li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F987" target="_blank" rel="noopener">Service-public.fr — Indemnité de licenciement du salarié en CDI (fiche F987)</a> — date d'appréciation de l'ancienneté, calcul jusqu'à la fin du préavis</li>
   </ul>
 </section>
+
+<aside class="auteur" style="max-width:760px;margin:24px auto 0;padding:14px 16px;display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--trait);border-radius:8px;font-size:13.5px;color:var(--encre-2);line-height:1.55">
+  <img src="/anthony.webp" alt="Anthony Quintin" width="56" height="56" style="width:56px;height:56px;border-radius:10px;object-fit:cover;border:1px solid var(--trait);flex-shrink:0">
+  <p style="margin:0">Rédigé par <b>Anthony Quintin</b>, gestionnaire de paie indépendant depuis 14 ans (AQPS Assistance). Règles vérifiées sur Légifrance et service-public.fr, dernière mise à jour en novembre 2026. <a href="/a-propos" style="color:var(--vert);font-weight:600">En savoir plus sur l'auteur</a>.</p>
+</aside>
 
   <footer>
     Calcul de la durée d'ancienneté entre deux dates (années, mois, jours). Durée calendaire brute, sans déduction des absences — leur traitement dépend du droit recherché et de la convention collective applicable. Outil indicatif, ne remplace pas un bulletin de paie.
@@ -343,6 +348,32 @@ document.getElementById("vider").addEventListener("click", ()=>{
 });
 
 document.getElementById("date-calcul").value = ajdISO();
+</script>
+<script type="application/ld+json" is:inline>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://heuredetravail.com/a-propos#anthony",
+      "name": "Anthony Quintin",
+      "jobTitle": "Gestionnaire de paie indépendant",
+      "worksFor": { "@type": "Organization", "name": "AQPS Assistance" },
+      "url": "https://heuredetravail.com/a-propos"
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Calcul d'ancienneté",
+      "url": "https://heuredetravail.com/calcul-anciennete",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "fr",
+      "isAccessibleForFree": true,
+      "dateModified": "2026-11-20",
+      "author": { "@id": "https://heuredetravail.com/a-propos#anthony" }
+    }
+  ]
+}
 </script>
 </body>
 </html>
