@@ -220,16 +220,16 @@
   <h2>Vos questions sur le décompte des jours ouvrés</h2>
 
   <h3>Comment calculer 15 jours ouvrés ?</h3>
-  <p>Quinze jours ouvrés font trois semaines du lundi au vendredi, sans jour férié. Exemple : du lundi 5 octobre 2026 au vendredi 23 octobre 2026 inclus, le week-end ne compte pas et on obtient 15 jours ouvrés. Un jour férié chômé dans l'intervalle repousse la fin d'un jour ouvré. Si votre délai démarre le lendemain d'un événement, saisissez ce lendemain comme début : l'outil inclut les deux bornes.</p>
+  <p>Quinze jours ouvrés font trois semaines complètes, du lundi au vendredi. Exemple : du lundi 5 au vendredi 23 octobre 2026 inclus, on compte 15 jours ouvrés. Chaque férié chômé repousse la fin d'un jour. Si votre délai démarre le lendemain d'un événement, saisissez ce lendemain comme début : l'outil inclut les deux bornes.</p>
 
   <h3>Quelle formule Excel permet de calculer le nombre de jours ouvrés ?</h3>
-  <p>Dans Excel, la fonction NB.JOURS.OUVRES(début ; fin ; fériés) compte du lundi au vendredi, bornes incluses. Le dernier argument est facultatif : c'est la plage de cellules qui liste les jours fériés à retirer. Pour compter du lundi au samedi, utilisez NB.JOURS.OUVRES.INTL avec le code de week-end 11, qui ne retire que le dimanche.</p>
+  <p>Dans Excel, =NB.JOURS.OUVRES(A2;B2;F2:F12) compte du lundi au vendredi, bornes incluses, avec les fériés listés en F2:F12 (facultatif). Pour compter du lundi au samedi, utilisez NB.JOURS.OUVRES.INTL avec le code de week-end 11 (dimanche seul).</p>
 
   <h3>Comment calculer le nombre de jours calendaires entre deux dates ?</h3>
-  <p>Soustrayez le début de la fin, puis ajoutez 1 si les deux bornes comptent. Du 1er au 31 octobre 2026, on obtient 31 jours calendaires. La formule devient =B2-A2+1, avec le début en A2 et la fin en B2. L'outil affiche ce total sous le résultat, à côté des jours ouvrés et ouvrables.</p>
+  <p>Soustrayez le début de la fin, puis ajoutez 1 si les deux bornes comptent : du 1er au 31 octobre 2026, cela donne 31 jours calendaires. Formule : =B2-A2+1 (début en A2, fin en B2). L'outil affiche ce total sous le résultat.</p>
 
   <h3>C'est quoi 48 heures ouvrées ?</h3>
-  <p>Dans l'usage courant (livraison, service client, délai de réponse), 48 heures ouvrées correspondent à 2 jours ouvrés : le week-end et les jours fériés ne comptent pas. Une demande reçue le vendredi à 10 h est donc traitée le mardi à 10 h, si le lundi n'est pas férié. L'expression n'a pas de définition légale précise : vérifiez ce que prévoit le contrat ou les conditions générales.</p>
+  <p>Dans l'usage courant (livraison, service client), 48 heures ouvrées valent 2 jours ouvrés : le week-end et les fériés ne comptent pas. Une demande reçue le vendredi à 10 h est traitée le mardi à 10 h, si le lundi n'est pas férié. L'expression n'a pas de définition légale précise : vérifiez le contrat.</p>
 
   <div class="avert">
     <b>Avertissement</b> — Ce calculateur applique une convention de décompte standard (régime de bureau lundi-vendredi, jours fériés légaux nationaux déduits par défaut en supposant qu'ils sont chômés). Il ne prend pas en compte les accords d'entreprise, usages sectoriels ou conventions collectives qui peuvent définir un rythme de travail différent ou une liste de jours fériés chômés différente — seul le 1er mai est légalement obligatoire à ce titre, hors Alsace-Moselle où les jours fériés sont en principe chômés. En Alsace-Moselle, le Vendredi saint n'est férié que dans les communes ayant un temple protestant ou une église mixte ; dans les commerces, des arrêtés préfectoraux peuvent en étendre ou en lever la fermeture. Pour un délai légal précis (préavis, congés, procédure), vérifiez le texte ou la convention applicable à votre situation. Outil indicatif, ne remplace pas un conseil juridique ou un bulletin de paie.
