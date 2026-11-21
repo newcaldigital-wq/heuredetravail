@@ -144,7 +144,7 @@
         </select>
       </div>
     </div>
-    <p class="hint">⚠ Dans le cas général, le Code du travail ne fixe aucune durée par défaut (art. L1237-1) : elle est fixée par votre convention collective, votre contrat de travail ou l'usage de votre profession et de votre localité. Vérifiez-la, ainsi que son unité (jours, semaines ou mois), avant de la saisir.</p>
+    <p class="hint">⚠ Aucune durée légale par défaut (art. L1237-1) : vérifiez la durée et l'unité dans votre convention collective ou votre contrat.</p>
 
     <div class="champs">
       <div class="champ">
@@ -166,11 +166,11 @@
         <input type="date" id="dem-conges-fin">
       </div>
     </div>
-    <p class="hint" id="dem-hint-conges" style="display:none">Indiquez les congés qui recoupent la période de préavis ou s'y trouvent entièrement compris, pas ceux terminés avant la notification ni ceux postérieurs à son terme. Seuls les jours tombant effectivement dans le préavis le prolongent.</p>
+    <p class="hint" id="dem-hint-conges" style="display:none">Indiquez les congés posés pendant le préavis. Seuls les jours qui y tombent le prolongent.</p>
     <div class="note note-alerte" id="dem-alerte-conges"></div>
 
     <div class="note note-info">
-      Certaines catégories ont un préavis de démission fixé par la loi ou par leur convention collective, non calculé automatiquement ici : <b>journalistes</b> (1 mois si ancienneté ≤ 3 ans, 2 mois au-delà) · <b>VRP</b> (1 mois en 1ʳᵉ année, 2 mois en 2ᵉ année, 3 mois au-delà) · <b>salariés du particulier employeur</b> (1 semaine à 1 mois selon ancienneté) · <b>assistants maternels</b> (15 jours calendaires pour un accueil de 3 mois à moins d'1 an, 1 mois au-delà ; pour un accueil de moins de 3 mois, reportez-vous à l'article 120 de la convention collective IDCC 3239) · en <b>Alsace-Moselle</b> : 6 semaines, 15 jours, 1 semaine ou 1 jour selon la catégorie et la périodicité de la rémunération. Si vous êtes concerné, reportez-vous à votre statut plutôt qu'au calcul générique ci-dessus.
+      Certaines catégories ont un préavis de démission fixé par la loi ou par leur convention collective, non calculé automatiquement ici : <b>journalistes</b> (1 mois si ancienneté ≤ 3 ans, 2 mois au-delà) · <b>VRP</b> (1 mois en 1ʳᵉ année, 2 mois en 2ᵉ année, 3 mois au-delà) · <b>salariés du particulier employeur</b> (1 semaine à 1 mois selon ancienneté) · <b>assistants maternels</b> (15 jours ou 1 mois selon la durée d'accueil) · en <b>Alsace-Moselle</b> : de 1 jour à 6 semaines selon la catégorie. Si vous êtes concerné, reportez-vous à votre statut.
     </div>
   </section>
 
@@ -192,18 +192,18 @@
           <input type="date" id="lic-date-notif">
         </div>
       </div>
-      <p class="hint">Deux informations distinctes : l'ancienneté, qui détermine la durée, s'apprécie à l'<b>envoi</b> de la lettre ; le préavis commence à la <b>première présentation</b> de la lettre recommandée, même non retirée (art. L1234-3). En cas de remise en main propre contre décharge, indiquez le même jour dans les deux champs.</p>
+      <p class="hint">L'ancienneté s'apprécie à l'<b>envoi</b> de la lettre ; le préavis commence à la <b>première présentation</b> (art. L1234-3). En remise en main propre, indiquez le même jour dans les deux champs.</p>
       <div class="note note-alerte" id="lic-alerte-dates"></div>
 
       <div class="cartes">
         <div class="carte"><div class="lbl">Ancienneté</div><div class="val" id="lic-r-anciennete">—</div></div>
         <div class="carte retenue"><div class="lbl">Préavis légal minimum</div><div class="val" id="lic-r-palier">—</div></div>
       </div>
-      <p class="hint">L'ancienneté affichée est calculée de date à date. Or, sauf disposition conventionnelle plus favorable, les arrêts maladie non professionnels ne comptent pas pour atteindre les seuils de 6 mois et de 2 ans (art. L1234-8 ; Cass. soc., 30 sept. 2020, n° 18-18.265) : retranchez-les avant de vous fier au palier affiché.</p>
+      <p class="hint">Sauf disposition plus favorable, les arrêts maladie non professionnels ne comptent pas pour les seuils de 6 mois et de 2 ans (art. L1234-8 ; Cass. soc., 30 sept. 2020, n° 18-18.265) : retranchez-les avant de vous fier au palier.</p>
       <p class="hint"><b>VRP et journalistes</b> : leur préavis légal spécifique s'applique aussi en cas de licenciement et peut être plus long que le minimum affiché (art. L7313-9 et L7112-2). Si vous êtes concerné, saisissez cette durée dans le champ prévu ci-dessous.</p>
 
       <div id="lic-bloc-libre" style="display:none">
-        <p class="hint">Ancienneté inférieure à 6 mois : l'article L1234-1 ne fixe pas de durée par défaut dans ce cas — elle dépend de la loi spécifique à votre catégorie, de la convention collective, du contrat ou de l'usage. Indiquez la durée qui vous concerne :</p>
+        <p class="hint">Moins de 6 mois d'ancienneté : aucune durée légale par défaut (art. L1234-1). Indiquez la durée applicable :</p>
         <div class="champs">
           <div class="champ">
             <label for="lic-duree-libre">Durée du préavis</label>
@@ -231,7 +231,7 @@
       </div>
 
       <div id="lic-bloc-fixe" style="display:none">
-        <p class="hint">Salarié bénéficiaire de l'obligation d'emploi des travailleurs handicapés : le préavis légal ci-dessus est doublé, dans la limite de 3 mois, sauf si la convention collective ou les usages prévoient déjà un préavis d'au moins 3 mois (art. L5213-9). Pour l'appliquer, saisissez la durée doublée dans le champ « préavis plus long » ci-dessous.</p>
+        <p class="hint">Travailleur handicapé : préavis doublé, dans la limite de 3 mois (art. L5213-9). Saisissez la durée doublée dans le champ « préavis plus long ».</p>
         <div class="checkline">
           <input type="checkbox" id="lic-convention-check">
           <label for="lic-convention-check">Ma convention collective ou mon contrat prévoit un préavis plus long (facultatif)</label>
@@ -260,7 +260,7 @@
             </select>
           </div>
         </div>
-        <p class="hint">N'indiquez une durée ici que si elle est <b>plus longue</b> que le minimum légal affiché ci-dessus : une convention ou un contrat ne peut jamais prévoir un préavis de licenciement plus court (art. L1234-1). Si la durée saisie est plus courte, l'outil retient automatiquement le minimum légal.</p>
+        <p class="hint">Indiquez une durée seulement si elle est <b>plus longue</b> que le minimum légal (art. L1234-1) : sinon, l'outil retient le minimum.</p>
         <div class="note note-alerte" id="lic-alerte-conv"></div>
       </div>
 
@@ -284,7 +284,7 @@
           <input type="date" id="lic-conges-fin">
         </div>
       </div>
-      <p class="hint" id="lic-hint-conges" style="display:none">Indiquez les congés qui recoupent la période de préavis ou s'y trouvent entièrement compris, pas ceux terminés avant la notification ni ceux postérieurs à son terme. Seuls les jours tombant effectivement dans le préavis le prolongent.</p>
+      <p class="hint" id="lic-hint-conges" style="display:none">Indiquez les congés posés pendant le préavis. Seuls les jours qui y tombent le prolongent.</p>
       <div class="note note-alerte" id="lic-alerte-conges"></div>
     </div>
   </section>
@@ -299,7 +299,7 @@
       Cette date intègre les congés payés posés avant la notification : le préavis a été prolongé d'une durée équivalente (il est suspendu pendant les congés, puis reprend à leur issue). Si vos congés ont été posés <b>après</b> la notification, d'un commun accord, ils ne suspendent pas le préavis — la date ci-dessus ne s'applique alors pas.
     </div>
     <div class="note note-info">
-      Le décompte est <b>calendaire</b> pour une durée en mois (veille de la date anniversaire, ou dernier jour du mois si cette date n'existe pas : 31 mars + 1 mois = 30 avril) et en jours calendaires (jour de notification inclus). Pour des <b>jours ouvrés</b> (lundi-vendredi) ou <b>ouvrables</b> (tous sauf le dimanche), l'outil compte à partir du jour de notification, ou du premier jour compté suivant si la notification tombe un jour non compté, sans tenir compte des jours fériés : ils peuvent décaler l'échéance réelle d'un ou plusieurs jours selon le calendrier applicable.
+      Le décompte est <b>calendaire</b> pour une durée en mois (veille de la date anniversaire, ou dernier jour du mois : 31 mars + 1 mois = 30 avril) et en jours calendaires (jour de notification inclus). Pour des <b>jours ouvrés</b> (lundi-vendredi) ou <b>ouvrables</b> (tous sauf le dimanche), l'outil ignore les jours fériés : ils peuvent décaler l'échéance réelle.
     </div>
   </section>
 
@@ -340,13 +340,12 @@
   <p>À l'échéance normale d'un CDD, il n'existe pas de préavis : seule une indemnité de fin de contrat (prime de précarité) peut être due, sauf exceptions. Un préavis n'existe qu'en cas de rupture anticipée par le salarié pour être embauché en CDI : 1 jour par semaine, plafonné à 2 semaines (art. L1243-2). Un délai de prévenance d'au moins 2 mois s'applique aux CDD « à objet défini » (art. L1242-2, 6°). En cas de faute grave, de force majeure ou d'inaptitude, la rupture est immédiate, sans préavis. Pour la durée du contrat lui-même, voir le <a href="/calcul-duree-cdd">calcul de la durée d'un CDD</a>.</p>
 
   <h2>Comment se calcule la date de fin exacte ?</h2>
-  <p>Le préavis commence au moment où l'autre partie est présumée avoir eu connaissance de la rupture : première présentation de la lettre recommandée (même retirée plus tard), remise en main propre contre décharge, ou annonce verbale pour une démission. En cas de licenciement, il court à compter de la présentation de la lettre (Cass. soc., 7 nov. 2006, n° 05-42.323), même non retirée (Cass. soc., 16 févr. 1978, n° 76-40.774) ; l'ancienneté, elle, s'apprécie à l'envoi, d'où les deux informations demandées par l'outil.</p>
+  <p>Le préavis commence au moment où l'autre partie est présumée avoir eu connaissance de la rupture : première présentation de la lettre recommandée (même retirée plus tard), remise en main propre contre décharge, ou annonce verbale pour une démission. En cas de licenciement, il court à compter de la présentation de la lettre (Cass. soc., 7 nov. 2006, n° 05-42.323), même non retirée ; l'ancienneté, elle, s'apprécie à l'envoi.</p>
   <ul>
     <li><b>En mois</b> : « de date à date », jour de notification inclus ; fin la veille de la date anniversaire. Annoncé le 15 janvier, un préavis d'un mois se termine le 14 février inclus. Si la date anniversaire n'existe pas dans le mois d'arrivée, fin le dernier jour de ce mois : 31 mars + 1 mois = 30 avril.</li>
     <li><b>En jours calendaires</b> : le jour de notification compte pour le premier.</li>
     <li><b>En <a href="/calcul-jours-ouvres">jours ouvrés ou ouvrables</a></b> : définition propre à ces unités ; tout dépend du texte ou de la convention, jamais d'une logique automatique liée à l'unité choisie.</li>
   </ul>
-  <p>Pour un licenciement, les grilles conventionnelles consultées s'expriment plutôt en mois, en semaines ou en jours calendaires ; l'option jours ouvrés ou ouvrables reste toutefois disponible pour les conventions qui feraient ce choix.</p>
 
   <h2>Congés payés et arrêts de travail pendant le préavis</h2>
   <table>
@@ -369,7 +368,7 @@
   <h3>Comment calculer un mois de préavis ?</h3>
   <p>De date à date : notifié le 15 janvier, le préavis prend fin le 14 février inclus.</p>
 
-  <p class="avert">Ce calculateur est indicatif et calcule une durée, jamais un montant : l'indemnité compensatrice de préavis, versée en cas de dispense de préavis, n'entre pas dans son périmètre. Il ne calcule pas non plus les durées propres à certaines catégories (journalistes, VRP, salariés du particulier employeur, assistants maternels, Alsace-Moselle), le doublement pour les travailleurs handicapés, la neutralisation des arrêts maladie dans l'ancienneté, ni le préavis consécutif à une présomption de démission. Pour les <a href="/calcul-jours-ouvres">jours ouvrés ou ouvrables</a> sans unité fixée par un texte légal, l'outil applique sa propre méthode de décompte, détaillée sous le résultat : si un jour férié tombe dans la période, vérifiez-le. Lorsque la date anniversaire n'existe pas (31 mars + 1 mois), aucun texte ni arrêt ne tranche : l'outil retient le dernier jour du mois, l'échéance qui ne fait courir de risque à aucune des parties. Il ne remplace ni un contrat, ni une convention collective, ni l'avis d'un professionnel du droit ou de la paie.</p>
+  <p class="avert">Ce calculateur est indicatif et calcule une durée, jamais un montant : l'indemnité compensatrice de préavis, versée en cas de dispense de préavis, n'entre pas dans son périmètre. Il ne calcule pas non plus les durées propres à certaines catégories (journalistes, VRP, salariés du particulier employeur, assistants maternels, Alsace-Moselle), le doublement pour les travailleurs handicapés, la neutralisation des arrêts maladie dans l'ancienneté, ni le préavis consécutif à une présomption de démission. Pour les <a href="/calcul-jours-ouvres">jours ouvrés ou ouvrables</a>, l'outil applique sa propre méthode de décompte : vérifiez les jours fériés. Lorsque la date anniversaire n'existe pas (31 mars + 1 mois), l'outil retient le dernier jour du mois. Il ne remplace ni un contrat, ni une convention collective, ni l'avis d'un professionnel du droit ou de la paie.</p>
 </section>
 
 <section class="sources">
