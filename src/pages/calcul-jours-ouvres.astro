@@ -81,6 +81,11 @@
     letter-spacing:-0.2px;
   }
   .contenu-seo h2:first-of-type{margin-top:0}
+  .contenu-seo h3{
+    font-size:17px;
+    color:var(--encre);
+    margin:20px 0 8px;
+  }
   .contenu-seo p{
     font-size:15.5px;
     color:var(--encre-2);
@@ -145,7 +150,7 @@
         <label for="profil-feries">Jours fériés chômés</label>
         <select id="profil-feries">
           <option value="tous" selected>Tous les jours fériés (par défaut)</option>
-          <option value="aucun">Aucun jour férié chômé</option>
+          <option value="aucun">Sans jour férié chômé</option>
           <option value="personnalise">Personnalisé</option>
         </select>
       </div>
@@ -173,7 +178,7 @@
     </div>
     <div class="erreur" id="erreur-dates">La date de fin doit être postérieure ou égale à la date de début.</div>
     <div class="note-complet">
-      Convention retenue : <b>jour ouvré</b> = du lundi au vendredi, hors jours fériés chômés selon le profil choisi (régime de bureau standard) ; <b>jour ouvrable</b> = du lundi au samedi, hors ces mêmes jours fériés chômés, en supposant le dimanche comme jour de repos hebdomadaire (régime général). Par défaut, tous les jours fériés de la liste sont supposés chômés — basculez sur « Personnalisé » pour cocher précisément ceux qui s'appliquent à l'entreprise concernée. Si l'entreprise applique un autre rythme (repos hebdomadaire décalé, commerce ouvert le samedi mais fermé le lundi, par exemple), le nombre de jours ouvrés et ouvrables réel peut aussi différer — voir le détail plus bas.
+      Convention retenue : <b>jour ouvré</b> = du lundi au vendredi, sans les jours fériés chômés selon le profil choisi (régime de bureau standard) ; <b>jour ouvrable</b> = du lundi au samedi, hors ces mêmes jours fériés chômés, en supposant le dimanche comme jour de repos hebdomadaire (régime général). Par défaut, tous les jours fériés de la liste sont supposés chômés — basculez sur « Personnalisé » pour cocher précisément ceux qui s'appliquent à l'entreprise concernée. Si l'entreprise applique un autre rythme (repos hebdomadaire décalé, commerce ouvert le samedi mais fermé le lundi, par exemple), le nombre de jours ouvrés et ouvrables réel peut aussi différer — voir le détail plus bas.
     </div>
     <div class="actions">
       <button class="act btn-ghost" id="aujourdhui">Fin = aujourd'hui</button>
@@ -202,7 +207,7 @@
   <p>Un jour férié légal n'est pas automatiquement un jour non travaillé. Seul le 1er mai est obligatoirement chômé pour l'ensemble des salariés. Pour les 10 autres jours fériés, la liste des jours chômés est fixée par un accord d'entreprise ou d'établissement, ou à défaut par un accord de branche — sans accord, c'est l'employeur qui la détermine. Une entreprise peut donc faire travailler ses salariés un jour férié ordinaire : dans ce cas, la définition du jour ouvrable ne l'exclut pas du décompte, exactement comme pour le jour ouvré.</p>
   <p>L'Alsace-Moselle fait exception. Dans le Bas-Rhin, le Haut-Rhin et la Moselle, l'emploi de salariés les jours fériés est en principe interdit dans l'industrie, le commerce et l'artisanat, sauf dérogations sectorielles (hôtellerie-restauration, transports, activités qui ne peuvent pas s'interrompre, notamment). Deux jours fériés locaux s'y ajoutent : le 26 décembre, et le Vendredi saint dans les communes ayant un temple protestant ou une église mixte.</p>
   <p>Cas fréquent : la journée de solidarité. Ses modalités sont fixées par accord ou, à défaut, par l'employeur après consultation du CSE. Elle peut consister à travailler un jour férié jusque-là chômé, autre que le 1er mai. Le lundi de Pentecôte est un choix courant, mais ce n'est plus une date imposée par défaut depuis 2008. Si l'entreprise a retenu un jour férié, décochez-le en mode « Personnalisé ».</p>
-  <p>Ce calculateur déduit par défaut tous les jours fériés de la liste (11, ou 13 avec l'option Alsace-Moselle), ce qui correspond à la pratique la plus répandue. Deux autres profils sont proposés : « Aucun jour férié chômé » pour un décompte brut, ou « Personnalisé » pour cocher précisément, jour férié par jour férié, ceux qui sont réellement chômés dans l'entreprise concernée — utile si sa convention collective ne les chôme pas tous. Le nombre de jours fériés sur la période reste dans tous les cas affiché, à titre d'information.</p>
+  <p>Ce calculateur déduit par défaut tous les jours fériés de la liste (11, ou 13 avec l'option Alsace-Moselle), ce qui correspond à la pratique la plus répandue. Deux autres profils sont proposés : « Sans jour férié chômé » pour un décompte brut, ou « Personnalisé » pour cocher précisément, jour férié par jour férié, ceux qui sont réellement chômés dans l'entreprise concernée — utile si sa convention collective ne les chôme pas tous. Le nombre de jours fériés sur la période reste dans tous les cas affiché, à titre d'information.</p>
 
   <h2>Pourquoi cette distinction compte en droit du travail</h2>
   <p>Le choix entre jours ouvrés et jours ouvrables n'est pas qu'une question de vocabulaire : il change le résultat d'un décompte légal. Les congés payés, par exemple, se décomptent en jours ouvrables : 2,5 jours par mois de travail effectif, dans la limite de 30 jours ouvrables par période de référence, que le salarié soit à temps plein ou à temps partiel. Une entreprise peut décompter en jours ouvrés à la place — 25 jours étant l'équivalence usuelle pour un rythme de 5 jours ouvrés par semaine — à condition que ce décompte ne soit jamais moins favorable au salarié que le décompte légal en jours ouvrables.</p>
@@ -210,14 +215,28 @@
   <p>D'autres délais se comptent en jours calendaires ou en mois. Une <a href="/calcul-periode-essai">période d'essai</a> exprimée en jours se décompte en jours calendaires, sauf disposition conventionnelle ou contractuelle contraire (Cass. soc., 28 avril 2011, n° 09-40.464, publié au Bulletin). Le <a href="/calcul-preavis">préavis légal de licenciement</a> est fixé en mois (art. L1234-1). Vérifiez toujours, pour le délai qui vous concerne, s'il est exprimé en jours ouvrés, ouvrables ou calendaires — ce n'est pas systématique.</p>
 
   <h2>Ce que ce calculateur ne fait pas</h2>
-  <p>Il applique un régime de référence (lundi-vendredi ouvré, lundi-samedi ouvrable, jours fériés légaux nationaux + option Alsace-Moselle) qui convient à la majorité des entreprises de bureau, mais pas à tous les secteurs. Le commerce, la restauration ou certains services organisés sur un autre rythme hebdomadaire (par exemple mardi-samedi) auront un nombre de jours ouvrés réel différent de celui affiché ici. C'est un outil de comptage de jours, pas un outil de paie : aucun montant en euros n'est calculé.</p>
+  <p>Il applique un régime de référence (lundi-vendredi ouvré, lundi-samedi ouvrable, jours fériés légaux nationaux + option Alsace-Moselle) qui convient à la majorité des entreprises de bureau, mais pas à tous les secteurs. Le commerce, la restauration ou certaines activités organisées sur un autre rythme hebdomadaire (par exemple mardi-samedi) auront un nombre de jours ouvrés réel différent de celui affiché ici. C'est un outil de comptage de jours, pas un outil de paie : il ne calcule pas de montant en euros.</p>
+
+  <h2>Vos questions sur le décompte des jours ouvrés</h2>
+
+  <h3>Comment calculer 15 jours ouvrés ?</h3>
+  <p>Quinze jours ouvrés font trois semaines du lundi au vendredi, sans jour férié. Exemple : du lundi 5 octobre 2026 au vendredi 23 octobre 2026 inclus, le week-end ne compte pas et on obtient 15 jours ouvrés. Un jour férié chômé dans l'intervalle repousse la fin d'un jour ouvré. Si votre délai démarre le lendemain d'un événement, saisissez ce lendemain comme début : l'outil inclut les deux bornes.</p>
+
+  <h3>Quelle formule Excel permet de calculer le nombre de jours ouvrés ?</h3>
+  <p>Dans Excel, la fonction NB.JOURS.OUVRES(début ; fin ; fériés) compte du lundi au vendredi, bornes incluses. Le dernier argument est facultatif : c'est la plage de cellules qui liste les jours fériés à retirer. Pour compter du lundi au samedi, utilisez NB.JOURS.OUVRES.INTL avec le code de week-end 11, qui ne retire que le dimanche.</p>
+
+  <h3>Comment calculer le nombre de jours calendaires entre deux dates ?</h3>
+  <p>Soustrayez le début de la fin, puis ajoutez 1 si les deux bornes comptent. Du 1er au 31 octobre 2026, on obtient 31 jours calendaires. La formule devient =B2-A2+1, avec le début en A2 et la fin en B2. L'outil affiche ce total sous le résultat, à côté des jours ouvrés et ouvrables.</p>
+
+  <h3>C'est quoi 48 heures ouvrées ?</h3>
+  <p>Dans l'usage courant (livraison, service client, délai de réponse), 48 heures ouvrées correspondent à 2 jours ouvrés : le week-end et les jours fériés ne comptent pas. Une demande reçue le vendredi à 10 h est donc traitée le mardi à 10 h, si le lundi n'est pas férié. L'expression n'a pas de définition légale précise : vérifiez ce que prévoit le contrat ou les conditions générales.</p>
 
   <div class="avert">
     <b>Avertissement</b> — Ce calculateur applique une convention de décompte standard (régime de bureau lundi-vendredi, jours fériés légaux nationaux déduits par défaut en supposant qu'ils sont chômés). Il ne prend pas en compte les accords d'entreprise, usages sectoriels ou conventions collectives qui peuvent définir un rythme de travail différent ou une liste de jours fériés chômés différente — seul le 1er mai est légalement obligatoire à ce titre, hors Alsace-Moselle où les jours fériés sont en principe chômés. En Alsace-Moselle, le Vendredi saint n'est férié que dans les communes ayant un temple protestant ou une église mixte ; dans les commerces, des arrêtés préfectoraux peuvent en étendre ou en lever la fermeture. Pour un délai légal précis (préavis, congés, procédure), vérifiez le texte ou la convention applicable à votre situation. Outil indicatif, ne remplace pas un conseil juridique ou un bulletin de paie.
   </div>
 
   <div class="maillage">
-    <b>Ce calcul vous sert ailleurs sur le site :</b> pour la date de fin d'un préavis (exprimé en mois pour le préavis légal), direction le <a href="/calcul-preavis">calcul de préavis</a>. Pour la date de fin d'une période d'essai (en jours calendaires lorsqu'elle est exprimée en jours), direction le <a href="/calcul-periode-essai">calcul de période d'essai</a>. Pour une durée totale entre deux dates (années, mois, jours calendaires), direction le <a href="/calcul-anciennete">calcul d'ancienneté</a>.
+    <b>Ce calcul est utile ailleurs sur le site :</b> pour la date de fin d'un préavis (exprimé en mois pour le préavis légal), direction le <a href="/calcul-preavis">calcul de préavis</a>. Pour la date de fin d'une période d'essai (en jours calendaires lorsqu'elle est exprimée en jours), direction le <a href="/calcul-periode-essai">calcul de période d'essai</a>. Pour une durée totale entre deux dates (années, mois, jours calendaires), direction le <a href="/calcul-anciennete">calcul d'ancienneté</a>.
   </div>
 </section>
 
