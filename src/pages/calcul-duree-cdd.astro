@@ -124,7 +124,7 @@
 <div class="wrap">
   <header class="hero">
     <div class="eyebrow">CDD · France</div>
-    <h1>Calcul de la <span class="light">durée d'un CDD</span></h1>
+    <h1>Durée maximale CDD : <span class="light">calcul selon le motif</span></h1>
     <p class="sub">Employeur, service RH ou salarié en CDD ? Déterminez la durée maximale autorisée selon le motif du contrat, et la date de fin à ne pas dépasser. Besoin de calculer une période d'essai ou un préavis ? Direction le <a href="/calcul-periode-essai">calcul de période d'essai</a> ou le <a href="/calcul-preavis">calcul de préavis</a>.</p>
   </header>
 
@@ -246,6 +246,11 @@
     <li>Fiche pédagogique — <a href="https://code.travail.gouv.fr/" target="_blank" rel="noopener">Code du travail numérique, le contrat à durée déterminée</a></li>
   </ul>
 </section>
+
+  <aside class="auteur" style="max-width:760px;margin:24px auto 0;padding:14px 16px;display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--trait);border-radius:8px;font-size:13.5px;color:var(--encre-2);line-height:1.55">
+    <img src="/anthony.webp" alt="Anthony Quintin" width="56" height="56" style="width:56px;height:56px;border-radius:10px;object-fit:cover;border:1px solid var(--trait);flex-shrink:0">
+    <p style="margin:0">Rédigé par <b>Anthony Quintin</b>, gestionnaire de paie indépendant depuis 14 ans (AQPS Assistance). Règles vérifiées sur Légifrance et code.travail.gouv.fr, dernière mise à jour en novembre 2026. <a href="/a-propos" style="color:var(--vert);font-weight:600">En savoir plus sur l'auteur</a>.</p>
+  </aside>
 
   <footer>
     Durées légales par défaut du CDD selon le motif, sans tenir compte d'une éventuelle convention collective ou d'un accord de branche différent, à vérifier séparément. Outil indicatif, ne remplace pas un contrat de travail ni l'avis d'un professionnel.
@@ -435,6 +440,32 @@ document.getElementById("date-debut").addEventListener("change", calculerTout);
 document.getElementById("date-fin-envisagee").addEventListener("change", calculerTout);
 
 calculerTout();
+</script>
+<script type="application/ld+json" is:inline>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://heuredetravail.com/a-propos#anthony",
+      "name": "Anthony Quintin",
+      "jobTitle": "Gestionnaire de paie indépendant",
+      "worksFor": { "@type": "Organization", "name": "AQPS Assistance" },
+      "url": "https://heuredetravail.com/a-propos"
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Calcul durée maximale CDD",
+      "url": "https://heuredetravail.com/calcul-duree-cdd/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "fr",
+      "isAccessibleForFree": true,
+      "dateModified": "2026-11-23",
+      "author": { "@id": "https://heuredetravail.com/a-propos#anthony" }
+    }
+  ]
+}
 </script>
 </body>
 </html>
