@@ -125,7 +125,7 @@
   <header class="hero">
     <div class="eyebrow">CDD · France</div>
     <h1>Durée maximale CDD : <span class="light">calcul selon le motif</span></h1>
-    <p class="sub">Employeur, service RH ou salarié en CDD ? Déterminez la durée maximale autorisée selon le motif du contrat, et la date de fin à ne pas dépasser. Besoin de calculer une période d'essai ou un préavis ? Direction le <a href="/calcul-periode-essai">calcul de période d'essai</a> ou le <a href="/calcul-preavis">calcul de préavis</a>.</p>
+    <p class="sub">Employeur, service RH ou salarié en CDD ? Déterminez la durée maximale autorisée selon le motif du contrat, et la date limite à ne pas dépasser. Besoin de calculer une période d'essai ou un préavis ? Direction le <a href="/calcul-periode-essai">calcul de période d'essai</a> ou le <a href="/calcul-preavis">calcul de préavis</a>.</p>
   </header>
 
   <section class="panneau">
@@ -145,7 +145,7 @@
         </select>
       </div>
     </div>
-    <p class="hint">Remplacement sans terme précis : le contrat prend fin avec la fin de l'absence du salarié remplacé ; la date calculée ci-dessous correspond à un CDD de remplacement conclu avec une date de fin fixée. Attente d'un salarié recruté en CDI : la limite de 9 mois s'applique, que le contrat ait ou non un terme précis.</p>
+    <p class="hint">Remplacement sans terme précis : le contrat prend fin avec la fin de l'absence du salarié remplacé ; la date calculée ci-dessous correspond à un CDD de remplacement conclu avec une date déterminée. Attente d'un salarié recruté en CDI : la limite de 9 mois s'applique, que le contrat ait ou non un terme précis.</p>
 
     <div class="checkline" id="etranger-wrap" style="display:none">
       <input type="checkbox" id="etranger">
@@ -154,10 +154,10 @@
 
     <div id="terme-wrap" style="display:none;margin-top:16px">
       <div class="segmented" id="terme-type">
-        <button type="button" class="seg-btn active" data-terme="precis">Terme précis (date de fin fixée)</button>
+        <button type="button" class="seg-btn active" data-terme="precis">Terme précis (date connue à l'avance)</button>
         <button type="button" class="seg-btn" data-terme="sans">Sans terme précis</button>
       </div>
-      <p class="hint">Un CDD saisonnier ou d'usage peut être conclu avec une date de fin fixée à l'avance (terme précis) ou sans date de fin déterminée, le contrat prenant alors fin avec l'événement qui le justifie (fin de saison, retour du salarié remplacé...).</p>
+      <p class="hint">Un CDD saisonnier ou d'usage peut être conclu avec une date connue à l'avance (terme précis) ou sans date déterminée, le contrat prenant alors fin avec l'événement qui le justifie (fin de saison, retour du salarié remplacé...).</p>
     </div>
 
     <div class="champ optionnel" style="margin-top:16px;max-width:460px">
@@ -170,13 +170,13 @@
       <div class="carte retenue"><div class="lbl">Durée maximale applicable</div><div class="val" id="r-duree-max">—</div></div>
     </div>
     <div class="note note-convention" id="note-convention">
-      Un accord de branche étendu fixe ici une durée différente de la règle légale par défaut : c'est cette durée qui est utilisée pour calculer la date de fin ci-dessous.
+      Un accord étendu fixe ici une durée différente de la règle légale par défaut : c'est cette durée qui est utilisée pour calculer la date ci-dessous.
     </div>
     <div class="note note-info" id="note-sans-terme">
-      Ce motif permet un CDD sans terme précis : la durée n'est pas plafonnée par une date de fin fixe. Le contrat se termine avec la réalisation de son objet (fin de la saison, fin du besoin...). Aucune date de fin maximale ne peut donc être calculée dans ce cas.
+      Ce motif permet un CDD sans terme précis : la durée n'est pas limitée par une date fixe. Le contrat se termine avec la réalisation de son objet (fin de la saison, fin du besoin...). Aucune date maximale ne peut donc être calculée dans ce cas.
     </div>
     <div class="note note-info">
-      Rappel sur le renouvellement : sauf accord de branche étendu fixant un nombre différent, un CDD peut être renouvelé au maximum <b>2 fois</b>. La durée totale du contrat, renouvellements compris, ne doit jamais dépasser la durée maximale indiquée ci-dessus.
+      Rappel sur le renouvellement : un CDD peut être renouvelé au maximum <b>2 fois</b> (un accord étendu peut prévoir un nombre différent). La durée totale du contrat, renouvellements compris, ne doit jamais dépasser la durée indiquée ci-dessus.
     </div>
   </section>
 
@@ -198,22 +198,22 @@
     <div class="champ optionnel" style="margin-top:16px;max-width:420px">
       <label for="date-fin-envisagee">Date de fin envisagée pour ce contrat (facultatif)</label>
       <input type="date" id="date-fin-envisagee">
-      <span class="hint">Vérifiez si la date de fin que vous envisagez respecte la durée maximale calculée ci-dessus.</span>
+      <span class="hint">Vérifiez si la date que vous envisagez respecte la durée calculée ci-dessus.</span>
     </div>
     <div class="note note-alerte" id="alerte-depassement"></div>
     <div class="note note-info" id="note-conforme" style="display:none">
-      ✓ La date de fin envisagée reste dans la limite de la durée maximale applicable.
+      ✓ La date envisagée reste dans la limite autorisée.
     </div>
 
     <div class="note note-info">
-      L'outil retient le jour de début du contrat comme premier jour de la durée : la date de fin est donc fixée à la veille de la date anniversaire, N mois plus tard (par exemple : début le 1<sup>er</sup> janvier, 18 mois : fin maximale le 30 juin, un an et demi plus tard, et non le 1<sup>er</sup> juillet).
+      L'outil retient le jour de début du contrat comme premier jour de la durée : la date limite est donc fixée à la veille de la date anniversaire, N mois plus tard (par exemple : début le 1<sup>er</sup> janvier, 18 mois : fin maximale le 30 juin, un an et demi plus tard, et non le 1<sup>er</sup> juillet).
     </div>
   </section>
 
 <section class="contenu-seo">
   <h2>Comment calculer la durée maximale d'un CDD ?</h2>
   <p>La durée d'un contrat à durée déterminée n'est pas libre : elle est plafonnée par la loi, et ce plafond dépend du motif de recours au CDD. Un CDD conclu pour remplacer un salarié absent n'obéit pas exactement aux mêmes règles qu'un CDD conclu dans l'attente de l'arrivée d'un salarié recruté en CDI.</p>
-  <p>C'est ce que détermine l'outil ci-dessus : à partir du motif choisi, il affiche la durée maximale légale applicable, puis calcule la date de fin à ne pas dépasser à partir de la date de début du contrat.</p>
+  <p>C'est ce que détermine l'outil ci-dessus : à partir du motif choisi, il affiche la limite légale, puis calcule la date à ne pas dépasser à partir de la date de début du contrat.</p>
 
   <h2>Les durées maximales selon le motif</h2>
   <p>Pour la plupart des motifs de recours au CDD — remplacement d'un salarié absent, accroissement temporaire d'activité — la durée maximale de droit commun est de <b>18 mois</b>, renouvellements compris. Elle est portée à <b>24 mois</b> lorsque le contrat est exécuté à l'étranger.</p>
@@ -221,8 +221,8 @@
   <p>Un motif prévoit à l'inverse une durée allongée à <b>24 mois</b> : celui du CDD conclu dans le cadre du départ définitif d'un salarié précédant la suppression de son poste de travail.</p>
 
   <h2>Le cas particulier des CDD saisonniers et d'usage constant</h2>
-  <p>Les emplois à caractère saisonnier et les emplois pour lesquels il est d'usage constant de ne pas recourir au CDI (CDD d'usage) peuvent être conclus sans terme précis : le contrat se termine alors avec la réalisation de son objet, sans date de fin fixée à l'avance. Dans ce cas, aucune durée maximale exprimée en mois ne s'applique, puisqu'il n'y a pas de date de fin à calculer.</p>
-  <p>Si un terme précis est néanmoins fixé pour ce type de contrat, c'est la durée maximale de droit commun (18 mois) qui s'applique par défaut, sauf accord de branche étendu prévoyant une règle différente.</p>
+  <p>Les emplois à caractère saisonnier et les emplois pour lesquels il est d'usage constant de ne pas recourir au CDI (CDD d'usage) peuvent être conclus sans terme précis : le contrat se termine alors avec la réalisation de son objet, sans date connue à l'avance. Dans ce cas, aucune durée exprimée en mois ne s'applique, puisqu'il n'y a pas de date à calculer.</p>
+  <p>Si un terme précis est néanmoins fixé pour ce type de contrat, c'est la durée de droit commun (18 mois) qui s'applique par défaut, sauf règle différente d'un accord étendu.</p>
 
   <h2>Le renouvellement du CDD</h2>
   <p>Sauf accord de branche étendu fixant un nombre différent, un CDD peut être renouvelé au maximum deux fois. Quel que soit le nombre de renouvellements, la durée totale du contrat — durée initiale et renouvellements cumulés — ne peut jamais dépasser la durée maximale applicable au motif concerné.</p>
@@ -233,9 +233,9 @@
   <p>Le CDD n'est possible que dans les cas prévus par la loi (art. L1242-2 et L1242-3). Il ne peut pas non plus servir à pourvoir durablement un emploi lié à l'activité normale et permanente de l'entreprise (art. L1242-1) : ce cas est pénalement sanctionné (art. L1248-1), alors qu'un CDD simplement trop long expose à la requalification.</p>
 
   <h2>Un accord de branche peut-il modifier ces durées ?</h2>
-  <p>Oui. Un accord de branche étendu peut fixer une durée totale de CDD différente de la durée légale par défaut, à la condition que cette durée ne puisse pas avoir pour objet ou pour effet de pourvoir durablement un emploi lié à l'activité normale et permanente de l'entreprise. C'est pourquoi l'outil ci-dessus permet de renseigner une durée conventionnelle, qui prime alors sur la règle légale par défaut.</p>
+  <p>Oui. Un accord étendu peut fixer une durée totale de CDD différente de la durée légale par défaut, à la condition que cette durée ne puisse pas avoir pour objet ou pour effet de pourvoir durablement un emploi lié à l'activité normale et permanente de l'entreprise. C'est pourquoi l'outil ci-dessus permet de renseigner une durée conventionnelle, qui prime alors sur la règle légale par défaut.</p>
 
-  <p class="avert">Ce calculateur couvre les motifs de recours au CDD les plus fréquents : remplacement, accroissement temporaire d'activité, attente d'un salarié en CDI, départ définitif avant suppression de poste, travaux urgents de sécurité, et saisonnier/usage constant. D'autres motifs plus rares existent (CDD à objet défini pour ingénieurs et cadres, CDD lié à certains dispositifs d'aide à l'emploi, commande exceptionnelle à l'exportation, CDD de reconversion créé au 1er janvier 2026) et obéissent à des règles de durée et de renouvellement différentes, non couvertes ici. Le calcul de la date de fin retient le jour de début comme premier jour de la durée : la date de fin est donc fixée à la veille de la date anniversaire, N mois plus tard — pratique usuelle en droit social pour les contrats de date à date, en l'absence de jurisprudence de la chambre sociale de la Cour de cassation tranchant spécifiquement ce point de calcul. Si le mois de fin ne comporte pas ce quantième, l'outil retient la veille du dernier jour de ce mois (par exemple : début le 31 août 2027, 18 mois, fin maximale le 27 février 2029). Aucun texte ni arrêt ne tranche ce cas : c'est la lecture la plus prudente, une date de fin plus courte ne faisant courir aucun risque de dépassement de la durée maximale. Pour une sécurité juridique optimale, il reste recommandé de faire figurer la date de fin exacte, en toutes lettres, dans le contrat lui-même. Cet outil est fourni à titre indicatif et ne remplace ni un contrat de travail, ni l'avis d'un professionnel du droit du travail.</p>
+  <p class="avert">Ce calculateur couvre les motifs de recours au CDD les plus fréquents : remplacement, accroissement temporaire d'activité, attente d'un salarié en CDI, départ définitif avant suppression de poste, travaux urgents de sécurité, et saisonnier/usage constant. D'autres motifs plus rares existent (CDD à objet défini pour ingénieurs et cadres, CDD lié à certains dispositifs d'aide à l'emploi, commande exceptionnelle à l'exportation, CDD de reconversion créé au 1er janvier 2026) et obéissent à des règles de durée et de renouvellement différentes, non couvertes ici. Le calcul retient le jour de début comme premier jour de la durée : la date limite est donc fixée à la veille de la date anniversaire, N mois plus tard — pratique usuelle en droit social pour les contrats de date à date, en l'absence de jurisprudence de la chambre sociale de la Cour de cassation tranchant spécifiquement ce point de calcul. Si le mois de fin ne comporte pas ce quantième, l'outil retient la veille du dernier jour de ce mois (par exemple : début le 31 août 2027, 18 mois, fin maximale le 27 février 2029). Aucun texte ni arrêt ne tranche ce cas : c'est la lecture la plus prudente, une date plus courte ne faisant courir aucun risque de dépassement de la durée maximale. Pour une sécurité juridique optimale, il reste recommandé de faire figurer la date de fin exacte, en toutes lettres, dans le contrat lui-même. Cet outil est fourni à titre indicatif et ne remplace ni un contrat de travail, ni l'avis d'un professionnel du droit du travail.</p>
 </section>
 
 <section class="sources">
@@ -252,7 +252,7 @@
     <li>Interdiction de pourvoir durablement un emploi permanent — <a href="https://code.travail.gouv.fr/code-du-travail/l1242-1" target="_blank" rel="noopener">L1242-1</a></li>
     <li>Autres cas de recours au CDD — <a href="https://code.travail.gouv.fr/code-du-travail/l1242-3" target="_blank" rel="noopener">L1242-3</a></li>
     <li>Sanction pénale — <a href="https://code.travail.gouv.fr/code-du-travail/l1248-1" target="_blank" rel="noopener">L1248-1</a></li>
-    <li>Calcul de la date de fin (jour de début inclus, veille de la date anniversaire) — pratique usuelle en droit social pour les contrats de date à date ; aucun arrêt de la chambre sociale de la Cour de cassation ne tranche spécifiquement ce point de calcul à ce jour</li>
+    <li>Calcul de la fin du contrat (jour de début inclus, veille de la date anniversaire) — pratique usuelle en droit social pour les contrats de date à date ; aucun arrêt de la chambre sociale de la Cour de cassation ne tranche spécifiquement ce point de calcul à ce jour</li>
     <li>Fiche pédagogique — <a href="https://code.travail.gouv.fr/" target="_blank" rel="noopener">Code du travail numérique, le contrat à durée déterminée</a></li>
   </ul>
 </section>
