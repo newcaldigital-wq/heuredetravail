@@ -223,6 +223,11 @@
   </ul>
 </section>
 
+  <aside class="auteur" style="max-width:760px;margin:24px auto 0;padding:14px 16px;display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--trait);border-radius:8px;font-size:13.5px;color:var(--encre-2);line-height:1.55">
+    <img src="/anthony.webp" alt="Anthony Quintin" width="56" height="56" style="width:56px;height:56px;border-radius:10px;object-fit:cover;border:1px solid var(--trait);flex-shrink:0">
+    <p style="margin:0">Rédigé par <b>Anthony Quintin</b>, gestionnaire de paie indépendant depuis 14 ans (AQPS Assistance). Règles vérifiées sur Légifrance et code.travail.gouv.fr, dernière mise à jour en novembre 2026. <a href="/a-propos" style="color:var(--vert);font-weight:600">En savoir plus sur l'auteur</a>.</p>
+  </aside>
+
   <footer>
     Vérification indicative d'un volume d'heures annuel prévu par rapport au plafond de référence, année complète ou incomplète. Méthode indicative — ne remplace pas le calcul prévu par l'accord collectif applicable. Outil indicatif, ne remplace pas un conseil juridique.
     <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/calcul-temps-de-travail" style="color:var(--vert);font-weight:600">Temps complet, heure réelle</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> · <a href="/calcul-heure-de-nuit" style="color:var(--vert);font-weight:600">Heures de nuit</a> · <a href="/conversion-heure-decimale" style="color:var(--vert);font-weight:600">Conversion décimale</a> · <a href="/calcul-jours-ouvres" style="color:var(--vert);font-weight:600">Jours ouvrés/ouvrables</a> · <a href="/calcul-duree-cdd" style="color:var(--vert);font-weight:600">Durée du CDD</a> · <a href="/calcul-carence-cdd" style="color:var(--vert);font-weight:600">Délai de carence CDD</a> · <a href="/calcul-forfait-jours" style="color:var(--vert);font-weight:600">Forfait jours</a> · <a href="/calcul-rtt" style="color:var(--vert);font-weight:600">RTT</a> · <a href="/calcul-repos-compensateur" style="color:var(--vert);font-weight:600">Repos compensateur (COR)</a></p>
@@ -450,6 +455,32 @@ document.getElementById("vider").addEventListener("click", () => {
 });
 
 basculerBlocsPeriode();
+</script>
+<script type="application/ld+json" is:inline>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://heuredetravail.com/a-propos#anthony",
+      "name": "Anthony Quintin",
+      "jobTitle": "Gestionnaire de paie indépendant",
+      "worksFor": { "@type": "Organization", "name": "AQPS Assistance" },
+      "url": "https://heuredetravail.com/a-propos"
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Calcul annualisation temps de travail",
+      "url": "https://heuredetravail.com/calcul-annualisation-temps-de-travail/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "fr",
+      "isAccessibleForFree": true,
+      "dateModified": "2026-11-23",
+      "author": { "@id": "https://heuredetravail.com/a-propos#anthony" }
+    }
+  ]
+}
 </script>
 </body>
 </html>
