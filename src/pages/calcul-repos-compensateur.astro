@@ -79,7 +79,7 @@
   <header class="hero">
     <div class="eyebrow">Heures supplémentaires · Repos compensateur · France</div>
     <h1>Calcul <span class="light">repos compensateur</span> (COR)</h1>
-    <p class="sub">Estimez vos heures de <b>contrepartie obligatoire en repos (COR)</b> — celles dues pour les heures supplémentaires accomplies au-delà du contingent annuel. Ce calculateur ne couvre ni le repos compensateur de remplacement (RCR) ni le repos compensateur du travailleur de nuit, deux dispositifs distincts qui dépendent d'un accord collectif ou d'une décision de l'employeur. Voir le détail plus bas.</p>
+    <p class="sub">Estimez vos heures de <b>contrepartie obligatoire en repos (COR)</b> — celles dues pour les heures supplémentaires accomplies au-delà du contingent annuel d'heures supplémentaires. Ce calculateur ne couvre ni le repos compensateur de remplacement (RCR) ni le repos compensateur du travailleur de nuit, deux dispositifs distincts qui dépendent d'un accord collectif ou d'une décision de l'employeur. Voir le détail plus bas.</p>
   </header>
 
   <div class="banniere-top">
@@ -125,41 +125,72 @@
       <div class="carte"><div class="lbl">Taux de conversion appliqué</div><div class="val texte" id="r-taux">—</div></div>
     </div>
     <div class="erreur" id="erreur-msg"></div>
-    <div class="note-estimatif"><b>Estimation indicative.</b> Seules les heures effectuées au-delà du contingent annuel génèrent de la COR — les heures dans la limite du contingent n'y ouvrent pas droit (sauf accord collectif contraire). Calcul ponctuel sur les heures renseignées : aucun solde de COR déjà acquis ou déjà pris n'est pris en compte, aucune donnée n'est conservée.</div>
+    <div class="note-estimatif"><b>Estimation indicative.</b> Seules les heures effectuées au-delà du contingent annuel d'heures supplémentaires génèrent de la COR — les heures dans la limite du contingent n'y ouvrent pas droit (sauf accord collectif contraire). Calcul ponctuel sur les heures renseignées : aucun solde de COR déjà acquis ou déjà pris n'est pris en compte, aucune donnée n'est conservée.</div>
     <div class="actions">
       <button class="act btn-ghost" id="vider">Effacer</button>
     </div>
   </section>
 
 <section class="contenu-seo">
+  <h2>Qu'est-ce que le repos compensateur ?</h2>
+  <p>Le repos compensateur est un temps de repos accordé au salarié en compensation d'heures supplémentaires. Le travail de nuit ouvre aussi droit à des contreparties, notamment sous forme de repos compensateur.</p>
+  <p>Ce n'est pas un congé supplémentaire. C'est une compensation, et l'employeur doit l'accorder quand les conditions du Code du travail sont réunies.</p>
+  <p>Selon le dispositif, ce repos est obligatoire (la COR) ou mis en place par l'entreprise à la place du paiement des heures supplémentaires (le RCR).</p>
+
   <h2>COR, RCR, repos compensateur de nuit : ne confondez pas ces trois dispositifs</h2>
-  <p>Le terme « repos compensateur » désigne dans le langage courant plusieurs mécanismes juridiquement distincts. Ce calculateur porte uniquement sur la <b>contrepartie obligatoire en repos (COR)</b> : celle due pour les heures supplémentaires accomplies au-delà du contingent annuel (article L3121-30). Deux autres dispositifs portent aussi le nom de « repos compensateur » et fonctionnent différemment :</p>
+  <p>Le terme « repos compensateur » désigne dans le langage courant plusieurs mécanismes juridiquement distincts. Ce calculateur porte uniquement sur la <b>contrepartie obligatoire en repos (COR)</b> : celle due pour les heures supplémentaires accomplies au-delà du contingent annuel d'heures supplémentaires (article L3121-30). Deux autres dispositifs portent aussi le nom de « repos compensateur » et fonctionnent différemment :</p>
   <ul>
-    <li><b>Le repos compensateur de remplacement (RCR)</b> : il remplace tout ou partie du paiement des heures supplémentaires et de leur majoration par un repos équivalent, dès la première heure supplémentaire — pas besoin de dépasser le contingent. « Équivalent » veut dire que le repos vaut ce qu'aurait rapporté l'heure payée : une heure majorée à 25 % donne 1 h 15 de repos (L3121-28 et L3121-33). Il est mis en place par un accord collectif ou, dans une entreprise sans délégué syndical, par l'employeur si le CSE ne s'y oppose pas (L3121-37). C'est cet accord ou cette décision qui fixe les heures concernées et les modalités de prise : ce calculateur ne le traite pas.</li>
+    <li><b>Le repos compensateur de remplacement (RCR)</b> : il remplace tout ou partie du paiement des heures supplémentaires et de leur majoration par un repos équivalent, dès la première heure supplémentaire — pas besoin de dépasser le contingent. « Équivalent » veut dire que le repos vaut ce qu'aurait rapporté l'heure payée : une heure majorée à 25 % donne 1 h 15 de repos (L3121-28 et L3121-33). Il est mis en place par un accord collectif ou, dans une entreprise sans délégué syndical, par l'employeur si le CSE (comité social et économique) ne s'y oppose pas (L3121-37). C'est cet accord ou cette décision qui fixe les heures concernées et les modalités de prise : ce calculateur ne le traite pas.</li>
     <li><b>Le repos compensateur du travailleur de nuit</b> (L3122-8) : dû automatiquement au salarié ayant le statut de travailleur de nuit (L3122-5), indépendamment de tout contingent d'heures supplémentaires. Là non plus, aucun taux national fixe : les contreparties sont déterminées par accord collectif (L3122-15).</li>
   </ul>
   <p>Si votre recherche porte sur l'un de ces deux derniers dispositifs, ce calculateur ne pourra pas vous donner de durée de repos fiable — reportez-vous à l'accord applicable dans votre entreprise.</p>
 
   <h2>Comment ce calculateur calcule votre COR</h2>
-  <p>Renseignez trois éléments : les heures supplémentaires déjà effectuées, le contingent annuel applicable (220h par défaut, modifiable si votre accord prévoit un chiffre différent), et l'effectif de votre entreprise. Le calcul se fait en deux temps :</p>
+  <p>Renseignez trois éléments : les heures supplémentaires déjà effectuées, le contingent applicable (220h par défaut, modifiable si votre accord prévoit un chiffre différent), et l'effectif de votre entreprise. Le calcul se fait en deux temps :</p>
   <ul>
-    <li>heures au-delà du contingent = heures supplémentaires effectuées − contingent annuel (retenu à zéro si négatif : aucune COR n'est due tant que le contingent n'est pas dépassé)</li>
+    <li>heures au-delà du contingent = heures supplémentaires effectuées − contingent applicable (retenu à zéro si négatif : aucune COR n'est due tant que le contingent n'est pas dépassé)</li>
     <li>COR générée = heures au-delà du contingent × taux applicable (50 %, soit 30 min de repos par heure, ou 100 %, soit 1h de repos par heure, selon l'effectif)</li>
   </ul>
 
-  <h2>Le contingent annuel : 220h, sauf accord contraire</h2>
+  <h2>Exemple chiffré de COR</h2>
+  <p>Les modalités de la COR se comprennent mieux sur un cas concret. Un salarié totalise 235 heures supplémentaires effectuées depuis le début de l'année. Le seuil retenu est celui de 220 heures.</p>
+  <p>Il dépasse donc ce seuil de 15 heures (235 − 220). Seules ces 15 heures ouvrent droit à la COR.</p>
+  <p>Dans une entreprise de 20 salariés ou moins, le taux est de 50 % : 15 × 50 % = 7,5 heures, soit 7 h 30 de repos.</p>
+  <p>Au-delà de 20 salariés, le taux est de 100 % : 15 heures de repos.</p>
+
+  <h2>Le contingent : 220h, sauf accord contraire</h2>
   <p>À défaut d'accord collectif d'entreprise ou de branche, le contingent annuel d'heures supplémentaires est fixé par décret à 220 heures par salarié et par an (D3121-24). C'est ce chiffre que l'outil utilise par défaut — modifiez-le si un accord applicable dans votre entreprise prévoit un contingent différent, à la hausse comme à la baisse. Les heures supplémentaires compensées par un RCR, ou accomplies pour des travaux urgents (L3132-4), ne s'imputent pas sur ce contingent (L3121-30).</p>
 
-  <h2>Comment prendre le repos</h2>
-  <p>Les modalités de prise de la COR sont fixées par l'accord collectif. À défaut d'accord, le droit au repos est ouvert dès que vous avez acquis 7 heures de COR. Le repos doit alors être pris dans un délai maximum de deux mois (article D3121-18).</p>
+  <h2>Qui a droit au repos compensateur ?</h2>
+  <p>La COR concerne le salarié dont les heures supplémentaires dépassent le seuil fixé pour l'année.</p>
+  <p>Le repos compensateur de remplacement n'existe que s'il a été mis en place dans l'entreprise.</p>
+  <p>Le salarié de nuit bénéficie du repos compensateur prévu pour le travail de nuit, quel que soit son nombre d'heures supplémentaires.</p>
+  <p>Un salarié qui quitte l'entreprise sans pouvoir prendre son repos reçoit une indemnité en espèces (D3121-23).</p>
+  <p>L'employeur, de son côté, doit informer le salarié du nombre d'heures de repos portées à son crédit.</p>
+  <p>À lire en premier : les règles propres à votre entreprise, qui peuvent différer de celles décrites ici.</p>
+
+  <h2>Quand prendre son repos compensateur ?</h2>
+  <p>Les modalités de prise de la COR sont fixées par l'accord collectif. À défaut d'accord, le droit au repos est ouvert dès que vous avez acquis 7 heures de COR. Le repos doit alors être pris dans un délai maximum de deux mois (article D3121-18). Ce délai court à compter de l'ouverture du droit au repos.</p>
+  <p>Pour pouvoir prendre ce repos, le salarié le demande à l'employeur au moins une semaine à l'avance, en précisant la date et la durée souhaitées.</p>
+  <p>L'employeur répond dans les sept jours. Il accepte la demande ou, après consultation du CSE, il reporte le repos pour des raisons liées au fonctionnement de l'entreprise. En cas de report, il propose une autre date dans les deux mois (D3121-20 et D3121-22).</p>
+  <p>Ces modalités de demande s'appliquent sauf si l'entreprise a prévu d'autres modalités.</p>
   <p>Il se prend par journée entière ou par demi-journée, à votre convenance. Il compte comme du temps de travail effectif et n'entraîne aucune perte de salaire (D3121-19).</p>
   <p>L'employeur doit vous informer du nombre d'heures de repos portées à votre crédit. S'il ne l'a pas fait et que vous n'avez pas pu prendre votre repos, vous pouvez obtenir une indemnisation, sous forme de dommages-intérêts. Le délai pour la réclamer est de deux ans, à partir du jour où vous avez eu connaissance de vos droits, et au plus tard de la fin du contrat (Cour de cassation, 25 juin 2025).</p>
+
+  <h2>Repos compensateur et bulletin de paie</h2>
+  <p>Le repos pris ne réduit pas la rémunération : le salarié est payé comme s'il avait travaillé (D3121-19).</p>
+  <p>Sauf précision contraire d'une convention, ce nombre d'heures figure sur un document annexé au bulletin de paie (D3171-11).</p>
+  <p>Pour lire ce compteur, repérez le nombre d'heures portées à votre crédit. Dès que ce nombre atteint sept heures, le document le signale et rappelle l'obligation de prendre le repos dans les deux mois.</p>
 
   <h2>Fin de contrat avant la prise du repos : une indemnité, pas une perte de droits</h2>
   <p>Un salarié dont le contrat se termine avant d'avoir pu prendre sa COR, ou avant d'avoir acquis des droits suffisants pour la prendre, ne perd pas ses droits : il reçoit une indemnité en espèces égale à ses droits acquis (D3121-23). Ce calculateur ne gère pas ce suivi — il calcule la COR générée sur une période donnée, pas son cumul jusqu'à la prise effective du repos ou la fin du contrat.</p>
 
+  <h2>Repos compensateur, RTT et temps partiel : ne pas confondre</h2>
+  <p>Les RTT sont des jours de repos issus de la réduction du temps de travail à 35 heures. La COR, elle, compense les heures supplémentaires effectuées au-delà du seuil fixé pour l'année. Pour les RTT, voir le <a href="/calcul-rtt">calculateur RTT</a>.</p>
+  <p>Pour un salarié à temps partiel, les heures au-delà de la durée prévue au contrat sont des heures complémentaires. Elles relèvent d'un régime distinct et n'ouvrent en principe pas droit à la COR, sauf requalification en heures supplémentaires lorsque la limite légale est dépassée : voir les <a href="/heures-complementaires-temps-partiel">heures complémentaires</a>.</p>
+
   <h2>Ce que ce calculateur ne fait pas</h2>
-  <p>C'est un calcul ponctuel, pas un suivi. Il ne conserve aucune donnée, ne cumule rien d'une visite à l'autre, et ne remplace pas un compteur d'heures de repos tenu en paie. Il ne calcule pas non plus de montant en euros — uniquement des heures. Pour le RCR ou le repos compensateur du travailleur de nuit, voir plus haut : ces dispositifs ne sont pas couverts par cet outil.</p>
+  <p>Pour lire correctement l'estimation, gardez en tête qu'elle ne couvre que la COR. C'est un calcul ponctuel, pas un suivi. Il ne conserve aucune donnée, ne cumule rien d'une visite à l'autre, et ne remplace pas un compteur d'heures de repos tenu en paie. Il ne calcule pas non plus de montant en euros — uniquement des heures. Pour le RCR ou le repos compensateur du travailleur de nuit, voir plus haut : ces dispositifs ne sont pas couverts par cet outil.</p>
 
   <div class="avert">
     <b>Avertissement</b> — Ce calculateur applique les règles supplétives du Code du travail (contingent 220h, taux 50 %/100 %), applicables en l'absence d'accord collectif. Si une convention collective, un accord de branche ou d'entreprise prévoit des règles différentes — contingent, taux, modalités de prise du repos — ce sont elles qui priment. La prise en compte des congés payés pour déclencher des heures supplémentaires (jurisprudence de 2025) porte sur leur majoration ; son effet sur le contingent et sur la COR n'est pas tranché. Vérifiez toujours l'accord applicable dans votre entreprise. Outil indicatif : il ne remplace ni l'avis d'un professionnel du droit, ni le bulletin de paie.
@@ -186,6 +217,9 @@
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3122-8" target="_blank" rel="noopener">L3122-8</a> — contreparties du travailleur de nuit (repos compensateur), régime distinct de la COR</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3122-5" target="_blank" rel="noopener">L3122-5</a> — définition du travailleur de nuit</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3122-15" target="_blank" rel="noopener">L3122-15</a> — contreparties du travail de nuit fixées par accord collectif</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/d3121-20" target="_blank" rel="noopener">D3121-20</a> — demande de repos formulée au moins une semaine à l'avance, réponse de l'employeur sous sept jours, report possible après consultation du CSE</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/d3121-22" target="_blank" rel="noopener">D3121-22</a> — report du repos par l'employeur limité à deux mois</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/d3171-11" target="_blank" rel="noopener">D3171-11</a> — information du salarié sur ses heures de repos par un document annexé au bulletin de paie</li>
     <li><a href="https://www.courdecassation.fr/decision/685ce25e0c5506317f3be854" target="_blank" rel="noopener">Cour de cassation, chambre sociale, 25 juin 2025, n° 23-19.887, publié</a> — COR non prise faute d'information du salarié : indemnisation sous forme de dommages-intérêts, prescription de deux ans</li>
   </ul>
 </section>
