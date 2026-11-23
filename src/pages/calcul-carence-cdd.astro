@@ -93,20 +93,20 @@
 <div class="wrap">
   <header class="hero">
     <div class="eyebrow">CDD · France</div>
-    <h1>Calcul du <span class="light">délai de carence entre deux CDD</span></h1>
-    <p class="sub">Employeur, service RH ou salarié ? Déterminez le délai de carence obligatoire avant de conclure un nouveau CDD sur le même poste, et la date à partir de laquelle c'est possible. Besoin de connaître la durée maximale d'un CDD ? Direction le <a href="/calcul-duree-cdd">calcul de durée du CDD</a>.</p>
+    <h1>Délai de carence entre 2 CDD : <span class="light">calculez la date du nouveau contrat</span></h1>
+    <p class="sub">Employeur, service RH ou salarié ? Déterminez le délai de carence obligatoire avant un nouveau CDD sur le même poste, et la date à partir de laquelle c'est possible. Une question sur la durée d'un CDD ? Consultez la <a href="/calcul-duree-cdd">durée maximale du CDD</a>.</p>
   </header>
 
   <section class="panneau">
     <h2><span class="num">1</span> Le nouveau CDD concerne-t-il le même poste ?</h2>
     <div class="segmented" id="meme-poste-type">
-      <button type="button" class="seg-btn active" data-val="oui">Oui, même poste</button>
-      <button type="button" class="seg-btn" data-val="non">Non, poste différent</button>
+      <button type="button" class="seg-btn active" data-val="oui">Oui, identique</button>
+      <button type="button" class="seg-btn" data-val="non">Non, différent</button>
     </div>
-    <p class="hint">Le délai de carence ne s'applique qu'au poste occupé par le salarié dont le CDD a pris fin. La notion de "poste équivalent" relève de la jurisprudence et s'apprécie au cas par cas — en cas de doute, ne présumez pas l'absence de délai.</p>
+    <p class="hint">Le délai de carence ne s'applique qu'au poste occupé par le salarié dont le CDD a pris fin. La notion d'équivalence relève de la jurisprudence et s'apprécie au cas par cas — en cas de doute, ne présumez pas l'absence de délai.</p>
 
     <div class="note note-alerte" id="resultat-non-poste">
-      Le délai de carence ne s'applique qu'au poste du salarié dont le contrat a pris fin. S'il s'agit d'un poste réellement différent, vous pouvez conclure un nouveau CDD sans attendre. Vérifiez toutefois que le poste n'est pas jugé équivalent en pratique (mêmes tâches, même qualification) : la jurisprudence peut retenir le délai de carence dans ce cas.
+      Le délai de carence ne s'applique qu'au poste du salarié dont le contrat a pris fin. Pour une fonction réellement différente, un nouveau CDD peut être signé sans attendre. Vérifiez toutefois que cette fonction n'est pas jugée équivalente en pratique (mêmes tâches, même qualification) : la jurisprudence peut alors imposer la carence.
     </div>
   </section>
 
@@ -124,7 +124,7 @@
         <input type="date" id="precedent-fin">
       </div>
     </div>
-    <p class="hint">Renouvellement(s) inclus : indiquez la date de fin réelle après renouvellement éventuel, pas la date de fin du contrat initial.</p>
+    <p class="hint">Renouvellement(s) inclus : indiquez la date réelle du terme après renouvellement éventuel, pas celle du contrat initial.</p>
 
     <div class="cartes">
       <div class="carte"><div class="lbl">Durée du CDD précédent</div><div class="val" id="r-duree-precedent">—</div></div>
@@ -140,21 +140,21 @@
     <h2><span class="num">3</span> Une exception s'applique-t-elle ?</h2>
     <p class="hint" style="margin-top:0;margin-bottom:10px">Si l'une des situations suivantes correspond au CDD précédent, aucun délai de carence n'est requis.</p>
     <div class="checklist-exceptions">
-      <label class="exception-item"><input type="checkbox" class="exception-check" id="exc1"> Nouvelle absence du salarié précédemment remplacé (remplacement suivi d'un nouveau remplacement)</label>
+      <label class="exception-item"><input type="checkbox" class="exception-check" id="exc1"> Nouvelle absence du salarié précédemment remplacé (le CDD précédent ayant déjà servi à le remplacer)</label>
       <label class="exception-item"><input type="checkbox" class="exception-check" id="exc2"> Travaux urgents nécessités par des mesures de sécurité</label>
-      <label class="exception-item"><input type="checkbox" class="exception-check" id="exc3"> Emploi saisonnier ou emploi d'usage constant (CDD d'usage)</label>
-      <label class="exception-item"><input type="checkbox" class="exception-check" id="exc4"> Remplacement d'un chef d'entreprise, d'une personne exerçant une profession libérale, ou du chef d'une exploitation agricole (ou personne assimilée)</label>
+      <label class="exception-item"><input type="checkbox" class="exception-check" id="exc3"> Emploi saisonnier ou d'usage constant (CDD d'usage)</label>
+      <label class="exception-item"><input type="checkbox" class="exception-check" id="exc4"> Contrat conclu pour remplacer un chef d'entreprise, une personne exerçant une profession libérale, ou le chef d'une exploitation agricole (ou personne assimilée)</label>
       <label class="exception-item"><input type="checkbox" class="exception-check" id="exc5"> Contrat conclu au titre de l'article L1242-3 (dispositif en faveur de l'emploi, formation professionnelle complémentaire, période de reconversion…)</label>
       <label class="exception-item"><input type="checkbox" class="exception-check" id="exc6"> Rupture anticipée du CDD précédent à l'initiative du salarié</label>
       <label class="exception-item"><input type="checkbox" class="exception-check" id="exc7"> Le salarié a refusé le renouvellement de son contrat (pour la durée du contrat non renouvelé)</label>
     </div>
     <div class="note note-alerte" id="resultat-exception">
-      Aucun délai de carence n'est applicable : une exception légale a été cochée ci-dessus. Un nouveau CDD peut être conclu sur ce poste sans attendre.
+      Aucun délai de carence n'est applicable : une exception légale a été cochée ci-dessus. Un nouveau CDD peut être signé sans attendre.
     </div>
   </section>
 
   <section class="panneau" id="panneau-calcul">
-    <h2><span class="num">4</span> Rythme d'ouverture de l'entreprise</h2>
+    <h2><span class="num">4</span> Rythme d'activité de l'entreprise</h2>
     <p class="hint" style="margin-top:0">Le délai de carence se décompte en <b>jours d'ouverture de l'entreprise ou de l'établissement</b> — ni en jours calendaires, ni en jours ouvrés au sens courant.</p>
 
     <div class="jours-semaine">
@@ -172,7 +172,7 @@
     <button type="button" class="btn-ajouter" id="btn-ajouter-fermeture">+ Ajouter une période de fermeture</button>
 
     <div class="resultat-principal">
-      <div class="lbl">Date à partir de laquelle un nouveau CDD peut être signé sur ce poste</div>
+      <div class="lbl">Date à partir de laquelle un nouveau CDD peut être signé</div>
       <div class="date vide" id="r-date-carence">Renseignez les dates du CDD précédent</div>
     </div>
   </section>
@@ -187,31 +187,31 @@
   <h2>Comment se calcule la durée du délai de carence ?</h2>
   <p>Le délai de carence est égal au <b>tiers</b> de la durée totale du CDD précédent, renouvellement compris, si cette durée est de 14 jours ou plus. Il est égal à la <b>moitié</b> de cette durée si le CDD précédent a duré moins de 14 jours. Ces règles s'appliquent à défaut de stipulation contraire d'une convention ou d'un accord de branche étendu, qui peut fixer d'autres modalités de calcul du délai.</p>
 
-  <h2>Un décompte en jours d'ouverture de l'entreprise, pas en jours calendaires</h2>
-  <p>Contrairement à une idée reçue, le délai de carence ne se compte ni en jours calendaires, ni en jours ouvrés au sens habituel (utilisés par exemple pour un <a href="/calcul-jours-ouvres">délai de rétractation</a>). La loi retient les <b>jours d'ouverture de l'entreprise ou de l'établissement concerné</b> : les jours où l'entreprise fonctionne réellement et aurait pu employer un salarié sur ce poste. C'est pourquoi l'outil permet de préciser le rythme hebdomadaire d'ouverture ainsi que d'éventuelles périodes de fermeture (congés d'été, fermeture annuelle...).</p>
+  <h2>Un décompte en jours d'ouverture, pas en jours calendaires</h2>
+  <p>Contrairement à une idée reçue, le délai de carence ne se compte ni en jours calendaires, ni en jours ouvrés au sens habituel (utilisés par exemple pour un <a href="/calcul-jours-ouvres">délai de rétractation</a>). La loi retient <b>les jours où l'entreprise ou l'établissement concerné fonctionne réellement</b> et aurait pu employer un salarié. C'est pourquoi l'outil permet de préciser le rythme hebdomadaire ainsi que d'éventuelles périodes de fermeture (congés d'été, fermeture annuelle...).</p>
 
   <h2>Les exceptions qui suppriment le délai de carence</h2>
-  <p>En l'absence de stipulation contraire d'un accord de branche étendu, la loi supprime toute obligation de délai de carence dans les situations suivantes : nouvelle absence du salarié remplacé, travaux urgents de sécurité, emploi saisonnier ou d'usage constant, remplacement d'un chef d'entreprise ou d'une exploitation agricole, contrat conclu au titre de l'article L1242-3 (dispositif en faveur de l'emploi, formation professionnelle complémentaire ou, depuis le 1er janvier 2026, période de reconversion), rupture anticipée à l'initiative du salarié, ou refus par le salarié du renouvellement de son propre contrat. Un accord de branche étendu applicable à l'entreprise peut prévoir d'autres cas de suppression du délai : il est recommandé de le vérifier avant de conclure que seules ces sept situations s'appliquent.</p>
+  <p>En l'absence de stipulation contraire d'un accord de branche étendu, la loi supprime toute obligation de délai de carence dans les situations suivantes : nouvelle absence du salarié remplacé, travaux urgents de sécurité, emploi saisonnier ou d'usage constant, contrat conclu pour remplacer un chef d'entreprise ou le chef d'une exploitation agricole, contrat conclu au titre de l'article L1242-3 (dispositif en faveur de l'emploi, formation professionnelle complémentaire ou, depuis le 1er janvier 2026, période de reconversion), rupture anticipée à l'initiative du salarié, ou refus par le salarié du renouvellement de son propre contrat. Un accord de branche étendu applicable à l'entreprise peut prévoir d'autres cas de suppression du délai : il est recommandé de le vérifier avant de retenir que seules ces sept situations s'appliquent.</p>
 
   <h2>Le délai de carence s'applique-t-il à n'importe quel poste ?</h2>
-  <p>Non : le texte vise le poste du salarié dont le contrat a pris fin. La jurisprudence apprécie l'identité du poste selon les fonctions réellement exercées et les tâches concrètement confiées, indépendamment de l'intitulé du poste — un simple changement d'intitulé ne suffit donc pas à écarter le délai de carence si le besoin de travail reste le même.</p>
+  <p>Non : le texte vise le poste du salarié dont le contrat a pris fin. La jurisprudence apprécie l'identité du poste selon les fonctions réellement exercées et les tâches concrètement confiées, indépendamment de l'intitulé — un simple changement d'intitulé ne suffit donc pas à écarter le délai de carence si le besoin de travail reste le même.</p>
 
   <h2>Que risque-t-on en cas de non-respect du délai de carence ?</h2>
-  <p>Hors exception, conclure un nouveau CDD sur le même poste avant l'expiration du délai de carence expose l'employeur à la requalification du contrat en CDI. Ce n'est pas qu'une construction des juges : l'article L1245-1 du Code du travail le prévoit expressément, que le délai applicable soit celui fixé par la loi ou celui prévu par un accord de branche étendu.</p>
+  <p>Hors exception, signer un nouveau CDD sur le même poste avant l'expiration du délai de carence expose l'employeur à la requalification du contrat en CDI. Ce n'est pas qu'une construction des juges : l'article L1245-1 du Code du travail le prévoit expressément, que le délai applicable soit celui fixé par la loi ou celui prévu par une convention collective étendue.</p>
 
-  <p class="avert">Ni l'article L1244-3-1, ni la jurisprudence de la chambre sociale de la Cour de cassation consultée, ne fixent de règle d'arrondi lorsque le tiers ou la moitié de la durée du CDD précédent ne donne pas un nombre entier de jours, ni de règle précisant si la date de reprise possible doit elle-même être un jour d'ouverture de l'entreprise. Ce calculateur retient sur ces deux points l'approche la plus prudente : arrondi au jour d'ouverture supérieur, et démarrage du nouveau CDD sur un jour d'ouverture (jamais un jour de fermeture), même si cela allonge légèrement le délai réel par rapport au minimum strictement défendable. Cet outil est fourni à titre indicatif et ne remplace ni un contrat de travail, ni l'avis d'un professionnel du droit du travail.</p>
+  <p class="avert">Ni l'article L1244-3-1, ni la jurisprudence de la chambre sociale de la Cour de cassation consultée, ne fixent de règle d'arrondi lorsque la fraction applicable ne donne pas un nombre entier de jours, ni de règle précisant si la date de reprise possible doit elle-même tomber un jour travaillé. Ce calculateur retient sur ces deux points l'approche la plus prudente : arrondi à l'unité supérieure, et reprise sur un jour ouvert (jamais en période de fermeture), même si cela allonge légèrement la durée réelle de la carence par rapport au minimum strictement défendable. Cet outil est fourni à titre indicatif et ne remplace ni un contrat de travail, ni l'avis d'un professionnel du droit du travail.</p>
 </section>
 
 <section class="sources">
   <h3>Sources</h3>
   <ul>
-    <li>Interdiction et portée du délai de carence — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035644007" target="_blank" rel="noopener">Code du travail, art. L1244-3</a></li>
-    <li>Calcul du délai (1/3 ou 1/2) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035639421" target="_blank" rel="noopener">Code du travail, art. L1244-3-1</a></li>
-    <li>Modalités et exceptions fixées par accord de branche étendu — <a href="https://code.travail.gouv.fr/code-du-travail/l1244-4" target="_blank" rel="noopener">Code du travail, art. L1244-4</a></li>
-    <li>Exceptions légales au délai de carence (à défaut d'accord de branche) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035639433" target="_blank" rel="noopener">Code du travail, art. L1244-4-1</a></li>
-    <li>Cas de recours au CDD (remplacement de chef d'entreprise, exploitant agricole...) — <a href="https://code.travail.gouv.fr/code-du-travail/l1242-2" target="_blank" rel="noopener">Code du travail, art. L1242-2</a></li>
-    <li>Contrats conclus au titre de l'emploi, de la formation ou de la reconversion (version en vigueur au 1er janvier 2026) — <a href="https://code.travail.gouv.fr/code-du-travail/l1242-3" target="_blank" rel="noopener">Code du travail, art. L1242-3</a></li>
-    <li>Requalification en CDI en cas de non-respect du délai de carence — <a href="https://code.travail.gouv.fr/code-du-travail/l1245-1" target="_blank" rel="noopener">Code du travail, art. L1245-1</a></li>
+    <li>Interdiction et portée de la carence — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035644007" target="_blank" rel="noopener">L1244-3</a></li>
+    <li>Calcul de la carence (1/3 ou 1/2) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035639421" target="_blank" rel="noopener">L1244-3-1</a></li>
+    <li>Modalités et exceptions fixées par convention collective étendue — <a href="https://code.travail.gouv.fr/code-du-travail/l1244-4" target="_blank" rel="noopener">L1244-4</a></li>
+    <li>Exceptions légales (à défaut de dispositions conventionnelles) — <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000035639433" target="_blank" rel="noopener">L1244-4-1</a></li>
+    <li>Cas de recours au CDD (chef d'entreprise, exploitant agricole...) — <a href="https://code.travail.gouv.fr/code-du-travail/l1242-2" target="_blank" rel="noopener">L1242-2</a></li>
+    <li>Contrats conclus au titre de l'emploi, de la formation ou de la reconversion (version en vigueur au 1er janvier 2026) — <a href="https://code.travail.gouv.fr/code-du-travail/l1242-3" target="_blank" rel="noopener">L1242-3</a></li>
+    <li>Requalification en CDI en cas de non-respect de la carence — <a href="https://code.travail.gouv.fr/code-du-travail/l1245-1" target="_blank" rel="noopener">L1245-1</a></li>
     <li>Fiche pédagogique — <a href="https://code.travail.gouv.fr/" target="_blank" rel="noopener">Code du travail numérique, le contrat à durée déterminée</a></li>
   </ul>
 </section>
