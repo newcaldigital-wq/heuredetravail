@@ -156,7 +156,7 @@
       <input type="checkbox" id="renouvellement">
       <label for="renouvellement">Renouvellement prévu (unique, de durée égale)</label>
     </div>
-    <p class="hint" id="hint-renouvellement">Le renouvellement suppose trois conditions cumulatives : un accord de branche étendu, une clause dans le contrat de travail, et l'accord écrit du salarié avant la fin de la première période.</p>
+    <p class="hint" id="hint-renouvellement">Le renouvellement suppose trois conditions cumulatives : un accord autorisant le renouvellement, une clause dans le contrat de travail, et l'accord écrit du salarié avant la fin de la première période.</p>
 
     <div id="bloc-cdd" style="display:none">
       <div class="segmented" id="cdd-duree">
@@ -194,7 +194,7 @@
       <div class="date vide" id="r-date-fin">Renseignez une date de début</div>
     </div>
     <div class="note note-info">
-      Le décompte se fait en jours <b>calendaires</b> (week-ends et jours fériés compris), jamais en jours ouvrés — sauf disposition contraire du contrat de travail ou de la convention collective applicable. Pour une durée en <b>mois</b>, la période expire la veille de l'anniversaire du début (par exemple début le 14 mai, 2 mois : fin le 13 juillet). Pour une durée en <b>jours</b>, le jour de début compte (par exemple début le 1<sup>er</sup> juin, 8 jours : fin le 8 juin).
+      Le décompte se fait en jours <b>calendaires</b> (week-ends et jours fériés compris), jamais en jours ouvrés — sauf disposition contraire du contrat de travail ou de la convention collective applicable. Pour une durée en <b>mois</b>, la période expire la veille de l'anniversaire du début (ex. début le 14 mai, 2 mois : fin le 13 juillet). Pour une durée en <b>jours</b>, le jour de début compte (ex. début le 1<sup>er</sup> juin, 8 jours : fin le 8 juin).
     </div>
   </section>
 
@@ -239,16 +239,16 @@
 
   <h2>La période d'essai en CDI : plafonds légaux</h2>
   <p>Pour un contrat à durée indéterminée, l'article L1221-19 du Code du travail limite la période d'essai initiale à 2 mois pour les ouvriers et employés, 3 mois pour les agents de maîtrise et techniciens, et 4 mois pour les cadres.</p>
-  <p>Cette période peut être renouvelée une seule fois, pour une durée égale à la durée initiale — mais seulement si trois conditions sont réunies : un accord de branche étendu doit prévoir cette possibilité, le contrat de travail (ou la lettre d'engagement) doit le prévoir expressément, et le salarié doit donner son accord écrit avant le terme de la première période. Un renouvellement décidé ou signé après l'expiration de l'essai initial est tardif et sans effet : le contrat est alors définitivement conclu.</p>
+  <p>Cette période peut être renouvelée une seule fois, pour une durée égale — mais seulement si trois conditions sont réunies : un accord de branche étendu doit prévoir cette possibilité, le contrat de travail (ou la lettre d'engagement) doit le prévoir expressément, et le salarié doit donner son accord écrit avant le terme de la première période. Un renouvellement décidé ou signé après l'expiration de l'essai initial est tardif et sans effet : le contrat est alors définitivement conclu.</p>
   <p>Après renouvellement, la durée totale maximale atteint donc 4, 6 ou 8 mois selon la catégorie (ouvriers et employés, agents de maîtrise et techniciens, cadres).</p>
 
   <h2>La période d'essai d'un CDD : plafonds légaux</h2>
   <p>Selon l'article L1242-10 du Code du travail, pour un contrat à durée déterminée d'une durée initiale de 6 mois ou moins, la période d'essai ne peut excéder une durée calculée à raison d'un jour par semaine de contrat, dans la limite de 2 semaines (14 jours calendaires) au maximum. Un CDD de 8 semaines ne peut donc pas dépasser 8 jours d'essai ; un CDD de 20 semaines est plafonné à 14 jours, le plafond des 2 semaines étant alors atteint avant le calcul au prorata.</p>
-  <p>Pour un CDD d'une durée initiale supérieure à 6 mois, la période d'essai est plafonnée à 1 mois, quelle que soit la durée du CDD au-delà de ce seuil.</p>
+  <p>Pour un CDD de plus de 6 mois, la période d'essai est plafonnée à 1 mois, quelle que soit la durée du CDD au-delà de ce seuil.</p>
   <p>Contrairement au CDI, la période d'essai d'un CDD ne se renouvelle jamais.</p>
 
   <h2>Le plafond conventionnel : toujours plus court, jamais plus long</h2>
-  <p>Un accord de branche étendu peut prévoir une durée plus courte que la durée légale pour la période d'essai, mais jamais plus longue. Depuis le 9 septembre 2023, cette règle est absolue : même les accords de branche conclus avant 2008, qui bénéficiaient auparavant d'un régime transitoire leur permettant de prévoir des durées plus longues, ne peuvent plus le faire. Les durées légales constituent donc aujourd'hui un plafond impératif, que seule une durée moindre, prévue par accord ou par le contrat lui-même, peut réduire.</p>
+  <p>Un accord de branche peut prévoir une durée plus courte que la durée légale pour la période d'essai, mais jamais plus longue. Depuis le 9 septembre 2023, cette règle est absolue : même les accords de branche conclus avant 2008, qui bénéficiaient auparavant d'un régime transitoire leur permettant de prévoir des durées plus longues, ne peuvent plus le faire. Les durées légales constituent donc aujourd'hui un plafond impératif, que seule une durée moindre, prévue par accord ou par le contrat lui-même, peut réduire.</p>
   <p>Pour cette raison, l'outil ci-dessus retient toujours la plus courte des deux durées, légale ou conventionnelle, pour calculer la date de fin.</p>
 
   <h2>Comment calculer les jours de période d'essai ?</h2>
@@ -264,7 +264,7 @@
   <p>Si l'employeur ne respecte pas ce délai, ou si le délai déborde de la fin de l'essai, le salarié a droit à une indemnité compensatrice, congés compris, égale aux salaires qu'il aurait perçus pour la partie du délai non exécutée, sauf faute grave.</p>
   <p>Cas particulier : si la période d'essai prévue au contrat est inférieure à une semaine, le délai légal de prévenance en cas de rupture ne s'applique pas ; seul le contrat de travail, ou un accord collectif lorsqu'il en prévoit un, fixe alors un délai.</p>
 
-  <p class="avert">Ce calculateur est fourni à titre indicatif. Il applique les plafonds légaux par défaut ; un accord de branche peut, sur certains points, prévoir des règles différentes, toujours plus favorables au salarié pour la durée de l'essai. L'échéance retient un décompte calendaire conforme à la jurisprudence de la Cour de cassation. Lorsque le mois d'arrivée ne comporte pas le quantième de départ (par exemple un début le 31 janvier 2027 avec une période d'un mois), l'outil retient la veille du dernier jour de février : le 27 février. Aucun arrêt ne tranche ce cas ; pour cette raison, l'outil retient la lecture la plus prudente, afin d'éviter une rupture après l'expiration de l'essai. Le renouvellement est calculé d'un bloc à compter du début du contrat : aucune source ne tranche ce point, et cette méthode donne l'échéance la plus précoce. Deux autres points ne sont tranchés par aucun texte ni arrêt publié, et l'outil retient l'interprétation la plus cohérente avec la loi : pour un CDD de 6 mois ou moins, seules les semaines complètes sont comptées (jour de début inclus), une semaine incomplète n'ouvrant pas droit à une journée d'essai supplémentaire ; et la durée de présence dans l'entreprise servant au délai de prévenance inclut la journée d'embauche. Cet outil ne remplace ni un contrat de travail, ni l'avis d'un professionnel.</p>
+  <p class="avert">Ce calculateur est fourni à titre indicatif. Il applique les plafonds légaux par défaut ; un accord collectif peut, sur certains points, prévoir des règles différentes, toujours plus favorables au salarié pour la durée de l'essai. L'échéance retient un décompte calendaire conforme à la jurisprudence de la Cour de cassation. Lorsque le mois d'arrivée ne comporte pas le quantième de départ (par exemple un début le 31 janvier 2027 avec une période d'un mois), l'outil retient la veille du dernier jour de février : le 27 février. Aucun arrêt ne tranche ce cas ; pour cette raison, l'outil retient la lecture la plus prudente, afin d'éviter une rupture après l'expiration de l'essai. Le renouvellement est calculé d'un bloc à compter du début du contrat : aucune source ne tranche ce point, et cette méthode donne l'échéance la plus précoce. Deux autres points ne sont tranchés par aucun texte ni arrêt publié, et l'outil retient l'interprétation la plus cohérente avec la loi : pour un CDD de 6 mois ou moins, seules les semaines complètes sont comptées (jour de début inclus), une semaine incomplète n'ouvrant pas droit à une journée d'essai supplémentaire ; et la durée de présence dans l'entreprise servant au délai de prévenance inclut la journée d'embauche. Cet outil ne remplace ni un contrat de travail, ni l'avis d'un professionnel.</p>
 </section>
 
 <section class="sources">
