@@ -143,14 +143,14 @@
 <div class="wrap">
   <header class="hero">
     <div class="eyebrow">Temps de travail réel · France</div>
-    <h1>Calcul <span class="light">temps de travail</span> réel</h1>
-<p class="sub">Payé selon votre temps réel (intérim, saisonnier, extra), ou en début ou fin de contrat ? Cet outil additionne les heures réellement travaillées, sans appliquer de base forfaitaire, avec le détail des heures supplémentaires. Les congés payés sont assimilés à du travail effectif. Le total se combine avec un taux horaire ou un contrat pour obtenir un salaire.
+    <h1>Calcul du temps de travail</h1>
+<p class="sub">Salarié à temps complet payé sur ses heures réelles (intérim, saisonnier, extra), ou en mois incomplet ? Cet outil additionne les heures réellement travaillées, sans appliquer de base forfaitaire, avec le détail des heures supplémentaires. Les jours de congés payés sont comptés comme des heures de travail. Le résultat est à combiner avec un taux horaire ou un contrat pour le calcul de salaire.
 <br><br>
-Ce tableau est réservé au temps complet. À temps partiel, direction le <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">calcul des heures complémentaires</a>. Vous êtes mensualisé ? Utilisez plutôt le <a href="/" style="color:var(--vert);font-weight:600">calcul heure de travail</a>.</p>
+Ce tableau est réservé au temps complet. Si vous êtes à temps partiel, direction le <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">calcul des heures complémentaires</a>. Salarié mensualisé sur un mois complet ? Utilisez plutôt le <a href="/" style="color:var(--vert);font-weight:600">calcul heure de travail</a>.</p>
   </header>
 
   <section class="panneau">
-    <h2><span class="num">1</span> Dates</h2>
+    <h2><span class="num">1</span> Mois</h2>
     <div class="bandeau">
       <div class="navmois">
         <button id="prev" aria-label="Mois précédent">&lsaquo;</button>
@@ -158,18 +158,18 @@ Ce tableau est réservé au temps complet. À temps partiel, direction le <a hre
         <input type="number" id="annee" value="2026" min="2000" max="2100" step="1" aria-label="Année" style="width:90px">
         <button id="next" aria-label="Mois suivant">&rsaquo;</button>
       </div>
-      <div class="cadre-legal">Seuil hebdomadaire : <b>35 h</b> &middot; sup. <b>+25 %</b> (36<sup>e</sup>&ndash;43<sup>e</sup>) puis <b>+50 %</b>, sauf accord contraire &middot; pas de base forfaitaire</div>
+      <div class="cadre-legal">Seuil : <b>35 h/semaine</b> &middot; sup. <b>+25 %</b> (36<sup>e</sup>&ndash;43<sup>e</sup>) puis <b>+50 %</b>, à défaut d'accord &middot; pas de base forfaitaire</div>
     </div>
     <p class="err-annee" id="err-annee" hidden>Indiquez une année entre 2000 et 2100.</p>
   </section>
 
   <section class="panneau">
     <h2><span class="num">2</span> Vos horaires</h2>
-    <p class="hint" style="margin-bottom:12px">Laissez vide ce qui n'a pas été travaillé (repos, jour férié chômé, maladie). Cochez <b>CP</b> pour un congé payé là où vous auriez travaillé. La pause du midi est exclue. Les lignes <span style="color:var(--report-b);font-weight:600">violettes</span> appartiennent à la période voisine&nbsp;: elles servent à apprécier le seuil hebdomadaire des périodes à cheval, sans figurer dans le total.</p>
+    <p class="hint" style="margin-bottom:12px">Laissez vide un jour non travaillé (repos, jour férié chômé, maladie). Cochez <b>CP</b> pour un jour de congé payé où vous auriez travaillé. La pause du midi n'est pas comptée. Les lignes <span style="color:var(--report-b);font-weight:600">violettes</span> appartiennent au mois voisin&nbsp;: elles servent à calculer correctement le seuil des semaines à cheval, sans compter dans le total de ce mois.</p>
     <div class="cp-reglage">
       <label for="dureecp">Journée de congé payé</label>
       <input type="time" id="dureecp" value="07:00">
-      <span class="hint">Durée que vous auriez travaillée selon votre planning (7 h pour 35 h sur 5 jours).</span>
+      <span class="hint">Durée que vous auriez travaillée ce jour-là selon votre planning (7 h pour 35 h sur 5 jours).</span>
     </div>
     <div style="overflow-x:auto">
       <table class="tableau" id="grille">
@@ -185,101 +185,101 @@ Ce tableau est réservé au temps complet. À temps partiel, direction le <a hre
     </div>
     <div class="alertes" id="alertes" hidden></div>
     <div class="actions">
-      <button class="act btn-primary" id="calculer">Calculer</button>
+      <button class="act btn-primary" id="calculer">Calculer le mois</button>
       <button class="act btn-ghost" id="exemple">Remplir un exemple</button>
-      <button class="act btn-ghost" id="vider">Effacer la saisie</button>
+      <button class="act btn-ghost" id="vider">Effacer ce mois</button>
     </div>
   </section>
 
   <section class="panneau">
-    <h2><span class="num">3</span> Votre temps de travail</h2>
+    <h2><span class="num">3</span> Résultat du mois</h2>
     <div class="cartes">
       <div class="carte base"><div class="lbl">Heures normales</div><div class="val" id="r-nrm">0.00<small> h</small></div></div>
       <div class="carte s25"><div class="lbl">Sup. à 25 %</div><div class="val" id="r-s25">0.00<small> h</small></div></div>
       <div class="carte s50"><div class="lbl">Sup. à 50 %</div><div class="val" id="r-s50">0.00<small> h</small></div></div>
-      <div class="carte total"><div class="lbl">Total</div><div class="val" id="r-tot">0.00<small> h</small></div></div>
+      <div class="carte total"><div class="lbl">Total du mois</div><div class="val" id="r-tot">0.00<small> h</small></div></div>
     </div>
     <p class="cp-info" id="r-cp" hidden></p>
     <div class="note-cheval">
-      Une semaine à cheval sur deux mois ? Chaque heure reste rattachée au <b>jour où elle a réellement été travaillée</b>. Le seuil de 35 h s'apprécie sur la semaine civile entière, et les heures supplémentaires sont les dernières heures du cumul, dans l'ordre chronologique. Le total affiché ne reprend que les heures effectuées, ou posées en congé, sur les dates choisies. Ce rattachement est une convention de l'outil, pas une règle légale.
+      Quand une semaine est à cheval sur deux mois, chaque heure reste rattachée au <b>jour où elle a réellement été travaillée</b>. Le seuil de 35 h se calcule sur la semaine civile complète, et les heures supplémentaires sont les dernières heures de la semaine, dans l'ordre des jours. Le total affiché ici ne contient que les heures effectuées, ou posées en congé, ce mois-ci. Ce rattachement est une convention de calcul de l'outil, pas une règle légale.
     </div>
     <div class="note-complet">
-      Cet outil n'applique <b>aucune base forfaitaire</b>&nbsp;: il additionne exactement les heures saisies. C'est un calculateur d'<b>heures</b>, pas de salaire, réservé au <b>temps complet</b> : utile notamment en intérim, saisonnier, extra, ou en cas d'entrée ou de sortie en cours de contrat. Le temps partiel relève d'un régime différent (heures complémentaires), non couvert ici. Pour un salarié mensualisé à 151,67 h, voir le <a href="/">calcul heure de travail</a>.
+      Cet outil n'applique <b>aucune base forfaitaire</b>&nbsp;: il additionne exactement les heures saisies. C'est un calculateur d'<b>heures</b>, pas de salaire, réservé aux salariés à <b>temps complet</b> — utile notamment en intérim, saisonnier, extra, ou en mois incomplet (entrée/sortie). Un salarié à temps partiel relève d'un régime différent (heures complémentaires), non couvert ici. Pour un salarié mensualisé sur un mois complet à 151,67 h, voir le <a href="/">calcul heure de travail</a>.
     </div>
   </section>
 
 <section class="contenu-seo">
   <h2>Comment calculer son temps de travail réel ?</h2>
-  <p>Calculer son temps de travail réel, c'est additionner exactement les heures effectuées, sans base fixe de départ. Pour un salarié à temps plein, c'est utile notamment en intérim, en saisonnier, en extra, ou lors d'une entrée ou d'une sortie en cours de contrat.</p>
-  <p>Chaque matin et chaque après-midi, on relève les horaires. La pause du déjeuner est exclue tant que le salarié peut en disposer librement : ce n'est alors pas du temps de travail.</p>
-  <p>Le décompte obtenu reflète exactement ce qui a été travaillé aux dates saisies, auquel s'ajoutent les éventuels congés payés, détaillés sous le résultat.</p>
-  <p>C'est ce que fait le calculateur ci-dessus : il additionne les heures réellement saisies et repère les heures supplémentaires au-delà de 35 heures, selon un décompte hebdomadaire.</p>
+  <p>Calculer son temps de travail réel, c'est additionner exactement les heures effectuées, sans base fixe de départ. Pour un salarié à temps complet, c'est utile notamment en intérim, en saisonnier, en extra, ou pour un mois où l'on entre ou sort en cours de route.</p>
+  <p>Pour chaque jour, on compte les heures du matin et celles de l'après-midi. La pause du déjeuner ne compte pas, tant que le salarié est libre d'en disposer : ce n'est alors pas du temps de travail.</p>
+  <p>Le total obtenu est le reflet exact de ce qui a été travaillé, mois par mois, auquel s'ajoutent les éventuels jours de congés payés, détaillés sous le résultat.</p>
+  <p>C'est précisément ce que fait le calculateur ci-dessus : il additionne les heures réellement saisies, et il repère les heures supplémentaires effectuées au-delà de 35 heures chaque semaine.</p>
 
   <h2>Le calcul de la pause déjeuner</h2>
-  <p>La pause du midi n'est pas du temps de travail effectif, dès lors que le salarié est libre de vaquer à ses occupations. Elle n'est donc ni rémunérée, ni intégrée à la durée.</p>
-  <p>Prenons un exemple. Une journée de 8h00 à 12h00 le matin, puis de 13h00 à 18h00 l'après-midi, représente 9 heures de travail : la pause d'une heure, entre 12h00 et 13h00, n'est pas décomptée.</p>
-  <p>Le calculateur ci-dessus exclut cette pause. Vous indiquez seulement les heures d'arrivée et de départ, matin et après-midi, et il s'occupe du reste.</p>
+  <p>La pause du midi n'est pas du temps de travail effectif, dès lors que le salarié est libre de vaquer à ses occupations. Elle n'est donc ni rémunérée, ni comptée dans les heures.</p>
+  <p>Prenons un exemple. Une journée de 8h00 à 12h00 le matin, puis de 13h00 à 18h00 l'après-midi, représente 9 heures de travail : la pause d'une heure, entre 12h00 et 13h00, n'est pas comptée.</p>
+  <p>Le calculateur ci-dessus ne compte pas cette pause. Vous indiquez seulement les heures d'arrivée et de départ, matin et après-midi, et il s'occupe du reste.</p>
 
   <h2>Comment sont calculées les heures supplémentaires ?</h2>
-  <p>Les heures supplémentaires se décomptent par semaine civile, au-delà de 35 heures. Elle va du lundi 0 h au dimanche 24 h, sauf si un accord en fixe une autre de sept jours consécutifs. Cette règle vaut quel que soit le mode de paiement, mensualisé ou à l'heure réelle.</p>
-  <p>Le Code du travail fixe deux paliers de majoration. De la 36<sup>e</sup> à la 43<sup>e</sup> heure, soit huit heures, la majoration est de 25 %. À partir de la 44<sup>e</sup> heure, elle passe à 50 %.</p>
-  <p>Un exemple concret. Avec 40 heures au compteur hebdomadaire, on obtient 5 heures supplémentaires, toutes majorées à 25 %. Avec 44 heures, on en obtient 9 : 8 à 25 %, puis la 9<sup>e</sup> à 50 %.</p>
-  <p>Ces taux de 25 % et 50 % s'appliquent en l'absence d'accord. Une convention de branche ou un accord d'entreprise peut prévoir d'autres taux, mais la majoration ne peut jamais descendre en dessous de 10 %. Mieux vaut toujours contrôler ce qui s'applique à la situation concernée.</p>
-  <p>Vous entrez ou sortez en cours de contrat ? Le seuil reste de 35 heures : il n'est pas réduit selon la durée de présence.</p>
+  <p>Les heures supplémentaires se comptent par semaine civile, au-delà de 35 heures. La semaine va du lundi 0 h au dimanche 24 h, sauf si un accord collectif fixe une autre période de sept jours consécutifs. Cette règle s'applique quel que soit le mode de paiement, mensualisé ou à l'heure réelle.</p>
+  <p>Leur majoration suit deux paliers. Les huit premières, de la 36<sup>e</sup> à la 43<sup>e</sup> heure, sont majorées de 25 %. À partir de la 44<sup>e</sup> heure, la majoration passe à 50 %.</p>
+  <p>Un exemple concret. Une semaine de 40 heures compte 5 heures supplémentaires, toutes majorées à 25 %. Une semaine de 44 heures compte 9 heures supplémentaires : les 8 premières à 25 %, et la 9<sup>e</sup> à 50 %.</p>
+  <p>Ces taux de 25 % et 50 % sont ceux qui s'appliquent à défaut d'accord. Une convention collective ou un accord d'entreprise peut prévoir d'autres taux, mais la majoration ne peut jamais descendre en dessous de 10 %. Mieux vaut toujours vérifier ce qui s'applique à la situation concernée.</p>
+  <p>Vous entrez ou sortez en cours de semaine ? Le seuil reste de 35 heures pour cette semaine-là : il n'est pas réduit en fonction des jours de présence.</p>
 
   <h2>Congés payés et heures supplémentaires</h2>
-  <p>Vous avez posé un congé payé en cours de semaine ? Il compte désormais dans le seuil de 35 heures.</p>
-  <p>Avant, seul le temps réellement travaillé entrait dans ce seuil. Un congé suffisait souvent à passer sous les 35 heures, et les heures sup disparaissaient. La Cour de cassation a changé cette règle le 10 septembre 2025 : un salarié dont le temps de travail se décompte à la semaine, et qui a été partiellement en congé payé, peut obtenir les heures supplémentaires qu'il aurait eues sans ce congé.</p>
-  <p>Un exemple. Vous travaillez 32 heures du lundi au jeudi, puis vous êtes en congé payé le vendredi, où vous auriez travaillé 7 heures. Le cumul hebdomadaire atteint 39 heures : vous avez 4 heures sup à 25 %. Dans le résultat affiché, la journée de congé figure dans les heures normales : 35 heures normales, dont 7 de congé, et 4 heures sup. Sur le bulletin de paie, ces 7 heures sont ensuite neutralisées par l'absence pour congé et payées par l'indemnité de congés payés.</p>
-  <p>Dans le calculateur, cochez la case « CP » de la ligne concernée. Ce jour compte alors pour la durée indiquée dans le champ « Journée de congé payé » : 7 heures proposées au départ, soit 35 heures sur 5 jours. Ce n'est pas un forfait fixé par la loi. Indiquez la durée que vous auriez travaillée selon votre planning, et ne cochez que les lignes où vous auriez travaillé : un samedi habituellement chômé vaut zéro.</p>
-  <p>Pour ce décompte, les heures de congé sont traitées comme du temps de travail effectif. Ces heures passent en premier dans le cumul hebdomadaire : elles figurent d'abord dans les heures normales, et ne deviennent des heures sup que dans le cas rare où les congés dépassent à eux seuls 35 heures.</p>
-  <p>Et si la semaine entière est en congé ? L'arrêt vise un salarié partiellement en congé : ce cas n'est pas tranché. Par prudence, l'outil ne retient alors aucune heure sup.</p>
-  <p>Cette règle vaut pour les congés payés seulement. Les jours fériés chômés n'entrent pas dans les 35 heures, sauf si votre accord ou un usage le prévoit. Il en va de même, en principe, pour la maladie. Dans le calculateur, laissez ces lignes vides.</p>
+  <p>Vous avez posé un jour de congé payé dans la semaine ? Il compte désormais pour savoir si vous dépassez 35 heures.</p>
+  <p>Avant, seules les heures réellement travaillées étaient prises en compte. Une semaine avec un jour de congé passait souvent sous les 35 heures, et les heures supplémentaires disparaissaient. La Cour de cassation a changé cette règle le 10 septembre 2025 : un salarié dont le temps de travail se décompte à la semaine, et qui a été en partie en congé payé, peut obtenir les heures supplémentaires qu'il aurait eues s'il avait travaillé toute la semaine.</p>
+  <p>Un exemple. Vous travaillez 32 heures du lundi au jeudi, puis vous êtes en congé payé le vendredi, un jour où vous auriez travaillé 7 heures. La semaine compte 39 heures : vous avez 4 heures supplémentaires à 25 %. Dans le résultat du mois, le jour de congé figure dans les heures normales : 35 heures normales, dont 7 de congé, et 4 heures supplémentaires. Sur le bulletin de paie, ces 7 heures sont ensuite neutralisées par l'absence pour congé, et payées par l'indemnité de congés payés.</p>
+  <p>Dans le calculateur, cochez la case « CP » du jour concerné. Ce jour compte alors pour la durée indiquée dans le champ « Journée de congé payé » : 7 heures par défaut, soit 35 heures sur 5 jours. Ce n'est pas un forfait légal. Indiquez la durée que vous auriez travaillée ce jour-là selon votre planning, et ne cochez que les jours où vous auriez travaillé : un samedi habituellement non travaillé compte pour zéro.</p>
+  <p>Pour ce décompte, les heures de congé sont traitées comme du temps de travail effectif. L'outil les compte en premier dans la semaine : elles figurent d'abord dans les heures normales, et ne deviennent des heures supplémentaires que dans le cas rare où les congés d'une semaine dépassent à eux seuls 35 heures.</p>
+  <p>Et si la semaine est entièrement en congé ? L'arrêt vise un salarié en congé une partie de la semaine seulement : le cas d'une semaine complète n'est pas tranché. Par prudence, l'outil ne compte alors aucune heure supplémentaire.</p>
+  <p>Cette règle vaut pour les congés payés seulement. Les jours fériés chômés ne comptent pas pour atteindre les 35 heures, sauf si votre accord collectif ou un usage le prévoit. Il en va de même, en principe, pour les absences pour maladie. Dans le calculateur, laissez ces jours vides.</p>
 
-  <h2>Sans base forfaitaire : la différence avec la mensualisation</h2>
-  <p>Un salarié mensualisé perçoit chaque mois une rémunération lissée sur une base fixe de 151,67 heures, quel que soit le temps réellement travaillé. Ici, rien de tel : on additionne directement les heures saisies, normales ou majorées, sans rien lisser.</p>
-  <p>C'est utile chaque fois que la paie suit le temps réellement travaillé plutôt qu'un forfait mensuel fixe — par exemple pour une mission courte, une arrivée ou un départ en cours de contrat, ou simplement pour contrôler son propre décompte.</p>
-  <p>Vous cherchez le calcul d'un salarié mensualisé ? Direction le <a href="/">calcul heure de travail</a>.</p>
+  <h2>Sans base forfaitaire : la différence avec un salarié mensualisé</h2>
+  <p>Un salarié mensualisé perçoit chaque mois une rémunération lissée sur une base fixe de 151,67 heures, quel que soit le nombre de jours réellement travaillés. Cet outil ne pose pas cette base : il additionne directement les heures saisies, normales ou majorées, sans rien lisser.</p>
+  <p>C'est utile chaque fois que la paie suit les heures réellement effectuées plutôt qu'un forfait mensuel fixe — par exemple pour une mission courte, un mois d'entrée ou de sortie, ou simplement pour vérifier son propre décompte.</p>
+  <p>Si vous cherchez le calcul d'un salarié mensualisé sur un mois complet, direction le <a href="/">calcul heure de travail</a>.</p>
 
   <h2>Intérim et saisonniers</h2>
-  <p>Les intérimaires et les saisonniers ne sont pas mensualisés : ils sont payés sur le temps réellement travaillé. C'est exactement ce que décompte le calculateur.</p>
+  <p>Les intérimaires et les saisonniers ne sont pas mensualisés : ils sont payés sur les heures réellement faites. C'est exactement ce que compte cet outil.</p>
   <p>En intérim, la durée du travail est celle de l'entreprise utilisatrice pendant la mission : ses horaires, et les accords qui s'y appliquent. Vous enchaînez plusieurs missions dans la même semaine ? La façon de les additionner pour le seuil de 35 heures n'est pas fixée par un texte : renseignez-vous auprès de votre agence.</p>
-  <p>À noter : en intérim, les congés payés sont en général versés sous forme d'indemnité à la fin de chaque mission. La case « CP » sert donc surtout aux saisonniers et aux entrées ou sorties en cours de contrat.</p>
+  <p>À noter : en intérim, les congés payés sont en général versés sous forme d'indemnité à la fin de chaque mission. La case « CP » sert donc surtout aux saisonniers et aux mois d'entrée ou de sortie.</p>
 
   <h2>Le cas des semaines à cheval sur deux mois</h2>
-  <p>Une semaine peut commencer en fin de mois et se terminer au début du suivant. Le seuil de 35 heures s'apprécie toujours sur la semaine civile entière. À quelle période rattacher alors chaque heure ?</p>
-  <p>Ici, chaque heure reste rattachée au jour où elle a réellement été travaillée. Les heures sont classées dans l'ordre chronologique : les 35 premières sont des heures normales, les suivantes des heures sup. Un cumul de 40 heures à cheval sur juillet et août voit ses heures faites en juillet rattachées à juillet, et ses heures sup tomber sur les derniers jours travaillés, même en août. Rien n'est déplacé : le chiffre affiché correspond exactement à ce qui a été fait, ou posé en congé, sur les dates choisies. Les heures de congé payé passent, elles, en premier.</p>
-  <p>C'est la principale différence avec le <a href="/">calcul des heures mensualisées</a> : là-bas, toute la semaine est rattachée au mois où elle se termine. Ici, chaque heure reste rattachée à sa date réelle, et les heures sup tombent sur les dates où le cumul dépasse 35 heures.</p>
+  <p>Certaines semaines commencent à la fin d'un mois et se terminent au début du suivant. Le seuil de 35 heures se calcule toujours sur la semaine civile complète. Mais alors, à quel mois rattacher chaque heure ?</p>
+  <p>Ici, chaque heure reste rattachée au jour où elle a réellement été travaillée. Les heures sont prises dans l'ordre des jours : les 35 premières de la semaine sont des heures normales, les suivantes des heures supplémentaires. Une semaine de 40 heures à cheval sur juillet et août verra ses heures comptées en juillet si elles ont été faites en juillet, et ses heures supplémentaires tomberont sur les derniers jours travaillés, même s'ils sont en août. Rien n'est déplacé d'un mois sur l'autre : le total affiché pour chaque mois correspond exactement à ce qui a été fait, ou posé en congé, ce mois-là. Les heures de congé payé de la semaine, elles, sont comptées en premier.</p>
+  <p>C'est la principale différence avec le <a href="/">calcul des heures mensualisées</a> : là-bas, toute la semaine est rattachée au mois où elle se termine. Ici, chaque heure reste dans le mois où elle a été faite, et les heures supplémentaires tombent sur les jours où la semaine a dépassé 35 heures.</p>
   <p>C'est une convention de calcul retenue par cet outil, adaptée à un compteur d'heures réelles. Le mode de paiement effectif (à quelle date les heures sont versées) dépend ensuite des règles de paie de l'entreprise.</p>
 
   <h2>Les durées maximales à respecter</h2>
-  <p>Le Code du travail fixe des limites à la durée du travail, et l'employeur doit les respecter.</p>
-  <p>La journée ne peut pas dépasser 10 heures, sauf dérogation : jusqu'à 12 heures si un accord le prévoit. La semaine est plafonnée à 48 heures, et jusqu'à 60 heures seulement en cas de circonstances exceptionnelles, sur autorisation de l'administration. Sur douze semaines consécutives, la moyenne ne peut pas dépasser 44 heures, ou 46 heures si un accord le prévoit.</p>
-  <p>Un dernier point important : dès que le temps de travail quotidien atteint 6 heures, une pause d'au moins 20 minutes consécutives est obligatoire.</p>
+  <p>Le temps de travail a des limites, et l'employeur doit les respecter.</p>
+  <p>La journée ne peut pas dépasser 10 heures, sauf dérogation : jusqu'à 12 heures si un accord collectif le prévoit. La semaine est plafonnée à 48 heures, et jusqu'à 60 heures seulement en cas de circonstances exceptionnelles, sur autorisation de l'administration. Sur douze semaines consécutives, la moyenne ne peut pas dépasser 44 heures, ou 46 heures si un accord collectif le prévoit.</p>
+  <p>Un dernier point important : dès que le temps de travail atteint 6 heures dans la journée, une pause d'au moins 20 minutes consécutives est obligatoire.</p>
 
-  <p class="avert">Ce calculateur est fourni à titre indicatif. C'est un compteur d'heures, pas un calcul de salaire : le chiffre obtenu se combine avec un taux horaire ou un contrat pour obtenir une rémunération. Il s'applique aux salariés du secteur privé à <b>temps plein</b>, soumis à un décompte hebdomadaire classique. Une heure supplémentaire n'est due que si elle a été faite avec l'accord, au moins implicite, de l'employeur, ou si elle a été rendue nécessaire par les tâches confiées. Il intègre les congés payés au seuil des 35 heures, pour la durée que vous indiquez ; la jurisprudence n'a pas tranché le cas des congés au-delà de quatre semaines par an (cinquième semaine, congés conventionnels), ni celui d'une semaine entièrement en congé, pour laquelle aucune heure sup n'est retenue. Il ignore les autres cas particuliers : convention de branche, accord d'entreprise, répartition de la durée du travail sur un cycle ou sur l'année, convention de forfait, fériés ou absences assimilés à du travail effectif par un accord ou un usage. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
+  <p class="avert">Ce calculateur est fourni à titre indicatif. C'est un outil de comptage d'heures, pas de calcul de salaire : le résultat est à combiner avec un taux horaire ou un contrat pour obtenir une rémunération. Il s'applique aux salariés du secteur privé à <b>temps complet</b>, soumis à un décompte hebdomadaire classique — un salarié à temps partiel relève d'un régime différent (heures complémentaires, non couvert ici). Une heure supplémentaire n'est due que si elle a été faite avec l'accord, au moins implicite, de l'employeur, ou si elle a été rendue nécessaire par les tâches confiées. L'outil intègre les jours de congés payés au seuil des 35 heures, pour la durée que vous indiquez ; la jurisprudence n'a pas tranché le cas des congés au-delà de quatre semaines par an (cinquième semaine, congés conventionnels), ni celui d'une semaine entièrement en congé, pour laquelle l'outil ne compte aucune heure supplémentaire. Il ne tient pas compte des autres cas particuliers : convention collective, accord d'entreprise, aménagement du temps de travail sur plusieurs semaines ou sur l'année, convention de forfait, jours fériés ou absences assimilés à du travail effectif par un accord ou un usage. Il ne remplace ni un bulletin de paie, ni l'avis d'un professionnel.</p>
 </section>
 
 <section class="sources">
-  <h3>Sources : Code du travail et jurisprudence</h3>
+  <h3>Sources</h3>
   <ul>
-    <li>Durée du travail : 35 heures — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-27" target="_blank" rel="noopener">L3121-27</a></li>
-    <li>Définition des heures supplémentaires — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-28" target="_blank" rel="noopener">L3121-28</a></li>
-    <li>Semaine de référence (lundi 0 h – dimanche 24 h, sauf accord) — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-32" target="_blank" rel="noopener">L3121-32</a> et <a href="https://code.travail.gouv.fr/code-du-travail/l3121-35" target="_blank" rel="noopener">L3121-35</a></li>
-    <li>Majoration à 25 % et 50 % — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-36" target="_blank" rel="noopener">L3121-36</a></li>
-    <li>Taux de majoration minimal fixé par accord (10 %) — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-33" target="_blank" rel="noopener">L3121-33</a></li>
-    <li>Temps de travail effectif — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-1" target="_blank" rel="noopener">L3121-1</a></li>
-    <li>Pause dès 6h de travail — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-16" target="_blank" rel="noopener">L3121-16</a></li>
-    <li>Durées maximales de travail — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-18" target="_blank" rel="noopener">L3121-18</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-19" target="_blank" rel="noopener">L3121-19</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-20" target="_blank" rel="noopener">L3121-20</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-21" target="_blank" rel="noopener">L3121-21</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-22" target="_blank" rel="noopener">L3121-22</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-23" target="_blank" rel="noopener">L3121-23</a></li>
-    <li>Saisonniers et intérimaires exclus de la mensualisation — <a href="https://code.travail.gouv.fr/code-du-travail/l3242-3" target="_blank" rel="noopener">L3242-3</a></li>
-    <li>Intérim : durée du travail de l'entreprise utilisatrice — <a href="https://code.travail.gouv.fr/code-du-travail/l1251-21" target="_blank" rel="noopener">L1251-21</a></li>
-    <li>Congés payés et seuil des 35 heures — <a href="https://www.courdecassation.fr/decision/68c13312021d8d629a161216" target="_blank" rel="noopener">Cass. soc., 10 septembre 2025, n° 23-14.455</a></li>
-    <li>Congés payés et heures sup — <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2391" target="_blank" rel="noopener">Service-Public, fiche F2391</a></li>
+    <li>Durée légale du travail (35h/semaine) — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-27" target="_blank" rel="noopener">Code du travail, art. L3121-27</a></li>
+    <li>Définition des heures supplémentaires — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-28" target="_blank" rel="noopener">Code du travail, art. L3121-28</a></li>
+    <li>Semaine de référence (lundi 0 h – dimanche 24 h, sauf accord) — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-32" target="_blank" rel="noopener">art. L3121-32</a> et <a href="https://code.travail.gouv.fr/code-du-travail/l3121-35" target="_blank" rel="noopener">art. L3121-35</a></li>
+    <li>Majoration des heures supplémentaires (25 %/50 %) — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-36" target="_blank" rel="noopener">Code du travail, art. L3121-36</a></li>
+    <li>Taux de majoration minimal fixé par accord (10 %) — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-33" target="_blank" rel="noopener">Code du travail, art. L3121-33</a></li>
+    <li>Temps de travail effectif — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-1" target="_blank" rel="noopener">Code du travail, art. L3121-1</a></li>
+    <li>Pause dès 6h de travail dans la journée — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-16" target="_blank" rel="noopener">Code du travail, art. L3121-16</a></li>
+    <li>Durées maximales de travail — <a href="https://code.travail.gouv.fr/code-du-travail/l3121-18" target="_blank" rel="noopener">art. L3121-18</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-19" target="_blank" rel="noopener">L3121-19</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-20" target="_blank" rel="noopener">L3121-20</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-21" target="_blank" rel="noopener">L3121-21</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-22" target="_blank" rel="noopener">L3121-22</a>, <a href="https://code.travail.gouv.fr/code-du-travail/l3121-23" target="_blank" rel="noopener">L3121-23</a></li>
+    <li>Salariés exclus de la mensualisation (saisonniers, intérimaires…) — <a href="https://code.travail.gouv.fr/code-du-travail/l3242-3" target="_blank" rel="noopener">Code du travail, art. L3242-3</a></li>
+    <li>Intérim : durée du travail de l'entreprise utilisatrice — <a href="https://code.travail.gouv.fr/code-du-travail/l1251-21" target="_blank" rel="noopener">Code du travail, art. L1251-21</a></li>
+    <li>Congés payés et seuil des heures supplémentaires — <a href="https://www.courdecassation.fr/decision/68c13312021d8d629a161216" target="_blank" rel="noopener">Cass. soc., 10 septembre 2025, n° 23-14.455, publié</a></li>
+    <li>Congés payés et heures supplémentaires — <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2391" target="_blank" rel="noopener">Service-Public, fiche « Heures supplémentaires »</a></li>
     <li>Fiche pédagogique — <a href="https://code.travail.gouv.fr/fiche-ministere-travail/la-duree-legale-du-travail" target="_blank" rel="noopener">Ministère du Travail, la durée légale du travail</a></li>
   </ul>
 </section>
   <footer>
-    Calcul du temps de travail réellement effectué, sans base mensualisée. Les heures sup se décomptent par semaine civile, au-delà de 35 h, majorées à 25 % de la 36<sup>e</sup> à la 43<sup>e</sup> heure puis à 50 % au-delà (taux légaux en l'absence d'accord ; un accord peut prévoir d'autres taux, jamais en dessous de 10 %). Une semaine à cheval sur deux mois est répartie selon la date réelle du travail. Outil indicatif, ne remplace pas un bulletin de paie.
+    Calcul du temps de travail réellement effectué, sans base mensualisée. Les heures supplémentaires se décomptent à la semaine civile, au-delà de 35 h, majorées à 25 % de la 36<sup>e</sup> à la 43<sup>e</sup> heure puis à 50 % au-delà (taux légaux à défaut d'accord collectif ; un accord peut prévoir d'autres taux, jamais en dessous de 10 %). Une semaine à cheval sur deux mois est répartie selon le jour réellement travaillé. Outil indicatif, ne remplace pas un bulletin de paie.
     <p style="margin-top:12px;font-size:12.5px"><b>Autres calculateurs</b> — <a href="/" style="color:var(--vert);font-weight:600">Temps complet mensualisé</a> · <a href="/heures-complementaires-temps-partiel" style="color:var(--vert);font-weight:600">Temps partiel</a> · <a href="/calcul-anciennete" style="color:var(--vert);font-weight:600">Calcul d'ancienneté</a> · <a href="/calcul-periode-essai" style="color:var(--vert);font-weight:600">Période d'essai</a> · <a href="/calcul-preavis" style="color:var(--vert);font-weight:600">Préavis</a> · <a href="/calcul-heure-de-nuit" style="color:var(--vert);font-weight:600">Heures de nuit</a> · <a href="/conversion-heure-decimale" style="color:var(--vert);font-weight:600">Conversion décimale</a> · <a href="/calcul-jours-ouvres" style="color:var(--vert);font-weight:600">Jours ouvrés/ouvrables</a> · <a href="/calcul-duree-cdd" style="color:var(--vert);font-weight:600">Durée du CDD</a> · <a href="/calcul-carence-cdd" style="color:var(--vert);font-weight:600">Délai de carence CDD</a> · <a href="/calcul-forfait-jours" style="color:var(--vert);font-weight:600">Forfait jours</a> · <a href="/calcul-rtt" style="color:var(--vert);font-weight:600">RTT classique</a> · <a href="/calcul-annualisation-temps-de-travail" style="color:var(--vert);font-weight:600">Annualisation</a> · <a href="/calcul-repos-compensateur" style="color:var(--vert);font-weight:600">Repos compensateur (COR)</a></p>
     <p style="margin-top:12px"><a href="/mentions-legales" style="color:var(--vert);font-weight:600">Mentions légales</a> · <a href="/confidentialite" style="color:var(--vert);font-weight:600">Politique de confidentialité</a> · <a href="/a-propos" style="color:var(--vert);font-weight:600">À propos</a></p>
   </footer>
