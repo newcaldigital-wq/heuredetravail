@@ -128,7 +128,7 @@
       <div class="champ">
         <label for="cp-non-acquis">CP non acquis (facultatif)</label>
         <input type="number" id="cp-non-acquis" value="0" min="0" max="30" step="1">
-        <span class="aide">Cas d'une embauche en cours d'année, congés payés pas encore acquis (dans le mode de décompte choisi). Certains textes conventionnels ajoutent ces jours au forfait : le salarié travaille les jours qu'il ne peut pas prendre en congé. Les JRS ne changent pas ; le forfait augmente d'autant. Ne renseignez une valeur que si votre convention prévoit ce mécanisme.</span>
+        <span class="aide">Cas d'une embauche pendant l'année, congés payés pas encore acquis (dans le mode de décompte choisi). Certains textes conventionnels ajoutent ces jours au forfait : le salarié travaille les jours qu'il ne peut pas prendre en congé. Les JRS ne changent pas ; le forfait augmente d'autant. Ne renseignez une valeur que si votre convention prévoit ce mécanisme.</span>
       </div>
     </div>
   </section>
@@ -203,13 +203,14 @@
 <section class="contenu-seo">
   <h2>Jours de repos ou « RTT forfait jours » : la bonne terminologie</h2>
   <p>L'expression « RTT forfait jours » est très recherchée et parfaitement compréhensible. Elle n'est pourtant pas la plus rigoureuse sur le plan juridique.</p>
-  <p>Pour un salarié en forfait jours, le temps de travail ne repose pas sur un décompte hebdomadaire des heures, comme pour les RTT classiques. Le forfait fixe un nombre limité de jours de travail sur l'an.</p>
+  <p>Pour un salarié en forfait jours, le temps de travail ne repose pas sur un décompte hebdomadaire des heures, comme pour les RTT classiques.</p>
+  <p>Le forfait fixe un nombre limité de jours de travail sur l'an.</p>
   <p>Les jours qui en résultent sont, juridiquement, des <b>jours de repos</b>, parfois notés JRS. Le calcul les obtient après déduction des congés.</p>
   <p>Ils ne correspondent pas nécessairement aux JRTT, issus d'un dispositif distinct de réduction du temps de travail ou d'aménagement collectif, si l'entreprise en a un par ailleurs.</p>
   <p>Si votre contrat prévoit au contraire une durée hebdomadaire en heures supérieure à 35h, ouvrez plutôt le <a href="/calcul-rtt">simulateur de RTT</a>.</p>
 
   <h2>Comment calculer son nombre de jours travaillés et de repos ?</h2>
-  <p>Le simulateur applique la logique la plus courante pour un salarié en forfait jours. Il part de tous les jours dans l'année, puis retire :</p>
+  <p>Pour calculer, le simulateur applique la logique la plus courante pour un salarié en forfait jours. Il part de tous les jours dans l'année, puis retire :</p>
   <ul>
     <li>les samedis et dimanches de chaque semaine ;</li>
     <li>les jours fériés chômés du lundi au vendredi ;</li>
@@ -218,10 +219,12 @@
   </ul>
   <p>Ce qui reste correspond au nombre estimé de jours de repos dont le salarié bénéficie.</p>
 
-  <h3>Exemple : le nombre de jours de repos en 2026</h3>
+  <h3>Exemple de calcul : le nombre de jours de repos en 2026</h3>
   <p>Prenons un salarié au forfait 218 jours, sur 2026, avec 25 jours de congés et 11 fêtes légales chômées.</p>
-  <p>Il y a 365 jours dans l'année, dont 104 samedis et dimanches. Sur ces 11 fêtes, 9 sont un jour de semaine : le 15 août est un samedi, la Toussaint un dimanche.</p>
+  <p>Il y a 365 jours dans l'année, dont 104 samedis et dimanches.</p>
+  <p>Sur ces 11 fêtes, 9 sont un jour de semaine : le 15 août est un samedi, la Toussaint un dimanche.</p>
   <p>Résultat : 365 − 104 − 9 − 25 − 218 = <b>9 jours de repos</b> estimés.</p>
+  <p>Le salarié qui bénéficie d'un forfait réduit saisit un nombre de jours inférieur à 218 : son temps de travail annuel baisse, et ses jours de repos augmentent d'autant.</p>
 
   <h2>Les repères du forfait jours en un tableau</h2>
   <div class="tableau">
@@ -230,21 +233,22 @@
         <tr><th>Repère</th><th>Ce que prévoit la loi pour le salarié</th><th>Article</th></tr>
       </thead>
       <tbody>
-        <tr><td>Nombre de jours du forfait</td><td>Fixé par le texte conventionnel et par la convention individuelle, 218 jours travaillés au plus</td><td><a href="https://code.travail.gouv.fr/code-du-travail/l3121-64" target="_blank" rel="noopener">L3121-64</a></td></tr>
-        <tr><td>Salarié concerné</td><td>Cadre autonome, ou autre salarié dont la durée du travail ne peut être prédéterminée</td><td><a href="https://code.travail.gouv.fr/code-du-travail/l3121-58" target="_blank" rel="noopener">L3121-58</a></td></tr>
+        <tr><td>Nombre de jours du forfait</td><td>Fixé par le texte conventionnel et par la convention individuelle de forfait, 218 jours au plus</td><td><a href="https://code.travail.gouv.fr/code-du-travail/l3121-64" target="_blank" rel="noopener">L3121-64</a></td></tr>
+        <tr><td>Salariés concernés</td><td>Cadres autonomes, ou autres salariés dont la durée du travail ne peut être prédéterminée</td><td><a href="https://code.travail.gouv.fr/code-du-travail/l3121-58" target="_blank" rel="noopener">L3121-58</a></td></tr>
         <tr><td>Renonciation à des jours de repos</td><td>Le salarié renonce avec l'accord écrit de l'employeur, contre une majoration de rémunération d'au moins 10 %</td><td><a href="https://code.travail.gouv.fr/code-du-travail/l3121-59" target="_blank" rel="noopener">L3121-59</a></td></tr>
         <tr><td>Maximum en cas de renonciation</td><td>235 jours si le texte conventionnel ne fixe pas de plafond</td><td><a href="https://code.travail.gouv.fr/code-du-travail/l3121-66" target="_blank" rel="noopener">L3121-66</a></td></tr>
-        <tr><td>Journée de solidarité</td><td>Pour le salarié, journée de travail sans rémunération supplémentaire, dans la limite de la valeur d'une journée</td><td><a href="https://code.travail.gouv.fr/code-du-travail/l3133-8" target="_blank" rel="noopener">L3133-8</a></td></tr>
+        <tr><td>Journée de solidarité</td><td>Pour le salarié, journée de travail sans rémunération supplémentaire, jusqu'à la valeur d'une journée</td><td><a href="https://code.travail.gouv.fr/code-du-travail/l3133-8" target="_blank" rel="noopener">L3133-8</a></td></tr>
         <tr><td>Jour férié obligatoirement chômé</td><td>Le 1er mai, seul concerné pour tout salarié</td><td><a href="https://code.travail.gouv.fr/code-du-travail/l3133-4" target="_blank" rel="noopener">L3133-4</a></td></tr>
       </tbody>
     </table>
   </div>
 
   <h2>Qui peut être au forfait jours ?</h2>
-  <p>Contrairement à une idée reçue, le forfait jours n'est pas réservé aux cadres. L'article L3121-58 du Code du travail vise deux profils de salarié.</p>
+  <p>Contrairement à une idée reçue, le forfait jours n'est pas réservé aux cadres.</p>
+  <p>L'article L3121-58 du Code du travail vise deux profils de salariés.</p>
 
-  <h3>Les deux profils de salarié visés par la loi</h3>
-  <p>Le premier profil réunit le cadre qui dispose d'une autonomie dans l'organisation de son emploi du temps, et dont les fonctions ne le conduisent pas à suivre l'horaire collectif de son équipe.</p>
+  <h3>Les deux profils de salariés visés par la loi</h3>
+  <p>Le premier profil réunit les cadres qui disposent d'une autonomie dans l'organisation de leur emploi du temps, et dont les fonctions ne les conduisent pas à suivre l'horaire collectif de leur équipe.</p>
   <p>Le second réunit le salarié, cadre ou non, dont la durée du travail ne peut être prédéterminée et qui dispose d'une réelle autonomie dans l'organisation de son emploi du temps.</p>
   <p>L'intitulé de cadre ou un niveau de salaire élevé ne suffit pas à rendre éligible un salarié qui ne dispose pas d'une autonomie réelle.</p>
 
@@ -260,14 +264,14 @@
   <h3>Que se passe-t-il sans ces garanties ?</h3>
   <p>Sans les garanties requises, la convention de forfait en jours peut être annulée ou privée d'effet.</p>
   <p>Selon la situation et la jurisprudence, le salarié relève alors des règles du droit commun, avec un décompte hebdomadaire en heures (35 heures par semaine) et, le cas échéant, des heures supplémentaires.</p>
-  <p>La Cour de cassation a ainsi jugé nulle une convention de forfait en jours lorsque les stipulations de l'accord collectif ne garantissent pas une amplitude et une charge de travail raisonnables (Cass. soc., 4 février 2015, n° 13-20.891).</p>
+  <p>La Cour de cassation a ainsi jugé nulle une convention de forfait en jours lorsque les stipulations de l'accord ne garantissent pas une amplitude et une charge de travail raisonnables (Cass. soc., 4 février 2015, n° 13-20.891).</p>
 
   <h2>Année incomplète : pourquoi il n'existe pas de méthode unique</h2>
   <p><b>Estimation indicative.</b> En cas d'entrée, de sortie ou de mise en place du forfait jours en cours d'année, le Code du travail ne fixe pas de méthode de proratisation.</p>
   <p>Il renvoie à l'accord collectif, qui détermine les conditions de prise en compte des absences ainsi que des arrivées et départs (art. L3121-64).</p>
 
   <h3>Le prorata calendaire retenu ici</h3>
-  <p>Sur la base du nombre de jours calendaires couverts, sur 12 mois au plus, le simulateur réduit proportionnellement :</p>
+  <p>Sur la base du nombre de jours calendaires couverts, sur 12 mois au plus, le simulateur réduit proportionnellement, pour la période de référence :</p>
   <ul>
     <li>le forfait ;</li>
     <li>les congés payés ;</li>
@@ -275,10 +279,13 @@
   </ul>
   <p>Le texte conventionnel applicable peut imposer une autre méthode : prorata fondé sur les jours de semaine hors fêtes légales, sur les semaines restantes, ou règle propre aux CP non acquis.</p>
   <p>Seul ce texte, et le cas échéant le décompte de votre service de paie, donne le résultat réellement opposable.</p>
+  <p>Pour un salarié entré ou sorti dans l'année, saisissez ses dates exactes de présence.</p>
 
   <h3>Les CP non acquis</h3>
-  <p>Pour un salarié embauché dans l'année, le traitement des CP non acquis relève de l'accord et de la convention individuelle. Aucun texte ni arrêt publié n'impose une méthode.</p>
-  <p>De nombreux textes conventionnels augmentent le nombre de jours de travail à concurrence des congés non acquis, plutôt que d'ajouter ces jours aux repos. Le champ facultatif « CP non acquis » reproduit ce mécanisme :</p>
+  <p>Pour un salarié embauché dans l'année, le traitement des CP non acquis relève de l'accord et de la convention individuelle.</p>
+  <p>Aucun texte ni arrêt publié n'impose une méthode.</p>
+  <p>De nombreux textes conventionnels augmentent le nombre de jours de travail à concurrence des congés non acquis, plutôt que d'ajouter ces jours aux repos.</p>
+  <p>Le champ facultatif « CP non acquis » reproduit ce mécanisme :</p>
   <ul>
     <li>le forfait augmente ;</li>
     <li>les congés déduits diminuent d'autant ;</li>
@@ -288,7 +295,8 @@
 
   <h2>Fêtes légales chômées et journée de solidarité</h2>
   <h3>Quels jours fériés sont chômés ?</h3>
-  <p>L'outil suppose les 11 fêtes légales chômées (art. L3133-1). Seul le 1er mai l'est obligatoirement pour tout salarié (art. L3133-4).</p>
+  <p>L'outil suppose les 11 fêtes légales chômées (art. L3133-1).</p>
+  <p>Seul le 1er mai l'est obligatoirement pour tout salarié (art. L3133-4).</p>
   <p>Pour les 10 autres, la liste des jours chômés dépend, dans l'ordre :</p>
   <ul>
     <li>de l'accord conclu dans l'entreprise ou l'établissement ;</li>
@@ -298,7 +306,8 @@
   <p>Basculez sur « Personnalisé » pour cocher ceux qui s'appliquent à votre situation.</p>
 
   <h3>Le cas de l'Alsace-Moselle</h3>
-  <p>L'Alsace-Moselle fait exception. Dans le Bas-Rhin, le Haut-Rhin et la Moselle, l'emploi d'un salarié les jours fériés est en principe interdit dans l'industrie, le commerce et l'artisanat, sauf dérogations sectorielles.</p>
+  <p>L'Alsace-Moselle fait exception.</p>
+  <p>Dans le Bas-Rhin, le Haut-Rhin et la Moselle, l'emploi d'un salarié les jours fériés est en principe interdit dans l'industrie, le commerce et l'artisanat, sauf dérogations sectorielles.</p>
   <p>Deux fêtes locales s'ajoutent : le 26 décembre, et le Vendredi saint dans les communes ayant un temple protestant ou une église mixte.</p>
   <p>Les jours fériés tombant un jour habituellement non travaillé (samedi ou dimanche, dans une organisation classique du lundi au vendredi) n'ont pas à être déduits deux fois.</p>
 
@@ -313,11 +322,13 @@
 
   <h2>Renonciation à des jours de repos : un cas non couvert ici</h2>
   <p>Ce simulateur ne traite pas la renonciation à des jours de repos. Un salarié peut, avec l'accord écrit de son employeur (avenant à la convention de forfait, non tacitement reconductible), renoncer à une partie de ses jours de repos contre une majoration de rémunération d'au moins 10 % (art. L3121-59).</p>
-  <p>Si l'accord collectif ne fixe pas de plafond, le nombre maximal de jours travaillés est alors de 235 jours (art. L3121-66). Ce nombre ne s'applique donc pas automatiquement dans toutes les entreprises, et certaines conventions de branche fixent un plafond inférieur.</p>
+  <p>Si l'accord collectif ne fixe pas de plafond, le nombre maximal de jours travaillés est alors de 235 jours (art. L3121-66).</p>
+  <p>Ce nombre ne s'applique donc pas automatiquement dans toutes les entreprises, et certaines conventions de branche fixent un plafond inférieur.</p>
   <p>Si votre situation concerne une renonciation, vérifiez ces deux articles et votre convention collective directement.</p>
 
   <h2>Ce que ce simulateur ne fait pas</h2>
-  <p>C'est un outil de jours, pas de salaire : aucun montant en euros n'est calculé. Le salaire d'un salarié en forfait jours se lit dans son contrat de travail et sur son bulletin de paie.</p>
+  <p>C'est un outil de jours, pas de salaire : aucun montant en euros n'est calculé.</p>
+  <p>Le salaire d'un salarié en forfait jours se lit dans son contrat de travail et sur son bulletin de paie.</p>
   <p>Il ne couvre pas :</p>
   <ul>
     <li>la renonciation à des jours de repos ;</li>
@@ -343,10 +354,10 @@
 <section class="sources">
   <h2>Sources</h2>
   <ul>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-64" target="_blank" rel="noopener">L3121-64</a> — nombre de jours du forfait (218 au plus), prise en compte des absences, arrivées et départs dans l'année, contenu de la convention individuelle</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-64" target="_blank" rel="noopener">L3121-64</a> — nombre de jours du forfait (218 au plus), prise en compte des absences, arrivées et départs dans l'année</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-58" target="_blank" rel="noopener">L3121-58</a> — catégories de salariés pouvant conclure une convention de forfait annuel en jours</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-59" target="_blank" rel="noopener">L3121-59</a> — renonciation, accord écrit et majoration de rémunération d'au moins 10 %</li>
-    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-66" target="_blank" rel="noopener">L3121-66</a> — limite supplétive de 235 jours en cas de renonciation</li>
+    <li><a href="https://code.travail.gouv.fr/code-du-travail/l3121-66" target="_blank" rel="noopener">L3121-66</a> — seuil supplétif de 235 jours en cas de renonciation</li>
     <li><a href="https://www.legifrance.gouv.fr/juri/id/JURITEXT000030205229/" target="_blank" rel="noopener">Cass. soc., 4 février 2015, n° 13-20.891</a> — publié au Bulletin : convention de forfait en jours nulle lorsque les stipulations conventionnelles ne garantissent pas une amplitude et une charge de travail raisonnables</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-1" target="_blank" rel="noopener">L3133-1</a> — liste des 11 fêtes légales</li>
     <li><a href="https://code.travail.gouv.fr/code-du-travail/l3133-4" target="_blank" rel="noopener">L3133-4</a> — seul le 1er mai est un jour férié obligatoirement chômé</li>
